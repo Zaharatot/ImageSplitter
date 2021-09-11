@@ -1,0 +1,26 @@
+﻿<Window x:Class="ImageSplitter.Content.Windows.AddFolderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageSplitter.Content.Windows"
+        mc:Ignorable="d"
+        WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
+        Title="AddFolderWindow" Height="110" Width="300">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <!-- Подсказка для имени папки -->
+        <TextBlock Text="Имя для создаваемой папки:" Grid.Row="0"/>
+        <!-- Поле имени папки -->
+        <TextBox x:Name="FolderNameTextBox" Grid.Row="1" TabIndex="0" />
+        <!-- Кнопка добавления папки -->
+        <Button x:Name="AddFolderButton" Content="Добавить папку" Grid.Row="3" 
+                Width="100" Height="20" HorizontalAlignment="Right" 
+                Click="AddFolderButton_Click"/>
+    </Grid>
+</Window>

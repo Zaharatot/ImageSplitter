@@ -1,0 +1,309 @@
+﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.WorkClases;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using static ImageSplitter.Content.Clases.DataClases.Enums;
+
+namespace ImageSplitter.Content.Windows
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        /// <summary>
+        /// Идентификатор вкладки сплита изображений
+        /// </summary>
+        private const int IMAGES_SPLIT_TAB_ID = 0;
+
+
+        /// <summary>
+        /// Основной рабочий класс
+        /// </summary>
+        private MainWork _mainWork;
+
+        /// <summary>
+        /// Конструктор окна
+        /// </summary>
+        public MainWindow()
+        {
+            InitializeComponent();
+            Init();
+        }
+
+        /// <summary>
+        /// Инициализатор класса
+        /// </summary>
+        private void Init()
+        {
+            InitVariables();
+            InitEvents();
+        }
+
+        /// <summary>
+        /// Инициализируем значения переменных
+        /// </summary>
+        private void InitVariables()
+        {
+            //Инициализируем основной рабочий класс
+            _mainWork = new MainWork();
+        }
+
+        /// <summary>
+        /// Инициализируем обработчики событий
+        /// </summary>
+        private void InitEvents()
+        {
+            //Добавляем обработчик событяи нажатия на кнопку
+            this.KeyDown += MainWindow_KeyDown;
+            //Добавляем обработчик событяи обновления основной информации на контролле сплита изображений
+            GlobalEvents.UpdateImageSplitInfoRequest += GlobalEvents_UpdateImageSplitInfoRequest;
+            //Добавляем обработчик событяи завершения сканирвоания
+            GlobalEvents.ScanComplete += GlobalEvents_ScanComplete;
+            //Добавляем обработчик событяи завершения переноса изображения
+            GlobalEvents.MoveImageComplete += GlobalEvents_MoveImageComplete;
+            //Добавляем обработчик событяи завершения сканирвоания дубликатов
+            GlobalEvents.DuplicateScanComplete += GlobalEvents_DuplicateScanComplete;
+            //Добавляем обработчик событяи обновления статуса сканирования дубликатов
+            GlobalEvents.DuplicateScanProgress += GlobalEvents_DuplicateScanProgress;
+            //Добавляем обработчик событяи запуска сплита
+            SplitImages.StartSplitScan += SplitImages_StartSplitScan;
+            //Добавляем обработчик события запроса на переход к изображению 
+            SplitImages.MoveToImageRequest += SplitImages_MoveToImageRequest;
+            //Добавляем обработчик события запроса на добавление новой папки
+            SplitImages.AddNewFolderRequest += SplitImages_AddNewFolderRequest;
+            //Добавляем обработчик события запроса на удаление папки из списка
+            SplitImages.RemoveFolderRequest += SplitImages_RemoveFolderRequest;
+            //Добавляем обработчик события запуска отмены сплита
+            FileSplitParams.StartBack += FileSplitParams_StartBack;
+            //Добавляем обработчик события запуска сплита файлов
+            FileSplitParams.StartFileSplit += FileSplitParams_StartFileSplit;
+            //Добавляем обработчик события переименования файлов
+            RenameFiles.RenameFiles += RenameFiles_RenameFiles;
+            //Добавляем обработчик события запуска сканирования на дубликаты
+            ImageDuplicates.StartDuplicateScan += ImageDuplicates_StartDuplicateScan;
+        }
+
+
+
+
+        /// <summary>
+        /// Обработчик события запуска сканирования на дубликаты
+        /// </summary>
+        /// <param name="path">Путь для сканирования</param>
+        private void ImageDuplicates_StartDuplicateScan(string path)
+        {
+            //Выключаем доступность окна
+            this.IsEnabled = false;
+            //Вызываем внутренний метод
+            _mainWork.StartDuplicateScan(path);
+        }
+
+        /// <summary>
+        /// Обработчик события запроса на удаление папки из списка
+        /// </summary>
+        /// <param name="key">Клавиша, к которой привязана папка</param>
+        /// <param name="folderName">Имя папки</param>
+        private void SplitImages_RemoveFolderRequest(Key key, string folderName) =>
+            //Вызываем внутренний метод
+            _mainWork.RemoveFolderFromList(key);
+
+        /// <summary>
+        /// Обработчик события запроса на добавление новой папки
+        /// </summary>
+        private void SplitImages_AddNewFolderRequest() =>
+            //Вызываем внутренний метод
+            _mainWork.AddNewFolder();
+
+        /// <summary>
+        /// Обработчик события запроса на переход к изображению
+        /// </summary>
+        /// <param name="direction">Направление перехода</param>
+        private void SplitImages_MoveToImageRequest(int direction) =>
+            //ВЫзываем внутренний метод перехода
+            MoveToImage(direction);
+
+        /// <summary>
+        /// Обработчик событяи запуска сплита
+        /// </summary>
+        /// <param name="scanPath">Путь сканирования</param>
+        /// <param name="splitPath">Путь сплита</param>
+        private void SplitImages_StartSplitScan(string scanPath, string splitPath)
+        {
+            //Выключаем доступность окна
+            this.IsEnabled = false;
+            //Запускаем сканирование
+            _mainWork.StartScan(scanPath, splitPath);
+        }
+
+
+        /// <summary>
+        /// Обработчик событяи обновления статуса сканирования дубликатов
+        /// </summary>
+        /// <param name="current">Текущее значение</param>
+        /// <param name="max">Максимальное значение</param>
+        private void GlobalEvents_DuplicateScanProgress(int current, int max) =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Проставляем прогресс сканирования
+                ImageDuplicates.SetScanProgress(current, max);
+            });
+
+        /// <summary>
+        /// Обработчик событяи завершения сканирвоания дубликатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для отображения</param>
+        private void GlobalEvents_DuplicateScanComplete(List<DuplicateImageInfo> duplicates) =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Проставляем дубликаты в контролл
+                ImageDuplicates.SetImages(duplicates);
+                //Включаем доступность окна
+                this.IsEnabled = true;
+                //ВЫводим сообщение о завершении работы
+                MessageBox.Show("Duplicate scan complete!");
+            });
+
+        /// <summary>
+        /// Обработчик событяи завершения переноса изображения
+        /// </summary>
+        private void GlobalEvents_MoveImageComplete() =>
+            //Переходим к следующей картинке
+            MoveToImage(1);
+
+        /// <summary>
+        /// Обработчик событяи завершения сканирвоания
+        /// </summary>
+        private void GlobalEvents_ScanComplete() =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Включаем доступность окна
+                this.IsEnabled = true;
+                //Отображаем первую в списке картинку
+                MoveToImage(0);
+                //Вызываем месседжбокс
+                MessageBox.Show("Scan complete!");
+            });
+
+        /// <summary>
+        /// Обработчик событяи обновления основной информации на контролле сплита изображений
+        /// </summary>
+        /// <param name="pagesInfo">Инфомрация о текущих отображаемых страницах</param>
+        /// <param name="folders">Список доступных папок</param>
+        private void GlobalEvents_UpdateImageSplitInfoRequest(string pagesInfo, List<TargetFolderInfo> folders) =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Обновляем общую инфорамцию в контролле
+                SplitImages.UpdateMainInfo(pagesInfo, folders);
+            });
+
+
+        /// <summary>
+        /// Обработчик события переименования файлов
+        /// </summary>
+        /// <param name="mask">Маска имени для переименования</param>
+        /// <param name="path">Путь для переименования</param>
+        private void RenameFiles_RenameFiles(string path, string mask) =>
+            //Запускаем переименование
+            _mainWork.RenameFiles(path, mask);
+
+        /// <summary>
+        /// Обработчик события запуска сплита файлов
+        /// </summary>
+        /// <param name="countFiles">Количество файлов для сплита</param>
+        /// <param name="path">Путь для сплита</param>
+        /// <param name="isChildSplit">Флаг сплита в дочерних папках</param>
+        private void FileSplitParams_StartFileSplit(string path, int countFiles, bool isChildSplit) =>  
+            //Запускаем сплит
+            _mainWork.StartSplit(path, countFiles, isChildSplit);
+
+        /// <summary>
+        /// Обработчик события запуска отмены сплита
+        /// </summary>
+        /// <param name="path">Путь для отмены сплита</param>
+        private void FileSplitParams_StartBack(string path) =>
+            //Выполняем возврат файлов
+            _mainWork.BackToParent(path);
+
+
+
+        /// <summary>
+        /// Обработчик событяи нажатия на кнопку
+        /// </summary>
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Если мы находимся на вкладке сплита страниц
+            if (MainTabControl.SelectedIndex == IMAGES_SPLIT_TAB_ID)
+                //Обрабатываем клавиши для этой вкладки
+                ProcessKeyFromImageSplit(e);
+        }
+
+        /// <summary>
+        /// Обрабатываем кнопки для вкладки страницы сплита изображений
+        /// </summary>
+        /// <param name="e">Информация о нажатой кнопке</param>
+        private void ProcessKeyFromImageSplit(KeyEventArgs e)
+        {
+            //Если была нажата кнопка "Ctrl"
+            if (IsControlPressed(e))
+            {
+                //Если было нажато сочетание "Ctrl+N"
+                if (e.Key == Key.N)
+                    //Вызываем метод добавления папки
+                    _mainWork.AddNewFolder();
+            }
+            //В противном случае
+            else
+            {
+                //При нажатии кнопки "В лево"
+                if (e.Key == Key.Left)
+                    //Идём к предыдущей картинке
+                    MoveToImage(-1);
+                //При нажатии кнопки "В право"
+                else if (e.Key == Key.Right)
+                    //Идём к следующей картинке
+                    MoveToImage(1);
+                else
+                    //Проверяем нажатую кнопку на тип кнопки переноса
+                    _mainWork.CheckImageMoveTarget(e.Key);
+            }
+        }
+
+        /// <summary>
+        /// Проверка нажатия кнопки "Ctrl" на клавиатуре
+        /// </summary>
+        /// <param name="e">Информация о нажатой кнопке</param>
+        /// <returns>TRue - кнопка "Ctrl" была нажата</returns>
+        private bool IsControlPressed(KeyEventArgs e) =>
+            ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0);
+
+
+        /// <summary>
+        /// Переходим к картинке
+        /// </summary>
+        /// <param name="direction">Направление движения</param>
+        private void MoveToImage(int direction)
+        {
+            //Получаем целевую картинку
+            ImageInfo image = _mainWork.MoveToImage(direction);
+            //Грузим её на форму
+            SplitImages.LoadImageInfo(image);
+        }
+
+
+
+    }
+}
