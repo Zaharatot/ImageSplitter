@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace ImageSplitter.Content.Clases.DataClases
+namespace ImageSplitter.Content.Clases.DataClases.Duplicates
 {
     /// <summary>
     /// Класс информации об изображении-дубликате

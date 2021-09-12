@@ -1,4 +1,5 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
 using System;
 using System.Collections.Generic;

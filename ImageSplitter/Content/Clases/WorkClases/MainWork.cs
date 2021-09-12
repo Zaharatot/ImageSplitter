@@ -1,5 +1,8 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Duplicates;
+using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Processors;
+using ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates;
 using ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit;
 using ImageSplitter.Content.Windows;
 using System;
@@ -9,8 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static ImageSplitter.Content.Clases.DataClases.Delegates;
-using static ImageSplitter.Content.Clases.DataClases.Enums;
 
 namespace ImageSplitter.Content.Clases.WorkClases
 {
@@ -75,16 +76,17 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// </summary>
         /// <param name="imagesPath">Путь к папкам с картинками</param>
         /// <param name="foldersPath">Путь к целевым папкам</param>
-        public void StartScan(string imagesPath, string foldersPath) =>
+        /// <param name="isFolder">Флаг поиска папок</param>
+        public void StartScan(string imagesPath, string foldersPath, bool isFolder) =>
             //Вызываем внутренний метод
-            _splitImages.StartScan(imagesPath, foldersPath);
+            _splitImages.StartScan(imagesPath, foldersPath, isFolder);
 
         /// <summary>
         /// Переходим к указанной картинке
         /// </summary>
         /// <param name="direction">Направление движения</param>
         /// <returns>Инфомрация о картинке</returns>
-        public ImageInfo MoveToImage(int direction) =>
+        public CollectionInfo MoveToImage(int direction) =>
             //Вызываем внутренний метод
             _splitImages.MoveToImage(direction);
 
@@ -101,7 +103,7 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// Возвращаем текущую выбранную картинку
         /// </summary>
         /// <returns>ИНформация о выбранной картинке</returns>
-        public ImageInfo GetCurrentImageInfo() =>
+        public CollectionInfo GetCurrentImageInfo() =>
             //Вызываем внутренний метод
             _splitImages.GetCurrentImageInfo();
 

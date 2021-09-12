@@ -81,6 +81,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Controls\ImageSplit\FolderListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageSplit\SplitImagesBottomPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageSplit\SplitImagesTopPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageSplit\SplitParamsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Controls\RenameFilesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,18 +117,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Content\Clases\DataClases\Delegates.cs" />
-    <Compile Include="Content\Clases\DataClases\DuplicateImageInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Enums.cs" />
-    <Compile Include="Content\Clases\DataClases\GlobalEvents.cs" />
-    <Compile Include="Content\Clases\DataClases\ImageInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\TargetFolderInfo.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\FolderNameGrnerator.cs" />
+    <Compile Include="Content\Clases\DataClases\Global\Delegates.cs" />
+    <Compile Include="Content\Clases\DataClases\Duplicates\DuplicateImageInfo.cs" />
+    <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
+    <Compile Include="Content\Clases\DataClases\Global\GlobalEvents.cs" />
+    <Compile Include="Content\Clases\DataClases\Split\CollectionInfo.cs" />
+    <Compile Include="Content\Clases\DataClases\Split\TargetFolderInfo.cs" />
+    <Compile Include="Content\Clases\WorkClases\Addition\FolderNameGenerator.cs" />
+    <Compile Include="Content\Clases\WorkClases\Addition\KeyActionProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\KeyFinder.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\DuplicateScan.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\BestDuplicateFinder.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\DuplicateFinder.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\DuplicateScan.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileRenamer.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileSplitter.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\ImageScanner.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\ImageInfoConverter.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\ImageScanner.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CollectionsScanner.cs" />
     <Compile Include="Content\Clases\WorkClases\MainWork.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\SizeCalculator.cs" />
@@ -131,6 +152,18 @@
     </Compile>
     <Compile Include="Content\Controls\ImageDuplicateScan\ImageDuplicatesControl.xaml.cs">
       <DependentUpon>ImageDuplicatesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\FolderListControl.xaml.cs">
+      <DependentUpon>FolderListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\SplitImagesBottomPanel.xaml.cs">
+      <DependentUpon>SplitImagesBottomPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\SplitImagesTopPanel.xaml.cs">
+      <DependentUpon>SplitImagesTopPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\SplitParamsControl.xaml.cs">
+      <DependentUpon>SplitParamsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\RenameFilesControl.xaml.cs">
       <DependentUpon>RenameFilesControl.xaml</DependentUpon>

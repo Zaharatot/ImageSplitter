@@ -10,7 +10,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Addition
     /// <summary>
     /// Класс генерации имён папок
     /// </summary>
-    internal class FolderNameGrnerator
+    internal class FolderNameGenerator
     {
         /// <summary>
         /// Константа с маской имени генерируемой папки
@@ -21,7 +21,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Addition
         /// <summary>
         /// Конструктор класса
         /// </summary>
-        public FolderNameGrnerator()
+        public FolderNameGenerator()
         {
 
         }

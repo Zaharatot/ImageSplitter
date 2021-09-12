@@ -1,4 +1,5 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
 using System;
@@ -16,8 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static ImageSplitter.Content.Clases.DataClases.Delegates;
-using static ImageSplitter.Content.Clases.DataClases.Enums;
+using static ImageSplitter.Content.Clases.DataClases.Global.Delegates;
+using static ImageSplitter.Content.Clases.DataClases.Global.Enums;
 
 namespace ImageSplitter.Content.Controls.ImageSplit
 {
@@ -29,7 +30,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// <summary>
         /// Событие запроса на переход к изображению
         /// </summary>
-        public event MoveToImageEventHandler MoveToImageRequest;
+        public event MoveToImageEventHandler MoveToCollectionRequest;
         /// <summary>
         /// Событие запроса на добавление новой папки
         /// </summary>
@@ -47,6 +48,10 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Класс рассчёта размера
         /// </summary>
         private SizeCalculator _sizeCalculator;
+        /// <summary>
+        /// Текущая загруженная коллекция
+        /// </summary>
+        private CollectionInfo _collection;
 
         /// <summary>
         /// Конструктор контролла
@@ -62,50 +67,83 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// </summary>
         private void Init()
         {
+            InitVariables();
+            InitEvents();
+        }
+
+        /// <summary>
+        /// Инициализируем значения переменных
+        /// </summary>
+        private void InitVariables()
+        {
+            //Проставляем дефолтные значения
+            _collection = null;
             //Инициализируем класс расчсёта размера
             _sizeCalculator = new SizeCalculator();
         }
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку "Влево"
+        /// Инициализируем обработчики событий
         /// </summary>
-        private void LeftPageButton_Click(object sender, RoutedEventArgs e) =>
-            //Идём к предыдущей картинке
-            MoveToImageRequest?.Invoke(-1);
+        private void InitEvents()
+        {
+            //Добавляем обработчик события перехода к изображению
+            TopPanel.MoveToImageRequest += TopPanel_MoveToImageRequest;
+            //Добавляем обработчик события запуска сплита
+            SplitParams.StartSplitScan += SplitParams_StartSplitScan;
+            //Добавляем обработчик события удаления папки
+            FoldersList.RemoveFolderRequest += FoldersList_RemoveFolderRequest;
+            //Добавляем обработчик события добавления папки
+            FoldersList.AddNewFolderRequest += FoldersList_AddNewFolderRequest;
+            //Добавляем обработчик события перехода к коллекции
+            BottomPanel.MoveToCollectionRequest += BottomPanel_MoveToCollectionRequest;
+        }
+
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку "Вправо"
+        /// Обработчик события перехода к коллекции
         /// </summary>
-        private void RightPageButton_Click(object sender, RoutedEventArgs e) =>
-            //Идём к следующей картинке
-            MoveToImageRequest?.Invoke(1);
+        /// <param name="direction">Направление перехода</param>
+        private void BottomPanel_MoveToCollectionRequest(int direction) =>
+            //Вызываем внешний ивент
+            MoveToCollectionRequest?.Invoke(direction);
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку добавления папки
+        /// Обработчик события добавления папки
         /// </summary>
-        private void AddFolderButton_Click(object sender, RoutedEventArgs e) =>
+        private void FoldersList_AddNewFolderRequest() =>
             //Вызываем внешний ивент
             AddNewFolderRequest?.Invoke();
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку сканирования
+        /// Jбработчик события удаления папки
         /// </summary>
-        private void ScanButton_Click(object sender, RoutedEventArgs e) =>
-            //ВЫзываем внешний ивент, передавая в него данные
-            StartSplitScan?.Invoke(ScanPathTextBox.Text, MovePathTextBox.Text);
+        /// <param name="key">Клавиша, к которой привязана папка</param>
+        /// <param name="folderName">Имя папки</param>
+        private void FoldersList_RemoveFolderRequest(Key key, string folderName) =>
+            //Вызываем внешний ивент
+            RemoveFolderRequest?.Invoke(key, folderName);
 
         /// <summary>
-        /// Обработчик событяи запроса на удаление папки
+        /// Обработчик события запуска сплита
         /// </summary>
-        /// <param name="key">Клавиша, привязанная к целевой папке</param>
-        /// <param name="folderName">Имя папки</param>
-        private void FolderInfo_RemoveFolderRequest(Key key, string folderName)
-        {
-            //Если пользователь подтвердил удаление папки
-            if (IsNeedRemoveFolder(folderName))
-                //Вызываем внешний ивент
-                RemoveFolderRequest?.Invoke(key, folderName);
-        }
+        /// <param name="scanPath">Путь сканирования</param>
+        /// <param name="splitPath">Путь сплита</param>
+        /// <param name="isFolder">Флаг сканирования папок</param>
+        private void SplitParams_StartSplitScan(string scanPath, string splitPath, bool isFolder) =>
+            //Вызываем внешний ивент
+            StartSplitScan?.Invoke(scanPath, splitPath, isFolder);
+
+        /// <summary>
+        /// Обработчик события перехода к изображению
+        /// </summary>
+        /// <param name="direction">Направление перехода</param>
+        private void TopPanel_MoveToImageRequest(int direction) =>
+            //Выполняем переход к изображению в коллекции
+            MoveFolderImage(direction);
+
+
+
 
 
         /// <summary>
@@ -138,112 +176,94 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             }
         }
 
-        /// <summary>
-        /// Создаём контролл информации о папке
-        /// </summary>
-        /// <param name="info">Информация о папке</param>
-        /// <returns>Сгенерированный контролл</returns>
-        private FolderInfoControl CreateFolderInfoControl(TargetFolderInfo info)
-        {
-            //Инициализируем контролл информации о папке
-            FolderInfoControl folderInfo = new FolderInfoControl();
-            //Добавляем обработчик событяи запроса на удаление папки
-            folderInfo.RemoveFolderRequest += FolderInfo_RemoveFolderRequest;
-            //Проставляем в контролл информацию о папке
-            folderInfo.SetTargetFolderInfo(info);
-            //Возвращаем результат
-            return folderInfo;
-        }
-
-        /// <summary>
-        /// Запрос о необходимости удаления папки
-        /// </summary>
-        /// <param name="folderName">Имя целевой папки</param>
-        /// <returns>True - папку нужно удалить</returns>
-        private bool IsNeedRemoveFolder(string folderName)
-        {
-            //Вызываем сообщение с запросом подтверждения удаления папки
-            var result = MessageBox.Show(
-                $"Вы действительно хотите удалить папку \"{folderName}\" из списка?",
-                "Запрос подтверждения",
-                MessageBoxButton.YesNo);
-            //Если пользователь нажал "Да" - то всё ок
-            return (result == MessageBoxResult.Yes);
-        }
-
-
-        /// <summary>
-        /// Обновляем список папок
-        /// </summary>
-        /// <param name="folders">Список папок</param>
-        private void UpdateFoldersList(List<TargetFolderInfo> folders)
-        {
-            //Очищаем список папок
-            FoldersList.Children.Clear();
-            //Проходимся по папкам
-            foreach (var folder in folders)
-                //Генерируем и добавляем на панель контролл информации о папке
-                FoldersList.Children.Add(CreateFolderInfoControl(folder));
-        }
 
         /// <summary>
         /// Формируем строку информации об изображении
         /// </summary>
         /// <param name="image">Класс изображения</param>
-        /// <param name="path">Путь к файлу изображения</param>
+        /// <param name="info">Класс инфы о картинке</param>
         /// <returns>Строка информации об изображении</returns>
-        private string CompileImageInfoString(BitmapImage image, string path)
+        private string CompileImageInfoString(BitmapImage image, CollectionInfo info)
         {
-            //Получаем информацию о файле изображения
-            FileInfo imageFile = new FileInfo(path);
-            //Формируем строку с инфой о файле, добавляя имя файла
-            return $"[{imageFile.Name}] " +
-                //Разрешение изображения
-                $"[{image.PixelWidth}x{image.PixelHeight}] " +
-                //Размер файла
-                $"[{_sizeCalculator.GetStringSize(imageFile.Length)}]";
+            StringBuilder sb = new StringBuilder();
+            //Добавляем в строку имя элемента коллекции
+            sb.Append($"[{info.ElementName}] ");
+            //Если у нас папка
+            if (info.IsFolder)
+                //Добавляем в строку номер текущего выбраного элемента коллекции
+                sb.Append($"[{info.GetCollectionSelectedElement()}]");
+            //Если у нас файл
+            else
+            {
+                //Добавляем в строку размер текущего изображения
+                sb.Append($"[{image.PixelWidth}x{image.PixelHeight}] ");
+                //Добавляем в строку размер файла изображения
+                sb.Append($"[{_sizeCalculator.GetStringSize(info.Length)}]");
+            }
+            //ВОзвращаем итоговую строку
+            return sb.ToString();
         }
+        
 
         /// <summary>
         /// Грузим картинку и информацию о ней в контроллы
         /// </summary>
-        /// <param name="imagePath">Путь к файлу картинки</param>
-        private void LoadImageToControls(string imagePath)
-        { 
-            //Загружаем картинку
-            BitmapImage image = LoadImageByPath(imagePath);
+        /// <param name="info">Класс инфы о картинке</param>
+        private void LoadImageToControls(CollectionInfo info)
+        {
+            //Закрываем поток в памяти, связанный с изображением
+            CloseImageSource();
+            //Получаем путь к картинке и загружаем её
+            BitmapImage image = LoadImageByPath(info.GetImagePath());
             //Проставляем картинку в контролл
             TargetImage.Source = image;
             //Формируем и проставляем информацию о картинке в контролл
-            ImageInfoTextBlock.Text = CompileImageInfoString(image, imagePath);
+            TopPanel.SetCollectionInfo(CompileImageInfoString(image, info));
         }
+
+        /// <summary>
+        /// Очищаем все важные дочерние контроллы
+        /// </summary>
+        private void ClearControls()
+        {
+            //Закрываем поток в памяти, связанный с изображением
+            CloseImageSource();
+            //Проставляем скрытие всему
+            TargetImage.Source = null;
+            BottomPanel.SetMovedFolderInfo("", false);
+            //Проставляем пустой текст в контроллы
+            TopPanel.SetCollectionInfo("...");
+            BottomPanel.SetPagesInfo("...");
+        }
+
+        /// <summary>
+        /// Грузим контент из класса в контроллы
+        /// </summary>
+        /// <param name="info">Класс инфы о картинке</param>
+        private void LoadContentToControls(CollectionInfo info)
+        {
+            //Грузим картинку и информацию о ней в контроллы
+            LoadImageToControls(info);
+            //Проставляем информацию о переносе
+            BottomPanel.SetMovedFolderInfo(info.NewParentName, info.IsMoved);
+        }
+
 
         /// <summary>
         /// Грузим на панель инфу о картинке
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
-        internal void LoadImageInfo(ImageInfo info)
+        internal void LoadImageInfo(CollectionInfo info)
         {
-            //Закрываем поток в памяти, связанный с изображением
-            CloseImageSource();
+            //Проставляем переданную коллекцию
+            _collection = info;
             //Если картинки нету
             if (info == null)
-            {
-                //Проставляем скрытие всему
-                TargetImage.Source = null;
-                MovedInfoTextBox.Visibility = Visibility.Hidden;
-            }
+                //Очищаем все важные дочерние контроллы
+                ClearControls();
             //Если всё ок
             else
-            {
-                //Грузим картинку и информацию о ней в контроллы
-                LoadImageToControls(info.GetCurrentPath());
-                //Проставляем видимость контроллу инфы о переносе
-                MovedInfoTextBox.Visibility = (info.Status == ImageStatuses.Moved)
-                    ? Visibility.Visible : Visibility.Hidden;
-                //Проставляем перемещённую папку
-                MovedFolderTextBox.Text = $"[{info.NewFolderName}]";
-            }
+                LoadContentToControls(info);
         }
 
         /// <summary>
@@ -253,12 +273,26 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// <param name="folders">Список доступных папок</param>
         public void UpdateMainInfo(string pagesInfo, List<TargetFolderInfo> folders)
         {
-            //Обновляем инфу о картинках
-            CountImagesTextBlock.Text = pagesInfo;
+            //Обновляем инфу о страницах коллекции
+            BottomPanel.SetPagesInfo(pagesInfo);
             //Обновляем список папок
-            UpdateFoldersList(folders);
+            FoldersList.UpdateFoldersList(folders);
         }
 
-
+        /// <summary>
+        /// Перемещаемся к изображению внутри папки
+        /// </summary>
+        /// <param name="direction">Направление перемещения</param>
+        public void MoveFolderImage(int direction)
+        {
+            //Если есть активная коллекция, и она содержит папки
+            if ((_collection != null) && (_collection.IsFolder))
+            {
+                //Перемещаемся к новому изображению внутри коллекции
+                _collection.MoveFolderImage(direction);
+                //Грузим картинку и информацию о ней в контроллы
+                LoadImageToControls(_collection);
+            }
+        }
     }
 }

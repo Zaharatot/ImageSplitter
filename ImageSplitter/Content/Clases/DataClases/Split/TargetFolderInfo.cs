@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ImageSplitter.Content.Clases.DataClases
+namespace ImageSplitter.Content.Clases.DataClases.Split
 {
     /// <summary>
     /// Информация о целевой папке

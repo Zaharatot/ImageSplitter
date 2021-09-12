@@ -1,5 +1,9 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Duplicates;
+using ImageSplitter.Content.Clases.DataClases.Global;
+using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases;
+using ImageSplitter.Content.Clases.WorkClases.Addition;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +19,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static ImageSplitter.Content.Clases.DataClases.Enums;
 
 namespace ImageSplitter.Content.Windows
 {
@@ -24,16 +27,16 @@ namespace ImageSplitter.Content.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Идентификатор вкладки сплита изображений
-        /// </summary>
-        private const int IMAGES_SPLIT_TAB_ID = 0;
 
 
         /// <summary>
         /// Основной рабочий класс
         /// </summary>
         private MainWork _mainWork;
+        /// <summary>
+        /// Класс обработки нажатий клавишь
+        /// </summary>
+        private KeyActionProcessor _keyActionProcessor;
 
         /// <summary>
         /// Конструктор окна
@@ -60,6 +63,8 @@ namespace ImageSplitter.Content.Windows
         {
             //Инициализируем основной рабочий класс
             _mainWork = new MainWork();
+            //Инициализируем класс обработки нажатий клавишь
+            _keyActionProcessor = new KeyActionProcessor();
         }
 
         /// <summary>
@@ -87,8 +92,8 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.DuplicateScanNotFound += GlobalEvents_DuplicateScanNotFound;
             //Добавляем обработчик событяи запуска сплита
             SplitImages.StartSplitScan += SplitImages_StartSplitScan;
-            //Добавляем обработчик события запроса на переход к изображению 
-            SplitImages.MoveToImageRequest += SplitImages_MoveToImageRequest;
+            //Добавляем обработчик события запроса на переход к коллекции
+            SplitImages.MoveToCollectionRequest += SplitImages_MoveToCollectionRequest;
             //Добавляем обработчик события запроса на добавление новой папки
             SplitImages.AddNewFolderRequest += SplitImages_AddNewFolderRequest;
             //Добавляем обработчик события запроса на удаление папки из списка
@@ -167,24 +172,25 @@ namespace ImageSplitter.Content.Windows
             _mainWork.AddNewFolder();
 
         /// <summary>
-        /// Обработчик события запроса на переход к изображению
+        /// Обработчик события запроса на переход к коллекции
         /// </summary>
         /// <param name="direction">Направление перехода</param>
-        private void SplitImages_MoveToImageRequest(int direction) =>
+        private void SplitImages_MoveToCollectionRequest(int direction) =>
             //ВЫзываем внутренний метод перехода
-            MoveToImage(direction);
+            MoveToCollection(direction);
 
         /// <summary>
         /// Обработчик событяи запуска сплита
         /// </summary>
         /// <param name="scanPath">Путь сканирования</param>
         /// <param name="splitPath">Путь сплита</param>
-        private void SplitImages_StartSplitScan(string scanPath, string splitPath)
+        /// <param name="isFolder">Флаг сканирования папок</param>
+        private void SplitImages_StartSplitScan(string scanPath, string splitPath, bool isFolder)
         {
             //Выключаем доступность окна
             this.IsEnabled = false;
             //Запускаем сканирование
-            _mainWork.StartScan(scanPath, splitPath);
+            _mainWork.StartScan(scanPath, splitPath, isFolder);
         }
 
 
@@ -220,7 +226,7 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void GlobalEvents_MoveImageComplete() =>
             //Переходим к следующей картинке
-            MoveToImage(1);
+            MoveToCollection(1);
 
         /// <summary>
         /// Обработчик событяи завершения сканирвоания
@@ -231,7 +237,7 @@ namespace ImageSplitter.Content.Windows
                 //Включаем доступность окна
                 this.IsEnabled = true;
                 //Отображаем первую в списке картинку
-                MoveToImage(0);
+                MoveToCollection(0);
                 //Вызываем месседжбокс
                 MessageBox.Show("Scan complete!");
             });
@@ -287,62 +293,19 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик событяи нажатия на кнопку
         /// </summary>
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Если мы находимся на вкладке сплита страниц
-            if (MainTabControl.SelectedIndex == IMAGES_SPLIT_TAB_ID)
-                //Обрабатываем клавиши для этой вкладки
-                ProcessKeyFromImageSplit(e);
-        }
-
-        /// <summary>
-        /// Обрабатываем кнопки для вкладки страницы сплита изображений
-        /// </summary>
-        /// <param name="e">Информация о нажатой кнопке</param>
-        private void ProcessKeyFromImageSplit(KeyEventArgs e)
-        {
-            //Если была нажата кнопка "Ctrl"
-            if (IsControlPressed(e))
-            {
-                //Если было нажато сочетание "Ctrl+N"
-                if (e.Key == Key.N)
-                    //Вызываем метод добавления папки
-                    _mainWork.AddNewFolder();
-            }
-            //В противном случае
-            else
-            {
-                //При нажатии кнопки "В лево"
-                if (e.Key == Key.Left)
-                    //Идём к предыдущей картинке
-                    MoveToImage(-1);
-                //При нажатии кнопки "В право"
-                else if (e.Key == Key.Right)
-                    //Идём к следующей картинке
-                    MoveToImage(1);
-                else
-                    //Проверяем нажатую кнопку на тип кнопки переноса
-                    _mainWork.CheckImageMoveTarget(e.Key);
-            }
-        }
-
-        /// <summary>
-        /// Проверка нажатия кнопки "Ctrl" на клавиатуре
-        /// </summary>
-        /// <param name="e">Информация о нажатой кнопке</param>
-        /// <returns>TRue - кнопка "Ctrl" была нажата</returns>
-        private bool IsControlPressed(KeyEventArgs e) =>
-            ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0);
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e) =>
+            //Вызываем обработку нажатия на клавишу
+            _keyActionProcessor.ProcessKeyPress(e, MainTabControl.SelectedIndex);
 
 
         /// <summary>
         /// Переходим к картинке
         /// </summary>
         /// <param name="direction">Направление движения</param>
-        private void MoveToImage(int direction)
+        private void MoveToCollection(int direction)
         {
             //Получаем целевую картинку
-            ImageInfo image = _mainWork.MoveToImage(direction);
+            CollectionInfo image = _mainWork.MoveToImage(direction);
             //Грузим её на форму
             SplitImages.LoadImageInfo(image);
         }

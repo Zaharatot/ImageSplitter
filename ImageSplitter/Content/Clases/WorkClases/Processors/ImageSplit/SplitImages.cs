@@ -1,4 +1,6 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Global;
+using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
 using ImageSplitter.Content.Windows;
 using System;
@@ -9,8 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static ImageSplitter.Content.Clases.DataClases.Delegates;
-using static ImageSplitter.Content.Clases.DataClases.Enums;
+using static ImageSplitter.Content.Clases.DataClases.Global.Enums;
 
 namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
 {
@@ -22,7 +23,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <summary>
         /// Класс сканиварованяи изображений
         /// </summary>
-        private ImageScanner _scanner;
+        private CollectionsScanner _scanner;
         /// <summary>
         /// Класс переноса изображений
         /// </summary>
@@ -35,18 +36,18 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
 
 
         /// <summary>
-        /// Список изображений для обработки
+        /// Список коллекций для обработки
         /// </summary>
-        private List<ImageInfo> _images;
+        private List<CollectionInfo> _collections;
         /// <summary>
         /// Список целевых папок
         /// </summary>
         private List<TargetFolderInfo> _targets;
 
         /// <summary>
-        /// Id текущего выбранног оизображдения
+        /// Id текущей выбранной коллекции
         /// </summary>
-        private int _currentImageId;
+        private int _currentCollectionId;
         /// <summary>
         /// Путь к списку папок
         /// </summary>
@@ -66,12 +67,12 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         private void Init()
         {
             //Инициализируем дефолтные значения
-            _images = new List<ImageInfo>();
+            _collections = new List<CollectionInfo>();
             _targets = new List<TargetFolderInfo>();
-            _currentImageId = 0;
+            _currentCollectionId = 0;
             _foldersPath = null;
             //Инициализируем используемые классы
-            _scanner = new ImageScanner();
+            _scanner = new CollectionsScanner();
             _mover = new Mover();
             _keyFinder = new KeyFinder();
         }
@@ -90,9 +91,9 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         private string GetImagesInfo()
         {
             //Получаем количество обработанных изображений
-            int completed = _images.Count(img => (img.Status == ImageStatuses.Moved));
+            int moved = _collections.Count(img => img.IsMoved);
             //Выводим инфу об результатах
-            return $"{_currentImageId + 1} / {completed} / {_images.Count}";
+            return $"{_currentCollectionId + 1} / {moved} / {_collections.Count}";
         }
 
 
@@ -144,9 +145,9 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             if (target != null)
             {
                 //Получаем текущую выбранную картинку
-                ImageInfo image = GetCurrentImageInfo();
+                CollectionInfo image = GetCurrentImageInfo();
                 //Переносим изображение
-                _mover.MoveFile(target, image);
+                _mover.MoveCollection(target, image);
                 //Вызываем ивент по завершеию переноса изображения
                 GlobalEvents.InvokeMoveImageComplete();
             }
@@ -164,30 +165,30 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Возвращаем текущую выбранную картинку
         /// </summary>
         /// <returns>ИНформация о выбранной картинке</returns>
-        public ImageInfo GetCurrentImageInfo() =>
-            _images[_currentImageId];
+        public CollectionInfo GetCurrentImageInfo() =>
+            _collections[_currentCollectionId];
 
         /// <summary>
         /// Переходим к указанной картинке
         /// </summary>
         /// <param name="direction">Направление движения</param>
         /// <returns>Инфомрация о картинке</returns>
-        public ImageInfo MoveToImage(int direction)
+        public CollectionInfo MoveToImage(int direction)
         {
-            ImageInfo ex = null;
+            CollectionInfo ex = null;
             //Если картинки вообще есть
-            if (_images.Count > 0)
+            if (_collections.Count > 0)
             {
                 //Переходим по направлению
-                _currentImageId += direction;
+                _currentCollectionId += direction;
                 //Засовываем значение идентификатора
                 //обратно в рамки если оно зха них вышло
-                if (_currentImageId >= _images.Count)
-                    _currentImageId = _images.Count - 1;
-                if (_currentImageId < 0)
-                    _currentImageId = 0;
+                if (_currentCollectionId >= _collections.Count)
+                    _currentCollectionId = _collections.Count - 1;
+                if (_currentCollectionId < 0)
+                    _currentCollectionId = 0;
                 //Возвращаем картинку
-                ex = _images[_currentImageId];
+                ex = _collections[_currentCollectionId];
                 //Запрашиваем обновление инфы о сплите
                 InvokeImageSplitInfoRequest();
             }
@@ -199,17 +200,18 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// </summary>
         /// <param name="imagesPath">Путь к папкам с картинками</param>
         /// <param name="foldersPath">Путь к целевым папкам</param>
-        public void StartScan(string imagesPath, string foldersPath)
+        /// <param name="isFolder">Флаг поиска папок</param>
+        public void StartScan(string imagesPath, string foldersPath, bool isFolder)
         {
             //Запускаем эту работу в отдельном потоке
             new Thread(() => {
                 //Запоминаем имя папки с картинками, добавляя слеш в конец при необходимости
                 _foldersPath = (foldersPath.Last() != '\\') ? $"{foldersPath}\\" : foldersPath;
                 //Сбрасываем id выбранной картинки
-                _currentImageId = 0;
-                //Сканим картинки
-                _images = _scanner.ScanImages(imagesPath);
-                //Сканим папки
+                _currentCollectionId = 0;
+                //Сканим папку на предмет коллекций
+                _collections = _scanner.ScanCollections(imagesPath, isFolder);
+                //Сканим целевые папки для добавления в программу
                 ScanAndSelectFolders(_foldersPath);
             }).Start();
         }
@@ -231,7 +233,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 if (!string.IsNullOrEmpty(newFolderName))
                 {
                     //Получаем полный путь к новой папке
-                    string path = $"{_foldersPath}{newFolderName}";
+                    string path = $"{_foldersPath}{newFolderName}\\";
                     //Создаём папку
                     Directory.CreateDirectory(path);
                     //Добавляем папку в список целей

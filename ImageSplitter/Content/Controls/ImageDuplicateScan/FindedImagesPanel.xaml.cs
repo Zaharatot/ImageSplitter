@@ -1,4 +1,5 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.DataClases.Duplicates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static ImageSplitter.Content.Clases.DataClases.Delegates;
+using static ImageSplitter.Content.Clases.DataClases.Global.Delegates;
 
 namespace ImageSplitter.Content.Controls.ImageDuplicateScan
 {

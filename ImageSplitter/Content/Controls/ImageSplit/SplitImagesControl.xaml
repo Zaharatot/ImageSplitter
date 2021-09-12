@@ -18,95 +18,20 @@
             <ColumnDefinition />
             <ColumnDefinition  Width="330"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Верхняя панель с инфой о картинке -->
-        <Border Grid.Row="0" Background="White" Grid.ColumnSpan="3"
-                BorderBrush="Black" BorderThickness="0,0,0,2">
-            <TextBlock x:Name="ImageInfoTextBlock" TextAlignment="Center" 
-                       VerticalAlignment="Center" Text="..." />
-        </Border>
-
+        <!-- Контролл верхней панели -->
+        <local:SplitImagesTopPanel x:Name="TopPanel" Grid.Row="0" Grid.ColumnSpan="3" />
         <!-- Панель запуска сканирования -->
-        <Border Margin="10" Padding="10" Background="White"
-                BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="30" />
-                </Grid.RowDefinitions>
-                <!-- ПАнель основных полей для заполнения -->
-                <StackPanel Grid.Row="0">
-                    <!-- Путь для поиска картинок -->
-                    <TextBlock Text="Путь для сканирования:" />
-                    <TextBox x:Name="ScanPathTextBox" TabIndex="0" Margin="0,0,0,5" />
-                    <!-- Путь для раскладки картинок -->
-                    <TextBlock Text="Путь для сохранения:" />
-                    <TextBox x:Name="MovePathTextBox" TabIndex="1" Margin="0,0,0,5" />
-                </StackPanel>
-                <!-- Кнопка запуска сканирования -->
-                <Button x:Name="ScanButton" Content="Запуск сканирования" Grid.Row="2"
-                                        Click="ScanButton_Click" TabIndex="2"/>
-            </Grid>
-        </Border>
-
+        <local:SplitParamsControl x:Name="SplitParams" Grid.Column="0" Grid.Row="1" />
         <!-- Панель с картинками -->
         <Grid x:Name="ImagesPanel" Grid.Row="1" Grid.Column="1" Margin="0, 10">
             <!-- Отображаемая картинка -->
             <Image x:Name="TargetImage" Grid.Row="0" Grid.Column="0"
                    VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
-        
         <!-- Список папок -->
-        <Border Margin="10" Padding="10" Background="White"
-                BorderBrush="Black" BorderThickness="1" Grid.Column="2" Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="0,10">
-                    <!-- Панель списка папок -->
-                    <ScrollViewer>
-                        <StackPanel x:Name="FoldersList" />
-                    </ScrollViewer>
-                </Border>
-                <!-- Кнопка добавления папки -->
-                <Button x:Name="AddFolderButton" Content="Добавить папку (Ctrl+N)" 
-                        Grid.Row="1" Height="30" Click="AddFolderButton_Click"  />
-            </Grid>
-        </Border>
-
-
+        <local:FolderListControl x:Name="FoldersList" Grid.Column="2" Grid.Row="1" />
         <!-- Нижняя панель с кнопками листания -->
-        <Border Grid.Row="2" Background="White" Grid.ColumnSpan="3"
-                BorderBrush="Black" BorderThickness="0,2,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <!-- Блок текста о перемещённой картинке -->
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10,0" 
-                                       x:Name="MovedInfoTextBox"
-                                       Visibility="Hidden" TextTrimming="CharacterEllipsis">
-                                <Run Text="Перемещено в: " />
-                                <Run x:Name="MovedFolderTextBox" />
-                </TextBlock>
-
-                <!-- Кнопка "В лево" -->
-                <Button Grid.Column="1" x:Name="LeftPageButton" Content="Пред." 
-                                    Click="LeftPageButton_Click" VerticalAlignment="Center" Padding="5" />
-                <!-- Количество страниц -->
-                <TextBlock Grid.Column="2" x:Name="CountImagesTextBlock" Margin="10,0" 
-                                       VerticalAlignment="Center" Text="..." />
-                <!-- Кнопка "В право" -->
-                <Button Grid.Column="3" x:Name="RightPageButton" Content="След." 
-                                    Click="RightPageButton_Click" VerticalAlignment="Center" Padding="5" />
-            </Grid>
-        </Border>
+        <local:SplitImagesBottomPanel x:Name="BottomPanel" Grid.Row="2" Grid.ColumnSpan="3" />
+       
     </Grid>
 </UserControl>

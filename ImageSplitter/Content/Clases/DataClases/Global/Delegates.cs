@@ -1,4 +1,6 @@
-﻿using ImageSplitter.Content.Controls;
+﻿using ImageSplitter.Content.Clases.DataClases.Duplicates;
+using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Controls;
 using ImageSplitter.Content.Controls.ImageDuplicateScan;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ImageSplitter.Content.Clases.DataClases
+namespace ImageSplitter.Content.Clases.DataClases.Global
 {
     /// <summary>
     /// Класс глобальных делегатов событий
@@ -31,7 +33,8 @@ namespace ImageSplitter.Content.Clases.DataClases
         /// </summary>
         /// <param name="scanPath">Путь сканирования</param>
         /// <param name="splitPath">Путь сплита</param>
-        public delegate void StartSplitScanEventHandler(string scanPath, string splitPath);
+        /// <param name="isFolder">Флаг сканирования папок</param>
+        public delegate void StartSplitScanEventHandler(string scanPath, string splitPath, bool isFolder);
 
         /// <summary>
         /// Делегат события перехода к изображению

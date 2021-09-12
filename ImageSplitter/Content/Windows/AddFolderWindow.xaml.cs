@@ -24,7 +24,7 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Класс генерации имён добавляемых папок
         /// </summary>
-        private FolderNameGrnerator _folderNameGrnerator;
+        private FolderNameGenerator _folderNameGrnerator;
         /// <summary>
         /// Путь к родительской папке
         /// </summary>
@@ -47,7 +47,7 @@ namespace ImageSplitter.Content.Windows
             //Проставляем дефолтные значения
             _path = null;
             //Инициализируем класс генерации имён добавляемых папок
-            _folderNameGrnerator = new FolderNameGrnerator();
+            _folderNameGrnerator = new FolderNameGenerator();
             //Добавляем обработчик события нажатия на кнопку
             this.PreviewKeyDown += AddFolderWindow_PreviewKeyDown;
         }
