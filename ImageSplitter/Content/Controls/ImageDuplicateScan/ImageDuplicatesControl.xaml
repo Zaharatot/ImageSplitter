@@ -50,12 +50,27 @@
                    VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
 
-        <!-- Список папок -->
+        <!-- Список дубликатов -->
         <Border Margin="10" Padding="10" Background="White"
                 BorderBrush="Black" BorderThickness="1" Grid.Column="0" Grid.Row="1">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                <StackPanel x:Name="MainPanel" />
-            </ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="36" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Список дубликатов:" Grid.Row="0" Margin="0,0,0,5" />
+                <!-- Панель на которую выводятся дубликаты -->
+                <Border Grid.Row="1" Padding="0" BorderThickness="1" BorderBrush="Black">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+                        <StackPanel x:Name="MainPanel" />
+                    </ScrollViewer>
+                </Border>
+                <!-- Кнопка запуска удаления дубликатов -->
+                <Button x:Name="RemoveDuplicatesButton" Content="Удалить выбранные файлы" 
+                        Padding="15, 5" Click="RemoveDuplicatesButton_Click"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="2"  />
+            </Grid>
         </Border>
         
     </Grid>

@@ -14,7 +14,7 @@
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <!-- Чекбокс выбора картинки -->
-            <CheckBox x:Name="SelectImageCheckBox" Margin="0" Width="20" Height="20" Cursor="Hand" 
+            <CheckBox x:Name="SelectImageCheckBox" Margin="0" Width="20" Height="20" Cursor="Hand" Panel.ZIndex="1"
                       Checked="SelectImageCheckBox_SetCheckedState" Unchecked="SelectImageCheckBox_SetCheckedState"
                       VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Background="White" />
             <!-- Сама целевая картинка -->

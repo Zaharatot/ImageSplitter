@@ -29,9 +29,17 @@ namespace ImageSplitter.Content.Clases.DataClases
         /// </summary>
         public static event DuplicateScanCompleteEventHandler DuplicateScanComplete;
         /// <summary>
+        /// Событие завершения сканирования дубликатов, при котором не было найдено дублей
+        /// </summary>
+        public static event EmptyEventHandler DuplicateScanNotFound;
+        /// <summary>
         /// Событие обновления информации о прогрессе сканирования дубликатов
         /// </summary>
         public static event DuplicateScanProgressEventHandler DuplicateScanProgress;
+        /// <summary>
+        /// Событие завершения удаления дубликатов
+        /// </summary>
+        public static event EmptyEventHandler RemoveDuplicatesComplete;
 
 
         /// <summary>
@@ -69,7 +77,18 @@ namespace ImageSplitter.Content.Clases.DataClases
         public static void InvokeDuplicateScanProgress(int current, int max) =>
             DuplicateScanProgress?.Invoke(current, max);
 
+        /// <summary>
+        /// Метод вызова ивента завершения удаления дубликатов
+        /// </summary>
+        public static void InvokeRemoveDuplicatesComplete() =>
+            RemoveDuplicatesComplete?.Invoke();
 
+        /// <summary>
+        /// Метод вызова ивента завершения сканирования 
+        /// дубликатов, при котором не было найдено дублей
+        /// </summary>
+        public static void InvokeDuplicateScanNotFound() =>
+            DuplicateScanNotFound?.Invoke();
 
     }
 }

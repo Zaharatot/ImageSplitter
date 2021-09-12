@@ -27,6 +27,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Событие запуска скнирования дубликатов
         /// </summary>
         public event StartDuplicateScanEventHandler StartDuplicateScan;
+        /// <summary>
+        /// Событие запуска удаления дубликатов
+        /// </summary>
+        public event DuplicateRemoveEventHandler DuplicateRemove;
 
         /// <summary>
         /// Конструктор контролла
@@ -48,6 +52,17 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
+        /// Обработчик события нажатия на кнопку удаления выбранных дубликатов
+        /// </summary>
+        private void RemoveDuplicatesButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Если нужно действительно удалить файлы
+            if(IsNeedRemoveFiles())
+                //Собираем дубликаты с панели и отправляем в ивенте запуска их удаления
+                DuplicateRemove?.Invoke(GetDuplicatesToRemove());
+        }
+
+        /// <summary>
         /// Обработчик события выбора контролла
         /// </summary>
         /// <param name="control">Выбранный контролл</param>
@@ -59,6 +74,36 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             control.SetSelectionState(true);
             //Проставляем изображение с выделенного контролла в большую картинку
             TargetImage.Source = control.GetImage();
+        }
+
+
+
+        /// <summary>
+        /// Метод выполнения запроса пользователю на 
+        /// подтвержддение удаления выбранных файлов
+        /// </summary>
+        /// <returns>True - файлы действительно нужно удалить</returns>
+        private bool IsNeedRemoveFiles() =>
+            //Выводим месседжбокс с запросом
+            (MessageBox.Show(
+                "Вы действительно хотите удалить все отмеченные галочками файлы?",
+                "Запрос подтверждения", MessageBoxButton.YesNo
+            //И сверяем результат с подтверждением
+            ) == MessageBoxResult.Yes);
+
+        /// <summary>
+        /// Получаем список дубликатов помеченных под удаление
+        /// </summary>
+        /// <returns>Список дубликатов помеченных под удаление</returns>
+        private List<DuplicateImageInfo> GetDuplicatesToRemove()
+        {
+            List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>();
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+                //Добавляем в список все отмеченные дубликаты с панели
+                ex.AddRange(imagesPanel.GetSelectedDulicateInfoFromChilds());
+            //Возвращаем результат
+            return ex;
         }
 
         /// <summary>
@@ -88,19 +133,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             imagesPanel.SetImagesToControl(images, target);
             //Возвращаем созданный контролл
             return imagesPanel;
-        }
-
-        /// <summary>
-        /// Удаляем старые панели дубликатов с панели
-        /// </summary>
-        private void ClearOldPanels()
-        {
-            //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
-                //Удаляем обработчик события выделения контролла
-                imagesPanel.UpdateFindedImageControlSelection += ImagesPanel_UpdateFindedImageControlSelection;
-            //Очищаем панель от старых контроллов
-            MainPanel.Children.Clear();
         }
 
         /// <summary>
@@ -137,6 +169,24 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
 
+
+        /// <summary>
+        /// Удаляем старые панели дубликатов с панели
+        /// </summary>
+        public void ClearOldPanels()
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            {
+                //Удаляем обработчик события выделения контролла
+                imagesPanel.UpdateFindedImageControlSelection -= ImagesPanel_UpdateFindedImageControlSelection;
+                //Удаляем всё со старой панели
+                imagesPanel.ClearOldImages();
+            }
+            //Очищаем панель от старых контроллов
+            MainPanel.Children.Clear();
+        }
+
         /// <summary>
         /// Проставляем текущее значение прогресса сканирования
         /// </summary>
@@ -171,5 +221,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Сбрвасываем бесконечный скролл
             ScanProgressBar.IsIndeterminate = false;
         }
+
     }
 }

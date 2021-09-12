@@ -92,5 +92,10 @@ namespace ImageSplitter.Content.Clases.DataClases
         /// <param name="duplicates">Список дубликатов для отображения</param>
         public delegate void DuplicateScanCompleteEventHandler(List<DuplicateImageInfo> duplicates);
 
+        /// <summary>
+        /// Делегат события удаления дубликатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для удаления</param>
+        public delegate void DuplicateRemoveEventHandler(List<DuplicateImageInfo> duplicates);
     }
 }

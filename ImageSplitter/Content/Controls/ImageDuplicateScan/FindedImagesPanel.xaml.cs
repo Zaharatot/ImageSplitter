@@ -44,6 +44,20 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Вызываем внешний ивент
             UpdateFindedImageControlSelection?.Invoke(control);
 
+        /// <summary>
+        /// Обработчик события нажатия на кнопку сброса всхе выделений
+        /// </summary>
+        private void CleanAllCheckBoxesButton_Click(object sender, RoutedEventArgs e) =>
+            //Сбрасываем все галочки на чекбоксах
+            SetAllCheckBoxesState(false);
+
+        /// <summary>
+        /// Обработчик события нажатия на кнопку простановки всхе выделений
+        /// </summary>
+        private void SetAllCheckBoxesButton_Click(object sender, RoutedEventArgs e) =>
+            //Проставляем все галочки на чекбоксах
+            SetAllCheckBoxesState(true);
+
 
         /// <summary>
         /// Создаём контролл целевого изображения
@@ -63,19 +77,16 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
-        /// Удаляем старые изображения с панели
+        /// Метод простановки нового статуса всем дочерним чекбоксам
         /// </summary>
-        private void ClearOldImages()
+        /// <param name="state">Новый статус</param>
+        private void SetAllCheckBoxesState(bool state)
         {
             //Проходимся по всем контроллам панели
             foreach (FindedImageControl imageControl in MainPanel.Children)
-                //Удаляем обработчик события выделения контролла
-                imageControl.UpdateFindedImageControlSelection -= ImageControl_UpdateFindedImageControlSelection;
-            //Очищаем панель от старых контроллов
-            MainPanel.Children.Clear();
+                //Для каждого из них сбрасываем галочку
+                imageControl.SetCheckBoxState(state);
         }
-
-
 
 
         /// <summary>
@@ -104,6 +115,41 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             foreach (FindedImageControl imageControl in MainPanel.Children)
                 //Для каждого из них сбрасываем выделение
                 imageControl.SetSelectionState(false);
+        }
+
+        /// <summary>
+        /// Удаляем старые изображения с панели
+        /// </summary>
+        public void ClearOldImages()
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+                //Удаляем обработчик события выделения контролла
+                imageControl.UpdateFindedImageControlSelection -= ImageControl_UpdateFindedImageControlSelection;
+            //Очищаем панель от старых контроллов
+            MainPanel.Children.Clear();
+        }
+
+        /// <summary>
+        /// Получаем информацию об изображениях из дочерних контроллов
+        /// </summary>
+        /// <returns>Список дубликатов из дочерних контроллов, отмеченных галочками</returns>
+        public List<DuplicateImageInfo> GetSelectedDulicateInfoFromChilds()
+        {
+            List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>();
+            DuplicateImageInfo buff;
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+            {
+                //ПОлучаем инфу из контролла
+                buff = imageControl.GetControlInfo();
+                //Если это изображение нужно удалить
+                if (buff.IsNeedRemove)
+                    //Добавляем его в список возврата
+                    ex.Add(buff);
+            }
+            //Возвращаем результат
+            return ex;
         }
 
     }

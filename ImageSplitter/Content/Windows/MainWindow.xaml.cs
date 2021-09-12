@@ -69,6 +69,8 @@ namespace ImageSplitter.Content.Windows
         {
             //Добавляем обработчик событяи нажатия на кнопку
             this.KeyDown += MainWindow_KeyDown;
+            //Добавляем обработчик событяи закрытия окна
+            this.Closed += MainWindow_Closed;
             //Добавляем обработчик событяи обновления основной информации на контролле сплита изображений
             GlobalEvents.UpdateImageSplitInfoRequest += GlobalEvents_UpdateImageSplitInfoRequest;
             //Добавляем обработчик событяи завершения сканирвоания
@@ -79,6 +81,10 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.DuplicateScanComplete += GlobalEvents_DuplicateScanComplete;
             //Добавляем обработчик событяи обновления статуса сканирования дубликатов
             GlobalEvents.DuplicateScanProgress += GlobalEvents_DuplicateScanProgress;
+            //Добавляем обработчик событяи завершения удаления дубликатов
+            GlobalEvents.RemoveDuplicatesComplete += GlobalEvents_RemoveDuplicatesComplete;
+            //Добавляем обработчик событяи завершения сканирования дубликатов, при котором не было найдено дублей
+            GlobalEvents.DuplicateScanNotFound += GlobalEvents_DuplicateScanNotFound;
             //Добавляем обработчик событяи запуска сплита
             SplitImages.StartSplitScan += SplitImages_StartSplitScan;
             //Добавляем обработчик события запроса на переход к изображению 
@@ -95,10 +101,42 @@ namespace ImageSplitter.Content.Windows
             RenameFiles.RenameFiles += RenameFiles_RenameFiles;
             //Добавляем обработчик события запуска сканирования на дубликаты
             ImageDuplicates.StartDuplicateScan += ImageDuplicates_StartDuplicateScan;
+            //Добавляем обработчик события запуска удаления дубликатов
+            ImageDuplicates.DuplicateRemove += ImageDuplicates_DuplicateRemove;
         }
 
+        /// <summary>
+        /// Jбработчик событяи завершения сканирования 
+        /// дубликатов, при котором не было найдено дублей
+        /// </summary>
+        private void GlobalEvents_DuplicateScanNotFound() =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Возвращаем доступность окна
+                this.IsEnabled = true;
+                //ВЫводим сообщение о том что не было найдено дубликатов
+                MessageBox.Show("Duplicates not found!");
+            });
 
+        /// <summary>
+        /// Обработчик событяи завершения удаления дубликатов
+        /// </summary>
+        private void GlobalEvents_RemoveDuplicatesComplete() =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Очищаем панель дубликатов
+                ImageDuplicates.ClearOldPanels();
+                //ВЫводим сообщение о завершении удаления дубликатов
+                MessageBox.Show("Duplicate remove complete!");
+            });
 
+        /// <summary>
+        /// Обработчик события запуска удаления дубликатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для удаления</param>
+        private void ImageDuplicates_DuplicateRemove(List<DuplicateImageInfo> duplicates) =>
+            //Вызываем внутренний метод
+            _mainWork.RemoveDuplicates(duplicates);
 
         /// <summary>
         /// Обработчик события запуска сканирования на дубликаты
@@ -239,6 +277,12 @@ namespace ImageSplitter.Content.Windows
             _mainWork.BackToParent(path);
 
 
+        /// <summary>
+        /// Обработчик событяи закрытия окна
+        /// </summary>
+        private void MainWindow_Closed(object sender, EventArgs e) =>
+            //Завершаем работу основного рабочего класса
+            _mainWork?.Dispose();
 
         /// <summary>
         /// Обработчик событяи нажатия на кнопку

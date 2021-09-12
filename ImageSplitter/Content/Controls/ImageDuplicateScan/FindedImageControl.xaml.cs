@@ -121,6 +121,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         public ImageSource GetImage() =>
             FindedImageIcon.Source;
 
+        /// <summary>
+        /// Проставляем новое значение чекбоксу
+        /// </summary>
+        /// <param name="state">Новое значение чекбоксу</param>
+        public void SetCheckBoxState(bool state) =>
+            SelectImageCheckBox.IsChecked = state;
 
         /// <summary>
         /// Проставляем инфу в контролл
@@ -142,5 +148,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Проставляем флаг удаления
             SelectImageCheckBox.IsChecked = info.IsNeedRemove;
         }
+
+        /// <summary>
+        /// Возврат информации об изображении из контролла
+        /// </summary>
+        /// <returns>Информация об изображении</returns>
+        public DuplicateImageInfo GetControlInfo() =>
+            _imageInfo;
     }
 }

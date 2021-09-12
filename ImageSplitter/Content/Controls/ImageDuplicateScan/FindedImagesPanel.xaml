@@ -5,8 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"
              mc:Ignorable="d" 
-             d:DesignHeight="200" Width="548">
-    <Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="3">
-        <WrapPanel x:Name="MainPanel" />
+             d:DesignHeight="250" Width="550">
+    <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="3">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="29" />
+            </Grid.RowDefinitions>
+            <!-- Панель для добавления изображений -->
+            <WrapPanel x:Name="MainPanel" />
+            <Border Background="LightGray" Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <Grid>
+                <!-- Кнопка сброса выделения для всех изображений -->
+                <Button x:Name="CleanAllCheckBoxesButton" Content="Сбросить выделение для всех" 
+                        Click="CleanAllCheckBoxesButton_Click" Padding="10, 2" Margin="5,0" 
+                        VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <!-- Кнопка простановки выделения для всех изображений -->
+                <Button x:Name="SetAllCheckBoxesButton" Content="Проставить выделение всем" 
+                        Click="SetAllCheckBoxesButton_Click" Padding="10, 2" Margin="5,0" 
+                        VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </Grid>
+            </Border>
+        </Grid>
     </Border>
 </UserControl>

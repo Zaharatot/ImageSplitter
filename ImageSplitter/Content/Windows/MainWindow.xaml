@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         MinHeight="450" MinWidth="800"
-        Title="ImageSplitter" Height="450" Width="800">
+        Title="ImageSplitter" Height="700" Width="1000">
     <TabControl x:Name="MainTabControl">       
         <!-- Вкладка сплита изображений -->
         <TabItem>

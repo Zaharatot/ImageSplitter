@@ -17,7 +17,7 @@ namespace ImageSplitter.Content.Clases.WorkClases
     /// <summary>
     /// Основной рабочий класс
     /// </summary>
-    internal class MainWork
+    internal class MainWork : IDisposable
     {
 
         /// <summary>
@@ -155,5 +155,22 @@ namespace ImageSplitter.Content.Clases.WorkClases
         public void StartDuplicateScan(string path) =>
             //Вызываем внутренний метод
             _duplicateScan.StartDuplicateScan(path);
+
+        /// <summary>
+        /// Метод запуска удаления дублиткатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для удаления</param>
+        public void RemoveDuplicates(List<DuplicateImageInfo> duplicates) =>
+            //Вызываем внутренний метод
+            _duplicateScan.RemoveDuplicates(duplicates);
+
+        /// <summary>
+        /// Метод очистки неуправляемых ресурсов класса
+        /// </summary>
+        public void Dispose()
+        {
+            //Завершаем работу с классом поиска дубликатов
+            _duplicateScan?.Dispose();
+        }
     }
 }

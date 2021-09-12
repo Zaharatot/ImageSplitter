@@ -58,7 +58,7 @@ namespace ImageSplitter.Content.Clases.DataClases
             PixelsCount = Id = 0;
             Resolution = Name = ParentFolderName = Path = "";
             Hash = 0;
-            IsNeedRemove = true;
+            IsNeedRemove = false;
             Duplicates = new List<DuplicateImageInfo>();
         }
     }

@@ -15,7 +15,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
     /// <summary>
     /// Класс поиска дубликатов
     /// </summary>
-    internal class DuplicateScan
+    internal class DuplicateScan : IDisposable
     {
         /// <summary>
         /// Класс работы с ДКП-хешами
@@ -192,37 +192,34 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
         private List<DuplicateImageInfo> FindDuplicates(List<DuplicateImageInfo> duplicates)
         {
             List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>(); 
-            List<DuplicateImageInfo> buff = new List<DuplicateImageInfo>();
+            List<DuplicateImageInfo> buff;
             DuplicateImageInfo target;
             //Максимальное количество действий
             //Т.к. идёт сначала сканирование а
             //потом поиск дубликатов - просто удваиваем количество
             int maxCount = duplicates.Count * 2;
-            int current, currentCount = duplicates.Count;
+            int current;
             //Пока есть ещё файлы для обработки
             while(duplicates.Count > 0)
             {
-                //TODO: что-то я нахреначил не то в алгоритме поиска дубликатов
-
-
                 //Получаем целевой элемент
                 target = duplicates[0];
                 //Удаляем целевой элемент из списка дубликатов
                 duplicates.Remove(target);
                 //Очищаем старый список дубликатов
-                buff.Clear();
+                buff = new List<DuplicateImageInfo>();
                 //Получаем все дубликаты для целевого элемента
                 GetDuplicatesRecurce(
                     new List<DuplicateImageInfo>() { target },
-                    duplicates,
+                    ref duplicates,
                     ref buff
                 );
                 //Проставляем дубликаты элементу
                 target.Duplicates = buff;
-                //Получаем оставшееся количество задач
-                current = (currentCount - duplicates.Count) + currentCount;
                 //Добавляем целевой элемент в выходной список
                 ex.Add(target);
+                //Получаем оставшееся количество задач
+                current = maxCount - duplicates.Count;
                 //Вызываем ивент, передав в него текущий статус
                 GlobalEvents.InvokeDuplicateScanProgress(current, maxCount);
             }
@@ -236,21 +233,21 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
         /// <param name="targets">Список целей поиска</param>
         /// <param name="duplicates">Список дубликатов для поиска</param>
         /// <param name="result">Список результатов</param>
-        private void GetDuplicatesRecurce(List<DuplicateImageInfo> targets, List<DuplicateImageInfo> duplicates, ref List<DuplicateImageInfo> result)
+        private void GetDuplicatesRecurce(List<DuplicateImageInfo> targets, ref List<DuplicateImageInfo> duplicates, ref List<DuplicateImageInfo> result)
         {
             List<DuplicateImageInfo> buff;
             //Проходимся по целям поиска
             foreach (DuplicateImageInfo target in targets)
             {
                 //Получаем все дубликаты элемента
-                buff = GetElementDuplicates(target, duplicates);
+                buff = GetElementDuplicates(target, ref duplicates);
                 //Удаляем найденные дубликаты из списка
-                foreach (var duplicate in buff)
+                foreach (DuplicateImageInfo duplicate in buff)
                     duplicates.Remove(duplicate);
                 //Добавляем найденные дубликаты в список
                 result.AddRange(buff);
                 //Вызываем этот метод рекурсивно для найденных дубликатов
-                GetDuplicatesRecurce(buff, duplicates, ref result);
+                GetDuplicatesRecurce(buff, ref duplicates, ref result);
             }
         }
 
@@ -260,7 +257,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
         /// <param name="target">Целевое изображение</param>
         /// <param name="duplicates">Список для проверки</param>
         /// <returns>Список дубликатов</returns>
-        private List<DuplicateImageInfo> GetElementDuplicates(DuplicateImageInfo target, List<DuplicateImageInfo> duplicates) =>
+        private List<DuplicateImageInfo> GetElementDuplicates(DuplicateImageInfo target, ref List<DuplicateImageInfo> duplicates) =>
             //В списке дубликатов
             duplicates
                 //Выбираем только те, что входят в список дубликатов
@@ -313,6 +310,15 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
             }
         }
 
+        /// <summary>
+        /// Проверка отсутствия дубликатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для проверки</param>
+        /// <returns>TRue - дубликатов не найдено</returns>
+        private bool IsNotFoundDuplicates(List<DuplicateImageInfo> duplicates) =>
+            duplicates.All(image => image.Duplicates.Count == 0);
+
+
 
         /// <summary>
         /// Запуск сканирования дубликатов
@@ -336,9 +342,41 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
                 duplicates = FindDuplicates(duplicates);
                 //Проставляем флаг необходимости удаления всем дубликатам
                 ProcessDuplicatesIsNeedRemove(duplicates);
-                //Вызываем ивент завершения сканирования на дубликаты
-                GlobalEvents.InvokeDuplicateScanComplete(duplicates);
+                //Если дубликатов не найдено
+                if (IsNotFoundDuplicates(duplicates))
+                    //Вызываем ивент отсутствия дубликатов по указанному пути
+                    GlobalEvents.InvokeDuplicateScanNotFound();
+                //Если дубликаты всё-таки есть
+                else
+                    //Вызываем ивент завершения сканирования на дубликаты
+                    GlobalEvents.InvokeDuplicateScanComplete(duplicates);
             }).Start();
+        }
+
+        /// <summary>
+        /// Метод запуска удаления дублиткатов
+        /// </summary>
+        /// <param name="duplicates">Список дубликатов для удаления</param>
+        public void RemoveDuplicates(List<DuplicateImageInfo> duplicates)
+        {
+            //Делаем всё это в отдельном потоке
+            new Thread(() => {
+                //Проходимся по списку дубликатов
+                foreach (var duplicate in duplicates)
+                    //Для каждого из них удаляем привязанный файл
+                    File.Delete(duplicate.Path);
+                //Вызываем ивент завершения удаления дубликатов
+                GlobalEvents.InvokeRemoveDuplicatesComplete();
+            }).Start();
+        }
+
+        /// <summary>
+        /// Метод очистки неуправляемых ресурсов класса
+        /// </summary>
+        public void Dispose()
+        {
+            //Завершаем работу с классом вычисления ДКП-хеша
+            _dctHash?.Dispose();
         }
     }
 }
