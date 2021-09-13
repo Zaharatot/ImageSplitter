@@ -67,7 +67,8 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// Проверяем нажатую кнопку на тип кнопки переноса
         /// </summary>
         /// <param name="key">Код нажатой кнопки</param>
-        public void CheckImageMoveTarget(Key key) =>
+        /// <returns>True - нажатие было обработано</returns>
+        public bool CheckImageMoveTarget(Key key) =>
             //Вызываем внутренний метод
             _splitImages.CheckImageMoveTarget(key);
 

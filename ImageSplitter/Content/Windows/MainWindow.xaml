@@ -13,28 +13,52 @@
     <TabControl x:Name="MainTabControl">       
         <!-- Вкладка сплита изображений -->
         <TabItem>
-            <TabItem.Header>Изображения для раскладки</TabItem.Header>
+            <TabItem.Header>
+                <TextBlock Text="Изображения для раскладки">
+                    <TextBlock.ToolTip>
+                        <ToolTip Content="Ctrl+1" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </TabItem.Header>
             <TabItem.Content>
                 <SplitControls:SplitImagesControl x:Name="SplitImages" />
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка сплита файлов -->
         <TabItem>
-            <TabItem.Header>Разделение файлов</TabItem.Header>
+            <TabItem.Header>
+                <TextBlock Text="Разделение файлов">
+                    <TextBlock.ToolTip>
+                        <ToolTip Content="Ctrl+2" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </TabItem.Header>
             <TabItem.Content>
                 <Controls:FileSplitParamsControl x:Name="FileSplitParams"/>
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка переименования файлов -->
         <TabItem>
-            <TabItem.Header>Переименование файлов</TabItem.Header>
+            <TabItem.Header>
+                <TextBlock Text="Переименование файлов">                
+                    <TextBlock.ToolTip>   
+                        <ToolTip Content="Ctrl+3" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </TabItem.Header>
             <TabItem.Content>
                 <Controls:RenameFilesControl x:Name="RenameFiles" />
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка поиска дубликатов изображений -->
         <TabItem>
-            <TabItem.Header>Поиск дубликатов изображений</TabItem.Header>
+            <TabItem.Header>
+                <TextBlock Text="Поиск дубликатов изображений">
+                    <TextBlock.ToolTip>
+                        <ToolTip Content="Ctrl+4" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </TabItem.Header>
             <TabItem.Content>
                 <ImageDuplicateScan:ImageDuplicatesControl x:Name="ImageDuplicates" />
             </TabItem.Content>

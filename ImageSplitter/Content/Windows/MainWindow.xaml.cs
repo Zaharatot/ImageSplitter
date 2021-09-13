@@ -4,6 +4,8 @@ using ImageSplitter.Content.Clases.DataClases.Global;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
+using ImageSplitter.Content.Clases.WorkClases.KeyProcessor;
+using ImageSplitter.Content.Clases.WorkClases.KeyProcessor.Processors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,8 +29,6 @@ namespace ImageSplitter.Content.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
         /// <summary>
         /// Основной рабочий класс
         /// </summary>
@@ -64,7 +64,7 @@ namespace ImageSplitter.Content.Windows
             //Инициализируем основной рабочий класс
             _mainWork = new MainWork();
             //Инициализируем класс обработки нажатий клавишь
-            _keyActionProcessor = new KeyActionProcessor();
+            _keyActionProcessor = new KeyActionProcessor(_mainWork);
         }
 
         /// <summary>
@@ -72,10 +72,27 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void InitEvents()
         {
-            //Добавляем обработчик событяи нажатия на кнопку
-            this.KeyDown += MainWindow_KeyDown;
+            InitCurrentEvents();
+            InitGlobalEvents();
+            InitControlsEvents();
+        }
+
+        /// <summary>
+        /// Инициализируем ивенты для текущего окна
+        /// </summary>
+        private void InitCurrentEvents()
+        {
             //Добавляем обработчик событяи закрытия окна
             this.Closed += MainWindow_Closed;
+            //Добавляем обработчик глобального события нажатия кнопки клавиатуры, с фокусом на любом элементе окна
+            this.AddHandler(UIElement.PreviewKeyDownEvent, new RoutedEventHandler(MainWindow_KeyDown));
+        }
+
+        /// <summary>
+        /// Инициализируем глобальные ивенты
+        /// </summary>
+        private void InitGlobalEvents()
+        {
             //Добавляем обработчик событяи обновления основной информации на контролле сплита изображений
             GlobalEvents.UpdateImageSplitInfoRequest += GlobalEvents_UpdateImageSplitInfoRequest;
             //Добавляем обработчик событяи завершения сканирвоания
@@ -90,6 +107,19 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.RemoveDuplicatesComplete += GlobalEvents_RemoveDuplicatesComplete;
             //Добавляем обработчик событяи завершения сканирования дубликатов, при котором не было найдено дублей
             GlobalEvents.DuplicateScanNotFound += GlobalEvents_DuplicateScanNotFound;
+            //Добавляем обработчик события запроса на переход к коллекции
+            CollectionsSplitTab.MoveToCollectionRequest += CollectionsSplitTab_MoveToCollectionRequest;
+            //Добавляем обработчик события запроса на переход к изображению в коллекции
+            CollectionsSplitTab.MoveToImageRequest += CollectionsSplitTab_MoveToImageRequest;
+            //Добавляем обработчик события запроса на переход к указанной вкладке
+            MainKeys.SendToTabRequest += MainKeys_SendToTabRequest;
+        }
+
+        /// <summary>
+        /// Инициализируем ивенты от контроллов
+        /// </summary>
+        private void InitControlsEvents()
+        {
             //Добавляем обработчик событяи запуска сплита
             SplitImages.StartSplitScan += SplitImages_StartSplitScan;
             //Добавляем обработчик события запроса на переход к коллекции
@@ -109,6 +139,31 @@ namespace ImageSplitter.Content.Windows
             //Добавляем обработчик события запуска удаления дубликатов
             ImageDuplicates.DuplicateRemove += ImageDuplicates_DuplicateRemove;
         }
+
+
+        /// <summary>
+        /// Обработчик события запроса на переход к указанной вкладке
+        /// </summary>
+        /// <param name="tabId">Id вкладки для перехода</param>
+        private void MainKeys_SendToTabRequest(int tabId) =>
+            //Выбираем нужную вкладку
+            MainTabControl.SelectedIndex = tabId;
+
+        /// <summary>
+        /// Обработчик события запроса на переход к коллекции
+        /// </summary>
+        /// <param name="direction">Направление перехода</param>
+        private void CollectionsSplitTab_MoveToCollectionRequest(int direction) =>
+            //ВЫзываем внутренний метод перехода
+            MoveToCollection(direction);
+
+        /// <summary>
+        /// Обработчик события запроса на переход к изображению в коллекции
+        /// </summary>
+        /// <param name="direction">Направление перехода</param>
+        private void CollectionsSplitTab_MoveToImageRequest(int direction) =>
+            //ВЫполняем переход к картинке в коллекции
+            SplitImages.MoveFolderImage(direction);
 
         /// <summary>
         /// Jбработчик событяи завершения сканирования 
@@ -293,9 +348,9 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик событяи нажатия на кнопку
         /// </summary>
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e) =>
+        private void MainWindow_KeyDown(object sender, RoutedEventArgs e) =>
             //Вызываем обработку нажатия на клавишу
-            _keyActionProcessor.ProcessKeyPress(e, MainTabControl.SelectedIndex);
+            _keyActionProcessor.ProcessKeyPress((KeyEventArgs)e, MainTabControl.SelectedIndex);
 
 
         /// <summary>

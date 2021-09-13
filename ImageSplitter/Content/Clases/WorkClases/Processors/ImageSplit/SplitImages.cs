@@ -137,8 +137,10 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Проверяем нажатую кнопку на тип кнопки переноса
         /// </summary>
         /// <param name="key">Код нажатой кнопки</param>
-        public void CheckImageMoveTarget(Key key)
+        /// <returns>True - нажатие было обработано</returns>
+        public bool CheckImageMoveTarget(Key key)
         {
+            bool ex = false;
             //Получаем целевую папку, по нажатой кнопке
             TargetFolderInfo target = GetMoveFolder(key);
             //Если с этой кнопкой проассациирована папка
@@ -148,9 +150,13 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 CollectionInfo image = GetCurrentImageInfo();
                 //Переносим изображение
                 _mover.MoveCollection(target, image);
+                //Указываем, что нажатие было обработано
+                ex = true;
                 //Вызываем ивент по завершеию переноса изображения
                 GlobalEvents.InvokeMoveImageComplete();
             }
+            //ВОзвращаем результат
+            return ex;
         }
 
         /// <summary>

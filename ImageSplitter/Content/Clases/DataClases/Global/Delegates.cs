@@ -100,5 +100,11 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// </summary>
         /// <param name="duplicates">Список дубликатов для удаления</param>
         public delegate void DuplicateRemoveEventHandler(List<DuplicateImageInfo> duplicates);
+
+        /// <summary>
+        /// Делегат события запроса на переход ко вкладке
+        /// </summary>
+        /// <param name="tabId">Id вкладки для перехода</param>
+        public delegate void SendToTabRequestEventHandler(int tabId);
     }
 }

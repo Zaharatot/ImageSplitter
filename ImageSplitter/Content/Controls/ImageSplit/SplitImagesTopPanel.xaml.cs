@@ -57,5 +57,13 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// <param name="info">Строка информации о коллекции</param>
         public void SetCollectionInfo(string info) =>
              ImageInfoTextBlock.Text = info;
+
+        /// <summary>
+        /// Проставляем статус активности кнопкам
+        /// </summary>
+        /// <param name="state">Новый статус активности</param>
+        public void SettButtonsEnableState(bool state) =>
+            //Проставляем статус активности в кнопки
+            DownPageButton.IsEnabled = UpPageButton.IsEnabled = state;
     }
 }

@@ -246,6 +246,8 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             LoadImageToControls(info);
             //Проставляем информацию о переносе
             BottomPanel.SetMovedFolderInfo(info.NewParentName, info.IsMoved);
+            //Проставляем статус активности для кнопок листания
+            TopPanel.SettButtonsEnableState(info.IsFolder);
         }
 
 
