@@ -76,6 +76,9 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
                 //Если дубликаты для элемента вообще есть
                 if ((buff != null) && (buff.Count > 0))
                 {
+                    //Удаляем дубликат данного файла из общего списка
+                    foreach(var duplicate in buff)
+                        duplicates.Remove(duplicate);
                     //Добавляем дубликаты в список для целевого элемента
                     target.Duplicates.AddRange(buff);
                     //Добавляем целевой элемент в выходной список

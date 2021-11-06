@@ -45,6 +45,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         {
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
+            ex.CacheOption = BitmapCacheOption.None;
+            ex.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
             //Считываем байты файла в поток в памяти
             ex.StreamSource = File.OpenRead(path);
             ex.EndInit();
