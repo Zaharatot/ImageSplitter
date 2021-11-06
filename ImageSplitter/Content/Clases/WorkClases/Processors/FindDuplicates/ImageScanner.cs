@@ -23,6 +23,11 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         /// Класс работы с ДКП-хешами
         /// </summary>
         private readonly DCTHash _dctHash;
+        /// <summary>
+        /// Массив поддерживаемых расширений для изображений
+        /// </summary>
+        private string[] _imageExtensions;
+
 
 
         /// <summary>
@@ -33,22 +38,65 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         {
             //Проставляем переданные значения
             _dctHash = dctHash;
+            Init();
         }
 
+        /// <summary>
+        /// Инициализатор класса
+        /// </summary>
+        private void Init()
+        {
+            //Формируем список поддерживаемых расширений
+            _imageExtensions = GetImageExtensions();
+        }
+
+
+        /// <summary>
+        /// Получаем список расширений для изображений
+        /// </summary>
+        /// <returns>Список расширений для изображений</returns>
+        private string[] GetImageExtensions() =>
+            new string[] {
+                ".bmp", ".png", ".jpg", ".jpeg", ".gif"
+            };
+
+        /// <summary>
+        /// Проверяем формат файла на допустимость
+        /// </summary>
+        /// <param name="file">Инфомрация о файле</param>
+        /// <returns>True - файл является поддерживаемой картинкой</returns>
+        private bool FileIsImage(FileInfo file) =>
+            //Проверяем наличие расширения этого файла в списке допустимых
+            _imageExtensions.Contains(file.Extension.ToLower());
+
+        /// <summary>
+        /// Получаем все изображения из папки
+        /// </summary>
+        /// <param name="parent">ИНформация о родительской папке</param>
+        /// <returns>Список путей к дочерним изображениям</returns>
+        private List<string> GetImagesFromDirectory(DirectoryInfo parent) =>
+            //Из папки
+            parent
+                //Получаем все дочерние файлы
+                .GetFiles()
+                //Из них выбираем только изображения
+                .Where(file => FileIsImage(file))
+                //Получаем от них полный путь
+                .Select(image => image.FullName)
+                //Возвращаем в виде списка
+                .ToList();
 
         /// <summary>
         /// Получаем список путей ко всем файлам
         /// </summary>
         /// <param name="parentPath">Путь к родительской папке</param>
         /// <param name="paths">Список найденных путей</param>
-        private void GetAllFilePathsRecurse(string parentPath, ref List<string> paths)
-        {
+        private void GetAllFilePathsRecurse(DirectoryInfo parent, ref List<string> paths)
+        {            
             //Добавляем все дочерние файлы текущей папки в список
-            paths.AddRange(Directory.GetFiles(parentPath));
-            //Получаем список всех дочерних папок
-            string[] folders = Directory.GetDirectories(parentPath);
+            paths.AddRange(GetImagesFromDirectory(parent));
             //Проходимся по всем папкам
-            foreach (var folder in folders)
+            foreach (var folder in parent.GetDirectories())
                 //Для каждой из них вызываем рекурсивно этот метод
                 GetAllFilePathsRecurse(folder, ref paths);
         }
@@ -62,8 +110,10 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         {
             //Инициализируем список путей к файлам
             List<string> pathList = new List<string>();
+            //ПОлучаем родительскую директорию
+            DirectoryInfo parent = new DirectoryInfo(path);
             //Получаем пути ко всем файлам в папке сканирования
-            GetAllFilePathsRecurse(path, ref pathList);
+            GetAllFilePathsRecurse(parent, ref pathList);
             //Создаём задачи по нахождению хешей для всех дочерних элементов
             return _dctHash.AddTasksAsync(pathList);
         }

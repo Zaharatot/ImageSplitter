@@ -33,30 +33,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         }
 
 
-        /// <summary>
-        /// Рукурсивный поиск дубликатов
-        /// </summary>
-        /// <param name="targets">Список целей поиска</param>
-        /// <param name="duplicates">Список дубликатов для поиска</param>
-        /// <param name="result">Список результатов</param>
-        private void GetDuplicatesRecurce(List<DuplicateImageInfo> targets, 
-            ref List<DuplicateImageInfo> duplicates, ref List<DuplicateImageInfo> result)
-        {
-            List<DuplicateImageInfo> buff;
-            //Проходимся по целям поиска
-            foreach (DuplicateImageInfo target in targets)
-            {
-                //Получаем все дубликаты элемента
-                buff = GetElementDuplicates(target, ref duplicates);
-                //Удаляем найденные дубликаты из списка
-                foreach (DuplicateImageInfo duplicate in buff)
-                    duplicates.Remove(duplicate);
-                //Добавляем найденные дубликаты в список
-                result.AddRange(buff);
-                //Вызываем этот метод рекурсивно для найденных дубликатов
-                GetDuplicatesRecurce(buff, ref duplicates, ref result);
-            }
-        }
 
         /// <summary>
         /// Получаем все дубликаты изображения
@@ -64,16 +40,15 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
         /// <param name="target">Целевое изображение</param>
         /// <param name="duplicates">Список для проверки</param>
         /// <returns>Список дубликатов</returns>
-        private List<DuplicateImageInfo> GetElementDuplicates(DuplicateImageInfo target, 
-            ref List<DuplicateImageInfo> duplicates) =>
+        private List<DuplicateImageInfo> GetElementDuplicates(DuplicateImageInfo target, List<DuplicateImageInfo> duplicates) =>
             //В списке дубликатов
             duplicates
                 //Выбираем только те, что входят в список дубликатов
-                .Where(image => _dctHash.EqalImageHash(target.Hash, image.Hash))
+                .Where(image => _dctHash.GetHashSimilarity(target.Hash, image.Hash) <= 9)
                 //Возвращаем их в виде списка
                 .ToList();
 
-
+        
         /// <summary>
         /// Находим дубликаты среди файлов
         /// </summary>
@@ -96,18 +71,16 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
                 target = duplicates[0];
                 //Удаляем целевой элемент из списка дубликатов
                 duplicates.Remove(target);
-                //Очищаем старый список дубликатов
-                buff = new List<DuplicateImageInfo>();
-                //Получаем все дубликаты для целевого элемента
-                GetDuplicatesRecurce(
-                    new List<DuplicateImageInfo>() { target },
-                    ref duplicates,
-                    ref buff
-                );
-                //Проставляем дубликаты элементу
-                target.Duplicates = buff;
-                //Добавляем целевой элемент в выходной список
-                ex.Add(target);
+                //Получаем все дубликаты элемента
+                buff = GetElementDuplicates(target, duplicates);
+                //Если дубликаты для элемента вообще есть
+                if ((buff != null) && (buff.Count > 0))
+                {
+                    //Добавляем дубликаты в список для целевого элемента
+                    target.Duplicates.AddRange(buff);
+                    //Добавляем целевой элемент в выходной список
+                    ex.Add(target);
+                }
                 //Получаем оставшееся количество задач
                 current = maxCount - duplicates.Count;
                 //Вызываем ивент, передав в него текущий статус

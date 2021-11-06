@@ -100,7 +100,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
             //Считываем байты файла в поток в памяти
-            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
+            ex.StreamSource = File.OpenRead(path);
             ex.EndInit();
             return ex;
         }

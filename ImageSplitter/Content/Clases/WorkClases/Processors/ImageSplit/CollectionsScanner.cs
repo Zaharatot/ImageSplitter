@@ -105,6 +105,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 .GetFiles()
                 //Выбираем из них только изображения
                 .Where(file => FileIsImage(file))
+                //Сортируем картинки по имени
+                .OrderBy(image => image.Name)
                 //Возвращаем в виде списка
                 .ToList()
                 //Конвертируем элементы списка в коллекции

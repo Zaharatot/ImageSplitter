@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using static DCTHashZ.Clases.DataClases.Other.Enums;
 
 namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
 {
@@ -45,7 +46,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
             //Считываем байты файла в поток в памяти
-            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
+            ex.StreamSource = File.OpenRead(path);
             ex.EndInit();
             return ex;
         }
@@ -107,9 +108,11 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates
             List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>();
             //Проходимся по списку тасок
             for (int i = 0; i < files.Count; i++)
-                //КОнвертируем результат таски в класс информации о
-                //дубликате и добавляем в выходной список
-                ex.Add(ConvertTaskResultToDuplicateInfo(files[i], i));
+                //Если формирование хеша не завершилось ошибкой
+                if (files[i].Status != CreateHashStatuses.Error)
+                    //КОнвертируем результат таски в класс информации о
+                    //дубликате и добавляем в выходной список
+                    ex.Add(ConvertTaskResultToDuplicateInfo(files[i], i));                
             //Возвращаем результат
             return ex;
         }
