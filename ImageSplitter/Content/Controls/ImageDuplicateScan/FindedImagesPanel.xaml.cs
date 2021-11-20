@@ -125,8 +125,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         {
             //Проходимся по всем контроллам панели
             foreach (FindedImageControl imageControl in MainPanel.Children)
+            {
                 //Удаляем обработчик события выделения контролла
                 imageControl.UpdateFindedImageControlSelection -= ImageControl_UpdateFindedImageControlSelection;
+                //Закрываем поток работы с изображением
+                imageControl.CloseImageSource();
+            }
             //Очищаем панель от старых контроллов
             MainPanel.Children.Clear();
         }

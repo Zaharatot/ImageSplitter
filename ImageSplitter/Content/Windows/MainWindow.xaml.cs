@@ -184,8 +184,6 @@ namespace ImageSplitter.Content.Windows
         private void GlobalEvents_RemoveDuplicatesComplete() =>
             //Вызываем в UI-потоке
             this.Dispatcher.Invoke(() => {
-                //Очищаем панель дубликатов
-                ImageDuplicates.ClearOldPanels();
                 //ВЫводим сообщение о завершении удаления дубликатов
                 MessageBox.Show("Duplicate remove complete!");
             });
@@ -194,9 +192,13 @@ namespace ImageSplitter.Content.Windows
         /// Обработчик события запуска удаления дубликатов
         /// </summary>
         /// <param name="duplicates">Список дубликатов для удаления</param>
-        private void ImageDuplicates_DuplicateRemove(List<DuplicateImageInfo> duplicates) =>
+        private void ImageDuplicates_DuplicateRemove(List<DuplicateImageInfo> duplicates)
+        {
+            //Очищаем панель дубликатов
+            ImageDuplicates.ClearOldPanels();
             //Вызываем внутренний метод
             _mainWork.RemoveDuplicates(duplicates);
+        }
 
         /// <summary>
         /// Обработчик события запуска сканирования на дубликаты

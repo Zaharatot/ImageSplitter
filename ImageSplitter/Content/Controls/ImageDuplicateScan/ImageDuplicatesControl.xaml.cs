@@ -58,9 +58,13 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private void RemoveDuplicatesButton_Click(object sender, RoutedEventArgs e)
         {
             //Если нужно действительно удалить файлы
-            if(IsNeedRemoveFiles())
+            if (IsNeedRemoveFiles())
+            {
+                //Убираем выбранное изображение
+                TargetImage.Source = null;
                 //Собираем дубликаты с панели и отправляем в ивенте запуска их удаления
                 DuplicateRemove?.Invoke(GetDuplicatesToRemove());
+            }
         }
 
         /// <summary>

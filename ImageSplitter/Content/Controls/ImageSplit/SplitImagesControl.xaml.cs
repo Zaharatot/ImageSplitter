@@ -156,7 +156,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
             //Считываем байты файла в поток в памяти
-            ex.StreamSource = File.OpenRead(path);
+            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path)); 
             ex.EndInit();
             return ex;
         }

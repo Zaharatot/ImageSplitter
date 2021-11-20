@@ -75,20 +75,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private bool GetCheckBoxState() =>
             SelectImageCheckBox.IsChecked.GetValueOrDefault(false);
 
-        /// <summary>
-        /// Закрываем поток в памяти, связанный с изображением
-        /// </summary>
-        private void CloseImageSource()
-        {
-            //Если есть исходный поток в памяти
-            if (FindedImageIcon.Source != null)
-            {
-                //Проучаем изображение
-                BitmapImage source = (BitmapImage)FindedImageIcon.Source;
-                //Очищаем поток
-                source.StreamSource.Dispose();
-            }
-        }
+      
 
         /// <summary>
         /// Загружаем картинку по строке пути
@@ -121,6 +108,21 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <returns>Целевое изображение</returns>
         public ImageSource GetImage() =>
             FindedImageIcon.Source;
+
+        /// <summary>
+        /// Закрываем поток в памяти, связанный с изображением
+        /// </summary>
+        public void CloseImageSource()
+        {
+            //Если есть исходный поток в памяти
+            if (FindedImageIcon.Source != null)
+            {
+                //Проучаем изображение
+                BitmapImage source = (BitmapImage)FindedImageIcon.Source;
+                //Очищаем поток
+                source.StreamSource.Dispose();
+            }
+        }
 
         /// <summary>
         /// Проставляем новое значение чекбоксу
