@@ -2,10 +2,12 @@
 using ImageSplitter.Content.Clases.DataClases.Duplicates;
 using ImageSplitter.Content.Clases.DataClases.Global;
 using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Clases.DataClases.Tags;
 using ImageSplitter.Content.Clases.WorkClases;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
 using ImageSplitter.Content.Clases.WorkClases.KeyProcessor;
 using ImageSplitter.Content.Clases.WorkClases.KeyProcessor.Processors;
+using ImageSplitter.Content.Windows.Tags;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,7 +77,11 @@ namespace ImageSplitter.Content.Windows
             InitCurrentEvents();
             InitGlobalEvents();
             InitControlsEvents();
+
+
         }
+
+
 
         /// <summary>
         /// Инициализируем ивенты для текущего окна

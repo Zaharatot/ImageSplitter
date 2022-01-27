@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="ImageSplitter.Content.Controls.Tags.TagPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImageSplitter.Content.Controls.Tags"
+             mc:Ignorable="d" 
+             Height="50" d:DesignWidth="300">
+    <Border Margin="5" BorderBrush="#33aa00" CornerRadius="3" 
+            BorderThickness="1" Background="#fff" Cursor="Hand">
+        <!-- Триггеры для смены цвета при наведении -->
+        <Border.Triggers>
+            <!-- Триггер при наведении курсора -->
+            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#eee" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <!-- Триггер при уходе курсора -->
+            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Duration="0:0:0.3" Storyboard.TargetProperty="Background.Color" To="#fff" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Border.Triggers>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition x:Name="DeleteColumn" Width="40" />
+                <ColumnDefinition x:Name="EditColumn" Width="40" />
+            </Grid.ColumnDefinitions>
+            <!-- Блок для текста тега -->
+            <TextBlock VerticalAlignment="Center" Margin="5, 0" Grid.Column="0"
+                       TextTrimming="CharacterEllipsis" TextWrapping="Wrap">        
+                <!-- Подсказка с полным текстом тега -->
+                <TextBlock.ToolTip>
+                    <TextBlock x:Name="TagNameToolTip" Text="FullTagName"/>
+                </TextBlock.ToolTip>
+                <Run x:Name="TagLetterRun" Foreground="#ff6600" Text="[A]" />
+                <Run x:Name="TagNameRun" Foreground="#990099" Text="Test tag #0"/>
+            </TextBlock>
+
+
+            <!-- SVG - иконка удаления -->
+            <Image x:Name="RemoveIcon" Grid.Column="1" Margin="8" Cursor="Hand" MouseDown="RemoveIcon_MouseDown" >
+                <!-- Триггеры для смены цвета при наведении -->
+                <Image.Triggers>
+                    <!-- Триггер при наведении курсора -->
+                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Margin" To="6" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <!-- Триггер при уходе курсора -->
+                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Margin" To="8" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Pen>
+                                    <Pen Brush="Black" />
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="Red" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    M75.6,44.8v73c0,3.4-2.8,6.2-6.2,6.2H21.3c-3.4,0-6.2-2.8-6.2-6.2v-73H75.6L75.6,44.8z M59.9,52.9v62.8h3.6V52.9H59.9  
+                                    L59.9,52.9z M43.6,52.9v62.8h3.6V52.9H43.6L43.6,52.9z M27.3,52.9v62.8h3.6V52.9H27.3L27.3,52.9z M31.3,27.9v-5.2  
+                                    c0-3.3,2.6-5.9,5.9-5.9h16.4c3.3,0,5.9,2.6,5.9,5.9v5.2h18.1c3.4,0,6.2,2.8,6.2,6.2v4.3H7V34c0-3.4,2.8-6.2,6.2-6.2H31.3L31.3,27.9z   
+                                    M37.2,20.8c-1,0-1.8,0.8-1.8,1.8v5.2h20.1v-5.2c0-1-0.8-1.8-1.8-1.8H37.2L37.2,20.8z
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+
+            <!-- SVG - иконка редактирования -->
+            <Image x:Name="EditIcon" Grid.Column="2" Margin="8" Cursor="Hand" MouseDown="EditIcon_MouseDown" >
+                <!-- Триггеры для смены цвета при наведении -->
+                <Image.Triggers>
+                    <!-- Триггер при наведении курсора -->
+                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Margin" To="6" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <!-- Триггер при уходе курсора -->
+                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.1" Storyboard.TargetProperty="Margin" To="8" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Pen>
+                                    <Pen Brush="Black" />
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="Red" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    M 23.90625 3.96875 C 22.859286 3.96875 21.813178 4.3743215 21 5.1875 L 5.40625 20.78125 L 5.1875 21 
+                                    L 5.125 21.3125 L 4.03125 26.8125 L 3.71875 28.28125 L 5.1875 27.96875 L 10.6875 26.875 L 11 26.8125 
+                                    L 11.21875 26.59375 L 26.8125 11 C 28.438857 9.373643 28.438857 6.813857 26.8125 5.1875 C 25.999322 
+                                    4.3743215 24.953214 3.96875 23.90625 3.96875 z M 23.90625 5.875 C 24.409286 5.875 24.919428 6.1069285 
+                                    25.40625 6.59375 C 26.379893 7.567393 26.379893 8.620107 25.40625 9.59375 L 24.6875 10.28125 L 21.71875 
+                                    7.3125 L 22.40625 6.59375 C 22.893072 6.1069285 23.403214 5.875 23.90625 5.875 z M 20.3125 8.71875 
+                                    L 23.28125 11.6875 L 11.1875 23.78125 C 10.533142 22.500659 9.4993415 21.466858 8.21875 20.8125 L 
+                                    20.3125 8.71875 z M 6.9375 22.4375 C 8.1365842 22.923393 9.0766067 23.863416 9.5625 25.0625 L 6.28125 
+                                    25.71875 L 6.9375 22.4375 z
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+        </Grid>
+    </Border>
+</UserControl>

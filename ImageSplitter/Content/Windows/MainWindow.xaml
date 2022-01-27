@@ -1,4 +1,4 @@
-﻿<Window xmlns:ImageDuplicateScan="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"  xmlns:Controls="clr-namespace:ImageSplitter.Content.Controls"
+﻿<Window xmlns:Tags="clr-namespace:ImageSplitter.Content.Controls.Tags"  xmlns:ImageDuplicateScan="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"  xmlns:Controls="clr-namespace:ImageSplitter.Content.Controls"
         xmlns:SplitControls="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
         x:Class="ImageSplitter.Content.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -61,6 +61,27 @@
             </TabItem.Header>
             <TabItem.Content>
                 <ImageDuplicateScan:ImageDuplicatesControl x:Name="ImageDuplicates" />
+            </TabItem.Content>
+        </TabItem>
+        <!-- Вкладка тегов -->
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock Text="Работа с тегами">
+                    <TextBlock.ToolTip>
+                        <ToolTip Content="Ctrl+5" />
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </TabItem.Header>
+            <TabItem.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <Tags:TagsListPanel x:Name="TestTagsPanel" Grid.Column="1" />
+                    <Tags:TagsPanel  x:Name="TestImageTagsPanel" Grid.Column="0" VerticalAlignment="Bottom" Height="400" />
+                </Grid>
             </TabItem.Content>
         </TabItem>
     </TabControl>

@@ -106,5 +106,11 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// </summary>
         /// <param name="tabId">Id вкладки для перехода</param>
         public delegate void SendToTabRequestEventHandler(int tabId);
+
+        /// <summary>
+        /// Запрос на действие с тегом
+        /// </summary>
+        /// <param name="tagId">Id тега</param>
+        public delegate void TagActionRequestEventHandler(uint tagId);
     }
 }

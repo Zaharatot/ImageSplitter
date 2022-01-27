@@ -65,13 +65,19 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
                     counter = 0;
                     do
                     {
-                        //Получаем имя файла
-                        name = files[id].Name;
-                        //Если имя файла больше 150 символов
-                        if (name.Length > 150)
-                            //Обрезаем его
-                            name = name.Substring(0, 150);
-                        files[id].MoveTo(path + name);
+                        //Если файл не скрытый системный или онли для чтения
+                        if (!(files[id].Attributes.HasFlag(FileAttributes.Hidden) 
+                            || files[id].Attributes.HasFlag(FileAttributes.System)
+                            || files[id].Attributes.HasFlag(FileAttributes.ReadOnly)))
+                        {
+                            //Получаем имя файла
+                            name = files[id].Name;
+                            //Если имя файла больше 150 символов
+                            if (name.Length > 150)
+                                //Обрезаем его
+                                name = name.Substring(0, 150);
+                            files[id].MoveTo(path + name);
+                        }
                         counter++;
                         id++;
                     } while ((id < files.Length) && (counter < countFiles));
