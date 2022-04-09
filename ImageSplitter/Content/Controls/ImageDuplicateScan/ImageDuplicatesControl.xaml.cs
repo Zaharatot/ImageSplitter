@@ -127,17 +127,36 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         /// <param name="images">Общий список изображений</param>
         /// <param name="target">Изображение-оригинал</param>
+        /// <param name="id">Идентификатор элемента</param>
         /// <returns>Созданный контролл</returns>
-        private FindedImagesPanel CreateDuplicatesPanel(List<DuplicateImageInfo> images, DuplicateImageInfo target)
+        private FindedImagesPanel CreateDuplicatesPanel(List<DuplicateImageInfo> images, DuplicateImageInfo target, int id)
         {
             //Создаём целевой контролл
             FindedImagesPanel imagesPanel = new FindedImagesPanel();
             //Добавляем обработчик события выделения контролла
             imagesPanel.UpdateFindedImageControlSelection += ImagesPanel_UpdateFindedImageControlSelection;
+            //Добавляем обработчик события запроса на скрытие остальных панелей
+            imagesPanel.HidePanelRequest += ImagesPanel_HidePanelRequest;
             //Проставляем контент в панель
-            imagesPanel.SetImagesToControl(images, target);
+            imagesPanel.SetImagesToControl(images, target, id);
             //Возвращаем созданный контролл
             return imagesPanel;
+        }
+
+        /// <summary>
+        /// Jбработчик события запроса на скрытие остальных панелей
+        /// </summary>
+        /// <param name="showedPanelHeader">Pfujhkjdjr jnrhsditqcz gfytkb</param>
+        private void ImagesPanel_HidePanelRequest(string showedPanelHeader)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            {
+                //Если панель развёрнута и она не является только что открытой
+                if (imagesPanel.IsExpanded && (imagesPanel.ElementHeader != showedPanelHeader))
+                    //СВорачиваем её
+                    imagesPanel.IsExpanded = false;
+            }
         }
 
         /// <summary>
@@ -185,6 +204,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             {
                 //Удаляем обработчик события выделения контролла
                 imagesPanel.UpdateFindedImageControlSelection -= ImagesPanel_UpdateFindedImageControlSelection;
+                //Удаляем обработчик события запроса на скрытие остальных панелей
+                imagesPanel.HidePanelRequest -= ImagesPanel_HidePanelRequest;
                 //Удаляем всё со старой панели
                 imagesPanel.ClearOldImages();
             }
@@ -211,15 +232,17 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         {
             //Проставляем бесконечный скролл
             ScanProgressBar.IsIndeterminate = true;
-           //Удаляем старые панели дубликатов с панели
-           ClearOldPanels();
+            //Идентификатор элемента
+            int id = 1;
+            //Удаляем старые панели дубликатов с панели
+            ClearOldPanels();
             //Проходимся по списку дубликатов
             foreach (var image in images)
             {
                 //Если дубликаты у данного изображения есть
                 if(image.Duplicates.Count > 0)
                     //Создаём и добавляем на панель контролл панели дубликатов
-                    MainPanel.Children.Add(CreateDuplicatesPanel(images, image));
+                    MainPanel.Children.Add(CreateDuplicatesPanel(images, image, id++));
             }
             //Ставим сразу максимальный прогресс
             SetScanProgress(1, 1);

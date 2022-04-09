@@ -87,7 +87,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
             //Считываем байты файла в поток в памяти
-            ex.StreamSource = File.OpenRead(path);
+            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
             ex.EndInit();
             return ex;
         }
@@ -121,6 +121,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 BitmapImage source = (BitmapImage)FindedImageIcon.Source;
                 //Очищаем поток
                 source.StreamSource.Dispose();
+                //Закрываем поток
+                source.StreamSource.Close();
+                //Сбрасываем источник
+                FindedImageIcon.Source = null;
             }
         }
 
@@ -139,10 +143,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         {
             //Запоминаем переданное значение
             _imageInfo = info;
-            //Закрываем поток в памяти, связанный с изображением
-            CloseImageSource();
-            //Грузим картинку в контролл
-            FindedImageIcon.Source = LoadImageByPath(info.Path);
             //Проставляем инфу в текстовые поля
             ImageParentFolderToolTip.Content = info.ParentFolderName;
             ImageParentFolderRun.Text = $"[{info.ParentFolderName}]";
@@ -158,5 +158,17 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <returns>Информация об изображении</returns>
         public DuplicateImageInfo GetControlInfo() =>
             _imageInfo;
+
+   
+        /// <summary>
+        /// Метод выполнения подгрузки изображения в контролл
+        /// </summary>
+        public void LoadImage()
+        {
+            //Закрываем поток в памяти, связанный с изображением
+            CloseImageSource();
+            //Грузим картинку в контролл
+            FindedImageIcon.Source = LoadImageByPath(_imageInfo.Path);
+        }
     }
 }

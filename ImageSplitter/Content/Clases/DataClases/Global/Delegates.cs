@@ -108,9 +108,10 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public delegate void SendToTabRequestEventHandler(int tabId);
 
         /// <summary>
-        /// Запрос на действие с тегом
+        /// Делегат события запроса на скрытие панелей
         /// </summary>
-        /// <param name="tagId">Id тега</param>
-        public delegate void TagActionRequestEventHandler(uint tagId);
+        /// <param name="showedPanelHeader">Заголовок только что открытой панели</param>
+        public delegate void HidePanelRequestEventHandler(string showedPanelHeader);
+
     }
 }

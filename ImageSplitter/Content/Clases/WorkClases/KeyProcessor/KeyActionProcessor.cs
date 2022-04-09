@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace ImageSplitter.Content.Clases.WorkClases.KeyProcessor
 {
-    /// <summary>
+    /// <summary> 
     /// Класс обработки действий связанных с нажатиями клавишь
     /// </summary>
     internal class KeyActionProcessor

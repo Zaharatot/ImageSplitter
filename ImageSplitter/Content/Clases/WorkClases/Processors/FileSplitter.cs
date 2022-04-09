@@ -52,8 +52,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
             //Путь загрузки
             string path;
             string name;
-            //Если файлы в папке есть
-            if (files.Length > 0)
+            //Если файлов в папке больше чем нужно для сплита
+            if (files.Length > countFiles)
             {
                 do
                 {
@@ -76,6 +76,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors
                             if (name.Length > 150)
                                 //Обрезаем его
                                 name = name.Substring(0, 150);
+                            //Перемещаем файл
                             files[id].MoveTo(path + name);
                         }
                         counter++;

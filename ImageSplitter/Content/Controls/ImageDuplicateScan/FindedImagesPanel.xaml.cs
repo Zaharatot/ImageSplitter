@@ -28,6 +28,24 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Событие обновления выделения для контроллов найденных изображений
         /// </summary>
         public event UpdateFindedImageControlSelectionEventHandler UpdateFindedImageControlSelection;
+        /// <summary>
+        /// Событие запроса на скрытие остальных панелей
+        /// </summary>
+        public event HidePanelRequestEventHandler HidePanelRequest;
+
+
+        /// <summary>
+        /// Строка заголовка контролла
+        /// </summary>
+        public string ElementHeader => (string)ShowPanelExpander.Header;
+        /// <summary>
+        /// Флаг развёртывания панели
+        /// </summary>
+        public bool IsExpanded
+        {
+            get => ShowPanelExpander.IsExpanded;
+            set => ShowPanelExpander.IsExpanded = value;
+        }
 
         /// <summary>
         /// Конструктор контролла
@@ -35,6 +53,15 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         public FindedImagesPanel()
         {
             InitializeComponent();
+            Init();
+        }
+
+        /// <summary>
+        /// Инициализатор контролла
+        /// </summary>
+        private void Init()
+        {
+            
         }
 
         /// <summary>
@@ -58,6 +85,31 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private void SetAllCheckBoxesButton_Click(object sender, RoutedEventArgs e) =>
             //Проставляем все галочки на чекбоксах
             SetAllCheckBoxesState(true);
+
+        /// <summary>
+        /// Обработчик события показа панели
+        /// </summary>
+        private void ShowPanelExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+                //Подгружаем все картинки на контролл
+                imageControl.LoadImage();
+            //Вызываем ивент скрытия остальных панелей
+            HidePanelRequest?.Invoke(ElementHeader);
+        }
+
+        /// <summary>
+        /// Обработчик события скрытия панели
+        /// </summary>
+        private void ShowPanelExpander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+                //Выгружаем все картинки с контролла
+                imageControl.CloseImageSource();
+        }
+
 
 
         /// <summary>
@@ -95,10 +147,13 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         /// <param name="images">Общий список изображений</param>
         /// <param name="target">Изображение-оригинал</param>
-        public void SetImagesToControl(List<DuplicateImageInfo> images, DuplicateImageInfo target)
+        /// <param name="id">Идентификатор элемента</param>
+        public void SetImagesToControl(List<DuplicateImageInfo> images, DuplicateImageInfo target, int id)
         {
             //Удаляем старые изображения с панели
             ClearOldImages();
+            //Втыкаем имя файла в загрзовок экспандера
+            ShowPanelExpander.Header = $"[#{id}] {target.Name}";
             //Создаём и добавляем на панель контролл оригинала
             MainPanel.Children.Add(CreateControl(target));
             //Проходимся по списку дубликатов

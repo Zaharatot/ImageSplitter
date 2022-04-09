@@ -28,7 +28,7 @@
                 <TextBox x:Name="SplitPathTextBox" TabIndex="0" Margin="0,0,0,5" />
                 <!-- Количество файлов в папке для сплита -->
                 <TextBlock Text="Количество файлов в папке:" />
-                <TextBox x:Name="SplitCountTextBox" TabIndex="0" Margin="0,0,0,5" Text="150" />
+                <TextBox x:Name="SplitCountTextBox" TabIndex="0" Margin="0,0,0,5" Text="50" />
                 <!-- Флажок сплита в дочерних папках -->
                 <CheckBox x:Name="SplitChildsCheckBox" Content="Сплит в дочерних папках" />
                 <!-- Кнопка запуска сплита -->

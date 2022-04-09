@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -125,18 +126,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\Tags\TagPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Tags\TagsListPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Tags\TagsPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Content\Windows\AddFolderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,11 +168,6 @@
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\SizeCalculator.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitImages.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\Tags\ImagesWork.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\Tags\ImageTagUpdater.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\Tags\Service\JpegTagReader.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\Tags\Service\TagsLoader.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\Tags\TagsWork.cs" />
     <Compile Include="Content\Controls\FileSplitParamsControl.xaml.cs">
       <DependentUpon>FileSplitParamsControl.xaml</DependentUpon>
     </Compile>
@@ -216,15 +200,6 @@
     </Compile>
     <Compile Include="Content\Controls\ImageSplit\SplitImagesControl.xaml.cs">
       <DependentUpon>SplitImagesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Tags\TagPanel.xaml.cs">
-      <DependentUpon>TagPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Tags\TagsListPanel.xaml.cs">
-      <DependentUpon>TagsListPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Tags\TagsPanel.xaml.cs">
-      <DependentUpon>TagsPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Windows\AddFolderWindow.xaml.cs">
       <DependentUpon>AddFolderWindow.xaml</DependentUpon>
@@ -281,9 +256,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Clases\WorkClases\Loader\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Split_Files_icon-icons.com_55814.ico" />
   </ItemGroup>
