@@ -104,10 +104,10 @@ namespace ImageSplitter.Content.Windows
             if (string.IsNullOrEmpty(name))
                 //Выводим ошибку пустого имени
                 ShowFolderNameError(ref ex, "Имя папки не должно быть пустым!");
-            //Если папка уже существует
-            if (Directory.Exists($"{path}{name}"))
-                //Выводим ошибку дубликата
-                ShowFolderNameError(ref ex, "Папка с таким именем уже существует в текущей директории!");
+            ////Если папка уже существует
+            //if (Directory.Exists($"{path}{name}"))
+            //    //Выводим ошибку дубликата
+            //    ShowFolderNameError(ref ex, "Папка с таким именем уже существует в текущей директории!");
             //Возвращаем результат
             return ex;
         }

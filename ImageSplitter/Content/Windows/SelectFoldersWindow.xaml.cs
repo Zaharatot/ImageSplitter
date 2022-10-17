@@ -65,20 +65,45 @@ namespace ImageSplitter.Content.Windows
                 checkBox.IsChecked = false;
         }
 
+        /// <summary>
+        /// Метод проверки наличия старых папок в новом списке
+        /// </summary>
+        /// <param name="folders">Новый список папок</param>
+        /// <param name="targets">Текущий список выбранных папок</param>
+        /// <returns>Старые папки есть в списке</returns>
+        private bool IsContainOldFolders(List<TargetFolderInfo> folders, List<TargetFolderInfo> targets)
+        {
+            //Если старых папок нет
+            if (targets.Count == 0)
+                //Возвращаем успех
+                return true;
+
+            //Проходимся по списку папок
+            foreach (var folder in folders)
+                //Если папка есть в старом списке
+                if (targets.Any(dir => dir.Name.Equals(folder.Name)))
+                    //Возвращаем флаг нахождения
+                    return false;
+            //Если ни одной папки не совпало - возвращаем флаг отсутствия
+            return true;
+        }
 
         /// <summary>
         /// Обновляем список папок
         /// </summary>
         /// <param name="folders">Новый список папок</param>
-        private void UpdateFoldersList(List<TargetFolderInfo> folders)
+        /// <param name="targets">Текущий список выбранных папок</param>
+        private void UpdateFoldersList(List<TargetFolderInfo> folders, List<TargetFolderInfo> targets)
         {
+            //Получаем флаг пустого 
+            bool isEmpty = IsContainOldFolders(folders, targets);
             //Очищаем список от старых элементов
             ContentListBox.Items.Clear();
             //Добавляем в список чекбоксы по списку папок
             foreach (var folder in folders)
                 ContentListBox.Items.Add(new CheckBox() { 
                     Content = folder.Name,
-                    IsChecked = true
+                    IsChecked = isEmpty || targets.Any(dir => dir.Name.Equals(folder.Name))
                 });
         }
 
@@ -115,11 +140,12 @@ namespace ImageSplitter.Content.Windows
         /// Получаем список папок для работы
         /// </summary>
         /// <param name="folders">Список папок для обработки</param>
+        /// <param name="targets">Текущий список выбранных папок</param>
         /// <returns>Список выбранных папок</returns>
-        public List<TargetFolderInfo> GetFoldersToWork(List<TargetFolderInfo> folders)
+        public List<TargetFolderInfo> GetFoldersToWork(List<TargetFolderInfo> folders, List<TargetFolderInfo> targets)
         {
             //Обновляем список папок
-            UpdateFoldersList(folders);
+            UpdateFoldersList(folders, targets);
             //Отображаем данное окно как диалоговое
             bool? result = this.ShowDialog();
             //Если окно было успешно закрыто

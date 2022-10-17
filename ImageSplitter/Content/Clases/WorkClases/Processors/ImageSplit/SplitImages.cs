@@ -110,7 +110,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 //Инициализируем окно выбора папок
                 SelectFoldersWindow foldersWindow = new SelectFoldersWindow();
                 //Получаем список папок для работы
-                foldersList = foldersWindow.GetFoldersToWork(foldersList);
+                foldersList = foldersWindow.GetFoldersToWork(foldersList, _targets);
                 //Проставляем список папок
                 _targets = foldersList;
                 //Запрашиваем обновление инфы о сплите
@@ -240,8 +240,10 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 {
                     //Получаем полный путь к новой папке
                     string path = $"{_foldersPath}{newFolderName}\\";
-                    //Создаём папку
-                    Directory.CreateDirectory(path);
+                    //Если папки не существует
+                    if(!Directory.Exists(path))
+                        //Создаём папку
+                        Directory.CreateDirectory(path);
                     //Добавляем папку в список целей
                     _targets.Add(new TargetFolderInfo() {
                         Name = newFolderName,

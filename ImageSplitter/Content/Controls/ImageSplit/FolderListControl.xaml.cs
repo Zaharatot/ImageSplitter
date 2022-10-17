@@ -60,6 +60,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             AddNewFolderRequest?.Invoke();
 
 
+
         /// <summary>
         /// Запрос о необходимости удаления папки
         /// </summary>
@@ -109,5 +110,6 @@ namespace ImageSplitter.Content.Controls.ImageSplit
                 //Генерируем и добавляем на панель контролл информации о папке
                 FoldersList.Children.Add(CreateFolderInfoControl(folder));
         }
+
     }
 }
