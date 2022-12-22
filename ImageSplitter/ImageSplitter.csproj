@@ -58,9 +58,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DCTHashZ">
-      <HintPath>..\..\..\Completed\DCTHashZ\DCTHashZ\DCTHashZ\bin\Release\DCTHashZ.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -91,6 +88,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageDuplicateScan\ScanProgressControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,7 +140,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Content\Clases\DataClases\Global\Delegates.cs" />
-    <Compile Include="Content\Clases\DataClases\Duplicates\DuplicateImageInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Content\Clases\DataClases\Global\GlobalEvents.cs" />
     <Compile Include="Content\Clases\DataClases\Interfaces\IHotKeyProcessor.cs" />
@@ -157,13 +157,8 @@
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FindDuplicatesTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FilesSplitTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\CollectionsSplitTab.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\BestDuplicateFinder.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\DuplicateFinder.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\DuplicateScan.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileRenamer.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileSplitter.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\ImageInfoConverter.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FindDuplicates\ImageScanner.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CollectionsScanner.cs" />
     <Compile Include="Content\Clases\WorkClases\MainWork.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
@@ -177,6 +172,9 @@
     </Compile>
     <Compile Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml.cs">
       <DependentUpon>FindedImagesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageDuplicateScan\ScanProgressControl.xaml.cs">
+      <DependentUpon>ScanProgressControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\ImageSplit\FolderInfoControl.xaml.cs">
       <DependentUpon>FolderInfoControl.xaml</DependentUpon>
@@ -258,10 +256,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Clases\WorkClases\Storage\" />
+    <Resource Include="Split_Files_icon-icons.com_55814.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Split_Files_icon-icons.com_55814.ico" />
+    <ProjectReference Include="..\DuplicateScanner\DuplicateScanner.csproj">
+      <Project>{f9ecb383-c07a-481b-8a58-ff6166b187b5}</Project>
+      <Name>DuplicateScanner</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

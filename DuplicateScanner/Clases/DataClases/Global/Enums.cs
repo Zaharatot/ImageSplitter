@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DuplicateScanner.Clases.DataClases.Global
+{
+    /// <summary>
+    /// Класс глобальных перечислений
+    /// </summary>
+    public class Enums
+    {
+        /// <summary>
+        /// Перечисление статусов дубликата
+        /// </summary>
+        public enum DuplicateStates
+        {
+            /// <summary>
+            /// Дубликат был добавлен в список
+            /// </summary>
+            Added = 0,
+            /// <summary>
+            /// Для файла были корректно вычислены значения
+            /// </summary>
+            Calculated = 1,
+            /// <summary>
+            /// Ошибка загрузки изображения
+            /// </summary>
+            ImageLoadError = 2,
+            /// <summary>
+            /// Ошибка вычисления хешей
+            /// </summary>
+            CalculateHashesError = 3,
+        }
+
+        /// <summary>
+        /// Перечисление стадий сканирования
+        /// </summary>
+        public enum ScanStages
+        {
+            /// <summary>
+            /// Поиск файлов изображений по указанному пути
+            /// </summary>
+            FindFiles = 0,
+            /// <summary>
+            /// Генерация хешей для найденных файлов
+            /// </summary>
+            HashGeneration = 1,
+            /// <summary>
+            /// Сохранение данных о хешах
+            /// </summary>
+            SavingData = 2,
+            /// <summary>
+            /// Поиск дубликатов
+            /// </summary>
+            DuplicateFind = 3
+        }
+    }
+}

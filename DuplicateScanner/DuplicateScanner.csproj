@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9ECB383-C07A-481B-8A58-FF6166B187B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DuplicateScanner</RootNamespace>
+    <AssemblyName>DuplicateScanner</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DCTHashZ, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Completed\DCTHashZ\DCTHashZ\DCTHashZ\bin\Debug\DCTHashZ.dll</HintPath>
+    </Reference>
+    <Reference Include="LiningLibZ, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Completed\LiningLibZDemo\LiningLibZ\bin\Debug\LiningLibZ.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clases\DataClases\File\HashesGroup.cs" />
+    <Compile Include="Clases\DataClases\Global\Delegates.cs" />
+    <Compile Include="Clases\DataClases\Global\Enums.cs" />
+    <Compile Include="Clases\DataClases\Image\ByteImageInfo.cs" />
+    <Compile Include="Clases\DataClases\File\DuplicateInfo.cs" />
+    <Compile Include="Clases\DataClases\Result\DuplicateResult.cs" />
+    <Compile Include="Clases\DataClases\Result\FindResult.cs" />
+    <Compile Include="Clases\DataClases\Result\ProgressInfo.cs" />
+    <Compile Include="Clases\DataClases\Result\ScanProgressInfo.cs" />
+    <Compile Include="Clases\WorkClases\DuplicateScanner.cs" />
+    <Compile Include="Clases\WorkClases\Files\DuplicateInfoLoader.cs" />
+    <Compile Include="Clases\WorkClases\Files\FileScanner.cs" />
+    <Compile Include="Clases\WorkClases\Files\FileWork.cs" />
+    <Compile Include="Clases\WorkClases\Finder\DuplicatesFind.cs" />
+    <Compile Include="Clases\WorkClases\Finder\EqualDctHash.cs" />
+    <Compile Include="Clases\WorkClases\Hash\HashCalculator.cs" />
+    <Compile Include="Clases\WorkClases\Image\GrayScaleTransform.cs" />
+    <Compile Include="Clases\WorkClases\Image\LoadImagePixels.cs" />
+    <Compile Include="DuplicateScannerFasade.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

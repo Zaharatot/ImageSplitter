@@ -1,5 +1,4 @@
-﻿using ImageSplitter.Content.Clases.DataClases.Duplicates;
-using ImageSplitter.Content.Clases.DataClases.Split;
+﻿using ImageSplitter.Content.Clases.DataClases.Split;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,22 +25,6 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// Событие завершения переноса изображения
         /// </summary>
         public static event EmptyEventHandler MoveImageComplete;
-        /// <summary>
-        /// Событие завершения сканирования дубликатов
-        /// </summary>
-        public static event DuplicateScanCompleteEventHandler DuplicateScanComplete;
-        /// <summary>
-        /// Событие завершения сканирования дубликатов, при котором не было найдено дублей
-        /// </summary>
-        public static event EmptyEventHandler DuplicateScanNotFound;
-        /// <summary>
-        /// Событие обновления информации о прогрессе сканирования дубликатов
-        /// </summary>
-        public static event DuplicateScanProgressEventHandler DuplicateScanProgress;
-        /// <summary>
-        /// Событие завершения удаления дубликатов
-        /// </summary>
-        public static event EmptyEventHandler RemoveDuplicatesComplete;
 
 
         /// <summary>
@@ -64,33 +47,6 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public static void InvokeMoveImageComplete() =>
             MoveImageComplete?.Invoke();
 
-        /// <summary>
-        /// Метод вызова ивента завершения сканирования дубликатов
-        /// </summary>
-        /// <param name="duplicates">Список дубликатов для отображения</param>
-        public static void InvokeDuplicateScanComplete(List<DuplicateImageInfo> duplicates) =>
-            DuplicateScanComplete?.Invoke(duplicates);
-
-        /// <summary>
-        /// Метод вызова ивента обновления информации о прогрессе сканирования дубликатов
-        /// </summary>
-        /// <param name="current">Текущее значение</param>
-        /// <param name="max">Максимальное значение</param>
-        public static void InvokeDuplicateScanProgress(int current, int max) =>
-            DuplicateScanProgress?.Invoke(current, max);
-
-        /// <summary>
-        /// Метод вызова ивента завершения удаления дубликатов
-        /// </summary>
-        public static void InvokeRemoveDuplicatesComplete() =>
-            RemoveDuplicatesComplete?.Invoke();
-
-        /// <summary>
-        /// Метод вызова ивента завершения сканирования 
-        /// дубликатов, при котором не было найдено дублей
-        /// </summary>
-        public static void InvokeDuplicateScanNotFound() =>
-            DuplicateScanNotFound?.Invoke();
 
     }
 }

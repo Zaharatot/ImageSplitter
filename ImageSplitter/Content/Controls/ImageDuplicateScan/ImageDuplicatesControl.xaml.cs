@@ -1,5 +1,6 @@
-﻿using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Result;
+using ImageSplitter.Content.Clases.DataClases;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,8 +63,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             {
                 //Убираем выбранное изображение
                 TargetImage.Source = null;
-                //Собираем дубликаты с панели и отправляем в ивенте запуска их удаления
-                DuplicateRemove?.Invoke(GetDuplicatesToRemove());
+                //Получаем список хешей из всех контроллов выбора
+                GetHashesFormSelectors(out HashesGroup toRemove, out List<HashesGroup> groups);
+                //Вызываем ивент запроса дуаления, передавая в него списки хешей
+                DuplicateRemove?.Invoke(toRemove, groups);
             }
         }
 
@@ -97,18 +100,26 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             ) == MessageBoxResult.Yes);
 
         /// <summary>
-        /// Получаем список дубликатов помеченных под удаление
+        /// Получаем список хешей из всех контроллов выбора
         /// </summary>
-        /// <returns>Список дубликатов помеченных под удаление</returns>
-        private List<DuplicateImageInfo> GetDuplicatesToRemove()
+        /// <param name="groups">Список запрещённых групп</param>
+        /// <param name="toRemove">Группа хешей для удаления</param>
+        private void GetHashesFormSelectors(out HashesGroup toRemove, out List<HashesGroup> groups)
         {
-            List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>();
+            //Инициализируем выходные классы
+            toRemove = new HashesGroup();
+            groups = new List<HashesGroup>();
+            //Локальные массивы для получения значений
+            List<int> selectedHashes, notSelectedHashes;
             //Проходимся по всем контроллам панели
             foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
-                //Добавляем в список все отмеченные дубликаты с панели
-                ex.AddRange(imagesPanel.GetSelectedDulicateInfoFromChilds());
-            //Возвращаем результат
-            return ex;
+            {
+                //Получчаем из панели все выбранные и не выбранные хеши
+                imagesPanel.GetHashesFromChilds(out selectedHashes, out notSelectedHashes);
+                //Добавляем полученные значения в выходные классы
+                toRemove.HashList.AddRange(selectedHashes);
+                groups.Add(new HashesGroup(notSelectedHashes));
+            }
         }
 
         /// <summary>
@@ -125,11 +136,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Создаём контролл панели дубликатов
         /// </summary>
-        /// <param name="images">Общий список изображений</param>
-        /// <param name="target">Изображение-оригинал</param>
+        /// <param name="result">Класс результата поиска дубликатов</param>
         /// <param name="id">Идентификатор элемента</param>
         /// <returns>Созданный контролл</returns>
-        private FindedImagesPanel CreateDuplicatesPanel(List<DuplicateImageInfo> images, DuplicateImageInfo target, int id)
+        private FindedImagesPanel CreateDuplicatesPanel(FindResult result, int id)
         {
             //Создаём целевой контролл
             FindedImagesPanel imagesPanel = new FindedImagesPanel();
@@ -138,7 +148,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Добавляем обработчик события запроса на скрытие остальных панелей
             imagesPanel.HidePanelRequest += ImagesPanel_HidePanelRequest;
             //Проставляем контент в панель
-            imagesPanel.SetImagesToControl(images, target, id);
+            imagesPanel.SetImagesToControl(result, id);
             //Возвращаем созданный контролл
             return imagesPanel;
         }
@@ -214,40 +224,54 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
-        /// Проставляем текущее значение прогресса сканирования
+        /// Метод обновления видимости контролла прогресса
         /// </summary>
-        /// <param name="current">Текущее значение</param>
-        /// <param name="max">Максимальное значение</param>
-        public void SetScanProgress(int current, int max)
-        {
-            ScanProgressBar.Value = current;
-            ScanProgressBar.Maximum = max;
-        }
+        /// <param name="isVisible">Новое значение видимости для контролла</param>
+        public void SetProgressPanelVisiblity(bool isVisible) =>
+            //Меняем видимость контролла прогресса
+            MainProgressControl.Visibility = (isVisible) 
+                ? Visibility.Visible : Visibility.Collapsed;
+
+        /// <summary>
+        /// Обновляем информацию об удалении
+        /// </summary>
+        /// <param name="info">Информация об удалении</param>
+        public void UpdateRemoveInfo(ProgressInfo info) =>
+            //Передаём значение в контролл
+            MainProgressControl.UpdateRemoveInfo(info);
+
+
+        /// <summary>
+        /// Выполняем обновление информации о прогрессе сканирования
+        /// </summary>
+        /// <param name="info">Информация о прогрессе сканирования</param>
+        public void UpdateScanInfo(ScanProgressInfo info) =>
+            //Передаём значение в контролл
+            MainProgressControl.UpdateScanInfo(info);
+
 
         /// <summary>
         /// Проставляем изображения в контролл
         /// </summary>
-        /// <param name="images">Список изображений-дубликатов</param>
-        public void SetImages(List<DuplicateImageInfo> images)
+        /// <param name="results">Класс результатов поиска дубликатов</param>
+        public void SetImages(List<FindResult> results)
         {
-            //Проставляем бесконечный скролл
-            ScanProgressBar.IsIndeterminate = true;
-            //Идентификатор элемента
-            int id = 1;
+            //Отображем контролл прогресса
+            MainProgressControl.Visibility = Visibility.Visible;
             //Удаляем старые панели дубликатов с панели
             ClearOldPanels();
             //Проходимся по списку дубликатов
-            foreach (var image in images)
+            for (int i = 0; i < results.Count; i++)
             {
-                //Если дубликаты у данного изображения есть
-                if(image.Duplicates.Count > 0)
-                    //Создаём и добавляем на панель контролл панели дубликатов
-                    MainPanel.Children.Add(CreateDuplicatesPanel(images, image, id++));
+                //Отображаем прогресс визуализации
+                MainProgressControl.UpdateVisualizeStage(i + 1, results.Count);
+                //Создаём и добавляем на панель контролл панели дубликатов
+                MainPanel.Children.Add(CreateDuplicatesPanel(results[i], i + 1));
             }
-            //Ставим сразу максимальный прогресс
-            SetScanProgress(1, 1);
-            //Сбрвасываем бесконечный скролл
-            ScanProgressBar.IsIndeterminate = false;
+            //Отображаем прогресс визуализации
+            MainProgressControl.UpdateVisualizeStage(results.Count, results.Count);
+            //Скрываем контролл прогресса
+            MainProgressControl.Visibility = Visibility.Collapsed;
         }
 
     }

@@ -1,8 +1,8 @@
-﻿using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner;
+using DuplicateScanner.Clases.DataClases.File;
+using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Processors;
-using ImageSplitter.Content.Clases.WorkClases.Processors.FindDuplicates;
 using ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit;
 using ImageSplitter.Content.Windows;
 using System;
@@ -36,7 +36,9 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Класс поиска дубликатов
         /// </summary>
-        private DuplicateScan _duplicateScan;
+        private DuplicateScannerFasade _duplicateScan;
+
+
 
         /// <summary>
         /// Конструктор класса
@@ -58,7 +60,7 @@ namespace ImageSplitter.Content.Clases.WorkClases
             //Инициализируем класс переименования
             _renameFiles = new FileRenamer();
             //Инициализируем класс поиска дубликатов
-            _duplicateScan = new DuplicateScan();
+            _duplicateScan = new DuplicateScannerFasade();
         }
 
 
@@ -162,10 +164,11 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Метод запуска удаления дублиткатов
         /// </summary>
-        /// <param name="duplicates">Список дубликатов для удаления</param>
-        public void RemoveDuplicates(List<DuplicateImageInfo> duplicates) =>
+        /// <param name="groups">Список запрещённых групп</param>
+        /// <param name="toRemove">Группа хешей для удаления</param>
+        public void RemoveDuplicates(HashesGroup toRemove, List<HashesGroup> groups) =>
             //Вызываем внутренний метод
-            _duplicateScan.RemoveDuplicates(duplicates);
+            _duplicateScan.RemoveDuplicates(toRemove, groups);
 
         /// <summary>
         /// Метод очистки неуправляемых ресурсов класса

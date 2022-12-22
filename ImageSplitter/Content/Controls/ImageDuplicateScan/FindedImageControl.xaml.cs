@@ -1,5 +1,5 @@
-﻿using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner.Clases.DataClases.Result;
+using ImageSplitter.Content.Clases.DataClases;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,10 +30,22 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         public event UpdateFindedImageControlSelectionEventHandler UpdateFindedImageControlSelection;
 
+
+
         /// <summary>
-        /// Информация о привязанном изображении
+        /// Хеш дубликата
         /// </summary>
-        private DuplicateImageInfo _imageInfo;
+        public int DuplicateHash => _result.PathHash;
+        /// <summary>
+        /// Флаг выбора данного контролла
+        /// </summary>
+        public bool IsSelected => GetCheckBoxState();
+
+
+        /// <summary>
+        /// Информация о результате поиска
+        /// </summary>
+        private DuplicateResult _result;
 
         /// <summary>
         /// Конструктор контролла
@@ -50,7 +62,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private void Init()
         {
             //Проставляем дефолтные значения
-            _imageInfo = null;
+            _result = null;
         }
 
 
@@ -60,13 +72,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private void MainPanel_MouseDown(object sender, MouseButtonEventArgs e) =>
             //Вызываем внешний ивент
             UpdateFindedImageControlSelection?.Invoke(this);
-
-        /// <summary>
-        /// Обработчик события изменения статуса чекбокса
-        /// </summary>
-        private void SelectImageCheckBox_SetCheckedState(object sender, RoutedEventArgs e) =>
-            //Проставляем флаг необходимости удаления
-            _imageInfo.IsNeedRemove = GetCheckBoxState();
 
         /// <summary>
         /// Получаем значение статуса чекбокса
@@ -139,27 +144,19 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Проставляем инфу в контролл
         /// </summary>
         /// <param name="info">Информация о контролле</param>
-        public void SetControlInfo(DuplicateImageInfo info)
+        public void SetControlInfo(DuplicateResult info)
         {
             //Запоминаем переданное значение
-            _imageInfo = info;
+            _result = info;
             //Проставляем инфу в текстовые поля
-            ImageParentFolderToolTip.Content = info.ParentFolderName;
-            ImageParentFolderRun.Text = $"[{info.ParentFolderName}]";
+            ImageParentFolderToolTip.Content = info.ParentPath;
+            ImageParentFolderRun.Text = $"[{info.ParentName}]";
             ImageNameToolTip.Content = ImageNameRun.Text = info.Name;
-            ImageSizeRun.Text = info.Resolution;
-            //Проставляем флаг удаления
-            SelectImageCheckBox.IsChecked = info.IsNeedRemove;
+            ImageSizeRun.Text = $"{info.Width}x{info.Height}";
         }
 
-        /// <summary>
-        /// Возврат информации об изображении из контролла
-        /// </summary>
-        /// <returns>Информация об изображении</returns>
-        public DuplicateImageInfo GetControlInfo() =>
-            _imageInfo;
 
-   
+
         /// <summary>
         /// Метод выполнения подгрузки изображения в контролл
         /// </summary>
@@ -168,7 +165,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Закрываем поток в памяти, связанный с изображением
             CloseImageSource();
             //Грузим картинку в контролл
-            FindedImageIcon.Source = LoadImageByPath(_imageInfo.Path);
+            FindedImageIcon.Source = LoadImageByPath(_result.Path);
         }
     }
 }

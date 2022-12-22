@@ -1,4 +1,4 @@
-﻿using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner.Clases.DataClases.File;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Controls;
 using ImageSplitter.Content.Controls.ImageDuplicateScan;
@@ -76,30 +76,18 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// <param name="control">Контролл для выделения</param>
         public delegate void UpdateFindedImageControlSelectionEventHandler(FindedImageControl control);
 
+
+        /// <summary>
+        /// Делегат события удаления дубликатов
+        /// </summary>
+        /// <param name="groups">Список запрещённых групп</param>
+        /// <param name="toRemove">Группа хешей для удаления</param>
+        public delegate void DuplicateRemoveEventHandler(HashesGroup toRemove, List<HashesGroup> groups);
         /// <summary>
         /// Делегат события запуска сканирования на дубликаты
         /// </summary>
         /// <param name="path">Путь сканирования</param>
         public delegate void StartDuplicateScanEventHandler(string path);
-
-        /// <summary>
-        /// Делегат события обновления информации о прогрессе сканирования дубликатов
-        /// </summary>
-        /// <param name="current">Текущее значение</param>
-        /// <param name="max">Максимальное значение</param>
-        public delegate void DuplicateScanProgressEventHandler(int current, int max);
-        
-        /// <summary>
-        /// Делегат события завершения поиска дубликатов
-        /// </summary>
-        /// <param name="duplicates">Список дубликатов для отображения</param>
-        public delegate void DuplicateScanCompleteEventHandler(List<DuplicateImageInfo> duplicates);
-
-        /// <summary>
-        /// Делегат события удаления дубликатов
-        /// </summary>
-        /// <param name="duplicates">Список дубликатов для удаления</param>
-        public delegate void DuplicateRemoveEventHandler(List<DuplicateImageInfo> duplicates);
 
         /// <summary>
         /// Делегат события запроса на переход ко вкладке

@@ -1,5 +1,7 @@
-﻿using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner;
+using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Result;
+using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Global;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.DataClases.Tags;
@@ -77,8 +79,6 @@ namespace ImageSplitter.Content.Windows
             InitCurrentEvents();
             InitGlobalEvents();
             InitControlsEvents();
-
-
         }
 
 
@@ -105,14 +105,14 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.ScanComplete += GlobalEvents_ScanComplete;
             //Добавляем обработчик событяи завершения переноса изображения
             GlobalEvents.MoveImageComplete += GlobalEvents_MoveImageComplete;
-            //Добавляем обработчик событяи завершения сканирвоания дубликатов
-            GlobalEvents.DuplicateScanComplete += GlobalEvents_DuplicateScanComplete;
-            //Добавляем обработчик событяи обновления статуса сканирования дубликатов
-            GlobalEvents.DuplicateScanProgress += GlobalEvents_DuplicateScanProgress;
-            //Добавляем обработчик событяи завершения удаления дубликатов
-            GlobalEvents.RemoveDuplicatesComplete += GlobalEvents_RemoveDuplicatesComplete;
-            //Добавляем обработчик событяи завершения сканирования дубликатов, при котором не было найдено дублей
-            GlobalEvents.DuplicateScanNotFound += GlobalEvents_DuplicateScanNotFound;
+            //Добавляем обработчик события обновления статуса сканирования на дубликаты
+            DuplicateScannerFasade.UpdateScanInfo += DuplicateScannerFasade_UpdateScanInfo;
+            //Добавляем обработчик события завершения сканирования на дубликаты
+            DuplicateScannerFasade.CompleteScan += DuplicateScannerFasade_CompleteScan;
+            //Добавляем обработчик события обновления статуса удаления выбранных дубликатов
+            DuplicateScannerFasade.UpdateRemoveInfo += DuplicateScannerFasade_UpdateRemoveInfo;
+            //Добавляем обработчик события завершения удаления выбранных дубликатов
+            DuplicateScannerFasade.CompleteRemove += DuplicateScannerFasade_CompleteRemove;
             //Добавляем обработчик события запроса на переход к коллекции
             CollectionsSplitTab.MoveToCollectionRequest += CollectionsSplitTab_MoveToCollectionRequest;
             //Добавляем обработчик события запроса на переход к изображению в коллекции
@@ -171,39 +171,92 @@ namespace ImageSplitter.Content.Windows
             //ВЫполняем переход к картинке в коллекции
             SplitImages.MoveFolderImage(direction);
 
-        /// <summary>
-        /// Jбработчик событяи завершения сканирования 
-        /// дубликатов, при котором не было найдено дублей
-        /// </summary>
-        private void GlobalEvents_DuplicateScanNotFound() =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Возвращаем доступность окна
-                this.IsEnabled = true;
-                //ВЫводим сообщение о том что не было найдено дубликатов
-                MessageBox.Show("Duplicates not found!");
-            });
+
+
 
         /// <summary>
-        /// Обработчик событяи завершения удаления дубликатов
+        /// Обработчик события обновления статуса удаления выбранных дубликатов
         /// </summary>
-        private void GlobalEvents_RemoveDuplicatesComplete() =>
+        /// <param name="info">ИНформация о статусе удаления дубликатов</param>
+        private void DuplicateScannerFasade_UpdateRemoveInfo(ProgressInfo info)
+        {
             //Вызываем в UI-потоке
             this.Dispatcher.Invoke(() => {
-                //ВЫводим сообщение о завершении удаления дубликатов
-                MessageBox.Show("Duplicate remove complete!");
+                //Передаём информацию о прогрессе в контролл
+                ImageDuplicates.UpdateRemoveInfo(info);
             });
+        }
+
+        /// <summary>
+        /// Обработчик события обновления статуса сканирования на дубликаты
+        /// </summary>
+        /// <param name="info">ИНформация о статусе сканирования</param>
+        private void DuplicateScannerFasade_UpdateScanInfo(ScanProgressInfo info)
+        {
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Передаём информацию о прогрессе в контролл
+                ImageDuplicates.UpdateScanInfo(info);
+            });
+        }
+
+        /// <summary>
+        /// Обработчик события завершения удаления выбранных дубликатов
+        /// </summary>
+        private void DuplicateScannerFasade_CompleteRemove()
+        {
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Выводим сообщение о результате
+                MessageBox.Show("Удаление дубликатов было успешно завершено");
+                //Скрываем панель прогресса
+                ImageDuplicates.SetProgressPanelVisiblity(false);
+                //Возвращаем доступность окна
+                this.IsEnabled = true;
+            });
+        }
+
+        /// <summary>
+        /// Обработчик события завершения сканирования на дубликаты
+        /// </summary>
+        /// <param name="result">Результат сканирования на дубликаты</param>
+        private void DuplicateScannerFasade_CompleteScan(List<FindResult> result)
+        {
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Скрываем панель прогресса
+                ImageDuplicates.SetProgressPanelVisiblity(false);
+                //Если дубликаты не были найдены
+                if(result.Count == 0)
+                    //Выводим сообщение о результате
+                    MessageBox.Show("Дубликаты не были найдены в указанной папке");
+                //Если результаты есть
+                else 
+                    //Втыкаем результаты поиска в контролл
+                    ImageDuplicates.SetImages(result);
+                //Возвращаем доступность окна
+                this.IsEnabled = true;
+            });
+        }
+
+
+
 
         /// <summary>
         /// Обработчик события запуска удаления дубликатов
         /// </summary>
-        /// <param name="duplicates">Список дубликатов для удаления</param>
-        private void ImageDuplicates_DuplicateRemove(List<DuplicateImageInfo> duplicates)
+        /// <param name="groups">Список запрещённых групп</param>
+        /// <param name="toRemove">Группа хешей для удаления</param>
+        private void ImageDuplicates_DuplicateRemove(HashesGroup toRemove, List<HashesGroup> groups)
         {
+            //Выключаем доступность окна
+            this.IsEnabled = false;
+            //Отображаем панель прогресса
+            ImageDuplicates.SetProgressPanelVisiblity(true);
             //Очищаем панель дубликатов
             ImageDuplicates.ClearOldPanels();
             //Вызываем внутренний метод
-            _mainWork.RemoveDuplicates(duplicates);
+            _mainWork.RemoveDuplicates(toRemove, groups);
         }
 
         /// <summary>
@@ -214,6 +267,8 @@ namespace ImageSplitter.Content.Windows
         {
             //Выключаем доступность окна
             this.IsEnabled = false;
+            //Отображаем панель прогресса
+            ImageDuplicates.SetProgressPanelVisiblity(true);
             //Вызываем внутренний метод
             _mainWork.StartDuplicateScan(path);
         }
@@ -256,33 +311,6 @@ namespace ImageSplitter.Content.Windows
             _mainWork.StartScan(scanPath, splitPath, isFolder);
         }
 
-
-        /// <summary>
-        /// Обработчик событяи обновления статуса сканирования дубликатов
-        /// </summary>
-        /// <param name="current">Текущее значение</param>
-        /// <param name="max">Максимальное значение</param>
-        private void GlobalEvents_DuplicateScanProgress(int current, int max) =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Проставляем прогресс сканирования
-                ImageDuplicates.SetScanProgress(current, max);
-            });
-
-        /// <summary>
-        /// Обработчик событяи завершения сканирвоания дубликатов
-        /// </summary>
-        /// <param name="duplicates">Список дубликатов для отображения</param>
-        private void GlobalEvents_DuplicateScanComplete(List<DuplicateImageInfo> duplicates) =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Проставляем дубликаты в контролл
-                ImageDuplicates.SetImages(duplicates);
-                //Включаем доступность окна
-                this.IsEnabled = true;
-                //ВЫводим сообщение о завершении работы
-                MessageBox.Show("Duplicate scan complete!");
-            });
 
         /// <summary>
         /// Обработчик событяи завершения переноса изображения

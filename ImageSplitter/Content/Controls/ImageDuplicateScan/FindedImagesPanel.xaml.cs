@@ -1,5 +1,5 @@
-﻿using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Duplicates;
+﻿using DuplicateScanner.Clases.DataClases.Result;
+using ImageSplitter.Content.Clases.DataClases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,16 +115,16 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Создаём контролл целевого изображения
         /// </summary>
-        /// <param name="info">Информация о изображении</param>
+        /// <param name="result">Информация о результате поиска</param>
         /// <returns>Контроллл с изображением</returns>
-        private FindedImageControl CreateControl(DuplicateImageInfo info)
+        private FindedImageControl CreateControl(DuplicateResult result)
         {
             //Создаём новый контролл
             FindedImageControl imageControl = new FindedImageControl();
             //Добавляем обработчик события выделения контролла
             imageControl.UpdateFindedImageControlSelection += ImageControl_UpdateFindedImageControlSelection;
             //ПРоставляем в контролл информацию об иконке
-            imageControl.SetControlInfo(info);
+            imageControl.SetControlInfo(result);
             //Возвращаем созданный контролл
             return imageControl;
         }
@@ -145,19 +145,17 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Проставляем изображения-дубликаты в контролл
         /// </summary>
-        /// <param name="images">Общий список изображений</param>
-        /// <param name="target">Изображение-оригинал</param>
+        /// <param name="result">Класс результата поиска</param>
         /// <param name="id">Идентификатор элемента</param>
-        public void SetImagesToControl(List<DuplicateImageInfo> images, DuplicateImageInfo target, int id)
+        public void SetImagesToControl(FindResult result, int id)
         {
             //Удаляем старые изображения с панели
             ClearOldImages();
-            //Втыкаем имя файла в загрзовок экспандера
-            ShowPanelExpander.Header = $"[#{id}] {target.Name}";
-            //Создаём и добавляем на панель контролл оригинала
-            MainPanel.Children.Add(CreateControl(target));
+            //Втыкаем в загрзовок экспандера только
+            //идентификатор - всё остальное не имеет смысла
+            ShowPanelExpander.Header = $"[#{id}]";
             //Проходимся по списку дубликатов
-            foreach (var duplicate in target.Duplicates)
+            foreach (var duplicate in result.Results)
                 //Создаём и добавляем на панель контролл изображения
                 MainPanel.Children.Add(CreateControl(duplicate));
         }
@@ -191,26 +189,28 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
-        /// Получаем информацию об изображениях из дочерних контроллов
+        /// Получаем информацию о хешах из дочерних контроллов
         /// </summary>
-        /// <returns>Список дубликатов из дочерних контроллов, отмеченных галочками</returns>
-        public List<DuplicateImageInfo> GetSelectedDulicateInfoFromChilds()
+        /// <param name="notSelectedHashes">Список хешей не выбранных элементов</param>
+        /// <param name="selectedHashes">Список хешей выбранных элементов</param>
+        /// <returns>Список хешей из дочерних контроллов</returns>
+        public void GetHashesFromChilds(out List<int> selectedHashes, out List<int> notSelectedHashes)
         {
-            List<DuplicateImageInfo> ex = new List<DuplicateImageInfo>();
-            DuplicateImageInfo buff;
+            //Инициализируем выходные массивы
+            selectedHashes = new List<int>();
+            notSelectedHashes = new List<int>();
             //Проходимся по всем контроллам панели
             foreach (FindedImageControl imageControl in MainPanel.Children)
             {
-                //ПОлучаем инфу из контролла
-                buff = imageControl.GetControlInfo();
-                //Если это изображение нужно удалить
-                if (buff.IsNeedRemove)
-                    //Добавляем его в список возврата
-                    ex.Add(buff);
+                //Если это изображение выбрано
+                if (imageControl.IsSelected)
+                    //Добавляем хеш из него в список выбранных
+                    selectedHashes.Add(imageControl.DuplicateHash);
+                //Если нет
+                else
+                    //Добавляем хеш из него в список не выбранных
+                    notSelectedHashes.Add(imageControl.DuplicateHash);
             }
-            //Возвращаем результат
-            return ex;
         }
-
     }
 }
