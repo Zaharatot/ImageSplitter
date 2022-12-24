@@ -79,7 +79,7 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// <param name="current">Текущий элемент, которому будем добавлять хеши</param>
         /// <param name="duplicates">Список дубликатов для добавления хешей</param>
         /// <returns>Список хешей для добавленяи в список</returns>
-        private List<int> GetHashesToAdd(DuplicateInfo current, List<DuplicateInfo> duplicates) =>
+        private List<uint> GetHashesToAdd(DuplicateInfo current, List<DuplicateInfo> duplicates) =>
             //Из списка дубликатов
             duplicates
                 //Получаем те, которые можно добавить в запрещённые
@@ -108,7 +108,7 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// Метод удаления файла
         /// </summary>
         /// <param name="hash">Хеш файла</param>
-        private void RemoveFile(int hash)
+        private void RemoveFile(uint hash)
         {
             //Получаем файл из списка по хешу
             DuplicateInfo info = _currentDuplicates
@@ -127,6 +127,7 @@ namespace DuplicateScanner.Clases.WorkClases.Files
             }
         }
 
+
         /// <summary>
         /// Метод рассчёта хешей для новых файлов
         /// </summary>
@@ -134,6 +135,8 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// <param name="loadedFilesCount">Количество загруженных файлов</param>
         private void UpdateHashes(List<DuplicateInfo> newFiles, int loadedFilesCount)
         {
+            //Время запуска итерации
+            DateTime start;
             //Инициализируем класс информации о прогрессе
             ScanProgressInfo info = CreateProgressInfo(loadedFilesCount, newFiles.Count);
             //Вызываем ивент обновления прогресса
@@ -141,12 +144,16 @@ namespace DuplicateScanner.Clases.WorkClases.Files
             //Вычисляем хеши для каждого из новых файлов
             for(int i = 0; i < newFiles.Count; i++) 
             {
+                //Получаем время запуска получения хеша
+                start = DateTime.Now;
                 //Выполняем рассчёт хешей для файла
                 _hashCalculator.CalculateHash(newFiles[i]);
                 //Обновляем счётчик файлов с ошибкой
                 info.ErrorFilesCount = newFiles.Count(file => file.IsErrorFile);
                 //Обновляем счётчик обработанных файлов
                 info.ProcessedFiles = i;
+                //Получаем время итерации для ивента
+                info.IterationTime = (DateTime.Now - start).TotalSeconds;
                 //Вызываем ивент обновления прогресса
                 DuplicateScannerFasade.InvokeUpdateScanInfo(info);
             }

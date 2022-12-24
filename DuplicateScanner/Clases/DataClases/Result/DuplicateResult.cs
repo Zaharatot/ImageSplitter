@@ -14,7 +14,7 @@ namespace DuplicateScanner.Clases.DataClases.Result
         /// <summary>
         /// Хеш пути к изображению
         /// </summary>
-        public int PathHash { get; set; }
+        public uint PathHash { get; set; }
         /// <summary>
         /// Строка полного пути к файлу
         /// </summary>
@@ -51,7 +51,8 @@ namespace DuplicateScanner.Clases.DataClases.Result
         public DuplicateResult()
         {
             //Проставляем дефолтные значения
-            PathHash = Width = Height = 0;
+            PathHash = 0;
+            Width = Height = 0;
             Path = Name = ParentPath = ParentName = "";
         }
     }

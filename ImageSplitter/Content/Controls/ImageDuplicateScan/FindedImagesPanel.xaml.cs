@@ -194,11 +194,11 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <param name="notSelectedHashes">Список хешей не выбранных элементов</param>
         /// <param name="selectedHashes">Список хешей выбранных элементов</param>
         /// <returns>Список хешей из дочерних контроллов</returns>
-        public void GetHashesFromChilds(out List<int> selectedHashes, out List<int> notSelectedHashes)
+        public void GetHashesFromChilds(out List<uint> selectedHashes, out List<uint> notSelectedHashes)
         {
             //Инициализируем выходные массивы
-            selectedHashes = new List<int>();
-            notSelectedHashes = new List<int>();
+            selectedHashes = new List<uint>();
+            notSelectedHashes = new List<uint>();
             //Проходимся по всем контроллам панели
             foreach (FindedImageControl imageControl in MainPanel.Children)
             {

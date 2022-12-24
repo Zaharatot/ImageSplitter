@@ -85,6 +85,10 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         {
             try 
             {
+                //Удаляем файл
+                if (File.Exists(_path))
+                    //Если он до этого существовал
+                    File.Delete(_path);
                 //Открываем файл для записи
                 using (FileStream stream = File.OpenWrite(_path))
                     //Сериализуем и записываем в файл данные

@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- Текст для панели прогресса -->
+
+    <!-- Заголовки -->
+    <sys:String x:Key="text_ProgressPanel_Remove">Удаление файлов</sys:String>
+
+
+    <!-- Стадии сканирования -->
+    <sys:String x:Key="text_DuplicateScanStatus_0">Поиск файлов изображений по указанному пути</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_1">Генерация хешей для найденных файлов</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_2">Сохранение данных о хешах</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_3">Поиск дубликатов</sys:String>
+
+    <!-- Подписи для полей доп. информации -->
+    <sys:String x:Key="text_DuplicateScanAddInfo_FilesFinded">Найденно файлов:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ErrorFilesCount">Файлов с ошибками:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ProcessedFiles">Обработано файлов:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_FilesToProcess">Файлов для обработки:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_LoadedFiles">Загружены из хранилища:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ToCompleteTime">До завершения:</sys:String>
+
+
+    <!-- Значения для вывода оставшегося времени -->
+    <sys:String x:Key="Text_DateLimitDay">дн</sys:String>
+    <sys:String x:Key="Text_DateLimitHour">час</sys:String>
+    <sys:String x:Key="Text_DateLimitMinute">мин</sys:String>
+    <sys:String x:Key="Text_DateLimitSecund">сек</sys:String>
+
+</ResourceDictionary>

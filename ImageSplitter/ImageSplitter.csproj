@@ -91,7 +91,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageDuplicateScan\ScanProgressControl.xaml">
+    <Page Include="Content\Controls\Simple\ProgressControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Resources\Localization\ControlsText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Windows\AddFolderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,6 +147,8 @@
     <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Content\Clases\DataClases\Global\GlobalEvents.cs" />
     <Compile Include="Content\Clases\DataClases\Interfaces\IHotKeyProcessor.cs" />
+    <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
+    <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\CollectionInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\TargetFolderInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Storage\StoragedFileInfo.cs" />
@@ -164,6 +170,8 @@
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\SizeCalculator.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitImages.cs" />
+    <Compile Include="Content\Clases\WorkClases\Resources\DateFormatter.cs" />
+    <Compile Include="Content\Clases\WorkClases\Resources\ResourceLoader.cs" />
     <Compile Include="Content\Controls\FileSplitParamsControl.xaml.cs">
       <DependentUpon>FileSplitParamsControl.xaml</DependentUpon>
     </Compile>
@@ -173,8 +181,8 @@
     <Compile Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml.cs">
       <DependentUpon>FindedImagesPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageDuplicateScan\ScanProgressControl.xaml.cs">
-      <DependentUpon>ScanProgressControl.xaml</DependentUpon>
+    <Compile Include="Content\Controls\Simple\ProgressControl.xaml.cs">
+      <DependentUpon>ProgressControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\ImageSplit\FolderInfoControl.xaml.cs">
       <DependentUpon>FolderInfoControl.xaml</DependentUpon>
@@ -264,5 +272,6 @@
       <Name>DuplicateScanner</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

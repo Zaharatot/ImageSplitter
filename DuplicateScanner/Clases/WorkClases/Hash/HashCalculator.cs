@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,9 +113,9 @@ namespace DuplicateScanner.Clases.WorkClases.Hash
         private void ClaculateHashes(ByteImageInfo image, out ulong? dcpHash, out ulong? linedDcpHash)
         {
             try
-            {          
-                 //Инициализируем список тасок получения хешей
-                 Task<CreateHashTask>[] tasks = new Task<CreateHashTask>[] {
+            {
+                //Инициализируем список тасок получения хешей
+                Task<CreateHashTask>[] tasks = new Task<CreateHashTask>[] {
                      //Получаем хеш изображения
                      GetHash(image),
                      //Получаем лайновый хеш изображения
@@ -142,7 +143,6 @@ namespace DuplicateScanner.Clases.WorkClases.Hash
         {
             //В районе 0.5 секунды время итерации - это вполне норм,
             //учитывая сохранение уже обработанных изображений.
-
 
             //Выполняем загрузку пикселей изображения
             ByteImageInfo image = _loadImage.LoadImage(info.Path);

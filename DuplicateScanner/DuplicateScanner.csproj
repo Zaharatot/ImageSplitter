@@ -65,6 +65,7 @@
     <Compile Include="Clases\WorkClases\Files\FileWork.cs" />
     <Compile Include="Clases\WorkClases\Finder\DuplicatesFind.cs" />
     <Compile Include="Clases\WorkClases\Finder\EqualDctHash.cs" />
+    <Compile Include="Clases\WorkClases\Hash\Crc32.cs" />
     <Compile Include="Clases\WorkClases\Hash\HashCalculator.cs" />
     <Compile Include="Clases\WorkClases\Image\GrayScaleTransform.cs" />
     <Compile Include="Clases\WorkClases\Image\LoadImagePixels.cs" />

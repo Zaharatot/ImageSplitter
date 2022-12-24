@@ -35,7 +35,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Хеш дубликата
         /// </summary>
-        public int DuplicateHash => _result.PathHash;
+        public uint DuplicateHash => _result.PathHash;
         /// <summary>
         /// Флаг выбора данного контролла
         /// </summary>

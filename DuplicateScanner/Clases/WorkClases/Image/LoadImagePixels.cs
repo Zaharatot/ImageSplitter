@@ -111,7 +111,7 @@ namespace DuplicateScanner.Clases.WorkClases.Image
                             //Получаем монохромные пиксели изображения
                             bytes = _grayScaleTransform.ToGrayScale(bytes);
                             //Инициализируем выходное значение
-                            ex = new ByteImageInfo(sourceImage.Height, sourceImage.Width, bytes) { 
+                            ex = new ByteImageInfo(sourceImage.Size, bytes) { 
                                 OriginalSize = originalSize
                             };
                         }

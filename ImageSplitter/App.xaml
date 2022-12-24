@@ -4,6 +4,29 @@
              xmlns:local="clr-namespace:ImageSplitter"
              StartupUri="/Content/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <!-- Отдельные словари ресурсов -->
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- Значения -->
+                <!-- Цвета -->
+                <!-- <ResourceDictionary Source="./Content/Resources/Values/Colors.xaml" /> -->
+
+                <!-- Локализация -->
+                <!-- RU -->
+                <ResourceDictionary Source="./Content/Resources/Localization/ControlsText.xaml" /> 
+
+
+                <!-- Иконки -->
+                <!--    <ResourceDictionary Source="./Content/Resources/Icons/OtherIcons.xaml" /> -->
+
+                <!-- Шаблоны -->
+                <!--   <ResourceDictionary Source="./Content/Resources/Templates/ScrollbarTemplate.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Templates/ScrollViewer.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Templates/TextBox.xaml" /> -->
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

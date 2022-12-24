@@ -1,4 +1,5 @@
 ﻿using DuplicateScanner.Clases.DataClases.Result;
+using DuplicateScanner.Clases.WorkClases.Hash;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,11 +17,13 @@ namespace DuplicateScanner.Clases.DataClases.File
     /// </summary>
     [Serializable]
     public class DuplicateInfo
-    {
+    {      
+        
+        
         /// <summary>
         /// Хеш пути к изображению
         /// </summary>
-        public int PathHash { get; set; }
+        public uint PathHash { get; set; }
         /// <summary>
         /// ДКП-хеш изображения
         /// </summary>
@@ -57,7 +60,7 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// <summary>
         /// Список хешей, которые не являются дубликатами
         /// </summary>
-        public List<int> ForbiddenHashes { get; set; }
+        public List<uint> ForbiddenHashes { get; set; }
 
         /// <summary>
         /// Строка полного пути к изображению
@@ -88,13 +91,20 @@ namespace DuplicateScanner.Clases.DataClases.File
             ((DcpHash == null) || (LinedDcpHash == null));
 
         /// <summary>
+        /// Класс генерации CRC32 хешей
+        /// </summary>
+        [XmlIgnore]
+        private Crc32 _crc;
+
+        /// <summary>
         /// Конструктор класса
         /// </summary>
         public DuplicateInfo()
         {
             //Проставляем дефолтные значения
-            ForbiddenHashes = new List<int>();
-            PathHash = Width = Height = 0;
+            ForbiddenHashes = new List<uint>();
+            PathHash = 0;
+            Width = Height = 0;
             DcpHash = LinedDcpHash = 0;
             ParentPath = Name = ParentName = "";
             State = DuplicateStates.Added;
@@ -106,46 +116,19 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// <param name="file">Класс информации о файле</param>
         public DuplicateInfo(FileInfo file)
         {
+            //Получаем экземпляр класса генерации хешей
+            _crc = Crc32.GetInstance();
             //Проставляем переданные значения
             ParentPath = file.DirectoryName + "\\"; 
             Name = file.Name;
             ParentName = file.Directory.Name;
-            PathHash = GenMd5(file.FullName);
+            PathHash = _crc.ComputeChecksum(file.FullName);
             //Проставляем дефолтные значения
-            ForbiddenHashes = new List<int>();
+            ForbiddenHashes = new List<uint>();
             DcpHash = LinedDcpHash = 0;
             State = DuplicateStates.Added;
         }
 
-
-
-
-        /// <summary>
-        /// Формируем md5-хеш, в виде числа
-        /// </summary>
-        /// <param name="hashedString">Хешируемая строка</param>
-        /// <returns>Хеш строки, в виде числа</returns>
-        private int GenMd5(string hashedString)
-        {
-            int ex = 0;
-            try
-            {
-                //Инициализируем криптопровайдер
-                MD5 md5 = new MD5CryptoServiceProvider();
-                //Получаем байты строки
-                byte[] bytes = Encoding.Default.GetBytes(hashedString);
-                //Считаем хеш, от байтового предстваления хешируемой строки
-                byte[] hashenc = md5.ComputeHash(bytes);
-                //Проходимся по байтам хеша 
-                foreach (var bt in hashenc)
-                    //Добавляем байт к итоговому числу и
-                    //сдвигаем биты числа влево на 8 (1 байт)
-                    ex = (ex + bt) << 8;
-            }
-            catch { ex = 0; }
-            //Возвращаем хеш
-            return ex;
-        }
 
 
         /// <summary>
@@ -153,7 +136,7 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// </summary>
         /// <param name="hash">Хеш для проверки</param>
         /// <returns>True - можно добавлять</returns>
-        public bool IsAllowAddToForbidden(int hash) =>
+        public bool IsAllowAddToForbidden(uint hash) =>
             //Хеш не совпадает с хешем текущего элемента
             (PathHash != hash) &&
             //Хеш отсутствует в списке запрещённых
@@ -163,7 +146,7 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// Метод удаления указанного хеша из списка запрещённых
         /// </summary>
         /// <param name="hash">Хеш для удаления</param>
-        public void RemoveForbiddenHash(int hash) =>
+        public void RemoveForbiddenHash(uint hash) =>
             //Удаляем из списка запрещённых хешей указанный
             ForbiddenHashes.Remove(hash);
 
@@ -199,6 +182,6 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// Метод получения хеша элемента
         /// </summary>
         /// <returns>Хеш пути к файлу</returns>
-        public override int GetHashCode() => PathHash;
+        public override int GetHashCode() => (int)PathHash;
     }
 }

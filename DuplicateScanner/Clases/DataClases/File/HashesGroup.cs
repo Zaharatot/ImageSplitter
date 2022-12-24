@@ -14,13 +14,13 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// <summary>
         /// Список хешей
         /// </summary>
-        public List<int> HashList { get; set; }
+        public List<uint> HashList { get; set; }
 
         /// <summary>
         /// Конструктор класса
         /// </summary>
         /// <param name="hashList">Список хешей</param>
-        public HashesGroup(List<int> hashList)
+        public HashesGroup(List<uint> hashList)
         {
             //Проставляем переданные значения
             HashList = hashList;
@@ -32,7 +32,7 @@ namespace DuplicateScanner.Clases.DataClases.File
         public HashesGroup()
         {
             //Проставляем дефолтные значения
-            HashList = new List<int>();
+            HashList = new List<uint>();
         }
     }
 }

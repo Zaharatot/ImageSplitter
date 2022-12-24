@@ -227,11 +227,15 @@ namespace ImageSplitter.Content.Windows
                 //Скрываем панель прогресса
                 ImageDuplicates.SetProgressPanelVisiblity(false);
                 //Если дубликаты не были найдены
-                if(result.Count == 0)
+                if (result.Count == 0)
+                {
+                    //Удаляем старые панели дубликатов, чтобы не было путанницы
+                    ImageDuplicates.ClearOldPanels();
                     //Выводим сообщение о результате
                     MessageBox.Show("Дубликаты не были найдены в указанной папке");
+                }
                 //Если результаты есть
-                else 
+                else
                     //Втыкаем результаты поиска в контролл
                     ImageDuplicates.SetImages(result);
                 //Возвращаем доступность окна
