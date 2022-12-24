@@ -1,4 +1,5 @@
 ﻿using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Properties;
 using DuplicateScanner.Clases.DataClases.Result;
 using System;
 using System.Collections.Generic;
@@ -90,10 +91,10 @@ namespace DuplicateScanner
         /// <summary>
         /// Запуск сканирования дубликатов
         /// </summary>
-        /// <param name="path">Путь к папке для сканирования</param>
-        public void StartDuplicateScan(string path) =>
+        /// <param name="properties">Параметры сканирования</param>
+        public void StartDuplicateScan(ScanProperties properties) =>
             //Вызываем дочерний метод в отдельном потоке
-            new Thread(() => _scanner.StartDuplicateScan(path)).Start();
+            new Thread(() => _scanner.StartDuplicateScan(properties)).Start();
 
 
         /// <summary>

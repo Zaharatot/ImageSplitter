@@ -1,5 +1,6 @@
 ﻿using DuplicateScanner.Clases.DataClases.Result;
 using ImageSplitter.Content.Clases.DataClases;
+using ImageSplitter.Content.Clases.WorkClases.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,12 +33,16 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Событие запроса на скрытие остальных панелей
         /// </summary>
         public event HidePanelRequestEventHandler HidePanelRequest;
+        /// <summary>
+        /// Событие обновления чекбокса для дубликата
+        /// </summary>
+        public event SetCheckToDuplicateEventHandler SetCheckToDuplicate;
 
 
         /// <summary>
         /// Строка заголовка контролла
         /// </summary>
-        public string ElementHeader => (string)ShowPanelExpander.Header;
+        public string ElementHeader => GroupPanelHeaderRun.Text;
         /// <summary>
         /// Флаг развёртывания панели
         /// </summary>
@@ -46,6 +51,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             get => ShowPanelExpander.IsExpanded;
             set => ShowPanelExpander.IsExpanded = value;
         }
+
+
+        /// <summary>
+        /// Текст заголовка информации о блокировке
+        /// </summary>
+        private string _blockedHeader;
 
         /// <summary>
         /// Конструктор контролла
@@ -61,7 +72,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         private void Init()
         {
-            
+            //Загружаем строки ресурсов
+            _blockedHeader = ResourceLoader.LoadString("Text_FindedImagesPanel_BlockedHeader");
         }
 
         /// <summary>
@@ -116,18 +128,33 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Создаём контролл целевого изображения
         /// </summary>
         /// <param name="result">Информация о результате поиска</param>
+        /// <param name="colors">Цвета для списка разрешений</param>
         /// <returns>Контроллл с изображением</returns>
-        private FindedImageControl CreateControl(DuplicateResult result)
+        private FindedImageControl CreateControl(DuplicateResult result, Dictionary<double, Color> colors)
         {
             //Создаём новый контролл
             FindedImageControl imageControl = new FindedImageControl();
             //Добавляем обработчик события выделения контролла
             imageControl.UpdateFindedImageControlSelection += ImageControl_UpdateFindedImageControlSelection;
+            //Добавляем обработчик события выбора контролла для удаления
+            imageControl.SetCheckToDuplicate += ImageControl_SetCheckToDuplicate;
             //ПРоставляем в контролл информацию об иконке
-            imageControl.SetControlInfo(result);
+            imageControl.SetControlInfo(result, GroupPanelHeaderRun.Text);
+            //Проставляем в контролл цвет для расширения
+            imageControl.SetResolutionColor(colors[result.Resolution]);
             //Возвращаем созданный контролл
             return imageControl;
         }
+
+        /// <summary>
+        /// Обработчик события выбора контролла для удаления
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        private void ImageControl_SetCheckToDuplicate(uint hash, string parentName, bool state) =>
+            //Передаём ивент родительскому контроллу
+            SetCheckToDuplicate?.Invoke(hash, parentName, state);
 
         /// <summary>
         /// Метод простановки нового статуса всем дочерним чекбоксам
@@ -141,6 +168,64 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 imageControl.SetCheckBoxState(state);
         }
 
+        /// <summary>
+        /// Метод получения цветов для каждого из разрешений
+        /// </summary>
+        /// <param name="result">Класс результата поиска</param>
+        /// <returns>Цвета для списка разрешений</returns>
+        private Dictionary<double, Color> GetElementResolutionColors(FindResult result)
+        {
+            //Выходной словарь цветов
+            Dictionary<double, Color> colors = new Dictionary<double, Color>();
+            //Получаем список униальных разрешений, отсортирвоанных по убыванию
+            List<double> resolutions = result.GetResolutions();
+            //0 - красный, Min - синий
+            //Получаем значение шага
+            double step = 255.0 / resolutions.Count;
+            //Задаём стартовое значение цвета
+            double value = 255;
+            //Проходимся по разрешениям
+            foreach (double res in resolutions)
+            {
+                //Добавляем разрешение и его цвет в список
+                colors.Add(res, Color.FromRgb((byte)value, 0, 255));
+                //Здвигаем значение цвета
+                value -= step;
+            }
+            //Возвращаем результат
+            return colors;
+        }
+
+        /// <summary>
+        /// Обновляем заголовок блокировки
+        /// </summary>
+        /// <param name="blockedCount">Количество заблокированных элементов</param>
+        private void UpdateBlockedHeader(int blockedCount) =>
+            GroupPanelBlockedHeaderRun.Text = 
+                //Если блокировок нет, то заголовок будет пустым
+                (blockedCount == 0) ? "" : $"{_blockedHeader} {blockedCount}";
+
+        /// <summary>
+        /// Метод проверки поиска для дочерних элементов
+        /// </summary>
+        /// <param name="searchString">Строка поиска</param>
+        /// <returns>True - поиск был успешным</returns>
+        private bool IsChildElementSearchSucc(string searchString)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+                //Если поиск был успешен для дочернего элемента
+                if (imageControl.IsSearchSucc(searchString))
+                    //Возвращаем флаг успеха
+                    return true;
+            //Если в дочерних такого нет, то возвращаем флаг отсутствия
+            return false;
+        }
+
+
+
+
+
 
         /// <summary>
         /// Проставляем изображения-дубликаты в контролл
@@ -153,11 +238,13 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             ClearOldImages();
             //Втыкаем в загрзовок экспандера только
             //идентификатор - всё остальное не имеет смысла
-            ShowPanelExpander.Header = $"[#{id}]";
+            GroupPanelHeaderRun.Text = $"[#{id}]";
+            //Получаем цвета для списка разрешений элементов
+            Dictionary<double, Color> colors = GetElementResolutionColors(result);
             //Проходимся по списку дубликатов
             foreach (var duplicate in result.Results)
                 //Создаём и добавляем на панель контролл изображения
-                MainPanel.Children.Add(CreateControl(duplicate));
+                MainPanel.Children.Add(CreateControl(duplicate, colors));
         }
 
         /// <summary>
@@ -181,6 +268,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             {
                 //Удаляем обработчик события выделения контролла
                 imageControl.UpdateFindedImageControlSelection -= ImageControl_UpdateFindedImageControlSelection;
+                //Удаляем обработчик события выбора контролла для удаления
+                imageControl.SetCheckToDuplicate -= ImageControl_SetCheckToDuplicate;
                 //Закрываем поток работы с изображением
                 imageControl.CloseImageSource();
             }
@@ -212,5 +301,49 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                     notSelectedHashes.Add(imageControl.DuplicateHash);
             }
         }
+
+        /// <summary>
+        /// Метод простановки статуса для чекбокса, по значению из другой группы
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        /// <returns>True, если был заблокирован последний активный элемент в группе</returns>
+        public bool SetParentCheckBoxState(uint hash, string parentName, bool state)
+        {
+            //КОличество заблокированных элементов
+            int blockedCount = 0, beforeBlockedCount = 0;
+            //Проходимся по всем контроллам панели
+            foreach (FindedImageControl imageControl in MainPanel.Children)
+            {
+                //Если элемент был заблокирован ранее
+                if (imageControl.IsParentCheckState)
+                    //Обновляем счётчик заблокированных
+                    beforeBlockedCount++;
+                //Вызываем у них метод обновления
+                imageControl.SetParentCheckBoxState(hash, parentName, state);
+                //Если элемент был заблокирован
+                if (imageControl.IsParentCheckState)
+                    //Обновляем счётчик заблокированных
+                    blockedCount++;
+            }
+            //Обновляем заголовок блокировки
+            UpdateBlockedHeader(blockedCount);
+            //Если был заблокирован элемент, и это был последний не заблокированный элемент
+            return (beforeBlockedCount != blockedCount) && (blockedCount == MainPanel.Children.Count);
+        }
+
+        /// <summary>
+        /// Метод проверки поиска
+        /// </summary>
+        /// <param name="searchString">Строка поиска</param>
+        /// <returns>True - поиск был успешным</returns>
+        public bool IsSearchSucc(string searchString) =>
+            //Если строка поиска пустая
+            string.IsNullOrEmpty(searchString) ||
+            //Или если в заголовке панели есть строка поиска
+            GroupPanelHeaderRun.Text.ToLower().Contains(searchString) ||
+            //Или если в дочерних есть строка поиска
+            IsChildElementSearchSucc(searchString);
     }
 }

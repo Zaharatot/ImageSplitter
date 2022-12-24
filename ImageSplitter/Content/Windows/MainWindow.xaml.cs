@@ -1,5 +1,6 @@
 ﻿using DuplicateScanner;
 using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Properties;
 using DuplicateScanner.Clases.DataClases.Result;
 using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Global;
@@ -105,6 +106,8 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.ScanComplete += GlobalEvents_ScanComplete;
             //Добавляем обработчик событяи завершения переноса изображения
             GlobalEvents.MoveImageComplete += GlobalEvents_MoveImageComplete;
+            //Добавляем обработчик событяи запуска сканирования
+            GlobalEvents.StartDuplicateScan += GlobalEvents_StartDuplicateScan;
             //Добавляем обработчик события обновления статуса сканирования на дубликаты
             DuplicateScannerFasade.UpdateScanInfo += DuplicateScannerFasade_UpdateScanInfo;
             //Добавляем обработчик события завершения сканирования на дубликаты
@@ -140,8 +143,6 @@ namespace ImageSplitter.Content.Windows
             FileSplitParams.StartFileSplit += FileSplitParams_StartFileSplit;
             //Добавляем обработчик события переименования файлов
             RenameFiles.RenameFiles += RenameFiles_RenameFiles;
-            //Добавляем обработчик события запуска сканирования на дубликаты
-            ImageDuplicates.StartDuplicateScan += ImageDuplicates_StartDuplicateScan;
             //Добавляем обработчик события запуска удаления дубликатов
             ImageDuplicates.DuplicateRemove += ImageDuplicates_DuplicateRemove;
         }
@@ -263,19 +264,7 @@ namespace ImageSplitter.Content.Windows
             _mainWork.RemoveDuplicates(toRemove, groups);
         }
 
-        /// <summary>
-        /// Обработчик события запуска сканирования на дубликаты
-        /// </summary>
-        /// <param name="path">Путь для сканирования</param>
-        private void ImageDuplicates_StartDuplicateScan(string path)
-        {
-            //Выключаем доступность окна
-            this.IsEnabled = false;
-            //Отображаем панель прогресса
-            ImageDuplicates.SetProgressPanelVisiblity(true);
-            //Вызываем внутренний метод
-            _mainWork.StartDuplicateScan(path);
-        }
+
 
         /// <summary>
         /// Обработчик события запроса на удаление папки из списка
@@ -315,6 +304,20 @@ namespace ImageSplitter.Content.Windows
             _mainWork.StartScan(scanPath, splitPath, isFolder);
         }
 
+
+        /// <summary>
+        /// Обработчик событяи запуска сканирования
+        /// </summary>
+        /// <param name="properties">Параметры сканирования</param>
+        private void GlobalEvents_StartDuplicateScan(ScanProperties properties)
+        {
+            //Выключаем доступность окна
+            this.IsEnabled = false;
+            //Отображаем панель прогресса
+            ImageDuplicates.SetProgressPanelVisiblity(true);
+            //Вызываем внутренний метод
+            _mainWork.StartDuplicateScan(properties);
+        }
 
         /// <summary>
         /// Обработчик событяи завершения переноса изображения

@@ -56,5 +56,24 @@ namespace DuplicateScanner.Clases.DataClases.Global
             /// </summary>
             DuplicateFind = 3
         }
+
+        /// <summary>
+        /// Типы сканирования
+        /// </summary>
+        public enum ScanTypes
+        {
+            /// <summary>
+            /// Оба вида проверок
+            /// </summary>
+            Both = 0,
+            /// <summary>
+            /// Проверка по ДКП-хешу
+            /// </summary>
+            DcpScan = 1,
+            /// <summary>
+            /// Проверка по лайновой версии ДКП-хеша
+            /// </summary>
+            LinedDcpScan = 2
+        }
     }
 }

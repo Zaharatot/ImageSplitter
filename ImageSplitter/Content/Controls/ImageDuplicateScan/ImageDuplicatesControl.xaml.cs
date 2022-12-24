@@ -29,13 +29,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
     public partial class ImageDuplicatesControl : UserControl
     {
         /// <summary>
-        /// Событие запуска скнирования дубликатов
-        /// </summary>
-        public event StartDuplicateScanEventHandler StartDuplicateScan;
-        /// <summary>
         /// Событие запуска удаления дубликатов
         /// </summary>
         public event DuplicateRemoveEventHandler DuplicateRemove;
+
+
+
 
         /// <summary>
         /// Класс информации о прогрессе сканирования для панели
@@ -98,19 +97,16 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 }
             };
 
-        
+
+
 
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку запуска сканирования
+        /// Обработчик события изменения текста в строке поиска
         /// </summary>
-        private void ScanButton_Click(object sender, RoutedEventArgs e)
-        {
-            //Если путь сканирования корректен
-            if(CheckScanPath(ScanPathTextBox.Text))
-                //ВЫзываем внешний ивент
-                StartDuplicateScan?.Invoke(ScanPathTextBox.Text);
-        }
+        private void SearchStringTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
+            //ВЫзываем метод обновления поиска
+            IsChildElementSearchSucc(SearchStringTextBox.Text);
 
         /// <summary>
         /// Обработчик события нажатия на кнопку удаления выбранных дубликатов
@@ -124,6 +120,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 TargetImage.Source = null;
                 //Получаем список хешей из всех контроллов выбора
                 GetHashesFormSelectors(out HashesGroup toRemove, out List<HashesGroup> groups);
+                //Если запрещено сохранение не выбранных
+                if (!ScanProperties.IsSaveUnchecked)
+                    //Просто очищаем их список
+                    groups.Clear();
                 //Вызываем ивент запроса дуаления, передавая в него списки хешей
                 DuplicateRemove?.Invoke(toRemove, groups);
             }
@@ -186,6 +186,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 imagesPanel.GetHashesFromChilds(out selectedHashes, out notSelectedHashes);
                 //Добавляем полученные значения в выходные классы
                 toRemove.HashList.AddRange(selectedHashes);
+                //Добавляем группу с этими хешами
                 groups.Add(new HashesGroup(notSelectedHashes));
             }
         }
@@ -202,6 +203,53 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
+        /// Метод проверки поиска для дочерних элементов
+        /// </summary>
+        /// <param name="searchString">Строка поиска</param>
+        private void IsChildElementSearchSucc(string searchString)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+                //Если дочерняя панель соответствует критериям поиска
+                imagesPanel.Visibility = (imagesPanel.IsSearchSucc(searchString)) 
+                    //Отображаем её, а в противном случае - скрываем
+                    ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+
+        /// <summary>
+        /// Метод простановки статуса для чекбокса, по значению из другой группы
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        public void SetParentCheckBoxState(uint hash, string parentName, bool state)
+        {
+            //Список названий групп с последним заблокированным элементом
+            StringBuilder sb = new StringBuilder();
+            //Флаг группы с заблокированным последним элементом
+            bool isLastBlocked;
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            {
+                //Передавая им значения для блокировки, и получаем флаг последнего заблокированного элемента
+                isLastBlocked = imagesPanel.SetParentCheckBoxState(hash, parentName, state);
+                //Если был заблокирован последний элемент
+                if (isLastBlocked)
+                    //Добавляем заголовок панели в список
+                    sb.Append($"{imagesPanel.ElementHeader}, ");
+            }
+            //Если был заблокирован хоть один элемент
+            if (sb.Length > 0)
+            {
+                //Берём строку без двух последних симводов
+                string groups = sb.ToString().Substring(0, sb.Length - 2);
+                //Выводим сообщение с предупреждением
+                MessageBox.Show($"Данное действие выбрало для удаления последний не выбранный элемент в группах: {groups}");
+            }
+        }
+
+        /// <summary>
         /// Создаём контролл панели дубликатов
         /// </summary>
         /// <param name="result">Класс результата поиска дубликатов</param>
@@ -215,11 +263,23 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             imagesPanel.UpdateFindedImageControlSelection += ImagesPanel_UpdateFindedImageControlSelection;
             //Добавляем обработчик события запроса на скрытие остальных панелей
             imagesPanel.HidePanelRequest += ImagesPanel_HidePanelRequest;
+            //Добавляем обработчик события выбора контролла для удаления
+            imagesPanel.SetCheckToDuplicate += ImagesPanel_SetCheckToDuplicate;
             //Проставляем контент в панель
             imagesPanel.SetImagesToControl(result, id);
             //Возвращаем созданный контролл
             return imagesPanel;
         }
+
+        /// <summary>
+        /// Обработчик события выбора контролла для удаления
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        private void ImagesPanel_SetCheckToDuplicate(uint hash, string parentName, bool state) =>
+            //Обновляем статусы блокировки дочерних элементов
+            SetParentCheckBoxState(hash, parentName, state);
 
         /// <summary>
         /// Jбработчик события запроса на скрытие остальных панелей
@@ -237,40 +297,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             }
         }
 
-        /// <summary>
-        /// Отображаем ошибку пути
-        /// </summary>
-        /// <param name="resultFlag">Флаг результата для простановки ошибки</param>
-        /// <param name="errorMessage">Текст сообщения об ошибке</param>
-        private void ShowPathError(ref bool resultFlag, string errorMessage)
-        {
-            //Проставляем флаг в ошибку
-            resultFlag = false;
-            //Выводим сообщение обю ошибке
-            MessageBox.Show(errorMessage, "Ошибка!");
-        }
-
-        /// <summary>
-        /// Проверка пути сканирования
-        /// </summary>
-        /// <param name="path">Путь сканирования</param>
-        /// <returns>True - путь сканирования корректен</returns>
-        private bool CheckScanPath(string path)
-        {
-            bool ex = true;
-            //Если путь пустой
-            if (string.IsNullOrEmpty(path))
-                //Выводим ошибку пустого пути
-                ShowPathError(ref ex, "Нужно указать путь для сканирования!");
-            //Если папки не существует
-            if (!Directory.Exists(path))
-                //Выводим ошибку некорректного пути
-                ShowPathError(ref ex, "Введённый путь некорректен!");
-            //Возвращаем результат
-            return ex;
-        }
-
-
 
         /// <summary>
         /// Удаляем старые панели дубликатов с панели
@@ -286,6 +312,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 imagesPanel.UpdateFindedImageControlSelection -= ImagesPanel_UpdateFindedImageControlSelection;
                 //Удаляем обработчик события запроса на скрытие остальных панелей
                 imagesPanel.HidePanelRequest -= ImagesPanel_HidePanelRequest;
+                //Удаляем обработчик события выбора контролла для удаления
+                imagesPanel.SetCheckToDuplicate -= ImagesPanel_SetCheckToDuplicate;
                 //Удаляем всё со старой панели
                 imagesPanel.ClearOldImages();
             }
@@ -376,6 +404,5 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 //Создаём и добавляем на панель контролл панели дубликатов
                 MainPanel.Children.Add(CreateDuplicatesPanel(results[i], i + 1));
         }
-
     }
 }

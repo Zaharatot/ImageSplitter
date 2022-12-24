@@ -91,6 +91,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Controls\ImageDuplicateScan\ScanPropertiesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Controls\Simple\ProgressControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +184,9 @@
     </Compile>
     <Compile Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml.cs">
       <DependentUpon>FindedImagesPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageDuplicateScan\ScanPropertiesControl.xaml.cs">
+      <DependentUpon>ScanPropertiesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\Simple\ProgressControl.xaml.cs">
       <DependentUpon>ProgressControl.xaml</DependentUpon>

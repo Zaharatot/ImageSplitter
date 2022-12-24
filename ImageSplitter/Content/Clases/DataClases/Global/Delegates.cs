@@ -1,4 +1,5 @@
 ﻿using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Properties;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Controls;
 using ImageSplitter.Content.Controls.ImageDuplicateScan;
@@ -86,8 +87,8 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// <summary>
         /// Делегат события запуска сканирования на дубликаты
         /// </summary>
-        /// <param name="path">Путь сканирования</param>
-        public delegate void StartDuplicateScanEventHandler(string path);
+        /// <param name="properties">Параметры сканирования</param>
+        public delegate void StartDuplicateScanEventHandler(ScanProperties properties);
 
         /// <summary>
         /// Делегат события запроса на переход ко вкладке
@@ -100,6 +101,14 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// </summary>
         /// <param name="showedPanelHeader">Заголовок только что открытой панели</param>
         public delegate void HidePanelRequestEventHandler(string showedPanelHeader);
+
+        /// <summary>
+        /// Делегат событяи выбора чекбокса для дубликата
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        public delegate void SetCheckToDuplicateEventHandler(uint hash, string parentName, bool state);
 
     }
 }

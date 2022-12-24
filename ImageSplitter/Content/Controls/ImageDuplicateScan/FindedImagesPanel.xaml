@@ -10,6 +10,16 @@
         <!-- Кнопка сворачивания/разворачивания панели -->
         <Expander x:Name="ShowPanelExpander" Background="LightGray" Padding="0,0,0,1" 
                   Expanded="ShowPanelExpander_Expanded" Collapsed="ShowPanelExpander_Collapsed">
+            <!-- Заголовок панели -->
+            <Expander.Header>
+                <!-- Текстовый блок заголовка панели -->
+                <TextBlock>
+                    <!-- Базовый текст заголовка -->
+                    <Run x:Name="GroupPanelHeaderRun" Text="[#001]" FontWeight="Bold" />
+                    <!-- Заголовок для заблокированных -->
+                    <Run x:Name="GroupPanelBlockedHeaderRun" FontWeight="Medium" Foreground="Red" />
+                </TextBlock>
+            </Expander.Header>
             <Grid Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition />

@@ -11,16 +11,6 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
     /// </summary>
     internal class EqualDctHash
     {
-        /// <summary>
-        /// Чувствительность для сравнения изображений
-        /// Дефолтом считается значение в 21, так что его и поставлю
-        /// </summary>
-        private const int DCT_HASH_EQUAL_SENSIVITY = 9;
-        /// <summary>
-        /// Чувствительность для сравнения лайновых изображений
-        /// Её нужно ставить сильно меньше, чтобы было меньше ложных срабатываний
-        /// </summary>
-        private const int LINED_DCT_HASH_EQUAL_SENSIVITY = 9;
 
         /// <summary>
         /// Конструктор класса
@@ -64,28 +54,5 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
             (first.HasValue && second.HasValue) &&
             //И результат проверки ниже лимита
             (GetHashSimilarity(first.Value, second.Value) < sensivity);
-
-
-
-        /// <summary>
-        /// Сравниваем хеши изображений
-        /// </summary>
-        /// <param name="first">Первый хеш</param>
-        /// <param name="second">Второй хеш</param>
-        /// <returns>True - картинки схожы</returns>
-        public bool EqalImageHash(ulong? first, ulong? second) => 
-            //Выполняем сравнение с обычной чуствительностью
-            EqalHash(first, second, DCT_HASH_EQUAL_SENSIVITY);
-
-        /// <summary>
-        /// Сравниваем хеши лайновых изображений
-        /// </summary>
-        /// <param name="first">Первый хеш</param>
-        /// <param name="second">Второй хеш</param>
-        /// <returns>True - картинки схожы</returns>
-        public bool EqalLinedImageHash(ulong? first, ulong? second) =>
-            //Выполняем сравнение с обычной чуствительностью для лайны
-            EqalHash(first, second, LINED_DCT_HASH_EQUAL_SENSIVITY);
-
     }
 }

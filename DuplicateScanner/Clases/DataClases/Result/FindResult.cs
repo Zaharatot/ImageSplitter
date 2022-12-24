@@ -30,5 +30,21 @@ namespace DuplicateScanner.Clases.DataClases.Result
             //Инициализируем переданные значения
             Results = new List<DuplicateResult>() { current };
         }
+
+        /// <summary>
+        /// Метод получения списка униальных разрешений изображений списка
+        /// </summary>
+        /// <returns>Список уникальных разрешений</returns>
+        public List<double> GetResolutions() =>
+            //Из списка результатов
+            Results
+                //ВЫбираем только разрешения
+                .Select(dup => dup.Resolution)
+                //Получаем только униальные значения
+                .Distinct()
+                //Сортируем значения по убыванию
+                .OrderByDescending(res => res)
+                //В виде списка
+                .ToList();
     }
 }

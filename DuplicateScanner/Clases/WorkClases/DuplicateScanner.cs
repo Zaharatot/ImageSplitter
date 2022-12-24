@@ -1,5 +1,6 @@
 ﻿using DuplicateScanner.Clases.DataClases;
 using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Properties;
 using DuplicateScanner.Clases.DataClases.Result;
 using DuplicateScanner.Clases.WorkClases.Files;
 using DuplicateScanner.Clases.WorkClases.Finder;
@@ -53,16 +54,16 @@ namespace DuplicateScanner.Clases.WorkClases
         /// <summary>
         /// Запуск сканирования дубликатов
         /// </summary>
-        /// <param name="path">Путь к папке для сканирования</param>
-        public void StartDuplicateScan(string path)
+        /// <param name="properties">Параметры сканирования</param>
+        public void StartDuplicateScan(ScanProperties properties)
         {
             //Ивент о запуске сканирования
             DuplicateScannerFasade.InvokeUpdateScanInfo(
                 new ScanProgressInfo(ScanStages.FindFiles));
             //Выполняем поиск файлов в переданной папке
-            List<DuplicateInfo> filesToCheck = _fileWork.ScanFiles(path);
+            List<DuplicateInfo> filesToCheck = _fileWork.ScanFiles(properties.ScanPath);
             //Выполняем поиск дубликатов
-            List<FindResult> result = _duplicatesFind.Find(filesToCheck);
+            List<FindResult> result = _duplicatesFind.Find(filesToCheck, properties);
             //Вызываем ивент завершения сканирования, с указанием результатов
             DuplicateScannerFasade.InvokeCompleteScan(result);
         }

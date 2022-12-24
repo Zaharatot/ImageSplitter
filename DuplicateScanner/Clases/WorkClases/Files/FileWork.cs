@@ -166,12 +166,16 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// <param name="group">Группа для простановки</param>
         private void SetForbiddenHashes(HashesGroup group)
         {
-            //Получаем список дубликатов по хешам группы
-            List<DuplicateInfo> duplicates = GetDuplicatesFromGroup(group);
-            //Проходимся по списку выбранных дубликатов
-            foreach (DuplicateInfo current in duplicates)
-                //Получаем список хешей, которые можно добавить текущему, и добавляем их
-                current.ForbiddenHashes.AddRange(GetHashesToAdd(current, duplicates));
+            //Если в группе больше одного элемента
+            if (group.HashList.Count > 1)
+            {
+                //Получаем список дубликатов по хешам группы
+                List<DuplicateInfo> duplicates = GetDuplicatesFromGroup(group);
+                //Проходимся по списку выбранных дубликатов
+                foreach (DuplicateInfo current in duplicates)
+                    //Получаем список хешей, которые можно добавить текущему, и добавляем их
+                    current.ForbiddenHashes.AddRange(GetHashesToAdd(current, duplicates));
+            }
         }
 
 

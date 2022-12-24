@@ -55,6 +55,7 @@
     <Compile Include="Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Clases\DataClases\Image\ByteImageInfo.cs" />
     <Compile Include="Clases\DataClases\File\DuplicateInfo.cs" />
+    <Compile Include="Clases\DataClases\Properties\ScanProperties.cs" />
     <Compile Include="Clases\DataClases\Result\DuplicateResult.cs" />
     <Compile Include="Clases\DataClases\Result\FindResult.cs" />
     <Compile Include="Clases\DataClases\Result\ProgressInfo.cs" />

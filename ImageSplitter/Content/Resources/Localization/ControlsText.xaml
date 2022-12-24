@@ -30,4 +30,14 @@
     <sys:String x:Key="Text_DateLimitMinute">мин</sys:String>
     <sys:String x:Key="Text_DateLimitSecund">сек</sys:String>
 
+    <!-- Значения типов скнирования -->
+    <sys:String x:Key="Text_DuplicateScanType_0">Оба варианта проверки</sys:String>
+    <sys:String x:Key="Text_DuplicateScanType_1">Сравнение обычных хешей</sys:String>
+    <sys:String x:Key="Text_DuplicateScanType_2">Сравнение хешей лайновых версий</sys:String>
+
+
+    <!-- Заголвок для панели информации о блокировке -->
+    <sys:String x:Key="Text_FindedImageControl_BlockedHeader">Выбрано в:</sys:String>
+    <sys:String x:Key="Text_FindedImagesPanel_BlockedHeader">Выбраны для удаления в других блоках:</sys:String>    
+
 </ResourceDictionary>

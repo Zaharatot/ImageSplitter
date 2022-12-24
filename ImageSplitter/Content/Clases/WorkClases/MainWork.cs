@@ -1,5 +1,6 @@
 ﻿using DuplicateScanner;
 using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Properties;
 using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Processors;
@@ -156,10 +157,10 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Запуск сканирования дубликатов
         /// </summary>
-        /// <param name="path">Путь к папке сканирования</param>
-        public void StartDuplicateScan(string path) =>
+        /// <param name="properties">Параметры сканирования</param>
+        public void StartDuplicateScan(ScanProperties properties) =>
             //Вызываем внутренний метод
-            _duplicateScan.StartDuplicateScan(path);
+            _duplicateScan.StartDuplicateScan(properties);
 
         /// <summary>
         /// Метод запуска удаления дублиткатов
