@@ -43,6 +43,10 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// События запуска сплита
         /// </summary>
         public event StartSplitScanEventHandler StartSplitScan;
+        /// <summary>
+        /// Событие отображения древа
+        /// </summary>
+        public event ShowTreeRequestEventHandler ShowTreeRequest;
 
         /// <summary>
         /// Класс рассчёта размера
@@ -91,6 +95,8 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             TopPanel.MoveToImageRequest += TopPanel_MoveToImageRequest;
             //Добавляем обработчик события запуска сплита
             SplitParams.StartSplitScan += SplitParams_StartSplitScan;
+            //Добавляем обработчик события запроса отображения древа
+            SplitParams.ShowTreeRequest += SplitParams_ShowTreeRequest;
             //Добавляем обработчик события удаления папки
             FoldersList.RemoveFolderRequest += FoldersList_RemoveFolderRequest;
             //Добавляем обработчик события добавления папки
@@ -133,6 +139,14 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         private void SplitParams_StartSplitScan(string scanPath, string splitPath, bool isFolder) =>
             //Вызываем внешний ивент
             StartSplitScan?.Invoke(scanPath, splitPath, isFolder);
+
+        /// <summary>
+        /// Обработчик события запроса отображения древа
+        /// </summary>
+        /// <param name="path">Путь для отображения древа</param>
+        private void SplitParams_ShowTreeRequest(string path) =>
+            //Вызываем внешний ивент
+            ShowTreeRequest?.Invoke(path);
 
         /// <summary>
         /// Обработчик события перехода к изображению

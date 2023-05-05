@@ -234,6 +234,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Windows\TreeVisualizerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Windows\SelectFoldersWindow.xaml.cs">
@@ -244,6 +248,9 @@
     </Compile>
     <Compile Include="Content\Windows\Tags\SelectTagsForAddWindow.xaml.cs">
       <DependentUpon>SelectTagsForAddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Windows\TreeVisualizerWindow.xaml.cs">
+      <DependentUpon>TreeVisualizerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

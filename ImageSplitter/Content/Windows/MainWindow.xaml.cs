@@ -108,6 +108,9 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.MoveImageComplete += GlobalEvents_MoveImageComplete;
             //Добавляем обработчик событяи запуска сканирования
             GlobalEvents.StartDuplicateScan += GlobalEvents_StartDuplicateScan;
+            //Добавляем обработчик события запроса на удаление старых элементов
+            GlobalEvents.RemoveOldRequest += GlobalEvents_RemoveOldRequest;
+
             //Добавляем обработчик события обновления статуса сканирования на дубликаты
             DuplicateScannerFasade.UpdateScanInfo += DuplicateScannerFasade_UpdateScanInfo;
             //Добавляем обработчик события завершения сканирования на дубликаты
@@ -131,6 +134,8 @@ namespace ImageSplitter.Content.Windows
         {
             //Добавляем обработчик событяи запуска сплита
             SplitImages.StartSplitScan += SplitImages_StartSplitScan;
+            //Добавляем обработчик события запроса отображения древа
+            SplitImages.ShowTreeRequest += SplitImages_ShowTreeRequest;
             //Добавляем обработчик события запроса на переход к коллекции
             SplitImages.MoveToCollectionRequest += SplitImages_MoveToCollectionRequest;
             //Добавляем обработчик события запроса на добавление новой папки
@@ -145,6 +150,20 @@ namespace ImageSplitter.Content.Windows
             RenameFiles.RenameFiles += RenameFiles_RenameFiles;
             //Добавляем обработчик события запуска удаления дубликатов
             ImageDuplicates.DuplicateRemove += ImageDuplicates_DuplicateRemove;
+        }
+
+        /// <summary>
+        /// Обработчик события запроса отображения древа
+        /// </summary>
+        /// <param name="path">Путь для отображения древа</param>
+        private void SplitImages_ShowTreeRequest(string path)
+        {
+            //Инициализируем окно отображения
+            TreeVisualizerWindow treeVisualizerWindow = new TreeVisualizerWindow();
+            //Отображаем древо
+            treeVisualizerWindow.VisualizeTree(path);
+            //Отображаем окно
+            treeVisualizerWindow.Show();
         }
 
 
@@ -351,6 +370,15 @@ namespace ImageSplitter.Content.Windows
                 //Обновляем общую инфорамцию в контролле
                 SplitImages.UpdateMainInfo(pagesInfo, folders);
             });
+
+
+
+        /// <summary>
+        /// Обработчик события запроса на удаление старых элементов
+        /// </summary>
+        private void GlobalEvents_RemoveOldRequest() =>
+            //Вызываем внутренний метод
+            _mainWork.RemoveOldDuplicates();
 
 
         /// <summary>

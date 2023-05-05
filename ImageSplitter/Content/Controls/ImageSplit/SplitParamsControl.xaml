@@ -12,7 +12,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
             </Grid.RowDefinitions>
             <!-- ПАнель основных полей для заполнения -->
             <StackPanel Grid.Row="0">
@@ -25,9 +26,12 @@
                 <!-- Чекбокс типа коллекции -->
                 <CheckBox x:Name="IsFolderCheckBox" Content="Искать папки" TabIndex="2" Margin="0,5,0,5" />
             </StackPanel>
+            <!-- Кнопка отображения древа -->
+            <Button x:Name="ShowTreeButton" Content="Отобразить древо" Grid.Row="2"
+                                        Click="ShowTreeButton_Click" TabIndex="3" Margin="0,5" />
             <!-- Кнопка запуска сканирования -->
-            <Button x:Name="ScanButton" Content="Запуск сканирования" Grid.Row="2"
-                                        Click="ScanButton_Click" TabIndex="3"/>
+            <Button x:Name="ScanButton" Content="Запуск сканирования" Grid.Row="3"
+                                        Click="ScanButton_Click" TabIndex="3" Margin="0,5" />
         </Grid>
     </Border>
 </UserControl>

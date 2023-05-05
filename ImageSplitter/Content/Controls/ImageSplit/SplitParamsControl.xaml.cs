@@ -25,6 +25,10 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// События запуска сплита
         /// </summary>
         public event StartSplitScanEventHandler StartSplitScan;
+        /// <summary>
+        /// Событие отображения древа
+        /// </summary>
+        public event ShowTreeRequestEventHandler ShowTreeRequest;
 
 
         /// <summary>
@@ -43,13 +47,17 @@ namespace ImageSplitter.Content.Controls.ImageSplit
             StartSplitScan?.Invoke(ScanPathTextBox.Text, MovePathTextBox.Text, GetCheckBoxState());
 
         /// <summary>
+        /// Обработчик события нажатия на кнопку отображения древа
+        /// </summary>
+        private void ShowTreeButton_Click(object sender, RoutedEventArgs e) =>
+            //ВЫзываем внешний ивент, передавая в него данные
+            ShowTreeRequest?.Invoke(MovePathTextBox.Text);
+
+        /// <summary>
         /// Получаем значение статуса чекбокса
         /// </summary>
         /// <returns>True - чекбокс нажат</returns>
         private bool GetCheckBoxState() =>
             IsFolderCheckBox.IsChecked.GetValueOrDefault(false);
-
-
-
     }
 }

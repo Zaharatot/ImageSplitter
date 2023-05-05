@@ -30,6 +30,10 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// Событие запуска скнирования на дубликаты
         /// </summary>
         public static event StartDuplicateScanEventHandler StartDuplicateScan;
+        /// <summary>
+        /// Событие запроса удаления старых записей
+        /// </summary>
+        public static event EmptyEventHandler RemoveOldRequest;
 
 
         /// <summary>
@@ -59,6 +63,11 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public static void InvokeStartDuplicateScan(ScanProperties properties) =>
             StartDuplicateScan?.Invoke(properties);
 
-
+        /// <summary>
+        /// Метод вызова ивента удаления старых записей
+        /// </summary>
+        public static void InvokeRemoveOldRequest() =>
+            RemoveOldRequest?.Invoke();
+        
     }
 }

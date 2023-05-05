@@ -87,6 +87,17 @@ namespace DuplicateScanner.Clases.WorkClases
         }
 
         /// <summary>
+        /// Метод удаления старых дубликатов из списка
+        /// </summary>
+        public void RemoveOldDuplicates()
+        {
+            //Удаляем старые дубликаты
+            _fileWork.RemoveOldDuplicates();
+            //Выполняем сохранение изменений списка
+            _fileWork.SaveFiles();
+        }
+
+        /// <summary>
         /// Метод очистки неуправляемых ресурсов класса
         /// </summary>
         public void Dispose()

@@ -120,12 +120,30 @@ namespace DuplicateScanner.Clases.WorkClases.Files
                 if (File.Exists(info.Path))
                     //Удаляем его
                     File.Delete(info.Path);
-                //Удаляем файл из списка
-                _currentDuplicates.Remove(info);
-                //Удаляем этот хеш из всех списков запрещённых
-                _currentDuplicates.ForEach(file => file.RemoveForbiddenHash(hash));
+                //Удаляем файл из списков
+                RemoveFileFromList(info);
             }
         }
+
+        /// <summary>
+        /// Метод удаления информации о файле из списков
+        /// </summary>
+        /// <param name="info">Информация о файле</param>
+        private void RemoveFileFromList(DuplicateInfo info)
+        {
+            //Удаляем файл из списка
+            _currentDuplicates.Remove(info);
+            //Удаляем этот хеш из всех списков запрещённых
+            _currentDuplicates.ForEach(file => file.RemoveForbiddenHash(info.PathHash));
+        }
+
+        /// <summary>
+        /// Получаем список устаревших записей о дубликатах
+        /// </summary>
+        /// <returns>Список устаревших записей о дубликатах</returns>
+        private List<DuplicateInfo> GetOldDuplicates() =>
+            _currentDuplicates.Where(dup => !File.Exists(dup.Path)).ToList();
+
 
 
         /// <summary>
@@ -283,6 +301,21 @@ namespace DuplicateScanner.Clases.WorkClases.Files
                 _currentDuplicates.AddRange(newFiles);
             //Сохраняем обновлённый список дубликатов
             _duplicateInfoLoader.SaveDuplicates(_currentDuplicates);
+        }
+
+        /// <summary>
+        /// Метод удаления старых дубликатов из списка
+        /// </summary>
+        public void RemoveOldDuplicates()
+        {
+            //TODO: тут нужно сделать возврат результата в ивенте и прогресс, т.к.
+            //операции по проверке наличия файлов занимают просто тонну времени.
+
+
+            //Получаем список устаревших записей о дубликатах
+            List<DuplicateInfo> oldDuplicates = GetOldDuplicates();
+            //Удаляем эти дубликаты из всех списков
+            oldDuplicates.ForEach(dup => RemoveFileFromList(dup));
         }
 
         /// <summary>

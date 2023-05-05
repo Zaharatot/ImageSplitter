@@ -31,6 +31,14 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         public bool IsSaveUnchecked => 
             SaveUncheckedCheckBox.IsChecked.GetValueOrDefault(false);
 
+        /// <summary>
+        /// Текст сообщения запроса на удаление
+        /// </summary>
+        private string _removeOldRequestMeessage;
+        /// <summary>
+        /// Текст заголовка запроса на удаление
+        /// </summary>
+        private string _removeOldRequestHeader;
 
         /// <summary>
         /// Конструктор класса
@@ -46,6 +54,9 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         private void Init()
         {
+            //Грузим текст сообщения
+            _removeOldRequestMeessage = ResourceLoader.LoadString("Text_Messages_RemoveOldVersionsRequest");
+            _removeOldRequestHeader = ResourceLoader.LoadString("Text_MessageHeader_RemoveRequest");            
             //Заполняем комбобокс
             FillComboBox();
         }
@@ -77,12 +88,34 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
+        /// Кнопка Удаления старых записей
+        /// </summary>
+        private void RemoveOldButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Если удаление было подтверждено
+            if(IsRemoveAllow()) 
+                //Вызываем глобальный ивент
+                GlobalEvents.InvokeRemoveOldRequest();
+        }
+
+        /// <summary>
         /// Обработчик события изменения значения слайдера
         /// </summary>
         private void AccuracySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) =>
             //Проставляем в текстовый блок значение из слайдера
             AccuracyTextBlock.Text = ((int)AccuracySlider.Value).ToString();
 
+
+
+
+
+        /// <summary>
+        /// Метод запроса у пользователя подтверждения удаления
+        /// </summary>
+        /// <returns>True - удаление было подтверждено</returns>
+        private bool IsRemoveAllow() =>
+            MessageBox.Show(_removeOldRequestMeessage, _removeOldRequestHeader,
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
         /// <summary>
         /// Загружаем из ресурсов строку по идентификатору

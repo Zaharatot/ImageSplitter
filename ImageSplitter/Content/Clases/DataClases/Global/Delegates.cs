@@ -38,6 +38,12 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public delegate void StartSplitScanEventHandler(string scanPath, string splitPath, bool isFolder);
 
         /// <summary>
+        /// Делегат события запроса на отображение древа
+        /// </summary>
+        /// <param name="path">Путь для отображения древа</param>
+        public delegate void ShowTreeRequestEventHandler(string path);
+
+        /// <summary>
         /// Делегат события перехода к изображению
         /// </summary>
         /// <param name="direction">Направление перехода</param>

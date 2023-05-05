@@ -67,6 +67,8 @@
             </StackPanel>
             <!-- Панель кнопок действий -->
             <StackPanel Grid.Row="2">
+                <!-- Кнопка удаления лишних записей -->
+                <Button x:Name="RemoveOldButton" Content="Удалить устаревшие записи" Click="RemoveOldButton_Click" Margin="0,10" />
                 <!-- Кнопка запуска сканирвоания -->
                 <Button x:Name="StartScanButton" Content="Запуск сканирования" Click="StartScanButton_Click" />
             </StackPanel>

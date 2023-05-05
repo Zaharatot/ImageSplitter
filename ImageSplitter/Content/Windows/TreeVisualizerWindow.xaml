@@ -1,0 +1,11 @@
+﻿<Window x:Class="ImageSplitter.Content.Windows.TreeVisualizerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageSplitter.Content.Windows"
+        mc:Ignorable="d" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
+        Title="TreeVisualizerWindow" Height="600" Width="450">
+    <!-- Контролл отображения элементов древом -->
+    <TreeView x:Name="FoldersTreeView" Margin="5" Padding="5" />
+</Window>

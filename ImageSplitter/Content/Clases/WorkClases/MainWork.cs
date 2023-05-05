@@ -171,6 +171,14 @@ namespace ImageSplitter.Content.Clases.WorkClases
             //Вызываем внутренний метод
             _duplicateScan.RemoveDuplicates(toRemove, groups);
 
+
+        /// <summary>
+        /// Метод удаления старых дубликатов из списка
+        /// </summary>
+        public void RemoveOldDuplicates() =>
+            //Вызываем внутренний метод
+            _duplicateScan.RemoveOldDuplicates();
+
         /// <summary>
         /// Метод очистки неуправляемых ресурсов класса
         /// </summary>

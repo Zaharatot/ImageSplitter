@@ -107,6 +107,13 @@ namespace DuplicateScanner
             new Thread(() => _scanner.RemoveDuplicates(toRemove, groups)).Start();
 
 
+        /// <summary>
+        /// Метод удаления старых дубликатов из списка
+        /// </summary>
+        public void RemoveOldDuplicates() =>
+            //Вызываем дочерний метод в отдельном потоке
+            new Thread(() => _scanner.RemoveOldDuplicates()).Start();
+
 
         /// <summary>
         /// Метод очистки неуправляемых ресурсов класса
