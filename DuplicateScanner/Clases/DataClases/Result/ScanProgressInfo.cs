@@ -37,9 +37,9 @@ namespace DuplicateScanner.Clases.DataClases.Result
         /// </summary>
         public int LoadedFiles { get; set; }
         /// <summary>
-        /// Время одной итерации
+        /// Расчётное оставшееся время
         /// </summary>
-        public double IterationTime { get; set; }
+        public double? TimeLeft { get; set; }
 
         /// <summary>
         /// Конструктор класса
@@ -52,7 +52,7 @@ namespace DuplicateScanner.Clases.DataClases.Result
             //Проставляем дефолтные значения
             FilesFinded = ErrorFilesCount = 
                 ProcessedFiles = FilesToProcess = LoadedFiles = 0;
-            IterationTime = 0;
+            TimeLeft = null;
         }
     }
 }

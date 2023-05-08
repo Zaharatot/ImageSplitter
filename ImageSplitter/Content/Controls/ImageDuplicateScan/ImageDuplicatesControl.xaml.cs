@@ -48,6 +48,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Класс форматирования времени
         /// </summary>
         private DateFormatter _dateFormatter;
+        /// <summary>
+        /// Текст сообыения для рассчёта времени
+        /// </summary>
+        private string _calculatiogTimeMessage;
 
         /// <summary>
         /// Конструктор контролла
@@ -66,6 +70,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Инициализируем информацию о прогрессе
             _scanProgressInfo = CreateScanProgressInfo();
             _removeProgressInfo = CreateRemoveProgressInfo();
+            //Грузим текст из ресурсов
+            _calculatiogTimeMessage = ResourceLoader.LoadString("Text_DateLimitCalculation"); 
             //Инициализируем используемые классы
             _dateFormatter = new DateFormatter();
         }
@@ -350,12 +356,14 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <returns>Строка с инфой о времени</returns>
         private string CalculateToCompleteTime(ScanProgressInfo info)
         {
-            //Получаем количество оставшихся файлов
-            int left = info.FilesToProcess - info.ProcessedFiles;
-            //Получаем количество секунд до конца обработки
-            int timeLeft = (int)(left * info.IterationTime);
-            //ВОзвращаем время в виде строки
-            return _dateFormatter.GetFormatDateLimit(timeLeft);
+            //Если время уже есть
+            if (info.TimeLeft.HasValue)
+                //ВОзвращаем время в виде строки
+                return _dateFormatter.GetFormatDateLimit(info.TimeLeft.Value);
+            //Если время пока не рассчитано
+            else
+                //Возвращаем соответствующее сообщение
+                return _calculatiogTimeMessage;
         }
 
 

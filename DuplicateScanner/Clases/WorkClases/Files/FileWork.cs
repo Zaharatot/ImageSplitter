@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TimeLeftCalcZ;
 using System.Text;
 using System.Threading.Tasks;
 using static DuplicateScanner.Clases.DataClases.Global.Enums;
@@ -36,6 +37,10 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// Класс рассчёта хешей
         /// </summary>
         private HashCalculator _hashCalculator;
+        /// <summary>
+        /// Калькулятор оставшегося времени
+        /// </summary>
+        private TimeLeftCalc _timeLeftCalc;
 
 
 
@@ -56,6 +61,7 @@ namespace DuplicateScanner.Clases.WorkClases.Files
             _duplicateInfoLoader = new DuplicateInfoLoader();
             _fileScanner = new FileScanner();
             _hashCalculator = new HashCalculator();
+            _timeLeftCalc = new TimeLeftCalc();
             //Грузим дубликаты из файла
             _currentDuplicates = _duplicateInfoLoader.LoadDuplicates();
         }
@@ -159,8 +165,10 @@ namespace DuplicateScanner.Clases.WorkClases.Files
             ScanProgressInfo info = CreateProgressInfo(loadedFilesCount, newFiles.Count);
             //Вызываем ивент обновления прогресса
             DuplicateScannerFasade.InvokeUpdateScanInfo(info);
+            //Запускаем калькулятор времени
+            _timeLeftCalc.Start(newFiles.Count);
             //Вычисляем хеши для каждого из новых файлов
-            for(int i = 0; i < newFiles.Count; i++) 
+            for (int i = 0; i < newFiles.Count; i++) 
             {
                 //Получаем время запуска получения хеша
                 start = DateTime.Now;
@@ -170,8 +178,10 @@ namespace DuplicateScanner.Clases.WorkClases.Files
                 info.ErrorFilesCount = newFiles.Count(file => file.IsErrorFile);
                 //Обновляем счётчик обработанных файлов
                 info.ProcessedFiles = i;
-                //Получаем время итерации для ивента
-                info.IterationTime = (DateTime.Now - start).TotalSeconds;
+                //Добавляем итерацию в калькулятор                
+                _timeLeftCalc.AddIteration(i, (DateTime.Now - start).TotalSeconds);
+                //Возвращаем оставшееся время
+                info.TimeLeft = _timeLeftCalc.GetTimeLeft();
                 //Вызываем ивент обновления прогресса
                 DuplicateScannerFasade.InvokeUpdateScanInfo(info);
             }

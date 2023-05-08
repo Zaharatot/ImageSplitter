@@ -155,6 +155,7 @@
     <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\CollectionInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\TargetFolderInfo.cs" />
+    <Compile Include="Content\Clases\DataClases\Split\TreeInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Storage\StoragedFileInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Tags\Tag.cs" />
     <Compile Include="Content\Clases\DataClases\Tags\TaggedImage.cs" />

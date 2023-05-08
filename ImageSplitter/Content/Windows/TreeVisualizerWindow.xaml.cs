@@ -46,8 +46,10 @@ namespace ImageSplitter.Content.Windows
         private void AddElements(DirectoryInfo dir, TreeViewItem parent)
         {
             TreeViewItem elem;
+            //Получаем отсортированные по имени дочерние папки
+            List<DirectoryInfo> sortedDirs = dir.GetDirectories().OrderBy(ch => ch.Name).ToList();
             //Проходимся по дочерним папкам
-            foreach (var child in dir.GetDirectories())
+            foreach (var child in sortedDirs)
             {
                 //Создаём новый элемент
                 elem = CreateElem(child);

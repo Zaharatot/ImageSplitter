@@ -48,6 +48,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TimeLeftCalcZ">
+      <HintPath>..\..\..\Completed\TimeLeftCalcZ\TimeLeftCalcZ\bin\Debug\TimeLeftCalcZ.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\DataClases\File\HashesGroup.cs" />

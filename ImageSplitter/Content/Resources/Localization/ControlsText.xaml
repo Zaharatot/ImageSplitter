@@ -30,6 +30,8 @@
     <sys:String x:Key="Text_DateLimitMinute">мин</sys:String>
     <sys:String x:Key="Text_DateLimitSecund">сек</sys:String>
 
+    <sys:String x:Key="Text_DateLimitCalculation">Рассчитывается...</sys:String>
+
     <!-- Значения типов скнирования -->
     <sys:String x:Key="Text_DuplicateScanType_0">Оба варианта проверки</sys:String>
     <sys:String x:Key="Text_DuplicateScanType_1">Сравнение обычных хешей</sys:String>
