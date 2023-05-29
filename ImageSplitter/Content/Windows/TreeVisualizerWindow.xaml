@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSplitter.Content.Windows"
         mc:Ignorable="d" WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen"
-        Title="TreeVisualizerWindow" Height="600" Width="450">
-    <!-- Контролл отображения элементов древом -->
-    <TreeView x:Name="FoldersTreeView" Margin="5" Padding="5" />
+        Title="TreeVisualizerWindow" Height="600" Width="450" Padding="50">
+    <!-- Добавляем скроллбары -->
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
+        <!-- Контролл отображения элементов древом -->
+        <WrapPanel x:Name="FoldersWrapPanel" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top" />
+    </ScrollViewer>
 </Window>
