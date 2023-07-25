@@ -6,21 +6,22 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="330">
-    <Border Margin="10" Padding="10" Background="White" BorderBrush="Black" BorderThickness="1">
+    <Border Margin="10" Padding="10" Style="{StaticResource Style_Border}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Margin="0,10">
+            <!-- РАмка для спска элементов -->
+            <Border Style="{StaticResource Style_PanelBorder}" Grid.Row="0" Margin="0,10">
                 <!-- Панель списка папок -->
-                <ScrollViewer>
+                <ScrollViewer Style="{StaticResource Style_ScrollViewer}">
                     <StackPanel x:Name="FoldersList" />
                 </ScrollViewer>
             </Border>
             <!-- Кнопка добавления папки -->
-            <Button x:Name="AddFolderButton" Content="Добавить папку (Ctrl+N)" 
-                        Grid.Row="1" Height="30" Click="AddFolderButton_Click"  />
+            <Button x:Name="AddFolderButton" Content="Добавить папку (Ctrl+N)" Margin="0"
+                    Style="{StaticResource Style_Button}" Grid.Row="1" Height="30" Click="AddFolderButton_Click" Cursor="Hand"  />
         </Grid>
     </Border>
 </UserControl>

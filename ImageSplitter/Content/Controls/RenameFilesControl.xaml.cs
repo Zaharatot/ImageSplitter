@@ -49,6 +49,6 @@ namespace ImageSplitter.Content.Controls
         /// </summary>
         private void RenameButton_Click(object sender, RoutedEventArgs e) =>
             //Запускаем переименование
-            RenameFiles?.Invoke(RenamePathTextBox.Text, RenameMaskTextBox.Text);
+            RenameFiles?.Invoke(RenamePathTextBox.Path, RenameMaskTextBox.Text);
     }
 }

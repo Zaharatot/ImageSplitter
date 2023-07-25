@@ -6,11 +6,11 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"
              xmlns:simple="clr-namespace:ImageSplitter.Content.Controls.Simple"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1200">
-
-    <Grid Background="Gray">
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <!-- Основная панель контролла -->
+    <Grid Background="{StaticResource Brush_DeepBackgroundColor}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="620"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -24,14 +24,13 @@
         <local:ScanPropertiesControl x:Name="ScanProperties" Grid.Column="0" />
 
         <!-- Список дубликатов -->
-        <Border Margin="10" Padding="10" Background="White"
-                BorderBrush="Black" BorderThickness="1" Grid.Column="1" Grid.Row="1">
+        <Border Style="{StaticResource Style_Border}" Grid.Column="1" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
-                    <RowDefinition Height="36" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <!-- Панель поиска -->
@@ -40,21 +39,23 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <!-- ЗАголовок строки поиска -->
-                    <TextBlock Text="Поиск:" Margin="0,0,15,0" />
-                    <TextBox x:Name="SearchStringTextBox" Grid.Column="1" TextChanged="SearchStringTextBox_TextChanged"  />
+                    <!-- Заголовок строки поиска -->
+                    <TextBlock Text="Поиск:" Margin="0,0,15,0" VerticalAlignment="Center" Foreground="{StaticResource Brush_ForegroundColor}" />
+                    <simple:PlaceholderTextBox x:Name="SearchStringTextBox" Grid.Column="1" VerticalAlignment="Center" PlaceholderText="Введите текст для поиска..." />
                 </Grid>
                 <!-- Заголовок панели -->
-                <TextBlock Text="Список дубликатов:" Grid.Row="1" Margin="0,0,0,5" />
+                <TextBlock Text="Список дубликатов:" Grid.Row="1" Margin="0,10,0,5" Foreground="{StaticResource Brush_ForegroundColor}" />
                 <!-- Панель на которую выводятся дубликаты -->
-                <Border Grid.Row="2" Padding="0" BorderThickness="1" BorderBrush="Black">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+                <Border Grid.Row="2" Style="{StaticResource Style_PanelBorder}" >
+                    <!-- Скролл для дублей -->
+                    <ScrollViewer Style="{StaticResource Style_ScrollViewer}" HorizontalScrollBarVisibility="Disabled" 
+                                  VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="MainPanel" />
                     </ScrollViewer>
                 </Border>
                 <!-- Кнопка запуска удаления дубликатов -->
-                <Button x:Name="RemoveDuplicatesButton" Content="Удалить выбранные файлы" 
-                        Padding="15, 5" Click="RemoveDuplicatesButton_Click"
+                <Button x:Name="RemoveDuplicatesButton" Content="Удалить выбранные файлы" Margin="5,15,5,5"
+                        Click="RemoveDuplicatesButton_Click" Style="{StaticResource Style_Button}"
                         VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="3"  />
             </Grid>
         </Border>

@@ -9,13 +9,13 @@
         xmlns:local="clr-namespace:ImageSplitter.Content.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
-        MinHeight="450" MinWidth="800"
-        Title="ImageSplitter" Height="700" Width="1000">
-    <TabControl x:Name="MainTabControl">       
+        MinHeight="450" MinWidth="800" Background="{StaticResource Brush_ControlBackgroundColor}"
+        Title="ImageSplitter" Height="800" Width="1200">
+    <TabControl x:Name="MainTabControl" Padding="0" BorderBrush="{StaticResource Brush_BordersColor}">       
         <!-- Вкладка сплита изображений -->
-        <TabItem>
+        <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
-                <TextBlock Text="Изображения для раскладки">
+                <TextBlock Text="Изображения для раскладки" Foreground="{StaticResource Brush_ForegroundColor}">
                     <TextBlock.ToolTip>
                         <ToolTip Content="Ctrl+1" />
                     </TextBlock.ToolTip>
@@ -26,7 +26,7 @@
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка сплита файлов -->
-        <TabItem>
+        <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
                 <TextBlock Text="Разделение файлов">
                     <TextBlock.ToolTip>
@@ -39,7 +39,7 @@
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка переименования файлов -->
-        <TabItem>
+        <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
                 <TextBlock Text="Переименование файлов">                
                     <TextBlock.ToolTip>   
@@ -52,7 +52,7 @@
             </TabItem.Content>
         </TabItem>
         <!-- Вкладка поиска дубликатов изображений -->
-        <TabItem>
+        <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
                 <TextBlock Text="Поиск дубликатов изображений">
                     <TextBlock.ToolTip>

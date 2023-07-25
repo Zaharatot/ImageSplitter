@@ -116,5 +116,11 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// <param name="state">Статус для простановки</param>
         public delegate void SetCheckToDuplicateEventHandler(uint hash, string parentName, bool state);
 
+        /// <summary>
+        /// Делегат события изменения текстового контента
+        /// </summary>
+        /// <param name="text">ИЗменённый текст</param>
+        public delegate void ChangeTextEventHandler(string text);
+
     }
 }

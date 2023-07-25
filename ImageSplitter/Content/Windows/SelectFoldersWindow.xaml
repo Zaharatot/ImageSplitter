@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Topmost="True"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow"
+        WindowStyle="ToolWindow" Background="{StaticResource Brush_PanelBackgroundColor}"
         Title="Добавление папок" Height="450" Width="400" >
     <Grid>
         <Grid.RowDefinitions>
@@ -16,20 +16,25 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!-- Заголовок окна -->
-        <TextBlock Grid.Row="0" Padding="10" FontSize="15" Text="Выберите папки для подключения:" />
-        <!-- Панельс чекбоксами -->
-        <ListBox x:Name="ContentListBox" Grid.Row="1" Padding="10" />
-        <!-- Панель кнопок -->
-        <Grid Grid.Row="2" Height="50">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <!-- Кнопка сброса выделения -->
-            <Button x:Name="UncheckAllButton" Content="Сброс выделения" Click="UncheckAllButton_Click" Margin="10" Width="150" />
-            <!-- Кнопка продолжения работы -->
-            <Button Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center"
-                    Content="Применить" Margin="10" Height="30" x:Name="ConfirmButton" Click="ConfirmButton_Click" />
-        </Grid>
+        <TextBlock Grid.Row="0" Padding="10" FontSize="15" Text="Выберите папки для подключения:" 
+                   Foreground="{StaticResource Brush_ForegroundColor}" />
+        <!-- Рамка для списка чекбоксов -->
+        <Border Grid.Row="1" Style="{StaticResource Style_PanelBorder}" Margin="10, 0" >
+            <!-- Скролл панели чекбоксов -->
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" 
+                          Style="{StaticResource Style_ScrollViewer}">
+                <!-- Панель чекбоксов -->
+                <StackPanel x:Name="CheckBoxesPanel" Margin="5" />
+            </ScrollViewer>
+        </Border>
+
+
+        <!-- Кнопка сброса выделения -->
+        <Button x:Name="UncheckAllButton" Content="Сброс выделения" Click="UncheckAllButton_Click" HorizontalAlignment="Left" 
+                Style="{StaticResource Style_Button}" Width="150" Grid.Row="2" Margin="10" />
+        <!-- Кнопка продолжения работы -->
+        <Button x:Name="ConfirmButton" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                Style="{StaticResource Style_Button}" Width="150" Grid.Row="2" Margin="10"
+                Content="Применить"  Click="ConfirmButton_Click" />
     </Grid>
 </Window>

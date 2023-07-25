@@ -6,37 +6,37 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"
              mc:Ignorable="d" 
              d:DesignHeight="250" Width="550">
-    <Border Background="White" BorderBrush="Black" BorderThickness="2" Margin="3">
+    <Border Style="{StaticResource Style_Border}" Padding="0" Margin="3">
         <!-- Кнопка сворачивания/разворачивания панели -->
-        <Expander x:Name="ShowPanelExpander" Background="LightGray" Padding="0,0,0,1" 
+        <Expander x:Name="ShowPanelExpander" Background="{StaticResource Brush_DeepBackgroundColor}" Padding="0,0,0,1" 
                   Expanded="ShowPanelExpander_Expanded" Collapsed="ShowPanelExpander_Collapsed">
             <!-- Заголовок панели -->
             <Expander.Header>
                 <!-- Текстовый блок заголовка панели -->
                 <TextBlock>
                     <!-- Базовый текст заголовка -->
-                    <Run x:Name="GroupPanelHeaderRun" Text="[#001]" FontWeight="Bold" />
+                    <Run x:Name="GroupPanelHeaderRun" Text="[#001]" FontWeight="Bold" Foreground="{StaticResource Brush_ForegroundColor}" />
                     <!-- Заголовок для заблокированных -->
-                    <Run x:Name="GroupPanelBlockedHeaderRun" FontWeight="Medium" Foreground="Red" />
+                    <Run x:Name="GroupPanelBlockedHeaderRun" FontWeight="Medium" Foreground="{StaticResource Brush_ActiveColor}" />
                 </TextBlock>
             </Expander.Header>
-            <Grid Background="White">
+            <Grid Background="{StaticResource Brush_PanelBackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="29" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <!-- Панель для добавления изображений -->
                 <WrapPanel x:Name="MainPanel" Grid.Row="0" />
                 <!-- Панель кнопок -->
-                <Border Background="LightGray" Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                <Border Grid.Row="1" Style="{StaticResource Style_PanelBorder}"  Background="{StaticResource Brush_ControlBackgroundColor}" BorderThickness="0,1,0,0">
                     <Grid>
                         <!-- Кнопка сброса выделения для всех изображений -->
                         <Button x:Name="CleanAllCheckBoxesButton" Content="Сбросить выделение для всех" 
-                        Click="CleanAllCheckBoxesButton_Click" Padding="10, 2" Margin="5,0" 
+                        Click="CleanAllCheckBoxesButton_Click" Style="{StaticResource Style_Button}"
                         VerticalAlignment="Center" HorizontalAlignment="Right" />
                         <!-- Кнопка простановки выделения для всех изображений -->
                         <Button x:Name="SetAllCheckBoxesButton" Content="Проставить выделение всем" 
-                        Click="SetAllCheckBoxesButton_Click" Padding="10, 2" Margin="5,0" 
+                        Click="SetAllCheckBoxesButton_Click" Style="{StaticResource Style_Button}"
                         VerticalAlignment="Center" HorizontalAlignment="Left" />
                     </Grid>
                 </Border>

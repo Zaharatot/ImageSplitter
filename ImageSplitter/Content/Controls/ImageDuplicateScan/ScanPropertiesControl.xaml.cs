@@ -82,7 +82,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private void StartScanButton_Click(object sender, RoutedEventArgs e)
         {
             //Если путь сканирования корректен
-            if (CheckScanPath(ScanPathTextBox.Text))
+            if (CheckScanPath(ScanPathTextBox.Path))
                 //Вызываем глобальный ивент, передавая в него параметры с панели
                 GlobalEvents.InvokeStartDuplicateScan(LoadScanProperties());
         }
@@ -131,7 +131,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <returns>Параметры сканирования</returns>
         private ScanProperties LoadScanProperties() =>
             new ScanProperties() { 
-                ScanPath = ScanPathTextBox.Text,
+                ScanPath = ScanPathTextBox.Path,
                 ScanAccuracy = (int)AccuracySlider.Value,
                 ScanType = GetScanType()
             };

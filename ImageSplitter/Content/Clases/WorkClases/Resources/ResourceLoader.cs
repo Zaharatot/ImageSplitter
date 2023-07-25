@@ -34,5 +34,15 @@ namespace ImageSplitter.Content.Clases.WorkClases.Resources
         public static SolidColorBrush LoadBrush(string id) =>
             //Получаем ресурс по Id
             (SolidColorBrush)Application.Current.Resources[id];
+
+
+        /// <summary>
+        /// Загружаем из ресурсов значение стиля по id
+        /// </summary>
+        /// <param name="id">Id элемента</param>
+        /// <returns>Искомое значение</returns>
+        public static Style LoadStyle(string id) =>
+            //Получаем ресурс по Id
+            (Style)Application.Current.Resources[id];
     }
 }

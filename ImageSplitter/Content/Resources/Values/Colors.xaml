@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+
+    <!-- Кисти -->
+
+    <!-- Основные цвета темы -->
+    <SolidColorBrush x:Key="Brush_ActiveColor" Color="#a1004b" />
+    <SolidColorBrush x:Key="Brush_DisabledActiveColor" Color="#ff59a7" />
+    <SolidColorBrush x:Key="Brush_PanelBackgroundColor" Color="#ffeed6" />
+    <SolidColorBrush x:Key="Brush_ControlBackgroundColor" Color="#fff7eb" />
+    <SolidColorBrush x:Key="Brush_DeepBackgroundColor" Color="#baa280" />
+    <SolidColorBrush x:Key="Brush_BordersColor" Color="#6f0034" />
+
+    <SolidColorBrush x:Key="Brush_ForegroundColor" Color="#260012" />
+    <SolidColorBrush x:Key="Brush_PlaceholderForegroundColor" Color="#260012" Opacity="0.7" />
+    <SolidColorBrush x:Key="Brush_ActiveForegroundColor" Color="#ffeed6" />
+
+
+    <!-- Цвета для статусов -->
+    <SolidColorBrush x:Key="Brush_DoneColor" Color="#0da100" />
+    <SolidColorBrush x:Key="Brush_FailColor" Color="#a12500" />
+
+
+    <!-- Цвета -->
+    <Color x:Key="Color_ActiveColor" A="255" R="161" G="0" B="75" />
+    <Color x:Key="Color_DisabledActiveColor"  A="255" R="255" G="89" B="167" />
+    <Color x:Key="Color_PanelBackgroundColor" A="255" R="255" G="238" B="214" />
+    <Color x:Key="Color_BordersColor" A="255" R="111" G="0" B="52" />
+    
+
+</ResourceDictionary>

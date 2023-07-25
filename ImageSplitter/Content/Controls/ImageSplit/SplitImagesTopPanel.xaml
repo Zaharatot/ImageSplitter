@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="800">
     <!-- Верхняя панель с инфой о картинке -->
-    <Border Background="White" BorderBrush="Black" BorderThickness="0,0,0,2">
+    <Border Style="{StaticResource Style_PanelBorder}" BorderThickness="0,0,0,2">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -18,14 +18,14 @@
             </Grid.ColumnDefinitions>
 
             <!-- Кнопка "Влево" -->
-            <Button Grid.Column="1" x:Name="UpPageButton" Content="Предыдущая картинка (Up)" 
-                                    Click="UpPageButton_Click" VerticalAlignment="Center" Padding="5" />
+            <Button x:Name="UpPageButton" Content="Предыдущая картинка (Up)" Grid.Column="1" Style="{StaticResource Style_Button}"
+                    Click="UpPageButton_Click" VerticalAlignment="Center" Height="30" />
             <!-- Панель с инфой о текущей коллекции -->
             <TextBlock x:Name="ImageInfoTextBlock" TextAlignment="Center"  Margin="10,0" 
-                       VerticalAlignment="Center" Text="..." Grid.Column="2" />
+                       VerticalAlignment="Center" Text="..." Grid.Column="2" Foreground="{StaticResource Brush_ForegroundColor}" />
             <!-- Кнопка "Вправо" -->
-            <Button Grid.Column="3" x:Name="DownPageButton" Content="Следующая картинка (Down)" 
-                                    Click="DownPageButton_Click" VerticalAlignment="Center" Padding="5" />
+            <Button x:Name="DownPageButton" Grid.Column="3" Content="Следующая картинка (Down)" Style="{StaticResource Style_Button}"
+                    Click="DownPageButton_Click" VerticalAlignment="Center" Height="30" />
         </Grid>
     </Border>
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
+using ImageSplitter.Content.Clases.WorkClases.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace ImageSplitter.Content.Windows
         private void UncheckAllButton_Click(object sender, RoutedEventArgs e)
         {
             //Проходимся по списку контроллов чекбоксов
-            foreach (CheckBox checkBox in ContentListBox.Items)
+            foreach (CheckBox checkBox in CheckBoxesPanel.Children)
                 //Сбрасываем выделение на каждом из них
                 checkBox.IsChecked = false;
         }
@@ -89,6 +90,21 @@ namespace ImageSplitter.Content.Windows
         }
 
         /// <summary>
+        /// Метод создания контролла чекбокса
+        /// </summary>
+        /// <param name="content">Текстовый контент контролла</param>
+        /// <param name="isEmpty">Флаг пустого контролла</param>
+        /// <param name="targets">Текущий список выбранных папок</param>
+        /// <returns>Созданный контролл</returns>
+        private CheckBox CreateFolderControl(string content, bool isEmpty, List<TargetFolderInfo> targets) =>
+            new CheckBox() {
+                Content = content,
+                IsChecked = isEmpty || targets.Any(dir => dir.Name.Equals(content)),
+                Foreground = ResourceLoader.LoadBrush("Brush_ForegroundColor"),
+                Style = ResourceLoader.LoadStyle("Style_CheckBox")
+            };
+
+        /// <summary>
         /// Обновляем список папок
         /// </summary>
         /// <param name="folders">Новый список папок</param>
@@ -98,13 +114,12 @@ namespace ImageSplitter.Content.Windows
             //Получаем флаг пустого 
             bool isEmpty = IsContainOldFolders(folders, targets);
             //Очищаем список от старых элементов
-            ContentListBox.Items.Clear();
+            CheckBoxesPanel.Children.Clear();
             //Добавляем в список чекбоксы по списку папок
             foreach (var folder in folders)
-                ContentListBox.Items.Add(new CheckBox() { 
-                    Content = folder.Name,
-                    IsChecked = isEmpty || targets.Any(dir => dir.Name.Equals(folder.Name))
-                });
+                //Создаём контролл и добавляем на панель
+                CheckBoxesPanel.Children.Add(
+                    CreateFolderControl(folder.Name, isEmpty, targets));
         }
 
         /// <summary>
@@ -121,7 +136,7 @@ namespace ImageSplitter.Content.Windows
             for (int i = 0; i < folders.Count; i++)
             {
                 //Получаем чекбокс из списка
-                buff = ContentListBox.Items[i] as CheckBox;
+                buff = CheckBoxesPanel.Children[i] as CheckBox;
                 //Если галочка стоит
                 if (buff.IsChecked.HasValue && buff.IsChecked.Value)
                 {

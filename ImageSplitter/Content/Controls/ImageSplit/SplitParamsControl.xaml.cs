@@ -44,14 +44,14 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// </summary>
         private void ScanButton_Click(object sender, RoutedEventArgs e) =>
             //ВЫзываем внешний ивент, передавая в него данные
-            StartSplitScan?.Invoke(ScanPathTextBox.Text, MovePathTextBox.Text, GetCheckBoxState());
+            StartSplitScan?.Invoke(ScanPathTextBox.Path, MovePathTextBox.Path, GetCheckBoxState());
 
         /// <summary>
         /// Обработчик события нажатия на кнопку отображения древа
         /// </summary>
         private void ShowTreeButton_Click(object sender, RoutedEventArgs e) =>
             //ВЫзываем внешний ивент, передавая в него данные
-            ShowTreeRequest?.Invoke(MovePathTextBox.Text);
+            ShowTreeRequest?.Invoke(MovePathTextBox.Path);
 
         /// <summary>
         /// Получаем значение статуса чекбокса

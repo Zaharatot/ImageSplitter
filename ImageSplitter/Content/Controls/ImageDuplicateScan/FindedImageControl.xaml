@@ -6,29 +6,32 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"
              mc:Ignorable="d" 
              Height="200" Width="180">
-    <Border BorderBrush="Black" BorderThickness="1"  Margin="3">
+    <Border Style="{StaticResource Style_PanelBorder}"  Margin="3">
         <!-- Основная панель контролла -->
-        <Grid x:Name="MainPanel" Background="White" MouseDown="MainPanel_MouseDown">
+        <Grid x:Name="MainPanel" MouseDown="MainPanel_MouseDown">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <!-- Чекбокс выбора картинки -->
-            <CheckBox x:Name="SelectImageCheckBox" Margin="0" Width="20" Height="20" Cursor="Hand" Panel.ZIndex="1"
-                      VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Background="White"
+            <CheckBox x:Name="SelectImageCheckBox" Margin="5" Width="20" Height="20" Cursor="Hand" Panel.ZIndex="1"
+                      VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0" Style="{StaticResource Style_CheckBox}"
                       Checked="SelectImageCheckBox_CheckedChange" Unchecked="SelectImageCheckBox_CheckedChange" />
-            <!-- КОнтролл с информацией о блокировке -->
-            <TextBlock x:Name="BlockInfoTextBlock" Visibility="Collapsed" Background="#A111" 
-                       TextAlignment="Center" Foreground="#F3F" Text="Блок от: #45" Panel.ZIndex="2" />
+            <!-- Контролл с информацией о блокировке -->
+            <TextBlock x:Name="BlockInfoTextBlock" Visibility="Collapsed" Background="{StaticResource Brush_DeepBackgroundColor}" 
+                       TextAlignment="Center" Foreground="{StaticResource Brush_ActiveColor}" Text="Блок от: #45" Panel.ZIndex="2" />
 
             <!-- Сама целевая картинка -->
-            <Image x:Name="FindedImageIcon" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Image x:Name="FindedImageIcon" Grid.Row="0" Grid.RowSpan="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center" />
             <!-- Имя и размер картинки -->
-            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0" Padding="5">
-                <TextBlock TextAlignment="Center" TextTrimming="CharacterEllipsis">
+            <Border Grid.Row="2" Style="{StaticResource Style_PanelBorder}" BorderThickness="0,1,0,0" Padding="5">
+                <TextBlock TextAlignment="Center" TextTrimming="CharacterEllipsis"
+                           Foreground="{StaticResource Brush_ForegroundColor}">
                     <!-- Родительская папка картинки -->
-                    <Run x:Name="ImageParentFolderRun" Text="[ParentFolder]" Foreground="Green">
+                    <Run x:Name="ImageParentFolderRun" Text="[ParentFolder]"
+                         Foreground="{StaticResource Brush_ActiveColor}">
                         <Run.ToolTip>
                             <ToolTip x:Name="ImageParentFolderToolTip" Content="Image_Nmae.png" />
                         </Run.ToolTip>

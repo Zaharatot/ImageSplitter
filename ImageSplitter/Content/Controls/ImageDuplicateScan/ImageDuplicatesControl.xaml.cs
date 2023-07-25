@@ -74,7 +74,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             _calculatiogTimeMessage = ResourceLoader.LoadString("Text_DateLimitCalculation"); 
             //Инициализируем используемые классы
             _dateFormatter = new DateFormatter();
+            //Добавляем обработчик события изменения текста поиска
+            SearchStringTextBox.ChangeText += SearchStringTextBox_ChangeText;
         }
+
 
         /// <summary>
         /// Метод генерации информации о прогрессе удаления
@@ -106,14 +109,14 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
 
 
 
-
         /// <summary>
-        /// Обработчик события изменения текста в строке поиска
+        /// Обработчик события изменения текста поиска
         /// </summary>
-        private void SearchStringTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
-            //ВЫзываем метод обновления поиска
+        /// <param name="text">Новый текст поиска</param>
+        private void SearchStringTextBox_ChangeText(string text) =>
+            //Вызываем метод обновления поиска
             IsChildElementSearchSucc(SearchStringTextBox.Text);
-
+        
         /// <summary>
         /// Обработчик события нажатия на кнопку удаления выбранных дубликатов
         /// </summary>

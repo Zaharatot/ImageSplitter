@@ -1,13 +1,12 @@
-﻿<UserControl x:Class="ImageSplitter.Content.Controls.ImageSplit.SplitParamsControl"
+﻿<UserControl xmlns:Simple="clr-namespace:ImageSplitter.Content.Controls.Simple"  x:Class="ImageSplitter.Content.Controls.ImageSplit.SplitParamsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="250">
-    <Border Margin="10" Padding="10" Background="White"
-                BorderBrush="Black" BorderThickness="1">
+             d:DesignHeight="450" Width="350">
+    <Border Margin="10" Padding="10" Style="{StaticResource Style_Border}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -18,20 +17,22 @@
             <!-- ПАнель основных полей для заполнения -->
             <StackPanel Grid.Row="0">
                 <!-- Путь для поиска картинок -->
-                <TextBlock Text="Путь для сканирования:" />
-                <TextBox x:Name="ScanPathTextBox" TabIndex="0" Margin="0,0,0,5" />
+                <TextBlock Text="Путь для сканирования:" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <Simple:FolderSelector x:Name="ScanPathTextBox" TabIndex="0" Margin="0,3,0,5" />
                 <!-- Путь для раскладки картинок -->
-                <TextBlock Text="Путь для сохранения:" />
-                <TextBox x:Name="MovePathTextBox" TabIndex="1" Margin="0,0,0,5" />
+                <TextBlock Text="Путь для сохранения:" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <Simple:FolderSelector x:Name="MovePathTextBox" TabIndex="1" Margin="0,3,0,5" />
                 <!-- Чекбокс типа коллекции -->
-                <CheckBox x:Name="IsFolderCheckBox" Content="Искать папки" TabIndex="2" Margin="0,5,0,5" />
+                <CheckBox x:Name="IsFolderCheckBox" TabIndex="2" Margin="0,5,0,5" Style="{StaticResource Style_CheckBox}">
+                    <TextBlock Text="Искать папки" Foreground="{StaticResource Brush_ForegroundColor}" />
+                </CheckBox>
             </StackPanel>
             <!-- Кнопка отображения древа -->
-            <Button x:Name="ShowTreeButton" Content="Отобразить древо" Grid.Row="2"
-                                        Click="ShowTreeButton_Click" TabIndex="3" Margin="0,5" />
+            <Button x:Name="ShowTreeButton" Content="Отобразить древо" Grid.Row="2" Style="{StaticResource Style_Button}"
+                    Click="ShowTreeButton_Click" TabIndex="3" Margin="0,5" />
             <!-- Кнопка запуска сканирования -->
-            <Button x:Name="ScanButton" Content="Запуск сканирования" Grid.Row="3"
-                                        Click="ScanButton_Click" TabIndex="3" Margin="0,5" />
+            <Button x:Name="ScanButton" Content="Запуск сканирования" Grid.Row="3" Style="{StaticResource Style_Button}"
+                    Click="ScanButton_Click" TabIndex="3" Margin="0,5" />
         </Grid>
     </Border>
 </UserControl>

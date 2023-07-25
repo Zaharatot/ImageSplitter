@@ -1,4 +1,5 @@
-﻿using ImageSplitter.Content.Controls.Simple;
+﻿using ImageSplitter.Content.Clases.WorkClases.Resources;
+using ImageSplitter.Content.Controls.Simple;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,7 +60,8 @@ namespace ImageSplitter.Content.Windows
                 //Добавляем отсутп для древа
                 Margin = new Thickness(5),
                 Padding = new Thickness(5),
-                MaxHeight = 400
+                MaxHeight = 400,
+                Style = ResourceLoader.LoadStyle("Style_TreeView")
             };
 
         /// <summary>

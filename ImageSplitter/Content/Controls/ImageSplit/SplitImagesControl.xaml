@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Gray">
+    <Grid Background="{StaticResource Brush_DeepBackgroundColor}">
         <!-- Строки панели -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
             <RowDefinition />
-            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="250"/>
+            <ColumnDefinition  Width="Auto"/>
             <ColumnDefinition />
             <ColumnDefinition  Width="330"/>
         </Grid.ColumnDefinitions>

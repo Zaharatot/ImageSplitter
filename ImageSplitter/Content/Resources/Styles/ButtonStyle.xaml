@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Стиль самой кнопки -->
+    <Style x:Key="Style_Button" TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border TextBlock.Foreground="{StaticResource Brush_ActiveForegroundColor}"
+                            TextBlock.FontWeight="DemiBold"
+                            Background="{StaticResource Brush_ActiveColor}"
+                            x:Name="Border"
+                            BorderBrush="{StaticResource Brush_BordersColor}"
+                            CornerRadius="0"
+                            Padding="5, 0"
+                            BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect Opacity="0.6"
+                                              Direction="0"
+                                              ShadowDepth="0"
+                                              BlurRadius="5" />
+                        </Border.Effect>
+                        <ContentPresenter Margin="2"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- Триггер для наведения на кнопку -->
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Opacity="0.6"
+                                                      Direction="0"
+                                                      ShadowDepth="0"
+                                                      BlurRadius="10" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <!-- Добавляем стили для "отключенной" кнопки -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{StaticResource Brush_DisabledActiveColor}" />
+                            <Setter TargetName="Border"
+                                    Property="TextBlock.Foreground"
+                                    Value="{StaticResource Brush_ForegroundColor}" />
+                        </Trigger>
+                        <!-- Триггер для обработки нажатия на кнопку -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{StaticResource Brush_DisabledActiveColor}" />
+                            <Setter TargetName="Border"
+                                    Property="TextBlock.Foreground"
+                                    Value="{StaticResource Brush_ForegroundColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

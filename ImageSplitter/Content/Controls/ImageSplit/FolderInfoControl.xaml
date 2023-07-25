@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
              Height="53" d:DesignWidth="250">
-    <Grid Background="White" Margin="0,0,0,3">
+    <Grid Background="{StaticResource Brush_ControlBackgroundColor}" Margin="0,0,0,3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -18,9 +18,9 @@
         </Grid.ColumnDefinitions>
 
         <!-- Текстовый блок для имени папки -->
-        <TextBlock x:Name="FolderNameTextBlock"  TextTrimming="CharacterEllipsis" Grid.Row="0" 
+        <TextBlock x:Name="FolderNameTextBlock" TextTrimming="CharacterEllipsis" Grid.Row="0" 
                    Grid.Column="0" VerticalAlignment="Center" Margin="5, 3" FontSize="15"
-                   Text="New Folder (0)" Foreground="#333333">
+                   Text="New Folder (0)" Foreground="{StaticResource Brush_ForegroundColor}">
             <TextBlock.ToolTip>
                 <!-- Подсказка для отображения полного имени папки -->
                 <ToolTip x:Name="FolderNameToolTip" Content="New Folder (0)" />
@@ -28,7 +28,7 @@
         </TextBlock>
         <!-- Текстовый блок для клавиши папки -->
         <TextBlock x:Name="FolderKeyTextBlock"  TextTrimming="WordEllipsis" Grid.Row="1" 
-                   Grid.Column="0" VerticalAlignment="Center" Margin="5, 0" Foreground="#00aa00"
+                   Grid.Column="0" VerticalAlignment="Center" Margin="5, 0" Foreground="{StaticResource Brush_ActiveColor}"
                    FontSize="13" Text="[NumPad0]" />
 
 
@@ -43,7 +43,7 @@
                                 <Pen Brush="Black" />
                             </GeometryDrawing.Pen>
                             <GeometryDrawing.Brush>
-                                <SolidColorBrush Color="Red" />
+                                <SolidColorBrush Color="{StaticResource Color_ActiveColor}" />
                             </GeometryDrawing.Brush>
                             <GeometryDrawing.Geometry>
                                 M75.6,44.8v73c0,3.4-2.8,6.2-6.2,6.2H21.3c-3.4,0-6.2-2.8-6.2-6.2v-73H75.6L75.6,44.8z M59.9,52.9v62.8h3.6V52.9H59.9  
@@ -58,6 +58,6 @@
         </Image>
 
         <!-- Отчерчивание блока информации -->
-        <Rectangle Fill="Gray" Grid.Row="2" Height="1" Margin="5,1" Grid.ColumnSpan="2"/>
+        <Rectangle Fill="{StaticResource Brush_DeepBackgroundColor}" Grid.Row="2" Height="1" Margin="5,1" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

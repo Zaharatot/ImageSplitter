@@ -47,7 +47,7 @@ namespace ImageSplitter.Content.Controls
         private void SplitButton_Click(object sender, RoutedEventArgs e) =>
             //Вызываем внешний ивент, передав в него все нужные параметры
             StartFileSplit?.Invoke(
-                SplitPathTextBox.Text,
+                SplitPathTextBox.Path,
                 int.Parse(SplitCountTextBox.Text),
                 SplitChildsCheckBox.IsChecked.GetValueOrDefault(false));
 
@@ -56,7 +56,7 @@ namespace ImageSplitter.Content.Controls
         /// </summary>
         private void BackButton_Click(object sender, RoutedEventArgs e) =>
             //Вызываем внешний ивент, передав в него все нужные параметры
-            StartBack?.Invoke(SplitPathTextBox.Text);
+            StartBack?.Invoke(SplitPathTextBox.Path);
 
     }
 }

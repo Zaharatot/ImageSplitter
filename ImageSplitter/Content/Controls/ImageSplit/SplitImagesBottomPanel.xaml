@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="800">
-    <Border Background="White" BorderBrush="Black" BorderThickness="0,2,0,0">
+    <Border Style="{StaticResource Style_PanelBorder}" BorderThickness="0,2,0,0">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -16,22 +16,21 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <!-- Блок текста о перемещённой картинке -->
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10,0" 
-                                       x:Name="MovedInfoTextBox"
-                                       Visibility="Hidden" TextTrimming="CharacterEllipsis">
-                                <Run Text="Перемещено в: " />
-                                <Run x:Name="MovedFolderTextBox" />
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10,0" Foreground="{StaticResource Brush_ForegroundColor}"
+                       x:Name="MovedInfoTextBox" Visibility="Hidden" TextTrimming="CharacterEllipsis">
+                <Run Text="Перемещено в: " />
+                <Run x:Name="MovedFolderTextBox" />
             </TextBlock>
 
             <!-- Кнопка "В лево" -->
-            <Button Grid.Column="1" x:Name="LeftPageButton" Content="Предыдущая коллекция (Left)" 
-                                    Click="LeftPageButton_Click" VerticalAlignment="Center" Padding="5" />
+            <Button x:Name="LeftPageButton" Grid.Column="1" Content="Предыдущая коллекция (Left)" 
+                    Click="LeftPageButton_Click" VerticalAlignment="Center" Height="30" Style="{StaticResource Style_Button}" />
             <!-- Количество страниц -->
             <TextBlock Grid.Column="2" x:Name="CountImagesTextBlock" Margin="10,0" 
-                                       VerticalAlignment="Center" Text="..." />
+                       VerticalAlignment="Center" Text="..."  Foreground="{StaticResource Brush_ForegroundColor}"/>
             <!-- Кнопка "В право" -->
-            <Button Grid.Column="3" x:Name="RightPageButton" Content="Следующая коллекция (Right)" 
-                                    Click="RightPageButton_Click" VerticalAlignment="Center" Padding="5" />
+            <Button x:Name="RightPageButton" Grid.Column="3" Content="Следующая коллекция (Right)" 
+                    Click="RightPageButton_Click" VerticalAlignment="Center" Height="30" Style="{StaticResource Style_Button}" />
         </Grid>
     </Border>
 </UserControl>

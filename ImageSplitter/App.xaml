@@ -11,7 +11,7 @@
 
                 <!-- Значения -->
                 <!-- Цвета -->
-                <!-- <ResourceDictionary Source="./Content/Resources/Values/Colors.xaml" /> -->
+                <ResourceDictionary Source="./Content/Resources/Values/Colors.xaml" />
 
                 <!-- Локализация -->
                 <!-- RU -->
@@ -22,9 +22,13 @@
                 <!--    <ResourceDictionary Source="./Content/Resources/Icons/OtherIcons.xaml" /> -->
 
                 <!-- Шаблоны -->
-                <!--   <ResourceDictionary Source="./Content/Resources/Templates/ScrollbarTemplate.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Templates/ScrollViewer.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Templates/TextBox.xaml" /> -->
+                <ResourceDictionary Source="./Content/Resources/Styles/ScrollbarStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/ScrollViewerStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/BorderStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/TreeViewStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/TabItemStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/CheckBoxStyle.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
