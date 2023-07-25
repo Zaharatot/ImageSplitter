@@ -145,8 +145,36 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             ClearControlSelection();
             //Выделяем целевой контролл
             control.SetSelectionState(true);
-            //Проставляем изображение с выделенного контролла в большую картинку
-            TargetImage.Source = control.GetImage();
+            //Закрываем поток в памяти, связанный с изображением
+            CloseImageSource();
+            //Грузим картинку в контролл
+            TargetImage.Source = LoadImageByPath(control.DuplicateImagePath);
+        }
+
+        /// <summary>
+        /// Обработчик события выбора контролла для удаления
+        /// </summary>
+        /// <param name="hash">Хеш элемента для простановки</param>
+        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
+        /// <param name="state">Статус для простановки</param>
+        private void ImagesPanel_SetCheckToDuplicate(uint hash, string parentName, bool state) =>
+            //Обновляем статусы блокировки дочерних элементов
+            SetParentCheckBoxState(hash, parentName, state);
+
+        /// <summary>
+        /// Jбработчик события запроса на скрытие остальных панелей
+        /// </summary>
+        /// <param name="showedPanelHeader">Pfujhkjdjr jnrhsditqcz gfytkb</param>
+        private void ImagesPanel_HidePanelRequest(string showedPanelHeader)
+        {
+            //Проходимся по всем контроллам панели
+            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            {
+                //Если панель развёрнута и она не является только что открытой
+                if (imagesPanel.IsExpanded && (imagesPanel.ElementHeader != showedPanelHeader))
+                    //СВорачиваем её
+                    imagesPanel.IsExpanded = false;
+            }
         }
 
 
@@ -229,7 +257,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <param name="hash">Хеш элемента для простановки</param>
         /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
         /// <param name="state">Статус для простановки</param>
-        public void SetParentCheckBoxState(uint hash, string parentName, bool state)
+        private void SetParentCheckBoxState(uint hash, string parentName, bool state)
         {
             //Список названий групп с последним заблокированным элементом
             StringBuilder sb = new StringBuilder();
@@ -261,7 +289,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <param name="result">Класс результата поиска дубликатов</param>
         /// <param name="id">Идентификатор элемента</param>
         /// <returns>Созданный контролл</returns>
-        private FindedImagesPanel CreateDuplicatesPanel(FindResult result, int id)
+        private FindedImagesPanel CreateDuplicatesPanel(DuplicatePair result, int id)
         {
             //Создаём целевой контролл
             FindedImagesPanel imagesPanel = new FindedImagesPanel();
@@ -278,30 +306,59 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         }
 
         /// <summary>
-        /// Обработчик события выбора контролла для удаления
+        /// Закрываем поток в памяти, связанный с изображением
         /// </summary>
-        /// <param name="hash">Хеш элемента для простановки</param>
-        /// <param name="parentName">Имя родительского элемента, откуда пришёл запрос блокировки</param>
-        /// <param name="state">Статус для простановки</param>
-        private void ImagesPanel_SetCheckToDuplicate(uint hash, string parentName, bool state) =>
-            //Обновляем статусы блокировки дочерних элементов
-            SetParentCheckBoxState(hash, parentName, state);
-
-        /// <summary>
-        /// Jбработчик события запроса на скрытие остальных панелей
-        /// </summary>
-        /// <param name="showedPanelHeader">Pfujhkjdjr jnrhsditqcz gfytkb</param>
-        private void ImagesPanel_HidePanelRequest(string showedPanelHeader)
+        private void CloseImageSource()
         {
-            //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            //Если есть исходный поток в памяти
+            if (TargetImage.Source != null)
             {
-                //Если панель развёрнута и она не является только что открытой
-                if (imagesPanel.IsExpanded && (imagesPanel.ElementHeader != showedPanelHeader))
-                    //СВорачиваем её
-                    imagesPanel.IsExpanded = false;
+                //Проучаем изображение
+                BitmapImage source = (BitmapImage)TargetImage.Source;
+                //Очищаем поток
+                source.StreamSource.Dispose();
+                //Закрываем поток
+                source.StreamSource.Close();
+                //Сбрасываем источник
+                TargetImage.Source = null;
             }
         }
+
+        /// <summary>
+        /// Загружаем картинку по строке пути
+        /// </summary>
+        /// <param name="path">Путь к файлу картинки на диске</param>
+        /// <returns>Класс картинки</returns>
+        private BitmapImage LoadImageByPath(string path)
+        {
+            BitmapImage ex = new BitmapImage();
+            ex.BeginInit();
+            //Считываем байты файла в поток в памяти
+            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
+            ex.EndInit();
+            return ex;
+        }
+
+        /// <summary>
+        /// Метод рассчёта оставшегося времени
+        /// </summary>
+        /// <param name="info">Информация о прогрессе сканирования</param>
+        /// <returns>Строка с инфой о времени</returns>
+        private string CalculateToCompleteTime(ScanProgressInfo info)
+        {
+            //Если время уже есть
+            if (info.TimeLeft.HasValue)
+                //ВОзвращаем время в виде строки
+                return _dateFormatter.GetFormatDateLimit(info.TimeLeft.Value);
+            //Если время пока не рассчитано
+            else
+                //Возвращаем соответствующее сообщение
+                return _calculatiogTimeMessage;
+        }
+
+
+
+
 
 
         /// <summary>
@@ -310,7 +367,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         public void ClearOldPanels()
         {
             //Убираем выбранное изображение
-            TargetImage.Source = null;
+            CloseImageSource();
             //Проходимся по всем контроллам панели
             foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
             {
@@ -333,7 +390,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <param name="isVisible">Новое значение видимости для контролла</param>
         public void SetProgressPanelVisiblity(bool isVisible) =>
             //Меняем видимость контролла прогресса
-            MainProgressControl.Visibility = (isVisible) 
+            MainProgressControl.Visibility = (isVisible)
                 ? Visibility.Visible : Visibility.Collapsed;
 
         /// <summary>
@@ -348,24 +405,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Передаём значение в контролл
             MainProgressControl.UpdateProgress(_removeProgressInfo);
         }
-
-        /// <summary>
-        /// Метод рассчёта оставшегося времени
-        /// </summary>
-        /// <param name="info">Информация о прогрессе сканирования</param>
-        /// <returns>Строка с инфой о времени</returns>
-        private string CalculateToCompleteTime(ScanProgressInfo info)
-        {
-            //Если время уже есть
-            if (info.TimeLeft.HasValue)
-                //ВОзвращаем время в виде строки
-                return _dateFormatter.GetFormatDateLimit(info.TimeLeft.Value);
-            //Если время пока не рассчитано
-            else
-                //Возвращаем соответствующее сообщение
-                return _calculatiogTimeMessage;
-        }
-
 
         /// <summary>
         /// Выполняем обновление информации о прогрессе сканирования
@@ -390,10 +429,8 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             _scanProgressInfo.IsViewAddInfo = (info.Stage == ScanStages.HashGeneration);
             //Отображаем значения прогресса только на стадии поиска дубликатов
             _scanProgressInfo.IsViewProgress = (info.Stage == ScanStages.DuplicateFind);
-            //Бесконечный прогресс отображаем только на стадиях
-            _scanProgressInfo.IsIndeterminate = 
-                //Поиска файлов или сохранения данных
-                (info.Stage == ScanStages.FindFiles) || (info.Stage == ScanStages.SavingData);
+            //Бесконечный прогресс отображаем только на определённых стадиях
+            _scanProgressInfo.IsIndeterminate = info.IsIndeterminate;
             //Передаём значение в контролл
             MainProgressControl.UpdateProgress(_scanProgressInfo);
         }
@@ -403,7 +440,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Проставляем изображения в контролл
         /// </summary>
         /// <param name="results">Класс результатов поиска дубликатов</param>
-        public void SetImages(List<FindResult> results)
+        public void SetImages(List<DuplicatePair> results)
         {
             //Удаляем старые панели дубликатов с панели
             ClearOldPanels();

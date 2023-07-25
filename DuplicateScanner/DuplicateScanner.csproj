@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\DataClases\File\DuplicatePair.cs" />
     <Compile Include="Clases\DataClases\File\HashesGroup.cs" />
     <Compile Include="Clases\DataClases\Global\Delegates.cs" />
     <Compile Include="Clases\DataClases\Global\Enums.cs" />
@@ -60,13 +61,15 @@
     <Compile Include="Clases\DataClases\File\DuplicateInfo.cs" />
     <Compile Include="Clases\DataClases\Properties\ScanProperties.cs" />
     <Compile Include="Clases\DataClases\Result\DuplicateResult.cs" />
-    <Compile Include="Clases\DataClases\Result\FindResult.cs" />
+    <Compile Include="Clases\DataClases\Result\FindPair.cs" />
     <Compile Include="Clases\DataClases\Result\ProgressInfo.cs" />
     <Compile Include="Clases\DataClases\Result\ScanProgressInfo.cs" />
+    <Compile Include="Clases\WorkClases\Comparers\FilePairComparer.cs" />
     <Compile Include="Clases\WorkClases\DuplicateScanner.cs" />
     <Compile Include="Clases\WorkClases\Files\DuplicateInfoLoader.cs" />
     <Compile Include="Clases\WorkClases\Files\FileScanner.cs" />
     <Compile Include="Clases\WorkClases\Files\FileWork.cs" />
+    <Compile Include="Clases\WorkClases\Finder\HashComparer.cs" />
     <Compile Include="Clases\WorkClases\Finder\DuplicatesFind.cs" />
     <Compile Include="Clases\WorkClases\Finder\EqualDctHash.cs" />
     <Compile Include="Clases\WorkClases\Hash\Crc32.cs" />

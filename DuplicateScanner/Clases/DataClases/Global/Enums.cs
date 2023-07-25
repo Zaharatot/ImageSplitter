@@ -54,7 +54,16 @@ namespace DuplicateScanner.Clases.DataClases.Global
             /// <summary>
             /// Поиск дубликатов
             /// </summary>
-            DuplicateFind = 3
+            DuplicateFind = 3,
+
+            /// <summary>
+            /// Поиск устаревших записей
+            /// </summary>
+            FindOldDuplicates = 4,
+            /// <summary>
+            /// Удаление устаревших записей
+            /// </summary>
+            RemoveOldDuplicates = 5,
         }
 
         /// <summary>

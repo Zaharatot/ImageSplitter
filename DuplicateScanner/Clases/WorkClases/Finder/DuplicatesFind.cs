@@ -2,11 +2,14 @@
 using DuplicateScanner.Clases.DataClases.File;
 using DuplicateScanner.Clases.DataClases.Properties;
 using DuplicateScanner.Clases.DataClases.Result;
+using DuplicateScanner.Clases.WorkClases.Comparers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeLeftCalcZ;
+using static DuplicateScanner.Clases.DataClases.Global.Delegates;
 using static DuplicateScanner.Clases.DataClases.Global.Enums;
 
 namespace DuplicateScanner.Clases.WorkClases.Finder
@@ -17,22 +20,9 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
     internal class DuplicatesFind
     {
         /// <summary>
-        /// Делегат метода сравнения файлов
+        /// Метод сравнения хешей
         /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <param name="scanAccuracy">Значение точности сканирования</param>
-        /// <returns>True - файлы являются схожими</returns>
-        private delegate bool IsFileEqualDelegate(DuplicateInfo current, DuplicateInfo toCheck, int scanAccuracy);
-
-        /// <summary>
-        /// Класс сравнения хешей
-        /// </summary>
-        private EqualDctHash _equalHash;
-        /// <summary>
-        /// Словарь методов сравнения файлов
-        /// </summary>
-        private Dictionary<ScanTypes, IsFileEqualDelegate> _equalsDict;
+        private HashComparer _hashComparer;
 
         /// <summary>
         /// Конструктор класса
@@ -47,128 +37,10 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
         /// </summary>
         private void Init()
         {
-            //Инициализируем используемые классы
-            _equalHash = new EqualDctHash();
-            //ЗАполняем словарь методов сравнения
-            _equalsDict = CreateEqualsDict();
+            //Инициализируем класс сравнения хешей
+            _hashComparer = new HashComparer();
         }
 
-        /// <summary>
-        /// Метод инициализиации словаря методов сравнения
-        /// </summary>
-        /// <returns>Словарь методов сравнения</returns>
-        private Dictionary<ScanTypes, IsFileEqualDelegate> CreateEqualsDict() =>
-            new Dictionary<ScanTypes, IsFileEqualDelegate>() {
-                { ScanTypes.DcpScan, IsFileEquals },
-                { ScanTypes.LinedDcpScan, IsFileEqualsLined },
-                { ScanTypes.Both, IsFileEqualsBoth },
-            };
-
-        /// <summary>
-        /// Выполняем проверку на схожесть файлов
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <param name="scanAccuracy">Значение точности сканирования</param>
-        /// <returns>True - файлы являются схожими</returns>
-        private bool IsFileEqualsBoth(DuplicateInfo current, DuplicateInfo toCheck, int scanAccuracy) =>
-            //Сравниваем обычные хеши
-            IsFileEquals(current, toCheck, scanAccuracy) ||
-            //И лайновые с обычным
-            IsFileEqualsLined(current, toCheck, scanAccuracy);
-
-        /// <summary>
-        /// Выполняем проверку на схожесть файлов
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <param name="scanAccuracy">Значение точности сканирования</param>
-        /// <returns>True - файлы являются схожими</returns>
-        private bool IsFileEqualsLined(DuplicateInfo current, DuplicateInfo toCheck, int scanAccuracy) =>
-            //Сравниваем ДКП-хеш оригинала с лайновым ДКП-хешем сравниваемого
-            _equalHash.EqalHash(current.DcpHash, toCheck.LinedDcpHash, scanAccuracy) ||
-            //Сравниваем лайновый ДКП-хеш оригинала с ДКП-хешем сравниваемого
-            _equalHash.EqalHash(current.LinedDcpHash, toCheck.DcpHash, scanAccuracy);
-
-        /// <summary>
-        /// Выполняем проверку на схожесть файлов
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <param name="scanAccuracy">Значение точности сканирования</param>
-        /// <returns>True - файлы являются схожими</returns>
-        private bool IsFileEquals(DuplicateInfo current, DuplicateInfo toCheck, int scanAccuracy) =>
-            //Сравниваем ДКП хеши изображений
-            _equalHash.EqalHash(current.DcpHash, toCheck.DcpHash, scanAccuracy);
-
-
-        /// <summary>
-        /// Проверка на запрет сравнения хешей
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <returns>True - файлы не записаны как точные не дубликаты</returns>
-        private bool IsDenyCheck(DuplicateInfo current, DuplicateInfo toCheck) =>
-            //Сравниваемый находится в списке запрещённых у целевого
-            current.ForbiddenHashes.Contains(toCheck.PathHash) ||
-            //Или целевой находится в запрещённом списке у сравниваемого
-            toCheck.ForbiddenHashes.Contains(current.PathHash);
-
-        /// <summary>
-        /// Метод проверки возможности сравнения изображений
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <returns>True - файлы можно сравнивать</returns>
-        private bool IsAllowCheckDuplicates(DuplicateInfo current, DuplicateInfo toCheck) =>
-            //Если сравниваемую картинку можно обрабатывать
-            toCheck.IsAllowProcess &&
-            //Если нет запрета на сравнение 
-            !IsDenyCheck(current, toCheck);
-
-        /// <summary>
-        /// Выполняем проверку на дубликат двух файлов
-        /// </summary>
-        /// <param name="current">Текущий выбранный файл</param>
-        /// <param name="toCheck">Файл для сравнения</param>
-        /// <param name="properties">Параметры сканирования</param>
-        /// <returns>True - файлы являются дубликатами</returns>
-        private bool IsDuplicate(DuplicateInfo current, DuplicateInfo toCheck, ScanProperties properties)
-        { 
-            //Если файлы можно сравнивать
-            if(IsAllowCheckDuplicates(current, toCheck))
-                //Если есть обработчик для данного титпа проверки
-                if (_equalsDict.ContainsKey(properties.ScanType))
-                    //Вызываем его и возвращаем результат проверки
-                    return _equalsDict[properties.ScanType]
-                        .Invoke(current, toCheck, properties.ScanAccuracy);
-            //Во всех остальных случаях - файлы не равны
-            return false;
-        }
-
-
-        /// <summary>
-        /// Метод поиска дубликатов для файла
-        /// </summary>
-        /// <param name="filesToCheck">Список файлов для проверки</param>
-        /// <param name="id">Идентификатор проверяемого файла</param>
-        /// <param name="properties">Параметры сканирования</param>
-        /// <returns>Список дубликатов</returns>
-        private FindResult CheckDuplicates(List<DuplicateInfo> filesToCheck, ScanProperties properties, int id)
-        {
-            //Инициализируем класс результатов поиска
-            FindResult result = new FindResult(filesToCheck[id].GetResult());
-            //Проходимся по всем последующим файлам, т.к.
-            //все предыдущие уже были обработаны, и если
-            //был дубль с текущим, то он уже в списке
-            for (int i = id + 1; i < filesToCheck.Count; i++)
-                //Если файлы являются дубликатами
-                if (IsDuplicate(filesToCheck[id], filesToCheck[i], properties))
-                    //Добавляем хеш в список дубликатов
-                    result.Results.Add(filesToCheck[i].GetResult());
-            //Возвращаем класс результатов
-            return result;
-        }
 
         /// <summary>
         /// Метод инициализации информации о прогрессе
@@ -180,6 +52,39 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
                  FilesToProcess = filesToCheckCount
              };
 
+        /// <summary>
+        /// Метод проверки файла
+        /// </summary>
+        /// <param name="filesToCheck">Список файлов для проверки</param>
+        /// <param name="current">Целевой файл для проверки</param>
+        /// <param name="pairs">Пары найденных элементов</param>
+        private void ProcessFile(List<DuplicateInfo> filesToCheck, DuplicateInfo current, ref List<DuplicatePair> pairs)
+        {
+            //Для каждого хеша проходимся по всем остальным
+            foreach (var toCheck in filesToCheck)
+                //Если это не тот же элемент, и он похож на тестируемый
+                if (_hashComparer.IsDuplicate(current, toCheck))
+                {
+                    //Лочим список пар
+                    lock (pairs)
+                        //Добавляем в него новую пару
+                        pairs.Add(new DuplicatePair(current, toCheck));
+                }
+        }
+
+        /// <summary>
+        /// Метод обновление инфомрации для ивента
+        /// </summary>
+        /// <param name="info">Класс прогресса для ивента</param>
+        private void UpdateEventInfo(ScanProgressInfo info)
+        {
+            //Обновляем количество обработанных файлов
+            info.ProcessedFiles++;
+            //Вызываем ивент обновления прогресса
+            DuplicateScannerFasade.InvokeUpdateScanInfo(info);
+        }
+
+
 
 
         /// <summary>
@@ -188,36 +93,28 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
         /// <param name="filesToCheck">Список файлов для проверки</param>
         /// <param name="properties">Параметры сканирования</param>
         /// <returns>Словарь найденных дубликатов</returns>
-        public List<FindResult> Find(List<DuplicateInfo> filesToCheck, ScanProperties properties)
+        public List<DuplicatePair> Find(List<DuplicateInfo> filesToCheck, ScanProperties properties)
         {
-            //Класс результатов поиска
-            FindResult result;
-            //Инициализируем список результатов поиска
-            List<FindResult> duplicates = new List<FindResult>();
+            //Инициализируем список пар копий для возврата
+            List<DuplicatePair> pairs = new List<DuplicatePair>();
             //Инициализируем класс информации о прогрессе
             ScanProgressInfo info = CreateProgressInfo(filesToCheck.Count);
+            //Обновляем параметры сравнения файлов
+            _hashComparer.ChangeCheckProperties(properties);
             //Вызываем ивент обновления прогресса
             DuplicateScannerFasade.InvokeUpdateScanInfo(info);
-            //Проходимся по списку файлов
-            for (int i = 0; i < filesToCheck.Count; i++)
-            {
-                //Если данное изображение вообще можно обрабатывать
+            //Проходимся по файлам асинхронно, в несколько потоков
+            Parallel.For(0, filesToCheck.Count, (i) => {
+                //Если файл можно обрабатывать
                 if (filesToCheck[i].IsAllowProcess)
-                {
-                    //Получаем список дубликатов для текущего файла
-                    result = CheckDuplicates(filesToCheck, properties, i);
-                    //Если у файла есть дубликаты
-                    if (result.IsContainDuplicates)
-                        //Добавляем этот файл с его дубликатами в список
-                        duplicates.Add(result);
-                }
-                //Обновляем количество обработанных файлов
-                info.ProcessedFiles = i;
-                //Вызываем ивент обновления прогресса
-                DuplicateScannerFasade.InvokeUpdateScanInfo(info);
-            }
-            //Возвращаем список результаттов
-            return duplicates;
+                    //Выполняем обработку файла
+                    ProcessFile(filesToCheck, filesToCheck[i], ref pairs);
+                //Обновляем инфу в ивенте
+                UpdateEventInfo(info);
+            });
+            //Возвращаем только уникальные пары дублей
+            return pairs.Distinct(new FilePairComparer()).ToList();
         }
+
     }
 }

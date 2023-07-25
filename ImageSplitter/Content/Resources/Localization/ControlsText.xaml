@@ -15,6 +15,10 @@
     <sys:String x:Key="text_DuplicateScanStatus_2">Сохранение данных о хешах</sys:String>
     <sys:String x:Key="text_DuplicateScanStatus_3">Поиск дубликатов</sys:String>
 
+
+    <sys:String x:Key="text_DuplicateScanStatus_4">Поиск устаревших записей</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_5">Удаление устаревших записей</sys:String>
+
     <!-- Подписи для полей доп. информации -->
     <sys:String x:Key="text_DuplicateScanAddInfo_FilesFinded">Найденно файлов:</sys:String>
     <sys:String x:Key="text_DuplicateScanAddInfo_ErrorFilesCount">Файлов с ошибками:</sys:String>

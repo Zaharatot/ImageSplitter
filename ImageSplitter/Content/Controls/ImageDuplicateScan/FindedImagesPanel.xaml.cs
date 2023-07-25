@@ -1,4 +1,5 @@
-﻿using DuplicateScanner.Clases.DataClases.Result;
+﻿using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Result;
 using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.WorkClases.Resources;
 using System;
@@ -173,7 +174,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         /// <param name="result">Класс результата поиска</param>
         /// <returns>Цвета для списка разрешений</returns>
-        private Dictionary<double, Color> GetElementResolutionColors(FindResult result)
+        private Dictionary<double, Color> GetElementResolutionColors(DuplicatePair result)
         {
             //Выходной словарь цветов
             Dictionary<double, Color> colors = new Dictionary<double, Color>();
@@ -232,7 +233,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         /// <param name="result">Класс результата поиска</param>
         /// <param name="id">Идентификатор элемента</param>
-        public void SetImagesToControl(FindResult result, int id)
+        public void SetImagesToControl(DuplicatePair result, int id)
         {
             //Удаляем старые изображения с панели
             ClearOldImages();
@@ -241,10 +242,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             GroupPanelHeaderRun.Text = $"[#{id}]";
             //Получаем цвета для списка разрешений элементов
             Dictionary<double, Color> colors = GetElementResolutionColors(result);
-            //Проходимся по списку дубликатов
-            foreach (var duplicate in result.Results)
-                //Создаём и добавляем на панель контролл изображения
-                MainPanel.Children.Add(CreateControl(duplicate, colors));
+            //Создаём и добавляем на панель контролл изображения для оригинала
+            MainPanel.Children.Add(CreateControl(result.Original, colors));
+            //Создаём и добавляем на панель контролл изображения для копии
+            MainPanel.Children.Add(CreateControl(result.Copy, colors));
         }
 
         /// <summary>

@@ -63,7 +63,7 @@ namespace DuplicateScanner.Clases.WorkClases
             //Выполняем поиск файлов в переданной папке
             List<DuplicateInfo> filesToCheck = _fileWork.ScanFiles(properties.ScanPath);
             //Выполняем поиск дубликатов
-            List<FindResult> result = _duplicatesFind.Find(filesToCheck, properties);
+            List<DuplicatePair> result = _duplicatesFind.Find(filesToCheck, properties);
             //Вызываем ивент завершения сканирования, с указанием результатов
             DuplicateScannerFasade.InvokeCompleteScan(result);
         }

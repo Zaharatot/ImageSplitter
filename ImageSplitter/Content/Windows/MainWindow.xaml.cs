@@ -119,6 +119,9 @@ namespace ImageSplitter.Content.Windows
             DuplicateScannerFasade.UpdateRemoveInfo += DuplicateScannerFasade_UpdateRemoveInfo;
             //Добавляем обработчик события завершения удаления выбранных дубликатов
             DuplicateScannerFasade.CompleteRemove += DuplicateScannerFasade_CompleteRemove;
+            //Добавляем обработчик события завершения удаления устаревших дубликатов
+            DuplicateScannerFasade.CompleteRemoveOldDuplicates += DuplicateScannerFasade_CompleteRemoveOldDuplicates;
+
             //Добавляем обработчик события запроса на переход к коллекции
             CollectionsSplitTab.MoveToCollectionRequest += CollectionsSplitTab_MoveToCollectionRequest;
             //Добавляем обработчик события запроса на переход к изображению в коллекции
@@ -236,11 +239,30 @@ namespace ImageSplitter.Content.Windows
             });
         }
 
+
+        /// <summary>
+        /// Обработчик события завершения удаления устаревших записей о дубликатах
+        /// </summary>
+        private void DuplicateScannerFasade_CompleteRemoveOldDuplicates(int count)
+        {
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Выводим сообщение о результате
+                MessageBox.Show($"Удаление устаревших записей о дубликатах" +
+                    $" было успешно завершено! Удалено {count} записей.");
+                //Скрываем панель прогресса
+                ImageDuplicates.SetProgressPanelVisiblity(false);
+                //Возвращаем доступность окна
+                this.IsEnabled = true;
+            });
+        }
+
+
         /// <summary>
         /// Обработчик события завершения сканирования на дубликаты
         /// </summary>
         /// <param name="result">Результат сканирования на дубликаты</param>
-        private void DuplicateScannerFasade_CompleteScan(List<FindResult> result)
+        private void DuplicateScannerFasade_CompleteScan(List<DuplicatePair> result)
         {
             //Вызываем в UI-потоке
             this.Dispatcher.Invoke(() => {
@@ -376,9 +398,15 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик события запроса на удаление старых элементов
         /// </summary>
-        private void GlobalEvents_RemoveOldRequest() =>
+        private void GlobalEvents_RemoveOldRequest()
+        {
+            //Выключаем доступность окна
+            this.IsEnabled = false;
+            //Отображаем панель прогресса
+            ImageDuplicates.SetProgressPanelVisiblity(true);
             //Вызываем внутренний метод
             _mainWork.RemoveOldDuplicates();
+        }
 
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using DuplicateScanner.Clases.DataClases.Result;
+﻿using DuplicateScanner.Clases.DataClases.File;
+using DuplicateScanner.Clases.DataClases.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace DuplicateScanner.Clases.DataClases.Global
         /// Делегат события завершения сканирования
         /// </summary>
         /// <param name="result">Список результатов поиска дубликатов</param>
-        public delegate void CompleteScanEventHandler(List<FindResult> result);
+        public delegate void CompleteScanEventHandler(List<DuplicatePair> result);
 
         /// <summary>
         /// Делегат события обновления информации о прогрессе обработки выбранных файлов
@@ -33,7 +34,11 @@ namespace DuplicateScanner.Clases.DataClases.Global
         /// </summary>
         public delegate void CompleteProgressEventHandler();
 
-
+        /// <summary>
+        /// Делегат события завершения удаления устаревших дубликатов
+        /// </summary>
+        /// <param name="count">Количество удалённых дубликатов</param>
+        public delegate void CompleteRemoveOldDuplicatesEventHandler(int count);
 
     }
 }

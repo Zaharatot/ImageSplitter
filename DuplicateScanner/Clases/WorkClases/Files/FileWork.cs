@@ -144,12 +144,44 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         }
 
         /// <summary>
+        /// Метод удаления списка дубликатов
+        /// </summary>
+        /// <param name="oldDuplicates">Список устаревших записей о дубликатах</param>
+        private void RemoveDuplicates(List<DuplicateInfo> oldDuplicates)
+        {
+            //Получаем список хешей файлов для удаления
+            List<uint> oldHashes = oldDuplicates.Select(duplicate => duplicate.PathHash).ToList();
+            //Выполняем операцию удаления в нескольких потоках
+            Parallel.ForEach(_currentDuplicates, (duplicate) => {
+                //Удаляем хеши устаревших дубликатов из списка
+                duplicate.ForbiddenHashes = duplicate.ForbiddenHashes.Except(oldHashes).ToList();
+            });
+            //Удаляем из основного списка все записи с этими хешами
+            _currentDuplicates.RemoveAll(duplicate => oldHashes.Contains(duplicate.PathHash));
+        }
+
+        /// <summary>
         /// Получаем список устаревших записей о дубликатах
         /// </summary>
         /// <returns>Список устаревших записей о дубликатах</returns>
-        private List<DuplicateInfo> GetOldDuplicates() =>
-            _currentDuplicates.Where(dup => !File.Exists(dup.Path)).ToList();
-
+        private List<DuplicateInfo> GetOldDuplicates()
+        {
+            //Инициализируем список старых дубликатов
+            List<DuplicateInfo> oldDuplicates = new List<DuplicateInfo>();
+            //Выполняем операцию проверки в нескольких потоках
+            Parallel.ForEach(_currentDuplicates, (duplicate) => {
+                //Если файла дубликата не существует
+                if (!File.Exists(duplicate.Path))
+                {
+                    //Лочим список дубликатов для записи в него
+                    lock(oldDuplicates)
+                        //Добавляем его в список на удаление
+                        oldDuplicates.Add(duplicate);
+                }
+            });
+            //Возвращаем собранный список устаревших дубликатов
+            return oldDuplicates;
+        }
 
 
         /// <summary>
@@ -220,19 +252,26 @@ namespace DuplicateScanner.Clases.WorkClases.Files
             //Буфер для найденного файла
             DuplicateInfo buff;
             //Проходимся по загруженным файлам
-            foreach (DuplicateInfo file in loadedFiles)
-            {
+            Parallel.ForEach(loadedFiles, (file) => {
                 //Ищем загруженный файл в сохранённых
                 buff = _currentDuplicates.FirstOrDefault(curr => curr.Equals(file));
                 //Если файла в сохранённых нет
                 if (buff == null)
-                    //Добавляем его в список новых
-                    newFiles.Add(file);
+                {
+                    //Лочим список для добавления
+                    lock (newFiles)
+                        //Добавляем его в список новых
+                        newFiles.Add(file);
+                }
                 //Если файл есть в сохранённых
                 else
-                    //Добавляем его в список старых
-                    oldFiles.Add(buff);
-            }
+                {    
+                    //Лочим список для добавления
+                    lock (oldFiles)
+                        //Добавляем его в список старых
+                        oldFiles.Add(buff);
+                }
+            });
             //Очищаем список загруженных файлов
             loadedFiles.Clear();
             //И добавляем в него новые и старые файлы
@@ -318,14 +357,18 @@ namespace DuplicateScanner.Clases.WorkClases.Files
         /// </summary>
         public void RemoveOldDuplicates()
         {
-            //TODO: тут нужно сделать возврат результата в ивенте и прогресс, т.к.
-            //операции по проверке наличия файлов занимают просто тонну времени.
-
-
+            //Ивент о запуске поиска дублей
+            DuplicateScannerFasade.InvokeUpdateScanInfo(
+                new ScanProgressInfo(ScanStages.FindOldDuplicates));
             //Получаем список устаревших записей о дубликатах
             List<DuplicateInfo> oldDuplicates = GetOldDuplicates();
+            //Ивент о запуске удаления
+            DuplicateScannerFasade.InvokeUpdateScanInfo(
+                new ScanProgressInfo(ScanStages.RemoveOldDuplicates));
             //Удаляем эти дубликаты из всех списков
-            oldDuplicates.ForEach(dup => RemoveFileFromList(dup));
+            RemoveDuplicates(oldDuplicates);
+            //Вызываем ивент завершения обработки
+            DuplicateScannerFasade.InvokeCompleteRemoveOldDuplicates(oldDuplicates.Count);
         }
 
         /// <summary>

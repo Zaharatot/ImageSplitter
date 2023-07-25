@@ -34,6 +34,12 @@ namespace DuplicateScanner
         /// </summary>
         public static event CompleteProgressEventHandler CompleteRemove;
 
+
+        /// <summary>
+        /// Событие завершения удаления устаревших дубликатов
+        /// </summary>
+        public static event CompleteRemoveOldDuplicatesEventHandler CompleteRemoveOldDuplicates;
+
         /// <summary>
         /// Класс поиска дубликатов
         /// </summary>
@@ -69,7 +75,7 @@ namespace DuplicateScanner
         /// Метод вызова ивента завершения сканирования
         /// </summary>
         /// <param name="result">Список результатов поиска дубликатов</param>
-        internal static void InvokeCompleteScan(List<FindResult> result) =>
+        internal static void InvokeCompleteScan(List<DuplicatePair> result) =>
             //Вызываем внешний ивент
             CompleteScan?.Invoke(result);
 
@@ -87,6 +93,15 @@ namespace DuplicateScanner
         internal static void InvokeCompleteRemove() =>
             //Вызываем внешний ивент
             CompleteRemove?.Invoke();
+
+        /// <summary>
+        /// Метод вызова ивента завершения удаления устаревших дубликатов
+        /// </summary>
+        /// <param name="count">Количество удалённых дубликатов</param>
+        internal static void InvokeCompleteRemoveOldDuplicates(int count) =>
+            //Вызываем внешний ивент
+            CompleteRemoveOldDuplicates?.Invoke(count);
+
 
         /// <summary>
         /// Запуск сканирования дубликатов

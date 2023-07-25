@@ -42,6 +42,10 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// </summary>
         public uint DuplicateHash => _result.PathHash;
         /// <summary>
+        /// Строка полного пути к изображению
+        /// </summary>
+        public string DuplicateImagePath => _result.Path;
+        /// <summary>
         /// Флаг выбора данного контролла
         /// </summary>
         public bool IsSelected => GetCheckBoxState();
@@ -121,12 +125,14 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <returns>Класс картинки</returns>
         private BitmapImage LoadImageByPath(string path)
         {
-            BitmapImage ex = new BitmapImage();
-            ex.BeginInit();
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            //Принудительно проставляем высоту для превью
+            image.DecodePixelHeight = 100;
             //Считываем байты файла в поток в памяти
-            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
-            ex.EndInit();
-            return ex;
+            image.StreamSource = new MemoryStream(File.ReadAllBytes(path));
+            image.EndInit();
+            return image;
         }
 
 
@@ -139,12 +145,6 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Проставляем цвет контролла
             MainPanel.Background = (state) ? Brushes.BlanchedAlmond : Brushes.White;
 
-        /// <summary>
-        /// Возвращаем целевое изображение с контролла
-        /// </summary>
-        /// <returns>Целевое изображение</returns>
-        public ImageSource GetImage() =>
-            FindedImageIcon.Source;
 
         /// <summary>
         /// Закрываем поток в памяти, связанный с изображением

@@ -42,6 +42,19 @@ namespace DuplicateScanner.Clases.DataClases.Result
         public double? TimeLeft { get; set; }
 
         /// <summary>
+        /// Флаг бесконечной прокрутки
+        /// </summary>
+        public bool IsIndeterminate =>
+            //Поиск файлов
+            (Stage == ScanStages.FindFiles) ||
+            //Сохранение данных
+            (Stage == ScanStages.SavingData) ||
+            //Поиск старых дубликатов
+            (Stage == ScanStages.FindOldDuplicates) ||
+            //Удаление старых дубликатов
+            (Stage == ScanStages.RemoveOldDuplicates);
+
+        /// <summary>
         /// Конструктор класса
         /// </summary>
         /// <param name="stage">Текущая стадия сканирования</param>

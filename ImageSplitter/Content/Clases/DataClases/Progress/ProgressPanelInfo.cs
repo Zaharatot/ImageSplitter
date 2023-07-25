@@ -45,7 +45,13 @@ namespace ImageSplitter.Content.Clases.DataClases.Progress
         /// </summary>
         public string GetHeader => 
             //Если нужно отобразить прогресс в заголовке - отображаем
-            (IsViewProgress) ? $"{HeaderText} [{Current} / {Maximum}]" : HeaderText;
+            (IsViewProgress) ? $"[{HeaderText}] [{CurrentPercent}%]" : HeaderText;
+
+        /// <summary>
+        /// Получение текущего процента прогресса
+        /// </summary>
+        private int CurrentPercent => (Current * 100) / Maximum;
+
 
         /// <summary>
         /// Конструктор класса
