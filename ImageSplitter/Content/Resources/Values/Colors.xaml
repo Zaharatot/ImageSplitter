@@ -12,6 +12,7 @@
     <SolidColorBrush x:Key="Brush_PanelBackgroundColor" Color="#ffeed6" />
     <SolidColorBrush x:Key="Brush_ControlBackgroundColor" Color="#fff7eb" />
     <SolidColorBrush x:Key="Brush_DeepBackgroundColor" Color="#baa280" />
+    <SolidColorBrush x:Key="Brush_TransparentBackgroundColor" Color="#88260012" />
     <SolidColorBrush x:Key="Brush_BordersColor" Color="#6f0034" />
 
     <SolidColorBrush x:Key="Brush_ForegroundColor" Color="#260012" />

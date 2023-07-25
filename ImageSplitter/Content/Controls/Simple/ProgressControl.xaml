@@ -6,29 +6,31 @@
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.Simple"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <!-- Панель прогресса для сканирвоания -->
-    <Border Style="{StaticResource Style_Border}" Width="500"
-            HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid>
-            <!-- Столбцы для доп. инфы -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+    <Grid Background="{StaticResource Brush_TransparentBackgroundColor}">
+        <!-- Панель прогресса для сканирвоания -->
+        <Border Style="{StaticResource Style_Border}" Width="500"
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <!-- Столбцы для доп. инфы -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <!-- Прогрессбар -->
-            <ProgressBar x:Name="ScanProgressBar" Height="20" IsIndeterminate="True" Foreground="{StaticResource Brush_ActiveColor}" 
-                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Brush_ControlBackgroundColor}" />
-            <!-- Заголовок стадии -->
-            <TextBlock x:Name="ProgressHeaderTextBlock" TextAlignment="Center" VerticalAlignment="Center"
-                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Foreground="{StaticResource Brush_ForegroundColor}" />
-            <!-- Панели для доп. инфы -->
-            <StackPanel x:Name="LeftInfoPanel" Margin="0,15,5,0" Grid.Row="1" Grid.Column="0" />
-            <StackPanel x:Name="RightInfoPanel" Margin="5,15,0,0" TextBlock.TextAlignment="Right" Grid.Row="1" Grid.Column="1" />
-        </Grid>
-    </Border>
+                <!-- Прогрессбар -->
+                <ProgressBar x:Name="ScanProgressBar" Height="20" IsIndeterminate="True" Foreground="{StaticResource Brush_ActiveColor}" 
+                                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Brush_ControlBackgroundColor}" />
+                <!-- Заголовок стадии -->
+                <TextBlock x:Name="ProgressHeaderTextBlock" TextAlignment="Center" VerticalAlignment="Center"
+                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="1" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <!-- Панели для доп. инфы -->
+                <StackPanel x:Name="LeftInfoPanel" Margin="0,15,5,0" Grid.Row="1" Grid.Column="0" />
+                <StackPanel x:Name="RightInfoPanel" Margin="5,15,0,0" TextBlock.TextAlignment="Right" Grid.Row="1" Grid.Column="1" />
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

@@ -101,6 +101,7 @@ namespace ImageSplitter.Content.Windows
                 Content = content,
                 IsChecked = isEmpty || targets.Any(dir => dir.Name.Equals(content)),
                 Foreground = ResourceLoader.LoadBrush("Brush_ForegroundColor"),
+                Margin = new Thickness(5),
                 Style = ResourceLoader.LoadStyle("Style_CheckBox")
             };
 
