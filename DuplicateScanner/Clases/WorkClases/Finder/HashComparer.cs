@@ -133,6 +133,8 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
         /// <param name="toCheck">Файл для сравнения</param>
         /// <returns>True - файлы можно сравнивать</returns>
         private bool IsAllowCheckDuplicates(DuplicateInfo current, DuplicateInfo toCheck) =>
+            //Если сравниваемая картинка вообще существует
+            (toCheck != null) &&
             //Если сравниваемую картинку можно обрабатывать
             toCheck.IsAllowProcess &&
             //Если файлы не являются одним и тем же файлом
