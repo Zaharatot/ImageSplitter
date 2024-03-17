@@ -52,7 +52,7 @@ namespace ImageSplitter.Content.Controls.Simple
                 //Проходимся в цикле
                 for(int i = 0; i < -toUpdate; i++)
                     //И добавляем новые текстовые блоки
-                    panel.Children.Add(new TextBlock());
+                    panel.Children.Add(new TextBlock() { FontSize = 15 });
         }
 
         /// <summary>

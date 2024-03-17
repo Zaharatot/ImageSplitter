@@ -21,7 +21,7 @@
             </Border>
             <!-- Кнопка добавления папки -->
             <Button x:Name="AddFolderButton" Content="Добавить папку (Ctrl+N)" Margin="0"
-                    Style="{StaticResource Style_Button}" Grid.Row="1" Height="30" Click="AddFolderButton_Click" Cursor="Hand"  />
+                    Style="{StaticResource Style_Button}" Grid.Row="1" Click="AddFolderButton_Click" Cursor="Hand"  />
         </Grid>
     </Border>
 </UserControl>

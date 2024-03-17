@@ -5,28 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageDuplicateScan"
              mc:Ignorable="d" 
-             d:DesignHeight="550" Width="350">
+             d:DesignHeight="850" Width="400">
     <!--  Рамка вокруг контролла -->
     <Border Style="{StaticResource Style_Border}" Margin="10" Padding="10">
         <!-- Основная панель дочерних элементов -->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition />
                 <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>            
-            <!-- Заголовок панели -->
-            <TextBlock Text="Параметры поиска дубликатов" Grid.Row="0" TextAlignment="Center" 
-                       FontWeight="Bold" Margin="0,5" FontSize="11" Foreground="{StaticResource Brush_ActiveColor}" />
+            </Grid.RowDefinitions>
             
             <!-- Панель параметров -->
-            <StackPanel Grid.Row="1" >
+            <StackPanel Grid.Row="0" >
                 <!-- Путь для сканирования -->
-                <TextBlock Text="Путь для сканирования: " Foreground="{StaticResource Brush_ForegroundColor}"  />
-                <Simple:FolderSelector x:Name="ScanPathTextBox" Margin="0,3,0,10" />
+                <TextBlock Text="Путь для сканирования: " Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
+                <Simple:FolderSelector x:Name="ScanPathTextBox" Margin="0,3,0,10" FontSize="15" />
                 <!-- Тип проверки -->
-                <TextBlock Text="Тип проверки: "  Foreground="{StaticResource Brush_ForegroundColor}" />
-                <ComboBox x:Name="ScanTypeComboBox" Margin="0,3,0,10">
+                <TextBlock Text="Тип проверки: "  Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
+                <ComboBox x:Name="ScanTypeComboBox" Margin="0,3,0,10" FontSize="15" >
                     <ComboBoxItem IsSelected="True" Content="Оба варианта проверки" />
                     <ComboBoxItem Content="Сравнение обычных хешей" />
                     <ComboBoxItem Content="Сравнение хешей лайновых версий" />
@@ -41,14 +37,14 @@
                     </CheckBox.Content>
                 </CheckBox>
                 <!-- Панель указания чувствительности -->
-                <TextBlock>
+                <TextBlock FontSize="15" >
                     <Run Text="Чувствительность поиска:"  Foreground="{StaticResource Brush_ForegroundColor}" />
                     <Run x:Name="AccuracyTextBlock" Text="9" />
                 </TextBlock>
                 <Slider x:Name="AccuracySlider" Maximum="30" Minimum="0" Value="9" SmallChange="1" Margin="0,3,0,15"
                         LargeChange="1" TickFrequency="1" ValueChanged="AccuracySlider_ValueChanged" />
                 <!-- Подсказка к слайдеру чувствительности -->
-                <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource Brush_ForegroundColor}" FontStyle="Italic" >
+                <TextBlock TextWrapping="Wrap" FontSize="14" Foreground="{StaticResource Brush_ForegroundColor}" FontStyle="Italic" >
                     <Run Text="Чувствительность позволяет указать пороговое значение, которое" />
                     <Run Text="используется при сравнении хешей двух изображений для определения их схожести." />
                     <Run Text="Примерное описание лимитов значений следующее:" />
@@ -68,7 +64,7 @@
 
             </StackPanel>
             <!-- Панель кнопок действий -->
-            <StackPanel Grid.Row="2">
+            <StackPanel Grid.Row="1">
                 <!-- Кнопка удаления лишних записей -->
                 <Button x:Name="RemoveOldButton" Content="Удалить устаревшие записи" Click="RemoveOldButton_Click" 
                         Style="{StaticResource Style_Button}" Margin="0,5" />

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
     <!-- Основной текстовый блок -->
-    <TextBlock VerticalAlignment="Center" Margin="5">
+    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="15">
         <Run x:Name="CountChildsRun" Background="{StaticResource Brush_DoneColor}" Text="[0]" />
         <Run x:Name="FolderNameRun" Text="[FolderName]" Foreground="{StaticResource Brush_ForegroundColor}" />
     </TextBlock>

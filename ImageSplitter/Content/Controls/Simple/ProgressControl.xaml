@@ -22,10 +22,10 @@
                 </Grid.RowDefinitions>
 
                 <!-- Прогрессбар -->
-                <ProgressBar x:Name="ScanProgressBar" Height="20" IsIndeterminate="True" Foreground="{StaticResource Brush_ActiveColor}" 
+                <ProgressBar x:Name="ScanProgressBar" Height="30" IsIndeterminate="True" Foreground="{StaticResource Brush_ActiveColor}" 
                                 Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Brush_ControlBackgroundColor}" />
                 <!-- Заголовок стадии -->
-                <TextBlock x:Name="ProgressHeaderTextBlock" TextAlignment="Center" VerticalAlignment="Center"
+                <TextBlock x:Name="ProgressHeaderTextBlock" TextAlignment="Center" VerticalAlignment="Center" FontSize="15"
                             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="1" Foreground="{StaticResource Brush_ForegroundColor}" />
                 <!-- Панели для доп. инфы -->
                 <StackPanel x:Name="LeftInfoPanel" Margin="0,15,5,0" Grid.Row="1" Grid.Column="0" />

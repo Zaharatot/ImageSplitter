@@ -5,22 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
-             d:DesignHeight="450" Width="350">
+             d:DesignHeight="450" Width="400">
     <Border Margin="10" Padding="10" Style="{StaticResource Style_Border}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
-                <RowDefinition Height="35" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <!-- ПАнель основных полей для заполнения -->
             <StackPanel Grid.Row="0">
                 <!-- Путь для поиска картинок -->
-                <TextBlock Text="Путь для сканирования:" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <TextBlock Text="Путь для сканирования:" Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
                 <Simple:FolderSelector x:Name="ScanPathTextBox" TabIndex="0" Margin="0,3,0,5" />
                 <!-- Путь для раскладки картинок -->
-                <TextBlock Text="Путь для сохранения:" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <TextBlock Text="Путь для сохранения:" Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
                 <Simple:FolderSelector x:Name="MovePathTextBox" TabIndex="1" Margin="0,3,0,5" />
                 <!-- Чекбокс типа коллекции -->
                 <CheckBox x:Name="IsFolderCheckBox" TabIndex="2" Margin="0,5,0,5" Style="{StaticResource Style_CheckBox}">

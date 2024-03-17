@@ -163,10 +163,10 @@ namespace ImageSplitter.Content.Windows
         {
             //Инициализируем окно отображения
             TreeVisualizerWindow treeVisualizerWindow = new TreeVisualizerWindow();
-            //Отображаем древо
-            treeVisualizerWindow.VisualizeTree(path);
             //Отображаем окно
             treeVisualizerWindow.Show();
+            //Отображаем древо
+            treeVisualizerWindow.VisualizeTree(path);
         }
 
 
@@ -182,17 +182,17 @@ namespace ImageSplitter.Content.Windows
         /// Обработчик события запроса на переход к коллекции
         /// </summary>
         /// <param name="direction">Направление перехода</param>
-        private void CollectionsSplitTab_MoveToCollectionRequest(int direction) =>
+        private async void CollectionsSplitTab_MoveToCollectionRequest(int direction) =>
             //ВЫзываем внутренний метод перехода
-            MoveToCollection(direction);
+            await MoveToCollection(direction);
 
         /// <summary>
         /// Обработчик события запроса на переход к изображению в коллекции
         /// </summary>
         /// <param name="direction">Направление перехода</param>
-        private void CollectionsSplitTab_MoveToImageRequest(int direction) =>
+        private async void CollectionsSplitTab_MoveToImageRequest(int direction) =>
             //ВЫполняем переход к картинке в коллекции
-            SplitImages.MoveFolderImage(direction);
+            await SplitImages.MoveFolderImage(direction);
 
 
 
@@ -327,9 +327,9 @@ namespace ImageSplitter.Content.Windows
         /// Обработчик события запроса на переход к коллекции
         /// </summary>
         /// <param name="direction">Направление перехода</param>
-        private void SplitImages_MoveToCollectionRequest(int direction) =>
+        private async void SplitImages_MoveToCollectionRequest(int direction) =>
             //ВЫзываем внутренний метод перехода
-            MoveToCollection(direction);
+            await MoveToCollection(direction);
 
         /// <summary>
         /// Обработчик событяи запуска сплита
@@ -363,20 +363,20 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик событяи завершения переноса изображения
         /// </summary>
-        private void GlobalEvents_MoveImageComplete() =>
+        private async void GlobalEvents_MoveImageComplete() =>
             //Переходим к следующей картинке
-            MoveToCollection(1);
+            await MoveToCollection(1);
 
         /// <summary>
         /// Обработчик событяи завершения сканирвоания
         /// </summary>
-        private void GlobalEvents_ScanComplete() =>
+        private async void GlobalEvents_ScanComplete() =>
             //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
+            await this.Dispatcher.InvokeAsync(async () => {
                 //Включаем доступность окна
                 this.IsEnabled = true;
                 //Отображаем первую в списке картинку
-                MoveToCollection(0);
+                await MoveToCollection(0);
                 //Вызываем месседжбокс
                 MessageBox.Show("Scan complete!");
             });
@@ -456,12 +456,12 @@ namespace ImageSplitter.Content.Windows
         /// Переходим к картинке
         /// </summary>
         /// <param name="direction">Направление движения</param>
-        private void MoveToCollection(int direction)
+        private async Task MoveToCollection(int direction)
         {
             //Получаем целевую картинку
             CollectionInfo image = _mainWork.MoveToImage(direction);
             //Грузим её на форму
-            SplitImages.LoadImageInfo(image);
+            await SplitImages.LoadImageInfo(image);
         }
 
 

@@ -142,7 +142,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// Обработчик события выбора контролла
         /// </summary>
         /// <param name="control">Выбранный контролл</param>
-        private void ImagesPanel_UpdateFindedImageControlSelection(FindedImageControl control)
+        private async void ImagesPanel_UpdateFindedImageControlSelection(FindedImageControl control)
         {
             //Убираем выделение со всех дочерних контроллов
             ClearControlSelection();
@@ -151,7 +151,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
             //Закрываем поток в памяти, связанный с изображением
             CloseImageSource();
             //Грузим картинку в контролл
-            TargetImage.Source = LoadImageByPath(control.DuplicateImagePath);
+            TargetImage.Source = await LoadImageByPath(control.DuplicateImagePath);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Jбработчик события запроса на скрытие остальных панелей
         /// </summary>
-        /// <param name="showedPanelHeader">Pfujhkjdjr jnrhsditqcz gfytkb</param>
+        /// <param name="showedPanelHeader">Заголовок открывшейся панели</param>
         private void ImagesPanel_HidePanelRequest(string showedPanelHeader)
         {
             //Проходимся по всем контроллам панели
@@ -326,21 +326,23 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
                 TargetImage.Source = null;
             }
         }
+        
 
         /// <summary>
         /// Загружаем картинку по строке пути
         /// </summary>
         /// <param name="path">Путь к файлу картинки на диске</param>
         /// <returns>Класс картинки</returns>
-        private BitmapImage LoadImageByPath(string path)
-        {
-            BitmapImage ex = new BitmapImage();
-            ex.BeginInit();
-            //Считываем байты файла в поток в памяти
-            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path));
-            ex.EndInit();
-            return ex;
-        }
+        private async Task<BitmapImage> LoadImageByPath(string path) =>
+            //Запускаем в отдельной таске
+            await Dispatcher.InvokeAsync<BitmapImage>(() => {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                //Считываем байты файла в поток в памяти
+                image.StreamSource = File.OpenRead(path);
+                image.EndInit();
+                return image;
+            });
 
         /// <summary>
         /// Метод рассчёта оставшегося времени

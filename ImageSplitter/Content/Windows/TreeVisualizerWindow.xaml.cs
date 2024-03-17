@@ -30,39 +30,63 @@ namespace ImageSplitter.Content.Windows
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Обработчик осбытия нажатия на кнопку обновления информации
+        /// </summary>
+        private void UpdatePanelButton_Click(object sender, RoutedEventArgs e) =>
+            //Выполняем обновление древа 
+            UpdateTree(TreePanel.Items);
+
+
+        /// <summary>
+        /// Обработчик осбытия нажатия на кнопку клавиатуры
+        /// </summary>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Если нажали на "Escape"
+            if (e.Key == Key.Escape)
+                //Закрываем окно
+                this.Close();
+            else if (e.Key == Key.Enter)
+                //Выполняем обновление древа 
+                UpdateTree(TreePanel.Items);
+            //Указываем, что нажатие было обработано
+            e.Handled = true;
+        }
+
+
+
+        /// <summary>
+        /// Метод обновления древа
+        /// </summary>
+        /// <param name="items">Элементы древа для перебора</param>
+        private void UpdateTree(ItemCollection items)
+        {
+            //Проходимся по элементам древа
+            foreach (TreeViewItem item in items)
+            {
+                //Получаем панель из заголовка, и вызываем для неё обновление дочерних
+                (item.Header as FolderInfoPanel).UpdateChildsInfo();
+                //Проходимся по дочерним
+                UpdateTree(item.Items);
+            }
+        }
+
+
+
         /// <summary>
         /// Инициализируем элемент древа по элементу
         /// </summary>
         /// <param name="dir">Родительская папка</param>
         /// <returns>Элемент древа</returns>
-        private TreeViewItem CreateElem(DirectoryInfo dir) {
-            //Количество дочерних файлов
-            int countChildFiles = dir.GetFiles().Length;
-            int countChildDirectories = dir.GetDirectories().Length;
+        private TreeViewItem CreateElem(DirectoryInfo dir) =>
             //Возвращаем созданный контролл
-            return new TreeViewItem() {
+            new TreeViewItem() {
                 //В заголовок пишем имя папки и количество дочерних файлов
-                Header = new FolderInfoPanel() {
-                    //Подсвечиваем красным те папки, где есть и файлы и дочерние папки
-                    CountFilesColor = ((countChildDirectories != 0) && (countChildFiles != 0)) ? Brushes.LightCoral : Brushes.LightGreen,
-                    CountChilds = $" [{countChildFiles}] ",
-                    FolderName = dir.Name
-                }
+                Header = new FolderInfoPanel(dir)
             };
-        }
-
-        /// <summary>
-        /// Инициализируем элемент просмотра древа
-        /// </summary>
-        /// <returns>Элемент просмотра древа</returns>
-        private TreeView CreateTreePanel() =>
-            new TreeView() {
-                //Добавляем отсутп для древа
-                Margin = new Thickness(5),
-                Padding = new Thickness(5),
-                MaxHeight = 400,
-                Style = ResourceLoader.LoadStyle("Style_TreeView")
-            };
+        
 
         /// <summary>
         /// Добавляем элементы
@@ -90,21 +114,19 @@ namespace ImageSplitter.Content.Windows
         /// Метод добавления элементов
         /// </summary>
         /// <param name="current">Папка для добавления</param>
-        private void AddElements(DirectoryInfo current)
+        private void SetElements(DirectoryInfo current)
         {
-            //Создаём новый элемент
-            TreeView tree = CreateTreePanel();
             //Создаём для него корневой дочерний элемент
             TreeViewItem root = CreateElem(current);
             //Добавляем рекурсивно дочерние
             AddElementsRecurse(current, root);
             //Добавляем корневой элемент на контролл
-            tree.Items.Add(root);
-            //Добавляем древо на панель
-            FoldersWrapPanel.Children.Add(tree);
+            TreePanel.Items.Add(root);
             //Разворачиваем дочерние элементы
             root.ExpandSubtree();
         }
+
+
 
 
         /// <summary>
@@ -118,16 +140,12 @@ namespace ImageSplitter.Content.Windows
                 //Если строка не пустая
                 if (!string.IsNullOrEmpty(path))
                 {
-                    //Чистим панель от элементов
-                    FoldersWrapPanel.Children.Clear();
                     //Инициализируем родительскую папку
                     DirectoryInfo parent = new DirectoryInfo(path);
                     //Если папка существует
                     if (parent.Exists)
-                        //Проходимся по корневым дочерним папкам
-                        foreach (DirectoryInfo dir in parent.GetDirectories())
-                            //Добавляем элементы на панель
-                            AddElements(dir);
+                        //Втыкаем элементы в панель
+                        SetElements(parent);
                 }
             }
             catch { }

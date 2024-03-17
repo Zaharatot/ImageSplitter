@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.Simple"
              mc:Ignorable="d" 
-             d:DesignHeight="25" d:DesignWidth="250">
+             d:DesignHeight="35" d:DesignWidth="250">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -16,7 +16,7 @@
         <Border Style="{StaticResource Style_Border}" Grid.Column="0" BorderThickness="1" Cursor="IBeam" Margin="0" Padding="3">
             <!-- Поле ввода пути -->
             <TextBox x:Name="PathTextBox" TabIndex="0" BorderThickness="0" Foreground="{StaticResource Brush_ForegroundColor}"
-                     Background="Transparent" SelectionBrush="{StaticResource Brush_ActiveColor}" />
+                     Background="Transparent" SelectionBrush="{StaticResource Brush_ActiveColor}" FontSize="15" Padding="5" />
         </Border>
         <!-- Кнопка выбора пути -->
         <Button x:Name="BrowseButton" Content="Обзор" Style="{StaticResource Style_Button}" Grid.Column="1" 

@@ -116,24 +116,26 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         private bool GetCheckBoxState() =>
             SelectImageCheckBox.IsChecked.GetValueOrDefault(false);
 
-      
+
 
         /// <summary>
         /// Загружаем картинку по строке пути
         /// </summary>
         /// <param name="path">Путь к файлу картинки на диске</param>
         /// <returns>Класс картинки</returns>
-        private BitmapImage LoadImageByPath(string path)
-        {
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            //Принудительно проставляем высоту для превью
-            image.DecodePixelHeight = 100;
-            //Считываем байты файла в поток в памяти
-            image.StreamSource = new MemoryStream(File.ReadAllBytes(path));
-            image.EndInit();
-            return image;
-        }
+        private async Task<BitmapImage> LoadImageByPath(string path) =>
+            //Запускаем в отдельной таске
+            await Dispatcher.InvokeAsync<BitmapImage>(() => {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                //Принудительно проставляем высоту для превью
+                image.DecodePixelHeight = 120;
+                //Считываем байты файла в поток в памяти
+                image.StreamSource = File.OpenRead(path);
+                image.EndInit();
+                return image;
+            });
+        
 
 
 
@@ -206,12 +208,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Метод выполнения подгрузки изображения в контролл
         /// </summary>
-        public void LoadImage()
+        public async Task LoadImage()
         {
             //Закрываем поток в памяти, связанный с изображением
             CloseImageSource();
             //Грузим картинку в контролл
-            FindedImageIcon.Source = LoadImageByPath(_result.Path);
+            FindedImageIcon.Source = await LoadImageByPath(_result.Path);
         }
 
         /// <summary>

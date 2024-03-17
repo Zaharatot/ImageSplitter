@@ -7,6 +7,8 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{StaticResource Brush_BordersColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">

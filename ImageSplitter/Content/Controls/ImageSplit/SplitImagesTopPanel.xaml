@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="800">
     <!-- Верхняя панель с инфой о картинке -->
     <Border Style="{StaticResource Style_PanelBorder}" BorderThickness="0,0,0,2">
         <Grid>
@@ -19,13 +19,13 @@
 
             <!-- Кнопка "Влево" -->
             <Button x:Name="UpPageButton" Content="Предыдущая картинка (Up)" Grid.Column="1" Style="{StaticResource Style_Button}"
-                    Click="UpPageButton_Click" VerticalAlignment="Center" Height="30" />
+                    Click="UpPageButton_Click" VerticalAlignment="Center" />
             <!-- Панель с инфой о текущей коллекции -->
-            <TextBlock x:Name="ImageInfoTextBlock" TextAlignment="Center"  Margin="10,0" 
+            <TextBlock x:Name="ImageInfoTextBlock" TextAlignment="Center"  Margin="10,0" FontSize="15"
                        VerticalAlignment="Center" Text="..." Grid.Column="2" Foreground="{StaticResource Brush_ForegroundColor}" />
             <!-- Кнопка "Вправо" -->
             <Button x:Name="DownPageButton" Grid.Column="3" Content="Следующая картинка (Down)" Style="{StaticResource Style_Button}"
-                    Click="DownPageButton_Click" VerticalAlignment="Center" Height="30" />
+                    Click="DownPageButton_Click" VerticalAlignment="Center" />
         </Grid>
     </Border>
 </UserControl>

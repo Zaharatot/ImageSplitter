@@ -20,14 +20,14 @@
         </Grid.RowDefinitions>
         <!-- Панель настроек -->
         <Border Padding="10" Grid.Column="1" Grid.Row="1"
-                Width="450" Height="215" Style="{StaticResource Style_Border}">
+                Width="550" Height="265" Style="{StaticResource Style_Border}">
             <StackPanel>
                 <!-- Путь для сплита -->
-                <TextBlock Text="Путь для сплита файлов:" Foreground="{StaticResource Brush_ForegroundColor}" />
+                <TextBlock Text="Путь для сплита файлов:" Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
                 <Simple:FolderSelector x:Name="SplitPathTextBox" TabIndex="0" Margin="0,3,0,5" />
                 <!-- Количество файлов в папке для сплита -->
-                <TextBlock Text="Количество файлов в папке:" Foreground="{StaticResource Brush_ForegroundColor}" />
-                <Simple:PlaceholderTextBox x:Name="SplitCountTextBox" TabIndex="0" Margin="0,3,0,5" 
+                <TextBlock Text="Количество файлов в папке:" Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" />
+                <Simple:PlaceholderTextBox x:Name="SplitCountTextBox" TabIndex="0" Margin="0,3,0,5" FontSize="15" 
                                            PlaceholderText="Укажите количество файлов, которые будут помещены в одну папку" />
                 <!-- Флажок сплита в дочерних папках -->
                 <CheckBox x:Name="SplitChildsCheckBox" Margin="0,5,0,0" Content="Сплит в дочерних папках" Style="{StaticResource Style_CheckBox}"

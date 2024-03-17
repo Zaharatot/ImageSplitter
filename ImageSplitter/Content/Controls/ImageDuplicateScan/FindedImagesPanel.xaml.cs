@@ -102,12 +102,12 @@ namespace ImageSplitter.Content.Controls.ImageDuplicateScan
         /// <summary>
         /// Обработчик события показа панели
         /// </summary>
-        private void ShowPanelExpander_Expanded(object sender, RoutedEventArgs e)
+        private async void ShowPanelExpander_Expanded(object sender, RoutedEventArgs e)
         {
             //Проходимся по всем контроллам панели
             foreach (FindedImageControl imageControl in MainPanel.Children)
                 //Подгружаем все картинки на контролл
-                imageControl.LoadImage();
+                await imageControl.LoadImage();
             //Вызываем ивент скрытия остальных панелей
             HidePanelRequest?.Invoke(ElementHeader);
         }

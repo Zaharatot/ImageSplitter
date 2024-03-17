@@ -15,7 +15,7 @@
         <!-- Вкладка сплита изображений -->
         <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
-                <TextBlock Text="Изображения для раскладки" Foreground="{StaticResource Brush_ForegroundColor}">
+                <TextBlock Text="Изображения для раскладки" Foreground="{StaticResource Brush_ForegroundColor}" FontSize="15" >
                     <TextBlock.ToolTip>
                         <ToolTip Content="Ctrl+1" />
                     </TextBlock.ToolTip>
@@ -28,7 +28,7 @@
         <!-- Вкладка сплита файлов -->
         <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
-                <TextBlock Text="Разделение файлов">
+                <TextBlock Text="Разделение файлов" FontSize="15" >
                     <TextBlock.ToolTip>
                         <ToolTip Content="Ctrl+2" />
                     </TextBlock.ToolTip>
@@ -41,7 +41,7 @@
         <!-- Вкладка переименования файлов -->
         <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
-                <TextBlock Text="Переименование файлов">                
+                <TextBlock Text="Переименование файлов" FontSize="15" >                
                     <TextBlock.ToolTip>   
                         <ToolTip Content="Ctrl+3" />
                     </TextBlock.ToolTip>
@@ -54,7 +54,7 @@
         <!-- Вкладка поиска дубликатов изображений -->
         <TabItem Style="{StaticResource Style_TabItem}">
             <TabItem.Header>
-                <TextBlock Text="Поиск дубликатов изображений">
+                <TextBlock Text="Поиск дубликатов изображений" FontSize="15" >
                     <TextBlock.ToolTip>
                         <ToolTip Content="Ctrl+4" />
                     </TextBlock.ToolTip>

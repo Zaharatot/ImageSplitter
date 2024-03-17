@@ -152,9 +152,9 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Обработчик события перехода к изображению
         /// </summary>
         /// <param name="direction">Направление перехода</param>
-        private void TopPanel_MoveToImageRequest(int direction) =>
+        private async void TopPanel_MoveToImageRequest(int direction) =>
             //Выполняем переход к изображению в коллекции
-            MoveFolderImage(direction);
+            await MoveFolderImage(direction);
 
 
 
@@ -165,15 +165,16 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// </summary>
         /// <param name="path">Путь к файлу картинки на диске</param>
         /// <returns>Класс картинки</returns>
-        private BitmapImage LoadImageByPath(string path)
-        {
+        private async Task<BitmapImage> LoadImageByPath(string path) =>
+            //Запускаем в отдельной таске
+            await Dispatcher.InvokeAsync<BitmapImage>(() => {
             BitmapImage ex = new BitmapImage();
             ex.BeginInit();
             //Считываем байты файла в поток в памяти
             ex.StreamSource = new MemoryStream(File.ReadAllBytes(path)); 
             ex.EndInit();
             return ex;
-        }
+        });
 
         /// <summary>
         /// Закрываем поток в памяти, связанный с изображением
@@ -223,12 +224,12 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Грузим картинку и информацию о ней в контроллы
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
-        private void LoadImageToControls(CollectionInfo info)
+        private async Task LoadImageToControls(CollectionInfo info)
         {
             //Закрываем поток в памяти, связанный с изображением
             CloseImageSource();
             //Получаем путь к картинке и загружаем её
-            BitmapImage image = LoadImageByPath(info.GetImagePath());
+            BitmapImage image = await LoadImageByPath(info.GetImagePath());
             //Проставляем картинку в контролл
             TargetImage.Source = image;
             //Формируем и проставляем информацию о картинке в контролл
@@ -254,10 +255,10 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Грузим контент из класса в контроллы
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
-        private void LoadContentToControls(CollectionInfo info)
+        private async Task LoadContentToControls(CollectionInfo info)
         {
             //Грузим картинку и информацию о ней в контроллы
-            LoadImageToControls(info);
+            await LoadImageToControls(info);
             //Проставляем информацию о переносе
             BottomPanel.SetMovedFolderInfo(info.NewParentName, info.IsMoved);
             //Проставляем статус активности для кнопок листания
@@ -269,7 +270,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Грузим на панель инфу о картинке
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
-        internal void LoadImageInfo(CollectionInfo info)
+        internal async Task LoadImageInfo(CollectionInfo info)
         {
             //Проставляем переданную коллекцию
             _collection = info;
@@ -279,7 +280,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
                 ClearControls();
             //Если всё ок
             else
-                LoadContentToControls(info);
+                await LoadContentToControls(info);
         }
 
         /// <summary>
@@ -299,7 +300,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Перемещаемся к изображению внутри папки
         /// </summary>
         /// <param name="direction">Направление перемещения</param>
-        public void MoveFolderImage(int direction)
+        public async Task MoveFolderImage(int direction)
         {
             //Если есть активная коллекция, и она содержит папки
             if ((_collection != null) && (_collection.IsFolder))
@@ -307,7 +308,7 @@ namespace ImageSplitter.Content.Controls.ImageSplit
                 //Перемещаемся к новому изображению внутри коллекции
                 _collection.MoveFolderImage(direction);
                 //Грузим картинку и информацию о ней в контроллы
-                LoadImageToControls(_collection);
+                await LoadImageToControls(_collection);
             }
         }
     }

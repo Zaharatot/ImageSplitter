@@ -47,6 +47,10 @@
     <sys:String x:Key="Text_FindedImagesPanel_BlockedHeader">Выбраны для удаления в других блоках:</sys:String>
 
 
+    <!-- Панель отображения древа -->
+    <sys:String x:Key="Text_TreeVisualizerPanel_UpdateButton">Обновить информацию</sys:String>
+    
+
 
     <!-- Заголовки сообщений -->
     <sys:String x:Key="Text_MessageHeader_RemoveRequest">Подтвердите запрос удаления</sys:String>
@@ -56,6 +60,7 @@
         Будут удалены все записи, которые не будут найдены на подключенных дисках.
         В случае, если вы сканировали файлы на подключаемых носителях, перед удалениеи желательно их подключить, чтобы записи о них не были затёрты.
     </sys:String>
+    
 
 
 </ResourceDictionary>

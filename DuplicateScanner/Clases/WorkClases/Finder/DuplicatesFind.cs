@@ -106,7 +106,7 @@ namespace DuplicateScanner.Clases.WorkClases.Finder
             //Проходимся по файлам асинхронно, в несколько потоков
             Parallel.For(0, filesToCheck.Count, (i) => {
                 //Если файл можно обрабатывать
-                if (filesToCheck[i].IsAllowProcess)
+                if (filesToCheck[i] != null && filesToCheck[i].IsAllowProcess)
                     //Выполняем обработку файла
                     ProcessFile(filesToCheck, filesToCheck[i], ref pairs);
                 //Обновляем инфу в ивенте
