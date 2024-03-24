@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ImageSplitter.Content.Clases.WorkClases.Addition;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,10 @@ namespace ImageSplitter.Content.Clases.DataClases.Split
         /// Путь к родительскому элементу
         /// </summary>
         public string ParentPath { get; set; }
+        /// <summary>
+        /// Оригинальный путь к родительскому элементу
+        /// </summary>
+        public string OriginalParentPath { get; private set; }
         /// <summary>
         /// Имя элемента
         /// </summary>
@@ -47,19 +53,81 @@ namespace ImageSplitter.Content.Clases.DataClases.Split
         /// </summary>
         private int _currentImageId;
 
+
+
+
         /// <summary>
         /// Конструктор класса
         /// </summary>
         public CollectionInfo()
         {
             //Проставляем дефолтные значения
-            NewParentName = ParentPath = ElementName = null;
+            OriginalParentPath = NewParentName = 
+                ParentPath = ElementName = null;
             IsMoved = false;
             IsFolder = false;
             FileNames = new List<string>();
             _currentImageId = 0;
             Length = 0;
         }
+
+        /// <summary>
+        /// Конструктор класса, для файла
+        /// </summary>
+        /// <param name="file">Информация о файле</param>
+        /// <param name="parentPath">Путь к родительской папке</param>
+        public CollectionInfo(FileInfo file, string parentPath)
+        {
+            //Проставляем переданные значения
+            ElementName = file.Name;
+            OriginalParentPath = ParentPath = parentPath;
+            Length = file.Length;
+            IsFolder = false;
+            //Проставляем дефолтные значения
+            FileNames = new List<string>();
+            NewParentName = null;
+            IsMoved = false;
+            _currentImageId = 0;
+        }
+
+
+        /// <summary>
+        /// Конструктор класса, для папки
+        /// </summary>
+        /// <param name="folder">Информация о папке</param>
+        /// <param name="parentPath">Путь к родительской папке</param>
+        public CollectionInfo(DirectoryInfo folder, string parentPath)
+        {
+            //Проставляем переданные значения
+            FileNames = GetFolderChildImageNames(folder);
+            ElementName = folder.Name;
+            OriginalParentPath = ParentPath = parentPath;
+            IsFolder = true;
+            //Проставляем дефолтные значения
+            NewParentName = null;
+            IsMoved = false;
+            _currentImageId = 0;
+            Length = 0;
+        }
+
+        /// <summary>
+        /// Получаем список дочерних изображений из папки
+        /// </summary>
+        /// <param name="parent">Родительская папка</param>
+        /// <returns>Список имён дочерних изображений</returns>
+        private List<string> GetFolderChildImageNames(DirectoryInfo parent) =>
+            //Из папки
+            parent
+                //Получаем файлы
+                .GetFiles()
+                //Выбираем из них только изображения
+                .Where(file => ImageChecker.FileIsImage(file))
+                //От изображений берём только имена файлов
+                .Select(image => image.Name)
+                //Возвращаем в виде списка
+                .ToList();
+
+
 
         /// <summary>
         /// Получаем текущий путь к коллекции

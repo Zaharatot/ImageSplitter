@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="ImageSplitter.Content.Controls.ImageSplit.Panels.SplitImagesBottomPanel"
+             xmlns:Simple="clr-namespace:ImageSplitter.Content.Controls.Simple"  
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit.Panels"
+             mc:Ignorable="d" 
+             Height="40" d:DesignWidth="900">
+    <Border Style="{StaticResource Style_PanelBorder}" BorderThickness="0,2,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!-- Блок текста о перемещённой картинке -->
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="10,0" Foreground="{StaticResource Brush_ForegroundColor}"
+                       x:Name="MovedInfoTextBox" Visibility="Hidden" TextTrimming="CharacterEllipsis" FontSize="15">
+                <Run Text="Перемещено в: " />
+                <Run x:Name="MovedFolderTextBox" />
+            </TextBlock>
+
+
+            <!-- Иконка "Влево" -->
+            <Simple:SvgImageControl x:Name="LeftPageIcon" Image="{StaticResource Icon_Arrow_Left}" Grid.Column="1" 
+                                    Margin="7" Cursor="Hand" MouseDown="LeftPageIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_LeftPageIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            <!-- Количество страниц -->
+            <TextBlock Grid.Column="2" x:Name="CountImagesTextBlock" Margin="10,0" FontSize="15"
+                       VerticalAlignment="Center" Text="..."  Foreground="{StaticResource Brush_ForegroundColor}"/>
+
+            <!-- Иконка "Вправо" -->
+            <Simple:SvgImageControl x:Name="RightPageIcon" Image="{StaticResource Icon_Arrow_Right}" Grid.Column="3" 
+                                    Margin="7" Cursor="Hand" MouseDown="RightPageIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_RightPageIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+
+            <!-- Иконка отмены переноса  -->
+            <Simple:SvgImageControl x:Name="UndoMoveIcon" Image="{StaticResource Icon_Refresh}" Grid.Column="4" IsEnabled="False"
+                                    Margin="7" Cursor="Hand" MouseDown="UndoMoveIcon_MouseDown"  HorizontalAlignment="Right">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_UndoMoveIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+        </Grid>
+    </Border>
+</UserControl>

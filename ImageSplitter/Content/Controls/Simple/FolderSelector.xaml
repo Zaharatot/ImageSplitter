@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ImageSplitter.Content.Controls.Simple"
              mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="250">
+             Height="35" d:DesignWidth="250">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -13,13 +13,20 @@
         </Grid.ColumnDefinitions>
 
         <!-- Рамка контролла -->
-        <Border Style="{StaticResource Style_Border}" Grid.Column="0" BorderThickness="1" Cursor="IBeam" Margin="0" Padding="3">
+        <Border Style="{StaticResource Style_Border}" Background="{StaticResource Brush_ControlBackgroundColor}" 
+                Grid.Column="0" BorderThickness="1" Cursor="IBeam" Margin="0" Padding="3">
             <!-- Поле ввода пути -->
-            <TextBox x:Name="PathTextBox" TabIndex="0" BorderThickness="0" Foreground="{StaticResource Brush_ForegroundColor}"
-                     Background="Transparent" SelectionBrush="{StaticResource Brush_ActiveColor}" FontSize="15" Padding="5" />
+            <TextBox x:Name="PathTextBox" TabIndex="0" Style="{StaticResource Style_TextBox_Transparent}" />
         </Border>
-        <!-- Кнопка выбора пути -->
-        <Button x:Name="BrowseButton" Content="Обзор" Style="{StaticResource Style_Button}" Grid.Column="1" 
-                Margin="5,0,0,0" Click="BrowseButton_Click" />
+        <!-- Иконка обзора папок -->
+        <local:SvgImageControl x:Name="BrowseIcon" Image="{StaticResource Icon_Folder_Filled}"
+                               Margin="7" Cursor="Hand" Grid.Column="1" 
+                               MouseDown="BrowseIcon_MouseDown" >
+            <!-- Подсказка для иконки -->
+            <local:SvgImageControl.ToolTip>
+                <ToolTip Content="{StaticResource Text_FolderSelector_BrowseIcon_Tooltip}"
+                         Style="{StaticResource Style_ToolTip}" />
+            </local:SvgImageControl.ToolTip>
+        </local:SvgImageControl>
     </Grid>
 </UserControl>

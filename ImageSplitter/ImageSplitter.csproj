@@ -96,7 +96,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\Simple\FolderInfoPanel.xaml">
+    <Page Include="Content\Controls\ImageSplit\Folders\SplitSelectedFoldersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageSplit\Panels\LeftPanelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\ImageSplit\Folders\FolderInfoPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,7 +120,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageSplit\FolderInfoControl.xaml">
+    <Page Include="Content\Controls\ImageSplit\Folders\FolderInfoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,19 +128,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageSplit\FolderListControl.xaml">
+    <Page Include="Content\Controls\ImageSplit\Folders\FolderListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageSplit\SplitImagesBottomPanel.xaml">
+    <Page Include="Content\Controls\ImageSplit\Panels\SplitImagesBottomPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageSplit\SplitImagesTopPanel.xaml">
+    <Page Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Controls\ImageSplit\SplitParamsControl.xaml">
+    <Page Include="Content\Controls\ImageSplit\Panels\SplitParamsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,9 +152,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Controls\Simple\SvgImageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Resources\Icons\MainIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Resources\Localization\ControlsText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Resources\Styles\TextBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Resources\Styles\TextBlockStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Resources\Styles\WindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Resources\Styles\ToolTipStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Content\Resources\Styles\CheckBoxStyle.xaml">
       <SubType>Designer</SubType>
@@ -192,6 +224,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Content\Clases\DataClases\Controls\SvgImage.cs" />
+    <Compile Include="Content\Clases\DataClases\Split\TreeElementInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Global\Delegates.cs" />
     <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Content\Clases\DataClases\Global\GlobalEvents.cs" />
@@ -199,12 +233,15 @@
     <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\CollectionInfo.cs" />
+    <Compile Include="Content\Clases\DataClases\Split\SplitPathsInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Split\TargetFolderInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Split\TreeInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Storage\StoragedFileInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Tags\Tag.cs" />
     <Compile Include="Content\Clases\DataClases\Tags\TaggedImage.cs" />
+    <Compile Include="Content\Clases\WorkClases\Addition\ControlPropertyCallbacks.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\FolderNameGenerator.cs" />
+    <Compile Include="Content\Clases\WorkClases\Addition\IconsSelectionProcessor.cs" />
+    <Compile Include="Content\Clases\WorkClases\Addition\ImageChecker.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\KeyActionProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\KeyFinder.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\HotKeyCheck.cs" />
@@ -213,6 +250,7 @@
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FindDuplicatesTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FilesSplitTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\CollectionsSplitTab.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\TreeElementsProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileRenamer.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileSplitter.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CollectionsScanner.cs" />
@@ -220,6 +258,7 @@
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\SizeCalculator.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitImages.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitPathProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Resources\DateFormatter.cs" />
     <Compile Include="Content\Clases\WorkClases\Resources\ResourceLoader.cs" />
     <Compile Include="Content\Controls\FileSplitParamsControl.xaml.cs">
@@ -234,7 +273,13 @@
     <Compile Include="Content\Controls\ImageDuplicateScan\ScanPropertiesControl.xaml.cs">
       <DependentUpon>ScanPropertiesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\Simple\FolderInfoPanel.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Folders\SplitSelectedFoldersControl.xaml.cs">
+      <DependentUpon>SplitSelectedFoldersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\Panels\LeftPanelControl.xaml.cs">
+      <DependentUpon>LeftPanelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\ImageSplit\Folders\FolderInfoPanel.xaml.cs">
       <DependentUpon>FolderInfoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\Simple\FolderSelector.xaml.cs">
@@ -246,22 +291,22 @@
     <Compile Include="Content\Controls\Simple\ProgressControl.xaml.cs">
       <DependentUpon>ProgressControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageSplit\FolderInfoControl.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Folders\FolderInfoControl.xaml.cs">
       <DependentUpon>FolderInfoControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\ImageDuplicateScan\ImageDuplicatesControl.xaml.cs">
       <DependentUpon>ImageDuplicatesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageSplit\FolderListControl.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Folders\FolderListControl.xaml.cs">
       <DependentUpon>FolderListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageSplit\SplitImagesBottomPanel.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Panels\SplitImagesBottomPanel.xaml.cs">
       <DependentUpon>SplitImagesBottomPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageSplit\SplitImagesTopPanel.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml.cs">
       <DependentUpon>SplitImagesTopPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\ImageSplit\SplitParamsControl.xaml.cs">
+    <Compile Include="Content\Controls\ImageSplit\Panels\SplitParamsControl.xaml.cs">
       <DependentUpon>SplitParamsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\RenameFilesControl.xaml.cs">
@@ -269,6 +314,9 @@
     </Compile>
     <Compile Include="Content\Controls\ImageSplit\SplitImagesControl.xaml.cs">
       <DependentUpon>SplitImagesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\Simple\SvgImageControl.xaml.cs">
+      <DependentUpon>SvgImageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Windows\AddFolderWindow.xaml.cs">
       <DependentUpon>AddFolderWindow.xaml</DependentUpon>
@@ -281,11 +329,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Content\Windows\Tags\EditTagWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Windows\Tags\SelectTagsForAddWindow.xaml">
+    <Page Include="Content\Windows\SelectSplitFoldersWinodw.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,11 +342,8 @@
     <Compile Include="Content\Windows\SelectFoldersWindow.xaml.cs">
       <DependentUpon>SelectFoldersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Windows\Tags\EditTagWindow.xaml.cs">
-      <DependentUpon>EditTagWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Windows\Tags\SelectTagsForAddWindow.xaml.cs">
-      <DependentUpon>SelectTagsForAddWindow.xaml</DependentUpon>
+    <Compile Include="Content\Windows\SelectSplitFoldersWinodw.xaml.cs">
+      <DependentUpon>SelectSplitFoldersWinodw.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Windows\TreeVisualizerWindow.xaml.cs">
       <DependentUpon>TreeVisualizerWindow.xaml</DependentUpon>

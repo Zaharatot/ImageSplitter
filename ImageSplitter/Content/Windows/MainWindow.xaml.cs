@@ -10,7 +10,6 @@ using ImageSplitter.Content.Clases.WorkClases;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
 using ImageSplitter.Content.Clases.WorkClases.KeyProcessor;
 using ImageSplitter.Content.Clases.WorkClases.KeyProcessor.Processors;
-using ImageSplitter.Content.Windows.Tags;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -137,6 +136,8 @@ namespace ImageSplitter.Content.Windows
         {
             //Добавляем обработчик событяи запуска сплита
             SplitImages.StartSplitScan += SplitImages_StartSplitScan;
+            //Добавляем обработчик события запроса обновления путей сплита
+            SplitImages.UpdateSplitPathRequest += SplitImages_UpdateSplitPathRequest;
             //Добавляем обработчик события запроса отображения древа
             SplitImages.ShowTreeRequest += SplitImages_ShowTreeRequest;
             //Добавляем обработчик события запроса на переход к коллекции
@@ -145,6 +146,11 @@ namespace ImageSplitter.Content.Windows
             SplitImages.AddNewFolderRequest += SplitImages_AddNewFolderRequest;
             //Добавляем обработчик события запроса на удаление папки из списка
             SplitImages.RemoveFolderRequest += SplitImages_RemoveFolderRequest;
+            //Добавляем обработчик события запроса отмены переноса
+            SplitImages.UndoMove += SplitImages_UndoMove;
+
+
+
             //Добавляем обработчик события запуска отмены сплита
             FileSplitParams.StartBack += FileSplitParams_StartBack;
             //Добавляем обработчик события запуска сплита файлов
@@ -155,19 +161,26 @@ namespace ImageSplitter.Content.Windows
             ImageDuplicates.DuplicateRemove += ImageDuplicates_DuplicateRemove;
         }
 
+
+        /// <summary>
+        /// Обработчик события запроса отмены переноса
+        /// </summary>
+        private async void SplitImages_UndoMove()
+        {
+            //Вызываем метод отмены переноса
+            _mainWork.UndoMove();
+            //Получаем текущую целевую картинку
+            CollectionInfo image = _mainWork.GetCurrentImageInfo();
+            //Грузим её на форму
+            await SplitImages.LoadImageInfo(image);
+        }
+
         /// <summary>
         /// Обработчик события запроса отображения древа
         /// </summary>
-        /// <param name="path">Путь для отображения древа</param>
-        private void SplitImages_ShowTreeRequest(string path)
-        {
-            //Инициализируем окно отображения
-            TreeVisualizerWindow treeVisualizerWindow = new TreeVisualizerWindow();
-            //Отображаем окно
-            treeVisualizerWindow.Show();
-            //Отображаем древо
-            treeVisualizerWindow.VisualizeTree(path);
-        }
+        private void SplitImages_ShowTreeRequest() =>
+            //Вызываем отображение древа
+            _mainWork.ShowTree();
 
 
         /// <summary>
@@ -334,15 +347,23 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик событяи запуска сплита
         /// </summary>
-        /// <param name="scanPath">Путь сканирования</param>
-        /// <param name="splitPath">Путь сплита</param>
-        /// <param name="isFolder">Флаг сканирования папок</param>
-        private void SplitImages_StartSplitScan(string scanPath, string splitPath, bool isFolder)
+        private void SplitImages_StartSplitScan()
         {
             //Выключаем доступность окна
             this.IsEnabled = false;
             //Запускаем сканирование
-            _mainWork.StartScan(scanPath, splitPath, isFolder);
+            _mainWork.StartScan();
+        }
+
+        /// <summary>
+        /// Обработчик события запроса обновления путей сплита
+        /// </summary>
+        private void SplitImages_UpdateSplitPathRequest()
+        {
+            //Вызываем обновление пути сплита
+            SplitPathsInfo path = _mainWork.UpdateSplitPath();        
+            //Передаём выбранные пути в контролл сплита
+            SplitImages.SetSplitPathInfo(path);
         }
 
 

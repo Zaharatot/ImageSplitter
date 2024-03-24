@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ImageSplitter.Content.Clases.WorkClases.Addition;
+using ImageSplitter.Content.Controls.Simple;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static ImageSplitter.Content.Clases.DataClases.Global.Delegates;
 
-namespace ImageSplitter.Content.Controls.ImageSplit
+namespace ImageSplitter.Content.Controls.ImageSplit.Panels
 {
     /// <summary>
     /// Логика взаимодействия для SplitImagesBottomPanel.xaml
@@ -25,6 +27,10 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         /// Событие запроса на переход к изображению
         /// </summary>
         public event MoveToImageEventHandler MoveToCollectionRequest;
+        /// <summary>
+        /// Событие запроса отмены переноса изображения
+        /// </summary>
+        public event EmptyEventHandler UndoMove;
 
         /// <summary>
         /// Конструктор контролла
@@ -32,21 +38,50 @@ namespace ImageSplitter.Content.Controls.ImageSplit
         public SplitImagesBottomPanel()
         {
             InitializeComponent();
+            Init();
         }
+
+        /// <summary>
+        /// Инициализатор контролла
+        /// </summary>
+        private void Init()
+        {
+            //Инициализируем события для иконок
+            InitIconsEvents();
+        }
+
+        /// <summary>
+        /// Метод инициализации событий для иконок
+        /// </summary>
+        private void InitIconsEvents() =>
+            //Получаем экземпляр класса обработки событий для иконок
+            IconsSelectionProcessor.GetInstance()
+            //Добавляем в него иконки для обработки
+            .AddIcons(new List<SvgImageControl>() {
+                LeftPageIcon, RightPageIcon, UndoMoveIcon
+            });
 
         /// <summary>
         /// Обработчик события нажатия на кнопку "Влево"
         /// </summary>
-        private void LeftPageButton_Click(object sender, RoutedEventArgs e) =>
+        private void LeftPageIcon_MouseDown(object sender, MouseButtonEventArgs e)=>
             //Идём к предыдущей коллекции
             MoveToCollectionRequest?.Invoke(-1);
 
         /// <summary>
         /// Обработчик события нажатия на кнопку "Вправо"
         /// </summary>
-        private void RightPageButton_Click(object sender, RoutedEventArgs e) =>
+        private void RightPageIcon_MouseDown(object sender, MouseButtonEventArgs e) =>
             //Идём к следующей коллекции
             MoveToCollectionRequest?.Invoke(1);
+
+
+        /// <summary>
+        /// Обработчик события нажатия на кнопку отмены переноса
+        /// </summary>
+        private void UndoMoveIcon_MouseDown(object sender, MouseButtonEventArgs e) =>
+            //Вызываем внешний ивент
+            UndoMove?.Invoke();
 
 
 
@@ -62,6 +97,8 @@ namespace ImageSplitter.Content.Controls.ImageSplit
                 ? Visibility.Visible : Visibility.Hidden;
             //Проставляем перемещённую папку
             MovedFolderTextBox.Text = $"[{newFolderName}]";
+            //Обновляем активность кнопки отмены переноса
+            UndoMoveIcon.IsEnabled = isMoved;
         }
 
         /// <summary>

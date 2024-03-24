@@ -18,12 +18,12 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="ScrollButton" 
                                     Property="Background" 
-                                    Value="{StaticResource Brush_DisabledActiveColor}" />
+                                    Value="{StaticResource Brush_ActiveColor}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter TargetName="ScrollButton" 
                                     Property="Background" 
-                                    Value="{StaticResource Brush_ActiveColor}" />
+                                    Value="{StaticResource Brush_ForegroundColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

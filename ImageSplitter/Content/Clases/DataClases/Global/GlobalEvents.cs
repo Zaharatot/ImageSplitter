@@ -36,6 +36,9 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public static event EmptyEventHandler RemoveOldRequest;
 
 
+
+
+
         /// <summary>
         /// Метод вызова ивента обновления основной информации на контролле сплита изображений
         /// </summary>

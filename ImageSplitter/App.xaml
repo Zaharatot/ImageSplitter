@@ -19,7 +19,7 @@
 
 
                 <!-- Иконки -->
-                <!--    <ResourceDictionary Source="./Content/Resources/Icons/OtherIcons.xaml" /> -->
+                <ResourceDictionary Source="./Content/Resources/Icons/MainIcons.xaml" />
 
                 <!-- Шаблоны -->
                 <ResourceDictionary Source="./Content/Resources/Styles/ScrollbarStyle.xaml" />
@@ -29,6 +29,12 @@
                 <ResourceDictionary Source="./Content/Resources/Styles/TreeViewStyle.xaml" />
                 <ResourceDictionary Source="./Content/Resources/Styles/TabItemStyle.xaml" />
                 <ResourceDictionary Source="./Content/Resources/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/ToolTipStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/WindowStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="./Content/Resources/Styles/TextBoxStyle.xaml" />
+                
+
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

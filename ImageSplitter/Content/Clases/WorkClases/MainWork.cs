@@ -65,6 +65,24 @@ namespace ImageSplitter.Content.Clases.WorkClases
         }
 
 
+        #region SplitImages
+
+
+
+        /// <summary>
+        /// Метод обновления пути сплита
+        /// </summary>
+        /// <returns>Нвоый путь сплита</returns>
+        public SplitPathsInfo UpdateSplitPath() =>
+            //Вызываем внутренний метод
+            _splitImages.UpdateSplitPath();
+
+        /// <summary>
+        /// Метод отображения древа
+        /// </summary>
+        public void ShowTree() =>
+            //Вызываем внутренний метод
+            _splitImages.ShowTree();
 
         /// <summary>
         /// Проверяем нажатую кнопку на тип кнопки переноса
@@ -78,12 +96,9 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Запускаем сканирование
         /// </summary>
-        /// <param name="imagesPath">Путь к папкам с картинками</param>
-        /// <param name="foldersPath">Путь к целевым папкам</param>
-        /// <param name="isFolder">Флаг поиска папок</param>
-        public void StartScan(string imagesPath, string foldersPath, bool isFolder) =>
+        public void StartScan() =>
             //Вызываем внутренний метод
-            _splitImages.StartScan(imagesPath, foldersPath, isFolder);
+            _splitImages.StartScan();
 
         /// <summary>
         /// Переходим к указанной картинке
@@ -127,6 +142,18 @@ namespace ImageSplitter.Content.Clases.WorkClases
             _splitImages.RemoveFolderFromList(key);
 
         /// <summary>
+        /// Откатываем перемещение коллекции
+        /// </summary>
+        public void UndoMove() =>
+            //Откатываем перенос изображения
+            _splitImages.UndoMove();
+
+        #endregion
+
+
+        #region FileSplit
+
+        /// <summary>
         /// Запуск сплита 
         /// </summary>
         /// <param name="countFiles">Количество файлов для сплита</param>
@@ -144,6 +171,11 @@ namespace ImageSplitter.Content.Clases.WorkClases
             //Вызываем внутренний метод
             _fileSplitter.BackToParent(path);
 
+        #endregion
+
+
+        #region RenameFiles
+
         /// <summary>
         /// Выполняем переименование файлов
         /// </summary>
@@ -153,6 +185,10 @@ namespace ImageSplitter.Content.Clases.WorkClases
             //Вызываем внутренний метод
             _renameFiles.RenameFiles(path, mask);
 
+        #endregion
+
+
+        #region DuplicateScan
 
         /// <summary>
         /// Запуск сканирования дубликатов
@@ -171,13 +207,16 @@ namespace ImageSplitter.Content.Clases.WorkClases
             //Вызываем внутренний метод
             _duplicateScan.RemoveDuplicates(toRemove, groups);
 
-
         /// <summary>
         /// Метод удаления старых дубликатов из списка
         /// </summary>
         public void RemoveOldDuplicates() =>
             //Вызываем внутренний метод
             _duplicateScan.RemoveOldDuplicates();
+
+        #endregion
+
+
 
         /// <summary>
         /// Метод очистки неуправляемых ресурсов класса

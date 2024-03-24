@@ -130,6 +130,40 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             }
         }
 
+        /// <summary>
+        /// Возврат коллекции в оригинальную папку
+        /// </summary>
+        /// <param name="collection">Информация о переносимой коллекции</param>
+        public void UndoMove(CollectionInfo collection)
+        {
+            //Если мы не пытаемся переместить элемент в ту же папку
+            if (collection.OriginalParentPath != collection.ParentPath)
+            {
+                //Получаем текущий путь к коллекции
+                string currentPath = collection.GetCurrentPath();
+                //Проставляем оригинальный путь к родительской папке 
+                collection.ParentPath = collection.OriginalParentPath;
+                //Генерируем новое имя для элемента (нужно, на случай, если в папку уже что-то
+                //новое воткнули, ну и итератор будет для файла сбрасывать, что не особо критично)
+                collection.ElementName = GetNewElementName(
+                    collection.OriginalParentPath, 
+                    collection.ElementName, collection.IsFolder);
+                //Сбрасываем имя новой родительской папки
+                collection.NewParentName = "";
+                //Получаем новый путь к файлу
+                string newPath = collection.GetCurrentPath();
+                //Если у нас папка
+                if (collection.IsFolder)
+                    //Переносим папку
+                    Directory.Move(currentPath, newPath);
+                //Если у нас файл
+                else
+                    //Переносим файл
+                    File.Move(currentPath, newPath);
+                //Указываем, что перемещания не было
+                collection.IsMoved = false;
+            }
+        }
 
     }
 }

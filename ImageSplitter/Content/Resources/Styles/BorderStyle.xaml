@@ -4,17 +4,17 @@
 
     <!-- Стиль рамки -->
     <Style x:Key="Style_Border" TargetType="Border">
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="1" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="CornerRadius" Value="0" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderThickness" Value="0.5" />
         <Setter Property="Background" Value="{DynamicResource Brush_PanelBackgroundColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Brush_BordersColor}" />
     </Style>
 
     <!-- Стиль рамки на панели -->
     <Style x:Key="Style_PanelBorder" TargetType="Border">
-        <Setter Property="Margin" Value="0" />
+        <Setter Property="Margin" Value="1" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="CornerRadius" Value="0" />
         <Setter Property="BorderThickness" Value="1" />

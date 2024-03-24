@@ -32,6 +32,14 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Класс поиска клавиш по id папки
         /// </summary>
         private KeyFinder _keyFinder;
+        /// <summary>
+        /// Класс работы с путём сплита
+        /// </summary>
+        private SplitPathProcessor _splitPathProcessor;
+        /// <summary>
+        /// Класс работы с древом
+        /// </summary>
+        private TreeElementsProcessor _treeElementsProcessor;
 
 
 
@@ -48,10 +56,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Id текущей выбранной коллекции
         /// </summary>
         private int _currentCollectionId;
-        /// <summary>
-        /// Путь к списку папок
-        /// </summary>
-        private string _foldersPath;
 
         /// <summary>
         /// Конструктор класса
@@ -70,11 +74,12 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             _collections = new List<CollectionInfo>();
             _targets = new List<TargetFolderInfo>();
             _currentCollectionId = 0;
-            _foldersPath = null;
             //Инициализируем используемые классы
             _scanner = new CollectionsScanner();
             _mover = new Mover();
             _keyFinder = new KeyFinder();
+            _splitPathProcessor = new SplitPathProcessor();
+            _treeElementsProcessor = new TreeElementsProcessor();
         }
 
         /// <summary>
@@ -100,11 +105,11 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <summary>
         /// Сканируем и выбираем папки
         /// </summary>
-        /// <param name="foldersPath">Путь к целевым папкам</param>
-        private void ScanAndSelectFolders(string foldersPath)
+        private void ScanAndSelectFolders()
         {
             //Получаем список папок после сканирования
-            List<TargetFolderInfo> foldersList = _scanner.ScanFolders(foldersPath);
+            List<TargetFolderInfo> foldersList = 
+                _scanner.ScanFolders(_splitPathProcessor.SplitPath);
             //С окном работаем уже в ui-потоке
             App.Current.Dispatcher.Invoke(new Action(() => {
                 //Инициализируем окно выбора папок
@@ -159,6 +164,18 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             return ex;
         }
 
+
+        /// <summary>
+        /// Откатываем перемещение коллекции
+        /// </summary>
+        public void UndoMove()
+        {
+            //Получаем текущую выбранную картинку
+            CollectionInfo image = GetCurrentImageInfo();
+            //Откатываем перенос изображения
+            _mover.UndoMove(image);
+        }
+
         /// <summary>
         /// Получаем папку для перемещения по нажатой кнопке
         /// </summary>
@@ -204,21 +221,16 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <summary>
         /// Запускаем сканирование
         /// </summary>
-        /// <param name="imagesPath">Путь к папкам с картинками</param>
-        /// <param name="foldersPath">Путь к целевым папкам</param>
-        /// <param name="isFolder">Флаг поиска папок</param>
-        public void StartScan(string imagesPath, string foldersPath, bool isFolder)
+        public void StartScan()
         {
             //Запускаем эту работу в отдельном потоке
             new Thread(() => {
-                //Запоминаем имя папки с картинками, добавляя слеш в конец при необходимости
-                _foldersPath = (foldersPath.Last() != '\\') ? $"{foldersPath}\\" : foldersPath;
                 //Сбрасываем id выбранной картинки
                 _currentCollectionId = 0;
                 //Сканим папку на предмет коллекций
-                _collections = _scanner.ScanCollections(imagesPath, isFolder);
+                _collections = _scanner.ScanCollections(_splitPathProcessor.SplitPath);
                 //Сканим целевые папки для добавления в программу
-                ScanAndSelectFolders(_foldersPath);
+                ScanAndSelectFolders();
             }).Start();
         }
 
@@ -228,18 +240,20 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// </summary>
         public void AddNewFolder()
         {
+            //Получаем путь к папке для перемещения
+            string foldersPath = _splitPathProcessor.SplitPath.MovePath;
             //Если путь к папке существует
-            if (!string.IsNullOrEmpty(_foldersPath))
+            if (!string.IsNullOrEmpty(foldersPath))
             {
                 //Инициализируем окно добавления папки
                 AddFolderWindow folderWindow = new AddFolderWindow();
                 //Получаем результат ввода нового имени папки
-                var newFolderName = folderWindow.GetNewFolderName(_foldersPath);
+                var newFolderName = folderWindow.GetNewFolderName(foldersPath);
                 //Если было возвращено корректное имя папки
                 if (!string.IsNullOrEmpty(newFolderName))
                 {
                     //Получаем полный путь к новой папке
-                    string path = $"{_foldersPath}{newFolderName}\\";
+                    string path = $"{foldersPath}{newFolderName}\\";
                     //Если папки не существует
                     if(!Directory.Exists(path))
                         //Создаём папку
@@ -270,5 +284,22 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             //Запрашиваем обновление инфы о сплите
             InvokeImageSplitInfoRequest();
         }
+
+
+
+        /// <summary>
+        /// Метод обновления пути сплита
+        /// </summary>
+        /// <returns>Нвоый путь сплита</returns>
+        public SplitPathsInfo UpdateSplitPath() =>
+            //Вызываем внутренний метод
+            _splitPathProcessor.UpdateSplitPath();
+
+        /// <summary>
+        /// Метод отображения древа
+        /// </summary>
+        public void ShowTree() =>
+            //Вызываем внутренний метод, передав в него путь для перемещения
+            _treeElementsProcessor.ShowTree(_splitPathProcessor.SplitPath.MovePath);
     }
 }

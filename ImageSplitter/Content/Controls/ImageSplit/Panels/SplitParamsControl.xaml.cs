@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static ImageSplitter.Content.Clases.DataClases.Global.Delegates;
 
-namespace ImageSplitter.Content.Controls.ImageSplit
+namespace ImageSplitter.Content.Controls.ImageSplit.Panels
 {
     /// <summary>
     /// Логика взаимодействия для SplitParamsControl.xaml

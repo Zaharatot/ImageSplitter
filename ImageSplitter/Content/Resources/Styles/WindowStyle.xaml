@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!-- Базовый стиль окна-->
+    <Style x:Key="Style_Window" TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource Brush_DeepBackgroundColor}" />
+    </Style>
+
+
+    <!-- Cтиль окна без ресайза-->
+    <Style x:Key="Style_Window_NoResize" TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource Brush_DeepBackgroundColor}" />
+        <Setter Property="ResizeMode" Value="NoResize" />
+    </Style>
+
+</ResourceDictionary>

@@ -7,19 +7,27 @@
     <!-- Кисти -->
 
     <!-- Основные цвета темы -->
-    <SolidColorBrush x:Key="Brush_ControlBackgroundColor" Color="#F3EEEA" />
-    <SolidColorBrush x:Key="Brush_DeepBackgroundColor" Color="#B0A695" />
-    <SolidColorBrush x:Key="Brush_PanelBackgroundColor" Color="#EBE3D5" />
-    <SolidColorBrush x:Key="Brush_TransparentBackgroundColor" Color="#88776B5D" />
+    <SolidColorBrush x:Key="Brush_ControlBackgroundColor" Color="#424242" />
+    <SolidColorBrush x:Key="Brush_DeepBackgroundColor" Color="#282828" />
+    <SolidColorBrush x:Key="Brush_PanelBackgroundColor" Color="#535353" />
+    <SolidColorBrush x:Key="Brush_TransparentBackgroundColor" Color="#884f2100" />
 
-    <SolidColorBrush x:Key="Brush_ActiveColor" Color="#354a6e" />
-    <SolidColorBrush x:Key="Brush_BordersColor" Color="#2b3c59" />
-    <SolidColorBrush x:Key="Brush_DisabledActiveColor" Color="#476394" />
+    <SolidColorBrush x:Key="Brush_ActiveColor" Color="#ff6c00" />
+    <SolidColorBrush x:Key="Brush_BordersColor" Color="#383838" />
+    <SolidColorBrush x:Key="Brush_DisabledActiveColor" Color="#535353" />
 
 
-    <SolidColorBrush x:Key="Brush_ForegroundColor" Color="#202c42" />
+    <SolidColorBrush x:Key="Brush_ForegroundColor" Color="#dddddd" />
+    <SolidColorBrush x:Key="Brush_ForegroundDisabledColor" Color="#999999" />
     <SolidColorBrush x:Key="Brush_PlaceholderForegroundColor" Color="#202c42" Opacity="0.7" />
-    <SolidColorBrush x:Key="Brush_ActiveForegroundColor" Color="#F3EEEA" />
+    <SolidColorBrush x:Key="Brush_ActiveForegroundColor" Color="#dddddd" />
+
+
+
+    <!-- Цвета для раскраски элементов древа -->
+    <SolidColorBrush x:Key="Brush_Tree_Splitted" Color="#90EE90" />
+    <SolidColorBrush x:Key="Brush_Tree_NotSplitted" Color="#FF4040" />
+    <SolidColorBrush x:Key="Brush_Tree_ChildsNotSplitted" Color="#FFAA66" />
 
 
     <!-- Цвета для статусов -->

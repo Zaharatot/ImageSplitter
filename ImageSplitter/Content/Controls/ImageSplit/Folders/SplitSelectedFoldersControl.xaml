@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ImageSplitter.Content.Controls.ImageSplit.Folders.SplitSelectedFoldersControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImageSplitter.Content.Controls.ImageSplit.Folders"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="300">
+
+    <!-- Основная рамка контролла -->
+    <Border Style="{StaticResource Style_Border}">
+        <!-- Основная панель контролла -->
+        <StackPanel>
+            <!-- Текст с путём сканирования -->
+            <TextBlock Style="{StaticResource Style_TextBlock_Info}">
+                <Run Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_ScanPath_Run}" />
+                <LineBreak />
+                <Run x:Name="ScanPathRun" Text="{StaticResource Text_EmptyValue}" FontStyle="Italic" >
+                    <Run.ToolTip>
+                        <ToolTip x:Name="ScanPathToolTip" Style="{StaticResource Style_ToolTip}" 
+                                 Content="{StaticResource Text_EmptyValue}" />
+                    </Run.ToolTip>
+                </Run>
+            </TextBlock>
+
+            <!-- Текст с путём переноса -->
+            <TextBlock Style="{StaticResource Style_TextBlock_Info}" Margin="0,2,0,3">
+                <Run Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_MovePath_Run}" />
+                <LineBreak />
+                <Run x:Name="MovePathRun" Text="{StaticResource Text_EmptyValue}" FontStyle="Italic" >
+                    <Run.ToolTip>
+                        <ToolTip x:Name="MovePathToolTip" Style="{StaticResource Style_ToolTip}" 
+                                 Content="{StaticResource Text_EmptyValue}" />
+                    </Run.ToolTip>
+                </Run>
+            </TextBlock>
+
+            <!-- Текст с флагом сканирования -->
+            <TextBlock Style="{StaticResource Style_TextBlock_Info}">
+                <Run Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Run}" />
+                <Run x:Name="IsFolderRun" Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Value_File}" />
+            </TextBlock>
+
+        </StackPanel>
+
+    </Border>
+</UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageSplitter.Content.Clases.WorkClases.Addition;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,15 +36,36 @@ namespace ImageSplitter.Content.Controls.Simple
         public FolderSelector()
         {
             InitializeComponent();
+            Init();
         }
 
         /// <summary>
-        /// Обработчик события нажатия на кнопку выбора пути
+        /// Инициализатор контролла
         /// </summary>
-        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        private void Init()
+        {
+            //Инициализируем события для иконок
+            InitIconsEvents();
+        }
+
+        /// <summary>
+        /// Метод инициализации событий для иконок
+        /// </summary>
+        private void InitIconsEvents() =>
+            //Получаем экземпляр класса обработки событий для иконок
+            IconsSelectionProcessor.GetInstance()
+            //Добавляем в него иконки для обработки
+            .AddIcons(new List<SvgImageControl>() {
+                BrowseIcon
+            });
+
+        /// <summary>
+        /// Обработчик события нажатия на иконку выбора пути
+        /// </summary>
+        private void BrowseIcon_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //Инициализируем диалоговое окно выбора папки
-            System.Windows.Forms.FolderBrowserDialog dialog = 
+            System.Windows.Forms.FolderBrowserDialog dialog =
                 new System.Windows.Forms.FolderBrowserDialog();
             //Обновляем выбранный путь
             dialog.SelectedPath = PathTextBox.Text;
