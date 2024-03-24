@@ -361,9 +361,13 @@ namespace ImageSplitter.Content.Windows
         private void SplitImages_UpdateSplitPathRequest()
         {
             //Вызываем обновление пути сплита
-            SplitPathsInfo path = _mainWork.UpdateSplitPath();        
+            SplitPathsInfo path = _mainWork.UpdateSplitPath();
             //Передаём выбранные пути в контролл сплита
             SplitImages.SetSplitPathInfo(path);
+            //Если передан флаг старта сплита и пути для него есть
+            if (path.IsStartSplit && path.IsContainPaths)
+                //Вызываем запуск сканирования
+                SplitImages_StartSplitScan();
         }
 
 

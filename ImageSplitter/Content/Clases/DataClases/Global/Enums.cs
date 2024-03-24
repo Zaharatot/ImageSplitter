@@ -29,5 +29,24 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
             /// </summary>
             ChildsNotSplitted = 2
         }
+
+        /// <summary>
+        /// Статусы комбинированного чекбокса
+        /// </summary>
+        public enum ComboCheckBoxStates
+        {
+            /// <summary>
+            /// Включен
+            /// </summary>
+            Checked = 0,
+            /// <summary>
+            /// Выключен
+            /// </summary>
+            Unchecked = 1,
+            /// <summary>
+            /// Частично включен
+            /// </summary>
+            Partial = 2
+        }
     }
 }

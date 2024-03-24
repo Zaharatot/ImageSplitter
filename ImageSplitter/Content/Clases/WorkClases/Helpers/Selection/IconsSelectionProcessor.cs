@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ImageSplitter.Content.Clases.WorkClases.Addition
+namespace ImageSplitter.Content.Clases.WorkClases.Helpers.Selection
 {
     /// <summary>
     /// Класс обработки выделения иконок
@@ -57,7 +57,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Addition
         /// <summary>
         /// Обработчик события ухода курсора с иконки
         /// </summary>
-        private void Icon_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) 
+        public void Icon_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e) 
         {
             //Получаем иконку
             SvgImageControl icon = sender as SvgImageControl;
@@ -66,9 +66,9 @@ namespace ImageSplitter.Content.Clases.WorkClases.Addition
         }
 
         /// <summary>
-        /// Обработчик события ухода курсора с иконки
+        /// Обработчик события наведения курсора на иконку
         /// </summary>
-        private void Icon_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        public void Icon_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //Получаем иконку
             SvgImageControl icon = sender as SvgImageControl;
@@ -79,7 +79,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Addition
         /// <summary>
         /// Обработчик события включения/выключения иконки
         /// </summary>
-        private void Icon_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public void Icon_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             //Получаем иконку
             SvgImageControl icon = sender as SvgImageControl;

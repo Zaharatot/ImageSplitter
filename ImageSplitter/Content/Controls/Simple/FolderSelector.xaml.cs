@@ -1,4 +1,6 @@
 ﻿using ImageSplitter.Content.Clases.WorkClases.Addition;
+using ImageSplitter.Content.Clases.WorkClases.Helpers;
+using ImageSplitter.Content.Clases.WorkClases.Helpers.Selection;
 using System;
 using System.Collections.Generic;
 using System.Linq;

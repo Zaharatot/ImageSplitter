@@ -108,6 +108,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Content\Controls\Simple\ComboCheckBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Controls\Simple\FolderSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,10 +141,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Panels\SplitParamsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,8 +240,9 @@
     <Compile Include="Content\Clases\DataClases\Tags\TaggedImage.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\ControlPropertyCallbacks.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\FolderNameGenerator.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\IconsSelectionProcessor.cs" />
+    <Compile Include="Content\Clases\WorkClases\Helpers\Selection\IconsSelectionProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\ImageChecker.cs" />
+    <Compile Include="Content\Clases\WorkClases\Helpers\UniversalMethods.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\KeyActionProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Addition\KeyFinder.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\HotKeyCheck.cs" />
@@ -250,6 +251,8 @@
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FindDuplicatesTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FilesSplitTab.cs" />
     <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\CollectionsSplitTab.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CreateFolderProcessor.cs" />
+    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SelectFoldersProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\TreeElementsProcessor.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileRenamer.cs" />
     <Compile Include="Content\Clases\WorkClases\Processors\FileSplitter.cs" />
@@ -282,6 +285,9 @@
     <Compile Include="Content\Controls\ImageSplit\Folders\FolderInfoPanel.xaml.cs">
       <DependentUpon>FolderInfoPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Content\Controls\Simple\ComboCheckBoxControl.xaml.cs">
+      <DependentUpon>ComboCheckBoxControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Content\Controls\Simple\FolderSelector.xaml.cs">
       <DependentUpon>FolderSelector.xaml</DependentUpon>
     </Compile>
@@ -305,9 +311,6 @@
     </Compile>
     <Compile Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml.cs">
       <DependentUpon>SplitImagesTopPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Panels\SplitParamsControl.xaml.cs">
-      <DependentUpon>SplitParamsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\RenameFilesControl.xaml.cs">
       <DependentUpon>RenameFilesControl.xaml</DependentUpon>

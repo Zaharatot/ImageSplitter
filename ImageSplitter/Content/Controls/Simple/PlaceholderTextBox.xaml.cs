@@ -102,14 +102,9 @@ namespace ImageSplitter.Content.Controls.Simple
         /// <summary>
         /// Обработчик соыбтия клика по контроллу
         /// </summary>
-        private void MainBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //Скрываем заглушку и отображаем текстовый контролл
-            PlaceholderTextBlock.Visibility = Visibility.Collapsed;
-            ContentTextBox.Visibility = Visibility.Visible;
-            //Проставляем фокус на текстовом контролле
-            ContentTextBox.Focus();
-        }
+        private void MainBorder_PreviewMouseDown(object sender, MouseButtonEventArgs e) =>
+            //Проставляем фокус на элемент
+            FocusElement();
 
         /// <summary>
         /// Обработчик события потери фокуса контроллом
@@ -125,5 +120,22 @@ namespace ImageSplitter.Content.Controls.Simple
         private void ContentTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
             //Вызываем внешний ивент
             ChangeText?.Invoke(ContentTextBox.Text);
+
+
+        /// <summary>
+        /// Метод фокусировки на контролле
+        /// </summary>
+        public void FocusElement()
+        {
+            //Если фокуса не было (виден плейсхолдер)
+            if (PlaceholderTextBlock.Visibility == Visibility.Visible)
+            {
+                //Скрываем заглушку и отображаем текстовый контролл
+                PlaceholderTextBlock.Visibility = Visibility.Collapsed;
+                ContentTextBox.Visibility = Visibility.Visible;
+                //Проставляем фокус на текстовом контролле
+                ContentTextBox.Focus();
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ImageSplitter.Content.Clases.DataClases.Global.Enums;
 
 namespace ImageSplitter.Content.Clases.DataClases.Global
 {
@@ -62,6 +63,13 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// </summary>
         /// <param name="path">Путь для отмены сплита</param>
         public delegate void StartBackEventHandler(string path);
+
+        /// <summary>
+        /// Делегат события обновления статуса чекбокса
+        /// </summary>
+        /// <param name="state">Новый статус чекбокса</param>
+        public delegate void CheckBoxUpdateStateEventHandler(ComboCheckBoxStates state);
+
 
         /// <summary>
         /// Делегат события запуска переименования файлов

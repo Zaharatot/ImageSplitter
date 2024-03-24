@@ -15,10 +15,12 @@
             <TextBlock Style="{StaticResource Style_TextBlock_Info}">
                 <Run Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_ScanPath_Run}" />
                 <LineBreak />
-                <Run x:Name="ScanPathRun" Text="{StaticResource Text_EmptyValue}" FontStyle="Italic" >
+                <Run x:Name="ScanPathRun" Text="{StaticResource Text_EmptyValue}" 
+                     MouseDown="Run_MouseDown"
+                     Style="{StaticResource Style_Run_Selectable}" IsEnabled="False" >
                     <Run.ToolTip>
                         <ToolTip x:Name="ScanPathToolTip" Style="{StaticResource Style_ToolTip}" 
-                                 Content="{StaticResource Text_EmptyValue}" />
+                                 Content="{StaticResource Text_EmptyValue}" Visibility="Collapsed" />
                     </Run.ToolTip>
                 </Run>
             </TextBlock>
@@ -27,10 +29,12 @@
             <TextBlock Style="{StaticResource Style_TextBlock_Info}" Margin="0,2,0,3">
                 <Run Text="{StaticResource Text_SplitImagesControl_SplitSelectedFoldersControl_MovePath_Run}" />
                 <LineBreak />
-                <Run x:Name="MovePathRun" Text="{StaticResource Text_EmptyValue}" FontStyle="Italic" >
+                <Run x:Name="MovePathRun" Text="{StaticResource Text_EmptyValue}" 
+                     MouseDown="Run_MouseDown"
+                     Style="{StaticResource Style_Run_Selectable}" IsEnabled="False" >
                     <Run.ToolTip>
                         <ToolTip x:Name="MovePathToolTip" Style="{StaticResource Style_ToolTip}" 
-                                 Content="{StaticResource Text_EmptyValue}" />
+                                 Content="{StaticResource Text_EmptyValue}" Visibility="Collapsed"  />
                     </Run.ToolTip>
                 </Run>
             </TextBlock>

@@ -16,4 +16,31 @@
     </Style>
 
 
+
+
+    <!-- Стиль Run с выделением -->
+    <Style x:Key="Style_Run_Selectable" TargetType="Run">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush_ForegroundColor}" />
+        <Style.Triggers>
+            <!-- Триггер для наведения на элемент -->
+            <MultiTrigger>
+                <!-- Включается только если наведён курсор и элемент активен -->
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="true" />
+                    <Condition Property="IsEnabled" Value="true"/>
+                </MultiTrigger.Conditions>
+                <!-- Меняет цвет контролла -->
+                <Setter Property="Foreground" Value="{StaticResource Brush_ActiveColor}" />
+            </MultiTrigger>
+            <!-- Добавляем стили для "отключенного" элемента -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Cursor" Value="Arrow" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 </ResourceDictionary>

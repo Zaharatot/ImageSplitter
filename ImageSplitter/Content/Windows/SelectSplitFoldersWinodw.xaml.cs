@@ -1,4 +1,5 @@
 ﻿using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Clases.WorkClases.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,11 +60,18 @@ namespace ImageSplitter.Content.Windows
 
 
         /// <summary>
-        /// Обработчик событяи нажатия на кнопку принятия
+        /// Обработчик события нажатия на кнопку выбора путей
         /// </summary>
         private void SelectPathsButton_Click(object sender, RoutedEventArgs e) =>
             //Завершаем работу окна
-            CompleteWork();
+            CompleteWork(false);
+
+        /// <summary>
+        /// Обработчик события нажатия на кнопку выбора путей и запуска сплита
+        /// </summary>
+        private void SelectPathsAndSplitButton_Click(object sender, RoutedEventArgs e) =>
+            //Завершаем работу окна
+            CompleteWork(true);
 
         /// <summary>
         /// Обработчик событяи нажатия на кнопку клавиатуры
@@ -72,8 +80,9 @@ namespace ImageSplitter.Content.Windows
         {
             //Если юзер нажал "Enter"
             if (e.Key == Key.Enter)
-                //Завершаем работу окна
-                CompleteWork();
+                //Завершаем работу окна, и по статусу нажатия клавиши "Ctrl"
+                //передаём тот или иной статус запуска сплита
+                CompleteWork(!IsControlPressed(e));
             //Если юзер нажал "Escape"
             else if (e.Key == Key.Escape)
                 //Просто закрываем окно
@@ -89,17 +98,26 @@ namespace ImageSplitter.Content.Windows
             //Добавляем слеш на конце пути, если его нету + обработка пустой строки
             string.IsNullOrEmpty(path) ? "" : ((path.Last() != '\\') ? $"{path}\\" : path);
 
+        /// <summary>
+        /// Проверка нажатия кнопки "Ctrl" на клавиатуре
+        /// </summary>
+        /// <param name="e">Информация о нажатой кнопке</param>
+        /// <returns>TRue - кнопка "Ctrl" была нажата</returns>
+        private bool IsControlPressed(KeyEventArgs e) =>
+            (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0;
 
 
         /// <summary>
         /// Выполняем завершение работы окна
         /// </summary>
-        private void CompleteWork()
+        /// <param name="isStartSplit">Флаг запуска сплита</param>
+        private void CompleteWork(bool isStartSplit)
         {
-            //Прставляем пути и флаг в выходной параметр
+            //Прставляем пути и флаги в выходной параметр
             _splitPath.ScanPath = ProcessPath(ScanPathFolderSelector.Path);
             _splitPath.MovePath = ProcessPath(MovePathFolderSelector.Path);
-            _splitPath.IsFolder = IsFolderCheckBox.IsChecked.GetValueOrDefault(false);
+            _splitPath.IsFolder = IsFolderCheckBox.IsChecked;
+            _splitPath.IsStartSplit = isStartSplit;
             //Выполняем закрытие окна
             this.DialogResult = true;
         }
@@ -115,7 +133,8 @@ namespace ImageSplitter.Content.Windows
             //Передаём значения в контроллы
             ScanPathFolderSelector.Path = splitPath.ScanPath;
             MovePathFolderSelector.Path = splitPath.MovePath;
-            IsFolderCheckBox.IsChecked = splitPath.IsFolder;
+            IsFolderCheckBox.State = UniversalMethods
+                .GetComboCheckBoxStateByFlag(splitPath.IsFolder);
         }
     }
 }

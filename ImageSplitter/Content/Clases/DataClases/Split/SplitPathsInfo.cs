@@ -24,6 +24,17 @@ namespace ImageSplitter.Content.Clases.DataClases.Split
         /// </summary>
         public bool IsFolder { get; set; }
 
+        /// <summary>
+        /// Флаг запуска сплита.
+        /// Используеются для передачи информации из окна.
+        /// </summary>
+        public bool IsStartSplit { get; set; }
+        /// <summary>
+        /// Флаг наличия путей для сканирования
+        /// </summary>
+        public bool IsContainPaths => 
+            //Проверяем наличие обоих путей
+            !(string.IsNullOrEmpty(ScanPath) || string.IsNullOrEmpty(MovePath));
 
         /// <summary>
         /// Конструктор класса
@@ -32,7 +43,7 @@ namespace ImageSplitter.Content.Clases.DataClases.Split
         {
             //Проставляем дефолтные параметры
             ScanPath = MovePath = "";
-            IsFolder = false;
+            IsStartSplit = IsFolder = false;
         }
     }
 }

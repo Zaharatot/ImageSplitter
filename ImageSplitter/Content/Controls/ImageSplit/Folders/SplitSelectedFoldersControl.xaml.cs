@@ -1,4 +1,6 @@
 ﻿using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Clases.WorkClases.Helpers;
+using ImageSplitter.Content.Clases.WorkClases.Helpers.Selection;
 using ImageSplitter.Content.Clases.WorkClases.Resources;
 using System;
 using System.Collections.Generic;
@@ -50,11 +52,34 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
         /// </summary>
         private void Init()
         {
+            // Инициализируем текстовые значения
+            InitText();
+        }
+
+        /// <summary>
+        /// Инициализируем текстовые значения
+        /// </summary>
+        private void InitText()
+        {
             //Загружаем текст из ресурсов
             _folderText = ResourceLoader.LoadString("Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Value_Folder");
             _fileText = ResourceLoader.LoadString("Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Value_File");
             _emptyText = ResourceLoader.LoadString("Text_EmptyValue");
         }
+
+        /// <summary>
+        /// Обработчик события клика мышью по Run-у
+        /// </summary>
+        private void Run_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //Типизируем элемент
+            Run element = (sender as Run);
+            //Если он активен
+            if (element.IsEnabled)
+                //Втыкаем его текст в буфер обмена
+                Clipboard.SetText(element.Text);
+        }
+
 
         /// <summary>
         /// Метод обработки строкового значения
@@ -74,6 +99,20 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
             //Выбираем текст по флагу
             isFolder ? _folderText : _fileText;
 
+        /// <summary>
+        /// Вставляем текст в Run
+        /// </summary>
+        /// <param name="elem">Элемент для вставки текста</param>
+        /// <param name="text">Текст для вставки</param>
+        private void SetRunText(Run elem, string text)
+        {
+            //Вставляем текст в контролл
+            elem.Text = ProcessValue(text);
+            //Дизейблим контролл, если текста нету
+            elem.IsEnabled = !string.IsNullOrEmpty(text);
+        }
+
+
 
         /// <summary>
         /// Метод простановки информации о путях сплита
@@ -82,9 +121,12 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
         public void SetSplitPathInfo(SplitPathsInfo info)
         {
             //Проставляем значения в контроллы
-            ScanPathToolTip.Content = ScanPathRun.Text = ProcessValue(info.ScanPath);
-            MovePathToolTip.Content = MovePathRun.Text = ProcessValue(info.MovePath);
+            SetRunText(ScanPathRun, info.ScanPath);
+            SetRunText(MovePathRun, info.MovePath);
             IsFolderRun.Text = GetIsFolderStringValue(info.IsFolder);
+            //Обновляем текст в тултипах
+            UniversalMethods.SetTooltipContent(ScanPathToolTip, info.ScanPath);
+            UniversalMethods.SetTooltipContent(MovePathToolTip, info.MovePath);
         }
     }
 }

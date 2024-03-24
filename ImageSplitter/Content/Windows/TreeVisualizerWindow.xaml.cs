@@ -1,5 +1,7 @@
 ﻿using ImageSplitter.Content.Clases.DataClases.Split;
 using ImageSplitter.Content.Clases.WorkClases.Addition;
+using ImageSplitter.Content.Clases.WorkClases.Helpers;
+using ImageSplitter.Content.Clases.WorkClases.Helpers.Selection;
 using ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit;
 using ImageSplitter.Content.Clases.WorkClases.Resources;
 using ImageSplitter.Content.Controls.ImageDuplicateScan;

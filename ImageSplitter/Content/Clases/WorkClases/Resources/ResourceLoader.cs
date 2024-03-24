@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageSplitter.Content.Clases.DataClases.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,5 +45,14 @@ namespace ImageSplitter.Content.Clases.WorkClases.Resources
         public static Style LoadStyle(string id) =>
             //Получаем ресурс по Id
             (Style)Application.Current.Resources[id];
+
+        /// <summary>
+        /// Загружаем из ресурсов значение иконки по id
+        /// </summary>
+        /// <param name="id">Id элемента</param>
+        /// <returns>Искомое значение</returns>
+        public static SvgImage LoadIcon(string id) =>
+            //Получаем ресурс по Id
+            (SvgImage)Application.Current.Resources[id];
     }
 }

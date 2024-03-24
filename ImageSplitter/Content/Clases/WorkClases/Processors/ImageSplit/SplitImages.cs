@@ -40,6 +40,14 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Класс работы с древом
         /// </summary>
         private TreeElementsProcessor _treeElementsProcessor;
+        /// <summary>
+        /// Класс выбора папок
+        /// </summary>
+        private SelectFoldersProcessor _selectFoldersProcessor;
+        /// <summary>
+        /// Класс указания имени папки
+        /// </summary>
+        private CreateFolderProcessor _createFolderProcessor;
 
 
 
@@ -47,10 +55,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// Список коллекций для обработки
         /// </summary>
         private List<CollectionInfo> _collections;
-        /// <summary>
-        /// Список целевых папок
-        /// </summary>
-        private List<TargetFolderInfo> _targets;
 
         /// <summary>
         /// Id текущей выбранной коллекции
@@ -72,7 +76,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         {
             //Инициализируем дефолтные значения
             _collections = new List<CollectionInfo>();
-            _targets = new List<TargetFolderInfo>();
             _currentCollectionId = 0;
             //Инициализируем используемые классы
             _scanner = new CollectionsScanner();
@@ -80,6 +83,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             _keyFinder = new KeyFinder();
             _splitPathProcessor = new SplitPathProcessor();
             _treeElementsProcessor = new TreeElementsProcessor();
+            _selectFoldersProcessor = new SelectFoldersProcessor();
+            _createFolderProcessor = new CreateFolderProcessor();
         }
 
         /// <summary>
@@ -87,7 +92,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// </summary>
         private void InvokeImageSplitInfoRequest() =>
             //Вызываем ивент, передав в него собранные данные
-            GlobalEvents.InvokeUpdateImageSplitInfoRequest(GetImagesInfo(), _targets);
+            GlobalEvents.InvokeUpdateImageSplitInfoRequest(
+                GetImagesInfo(), _selectFoldersProcessor.Targets);
 
         /// <summary>
         /// Получаем инфу об изображениях
@@ -112,12 +118,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
                 _scanner.ScanFolders(_splitPathProcessor.SplitPath);
             //С окном работаем уже в ui-потоке
             App.Current.Dispatcher.Invoke(new Action(() => {
-                //Инициализируем окно выбора папок
-                SelectFoldersWindow foldersWindow = new SelectFoldersWindow();
-                //Получаем список папок для работы
-                foldersList = foldersWindow.GetFoldersToWork(foldersList, _targets);
-                //Проставляем список папок
-                _targets = foldersList;
+                //Выполняем выбор папок для работы
+                _selectFoldersProcessor.SelectFolders(foldersList);
                 //Запрашиваем обновление инфы о сплите
                 InvokeImageSplitInfoRequest();
                 //Вызываем ивент завершения сканирования
@@ -126,15 +128,22 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         }
 
         /// <summary>
-        /// Обновляем кнопки для целей
+        /// Метод добавления папки в список
         /// </summary>
-        private void UpdateTargetsKeys()
+        /// <param name="foldersPath">Путь к папке для перемещения</param>
+        /// <param name="newFolderName">Имя новой папки</param>
+        private void AddDirectory(string foldersPath, string newFolderName)
         {
-            //Проходимся по списку целей
-            for(int i = 0; i < _targets.Count; i++)
-                //Проставляем новый ключ для папки
-                _targets[i].TargetKey = _keyFinder.GetKeyByNumber(i);
+            //Получаем полный путь к новой папке
+            string path = $"{foldersPath}{newFolderName}\\";
+            //Если папки не существует
+            if (!Directory.Exists(path))
+                //Создаём папку
+                Directory.CreateDirectory(path);
+            //Добавляем папку в список целей
+            _selectFoldersProcessor.AddNewTarget(newFolderName, path);
         }
+
 
 
 
@@ -182,7 +191,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <param name="key">Нажатая кнопка</param>
         /// <returns>Папка для перемещеия</returns>
         public TargetFolderInfo GetMoveFolder(Key key) =>
-            _targets.FirstOrDefault(trg => (trg.TargetKey == key));
+            //Вызываем внутренний метод
+            _selectFoldersProcessor.GetMoveFolder(key);
 
         /// <summary>
         /// Возвращаем текущую выбранную картинку
@@ -235,6 +245,7 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         }
 
 
+
         /// <summary>
         /// Метод добавления новой папки
         /// </summary>
@@ -242,28 +253,16 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         {
             //Получаем путь к папке для перемещения
             string foldersPath = _splitPathProcessor.SplitPath.MovePath;
-            //Если путь к папке существует
+            //Если путь к родительской папке существует
             if (!string.IsNullOrEmpty(foldersPath))
-            {
-                //Инициализируем окно добавления папки
-                AddFolderWindow folderWindow = new AddFolderWindow();
+            {                
                 //Получаем результат ввода нового имени папки
-                var newFolderName = folderWindow.GetNewFolderName(foldersPath);
+                string newFolderName = _createFolderProcessor.GetFolderName();
                 //Если было возвращено корректное имя папки
                 if (!string.IsNullOrEmpty(newFolderName))
                 {
-                    //Получаем полный путь к новой папке
-                    string path = $"{foldersPath}{newFolderName}\\";
-                    //Если папки не существует
-                    if(!Directory.Exists(path))
-                        //Создаём папку
-                        Directory.CreateDirectory(path);
-                    //Добавляем папку в список целей
-                    _targets.Add(new TargetFolderInfo() {
-                        Name = newFolderName,
-                        Path = path,
-                        TargetKey = _keyFinder.GetKeyByNumber(_targets.Count)
-                    });
+                    //Добавляем папку
+                    AddDirectory(foldersPath, newFolderName);
                     //Запрашиваем обновление инфы о сплите
                     InvokeImageSplitInfoRequest();
                 }
@@ -277,10 +276,8 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <param name="key">Клавиша, к которой привязана папка</param>
         public void RemoveFolderFromList(Key key)
         {
-            //Удаляем все папки привязанные к указанной клавише
-            _targets.RemoveAll(folder => folder.TargetKey == key);
-            //Обновляем клавиши для папок
-            UpdateTargetsKeys();
+            //Удаляем папку по ключу
+            _selectFoldersProcessor.RemoveTargetByKey(key);
             //Запрашиваем обновление инфы о сплите
             InvokeImageSplitInfoRequest();
         }
