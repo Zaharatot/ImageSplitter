@@ -62,6 +62,34 @@ namespace ImageSplitter.Content.Clases.WorkClases.KeyProcessor.Processors
                         _mainWork.AddNewFolder();
                         break;
                     }
+                //Если было нажато сочетание "Ctrl+O"
+                case Key.O:
+                    {
+                        //Вызываем метод обновления пути сплита
+                        _mainWork.UpdateSplitPath();
+                        break;
+                    }
+                //Если было нажато сочетание "Ctrl+T"
+                case Key.T:
+                    {
+                        //Вызываем метод отображения древа
+                        _mainWork.ShowTree();
+                        break;
+                    }
+                //Если было нажато сочетание "Ctrl+S"
+                case Key.S:
+                    {
+                        //Вызываем метод запуска сканирования
+                        _mainWork.StartScan();
+                        break;
+                    }
+                //Если было нажато сочетание "Ctrl+Z"
+                case Key.Z:
+                    {
+                        //Вызываем метод отмены переноса
+                        _mainWork.UndoMove();
+                        break;
+                    }
                 //Во всех остальных случаях игнорируем нажатие
                 default:
                     {

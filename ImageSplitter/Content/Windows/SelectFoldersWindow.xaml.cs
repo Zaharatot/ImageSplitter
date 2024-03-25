@@ -67,6 +67,55 @@ namespace ImageSplitter.Content.Windows
 
 
         /// <summary>
+        /// Обработчик осбытия нажатия на кнопку клавиатуры
+        /// </summary>
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Если был нажат Ctrl
+            if (UniversalMethods.IsControlPressed(e))
+                //Вызываем соответствующий обработчик
+                ProcessCtrlKeys(e.Key);
+            //В противном случае
+            else
+                //Вызываем соответствующий обработчик
+                ProcessSingleKeys(e.Key);
+            //Указываем, что нажатие было обработано
+            e.Handled = true;
+        }
+
+        /// <summary>
+        /// Метод обработки одиночных нажатий
+        /// </summary>
+        /// <param name="key">Нажатая клавиша</param>
+        private void ProcessSingleKeys(Key key)
+        {
+            //Если нажали на "Escape"
+            if (key == Key.Escape)
+                //Закрываем окно
+                this.DialogResult = false;
+            //Если нажали на "Enter"
+            else if (key == Key.Enter)
+                //Закрываем окно
+                this.DialogResult = true;
+        }
+
+        /// <summary>
+        /// Метод обработки нажатий с зажатым Ctrl
+        /// </summary>
+        /// <param name="key">Нажатая клавиша</param>
+        private void ProcessCtrlKeys(Key key)
+        {
+            //Сочетание клавишь "Ctrl + A"
+            if (key == Key.A)
+                //Выполняем обработку клика по чекбоксу
+                GlobalComboCheckBox.ProcessClick();
+        }
+
+
+
+
+
+        /// <summary>
         /// Метод обновления статуса глобального чекбокса
         /// </summary>
         private void UpdateGlobalCheckBoxState()

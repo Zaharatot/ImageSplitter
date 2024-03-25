@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using static ImageSplitter.Content.Clases.DataClases.Global.Enums;
 
 namespace ImageSplitter.Content.Clases.WorkClases.Helpers
@@ -37,5 +38,15 @@ namespace ImageSplitter.Content.Clases.WorkClases.Helpers
         /// <returns>Статус чекбокса</returns>
         public static ComboCheckBoxStates GetComboCheckBoxStateByFlag(bool isChecked) =>
             (isChecked ? ComboCheckBoxStates.Checked : ComboCheckBoxStates.Unchecked);
+
+
+
+        /// <summary>
+        /// Проверка нажатия кнопки "Ctrl" на клавиатуре
+        /// </summary>
+        /// <param name="e">Информация о нажатой кнопке</param>
+        /// <returns>TRue - кнопка "Ctrl" была нажата</returns>
+        public static bool IsControlPressed(KeyEventArgs e) =>
+            (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0;
     }
 }

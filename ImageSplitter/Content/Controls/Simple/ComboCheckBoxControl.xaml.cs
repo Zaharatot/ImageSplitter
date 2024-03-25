@@ -153,13 +153,9 @@ namespace ImageSplitter.Content.Controls.Simple
         /// <summary>
         /// Обработчик события клика по панели
         /// </summary>
-        private void CheckBoxPanel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //Обновляем статус чекбокса
-            MoveState();
-            //Вызываем ивент обновления статуса
-            CheckBoxUpdateState?.Invoke(_state);
-        }
+        private void CheckBoxPanel_MouseDown(object sender, MouseButtonEventArgs e) =>
+            //ВЫполняем обновление контролла
+            ProcessClick();
 
 
         /// <summary>
@@ -178,8 +174,17 @@ namespace ImageSplitter.Content.Controls.Simple
         }
 
 
-
-
+        /// <summary>
+        /// Метод обработке нажатия на контролл
+        /// Позволяет эмулировать клик по контроллу
+        /// </summary>
+        public void ProcessClick()
+        {
+            //Обновляем статус чекбокса
+            MoveState();
+            //Вызываем ивент обновления статуса
+            CheckBoxUpdateState?.Invoke(_state);
+        }
 
         /// <summary>
         /// Выставление свойства при изменении свойства зависимостей State

@@ -29,10 +29,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// </summary>
         private Mover _mover;
         /// <summary>
-        /// Класс поиска клавиш по id папки
-        /// </summary>
-        private KeyFinder _keyFinder;
-        /// <summary>
         /// Класс работы с путём сплита
         /// </summary>
         private SplitPathProcessor _splitPathProcessor;
@@ -80,7 +76,6 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
             //Инициализируем используемые классы
             _scanner = new CollectionsScanner();
             _mover = new Mover();
-            _keyFinder = new KeyFinder();
             _splitPathProcessor = new SplitPathProcessor();
             _treeElementsProcessor = new TreeElementsProcessor();
             _selectFoldersProcessor = new SelectFoldersProcessor();
@@ -179,10 +174,14 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// </summary>
         public void UndoMove()
         {
-            //Получаем текущую выбранную картинку
-            CollectionInfo image = GetCurrentImageInfo();
-            //Откатываем перенос изображения
-            _mover.UndoMove(image);
+            //Если коллекции вообще есть
+            if (_collections.Count > 0)
+            {
+                //Получаем текущую выбранную картинку
+                CollectionInfo image = GetCurrentImageInfo();
+                //Откатываем перенос изображения
+                _mover.UndoMove(image);
+            }
         }
 
         /// <summary>
@@ -287,10 +286,13 @@ namespace ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit
         /// <summary>
         /// Метод обновления пути сплита
         /// </summary>
-        /// <returns>Нвоый путь сплита</returns>
-        public SplitPathsInfo UpdateSplitPath() =>
-            //Вызываем внутренний метод
-            _splitPathProcessor.UpdateSplitPath();
+        public void UpdateSplitPath()
+        {
+            //Получаем пути для сплита
+            SplitPathsInfo info = _splitPathProcessor.UpdateSplitPath();
+            //Вызываем ивент обновления инфы
+            GlobalEvents.InvokeUpdateSplitPath(info);
+        }
 
         /// <summary>
         /// Метод отображения древа

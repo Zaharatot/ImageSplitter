@@ -1,5 +1,7 @@
 ﻿using ImageSplitter.Content.Clases.DataClases;
 using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Clases.WorkClases.Helpers.Selection;
+using ImageSplitter.Content.Controls.Simple;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,22 +51,20 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
         {
             //Проставляем дефолтные значения
             _info = new TargetFolderInfo();
+            //Инициализируем события для иконок
+            InitIconsEvents();
         }
 
-
         /// <summary>
-        /// Обработчик события наведения мыши на иконку удаления
+        /// Метод инициализации событий для иконок
         /// </summary>
-        private void RemoveIcon_MouseEnter(object sender, MouseEventArgs e) =>
-            //Обновляем отступы контролла
-            RemoveIcon.Margin = new Thickness(6, 8, 6, 8);
-
-        /// <summary>
-        /// Обработчик события ухода мыши с иконки удаления
-        /// </summary>
-        private void RemoveIcon_MouseLeave(object sender, MouseEventArgs e) =>
-            //Обновляем отступы контролла
-            RemoveIcon.Margin = new Thickness(7, 10, 7, 10);
+        private void InitIconsEvents() =>
+            //Получаем экземпляр класса обработки событий для иконок
+            IconsSelectionProcessor.GetInstance()
+            //Добавляем в него иконки для обработки
+            .AddIcons(new List<SvgImageControl>() {
+                RemoveIcon
+            });
 
         /// <summary>
         /// Обработчик события нажатия на на иконку удаления
@@ -87,5 +87,6 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
             FolderKeyTextBlock.Text = $"[{info.TargetKey.ToString()}]";
             FolderNameToolTip.Content = FolderNameTextBlock.Text = info.Name;
         }
+
     }
 }

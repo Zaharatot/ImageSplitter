@@ -82,7 +82,7 @@ namespace ImageSplitter.Content.Windows
             if (e.Key == Key.Enter)
                 //Завершаем работу окна, и по статусу нажатия клавиши "Ctrl"
                 //передаём тот или иной статус запуска сплита
-                CompleteWork(!IsControlPressed(e));
+                CompleteWork(!UniversalMethods.IsControlPressed(e));
             //Если юзер нажал "Escape"
             else if (e.Key == Key.Escape)
                 //Просто закрываем окно
@@ -97,14 +97,6 @@ namespace ImageSplitter.Content.Windows
         private string ProcessPath(string path) =>
             //Добавляем слеш на конце пути, если его нету + обработка пустой строки
             string.IsNullOrEmpty(path) ? "" : ((path.Last() != '\\') ? $"{path}\\" : path);
-
-        /// <summary>
-        /// Проверка нажатия кнопки "Ctrl" на клавиатуре
-        /// </summary>
-        /// <param name="e">Информация о нажатой кнопке</param>
-        /// <returns>TRue - кнопка "Ctrl" была нажата</returns>
-        private bool IsControlPressed(KeyEventArgs e) =>
-            (e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0;
 
 
         /// <summary>

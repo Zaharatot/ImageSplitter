@@ -65,6 +65,12 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         public delegate void StartBackEventHandler(string path);
 
         /// <summary>
+        /// Делегат события обновления пути сплита
+        /// </summary>
+        /// <param name="info">Информация о пути для сплита</param>
+        public delegate void UpdateSplitPathEventHandler(SplitPathsInfo info);
+
+        /// <summary>
         /// Делегат события обновления статуса чекбокса
         /// </summary>
         /// <param name="state">Новый статус чекбокса</param>

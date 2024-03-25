@@ -55,18 +55,26 @@
 
     <!-- Панель сплита -->
     <!-- Левая панель -->
-    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip">Выбрать путей для сканирования</sys:String>
-    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip">Отобразить древо</sys:String>
-    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip">Запустить сканирование</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip">[Ctrl + O] Выбрать путей для сканирования</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip">[Ctrl + T] Отобразить древо</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip">[Ctrl + S] Запустить сканирование</sys:String>
 
     <!-- Верхняя панель -->
-    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UpPageIcon_Tooltip">Переход к предыдущей картинке в папке (Up)</sys:String>
-    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_DownPageIcon_Tooltip">Переход к следующей картинке в папке (Down)</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UpPageIcon_Tooltip">[Up] Переход к предыдущей картинке в папке</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_DownPageIcon_Tooltip">[Down] Переход к следующей картинке в папке</sys:String>
     <!-- Нижняя панель -->
-    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_LeftPageIcon_Tooltip">Переход к предыдущей коллекции (Left)</sys:String>
-    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_RightPageIcon_Tooltip">Переход к следующей коллекции (Right)</sys:String>
-    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UndoMoveIcon_Tooltip">Возврат картинки в исходную папку</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_LeftPageIcon_Tooltip">[Left] Переход к предыдущей коллекции</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_RightPageIcon_Tooltip">[Right] Переход к следующей коллекции</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UndoMoveIcon_Tooltip">[Ctrl + Z] Возврат картинки в исходную папку</sys:String>
 
+    <!-- Правая верхняя панель -->
+    <!-- Контролл информации о папке -->
+    <sys:String x:Key="Text_SplitImagesControl_FolderInfoControl_RemoveIcon_Tooltip">Нажатие на данную кнопку уберёт папку из списка выбранных</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_FolderKeyTextBlock_Tooltip">Нажатие на указанную кнопку клавиатуры выполнит перемещение изображения в данную папку</sys:String>
+    <!-- КОнтролл списка папок -->
+    <sys:String x:Key="Text_SplitImagesControl_FolderListControl_Header">Список папок для перемещения</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_FolderListControl_AddFolderIcon_Tooltip">[Ctrl + N] Нажатие на эту иконку позволит добавить новую папку. В случае, если папка с таким именем уже присутствует в родительской - она просто добавится в список.</sys:String>
+    
 
 
     <!-- Правая нижняя панель -->
@@ -87,9 +95,9 @@
     <!-- Окно выбора папок для сплита -->
     <sys:String x:Key="Text_SelectSplitFoldersWinodw_Header">Выбор путей для сканирования</sys:String>
     <sys:String x:Key="Text_FolderSelector_SelectPathsButton_Content">Выбрать пути</sys:String>
-    <sys:String x:Key="Text_FolderSelector_SelectPathsButton_Tooltip">Выбрать пути для дальнейшей обработки (Ctrl + Enter)</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsButton_Tooltip">[Ctrl + Enter] Выбрать пути для дальнейшей обработки</sys:String>
     <sys:String x:Key="Text_FolderSelector_SelectPathsAndSplitButton_Content">Выбрать пути и запустить сплит</sys:String>
-    <sys:String x:Key="Text_FolderSelector_SelectPathsAndSplitButton_Tooltip">Выбрать пути, и сразу же запустить сплит по ним (Enter)</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsAndSplitButton_Tooltip">[Enter] Выбрать пути, и сразу же запустить сплит по ним</sys:String>
 
     <sys:String x:Key="Text_FolderSelector_IsFolderCheckBox_Content">Искать папки</sys:String>
     <sys:String x:Key="Text_FolderSelector_IsFolderCheckBox_Tooltip">При включении данного чекбокса, приложение будет выполнять поиск не по отдельным изображениям, а по папкам с изображениями</sys:String>
@@ -100,7 +108,7 @@
     <sys:String x:Key="Text_TreeVisualizerWindow_Header">Древо элементов</sys:String>
     <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_HeaderRun">Не распределено:</sys:String>
     <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_AddRun">элем.</sys:String>
-    <sys:String x:Key="Text_TreeVisualizerWindow_UpdateTreeIcon_Tooltip">Обновить информацию в древе</sys:String>
+    <sys:String x:Key="Text_TreeVisualizerWindow_UpdateTreeIcon_Tooltip">[Ctrl + R] Обновить информацию в древе</sys:String>
     
     <!-- Панель отображения древа -->
     <sys:String x:Key="Text_TreeVisualizerPanel_UpdateButton">Обновить информацию</sys:String>
@@ -109,10 +117,9 @@
     
     <!-- Окно выбора папок для подключения -->
     <sys:String x:Key="Text_SelectFoldersWindow_Header">Выберите папки для подключения</sys:String>
-    <sys:String x:Key="Text_SelectFoldersWindow_UncheckAllIcon_Tooltip">Сбросить выделение для всех папок</sys:String>
-    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Tooltip">Данный чекбокс позволяет глобально управлять значениями чекбоксов списка</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Tooltip">[Ctrl + A] Данный чекбокс позволяет глобально управлять значениями чекбоксов списка</sys:String>
     <sys:String x:Key="Text_SelectFoldersWindow_ConfirmButton_Content">Применить выбор</sys:String>
-    <sys:String x:Key="Text_SelectFoldersWindow_ConfirmButton_Tooltip">При нажатии на эту кнопку, все выбранные вами папки будут добавлены в список целевых директорий для сплита</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_ConfirmButton_Tooltip">[Enter] При нажатии на эту кнопку, все выбранные вами папки будут добавлены в список целевых директорий для сплита</sys:String>
     <!-- Подсказки для статусов чекбокса -->
     <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Status_Unchecked">Не выбрано ни одного</sys:String>
     <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Status_Checked">Выбраны все</sys:String>
@@ -122,7 +129,7 @@
     <!-- Окно создания папки -->
     <sys:String x:Key="Text_AddFolderWindow_Header">Добавление папки</sys:String>
     <sys:String x:Key="Text_AddFolderWindow_FolderNamePlaceholderTextBox_Placeholder">Укажите имя создаваемой папки</sys:String>
-    <sys:String x:Key="Text_AddFolderWindow_AddFolderIcon_Tooltip">При нажатии на эту иконку будет создана новая папка, с именем которое вы указали а поле слева</sys:String>
+    <sys:String x:Key="Text_AddFolderWindow_AddFolderIcon_Tooltip">[Enter] При нажатии на эту иконку будет создана новая папка, с именем которое вы указали а поле слева</sys:String>
     
     
     

@@ -81,15 +81,40 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            //Если нажали на "Escape"
-            if (e.Key == Key.Escape)
-                //Закрываем окно
-                this.Close();
-            else if (e.Key == Key.Enter)
-                //Выполняем обновление древа 
-                StartUpdateTree();
+            //Если был нажат Ctrl
+            if (UniversalMethods.IsControlPressed(e))
+                //Вызываем соответствующий обработчик
+                ProcessCtrlKeys(e.Key);
+            //В противном случае
+            else
+                //Вызываем соответствующий обработчик
+                ProcessSingleKeys(e.Key);
             //Указываем, что нажатие было обработано
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// Метод обработки одиночных нажатий
+        /// </summary>
+        /// <param name="key">Нажатая клавиша</param>
+        private void ProcessSingleKeys(Key key)
+        {
+            //Если нажали на "Escape"
+            if (key == Key.Escape)
+                //Закрываем окно
+                this.Close();
+        }
+
+        /// <summary>
+        /// Метод обработки нажатий с зажатым Ctrl
+        /// </summary>
+        /// <param name="key">Нажатая клавиша</param>
+        private void ProcessCtrlKeys(Key key)
+        {
+            //Сочетание клавишь "Ctrl + R"
+            if (key == Key.R)
+                //Выполняем обновление древа 
+                StartUpdateTree();
         }
 
         /// <summary>

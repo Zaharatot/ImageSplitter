@@ -109,6 +109,8 @@ namespace ImageSplitter.Content.Windows
             GlobalEvents.StartDuplicateScan += GlobalEvents_StartDuplicateScan;
             //Добавляем обработчик события запроса на удаление старых элементов
             GlobalEvents.RemoveOldRequest += GlobalEvents_RemoveOldRequest;
+            //Добавляем обработчик события обновления пути сплита
+            GlobalEvents.UpdateSplitPath += GlobalEvents_UpdateSplitPath;
 
             //Добавляем обработчик события обновления статуса сканирования на дубликаты
             DuplicateScannerFasade.UpdateScanInfo += DuplicateScannerFasade_UpdateScanInfo;
@@ -128,6 +130,7 @@ namespace ImageSplitter.Content.Windows
             //Добавляем обработчик события запроса на переход к указанной вкладке
             MainKeys.SendToTabRequest += MainKeys_SendToTabRequest;
         }
+
 
         /// <summary>
         /// Инициализируем ивенты от контроллов
@@ -358,17 +361,9 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик события запроса обновления путей сплита
         /// </summary>
-        private void SplitImages_UpdateSplitPathRequest()
-        {
+        private void SplitImages_UpdateSplitPathRequest() =>
             //Вызываем обновление пути сплита
-            SplitPathsInfo path = _mainWork.UpdateSplitPath();
-            //Передаём выбранные пути в контролл сплита
-            SplitImages.SetSplitPathInfo(path);
-            //Если передан флаг старта сплита и пути для него есть
-            if (path.IsStartSplit && path.IsContainPaths)
-                //Вызываем запуск сканирования
-                SplitImages_StartSplitScan();
-        }
+            _mainWork.UpdateSplitPath();
 
 
         /// <summary>
@@ -432,6 +427,21 @@ namespace ImageSplitter.Content.Windows
             //Вызываем внутренний метод
             _mainWork.RemoveOldDuplicates();
         }
+
+        /// <summary>
+        /// Обработчик события обновления пути сплита
+        /// </summary>
+        /// <param name="info">Информация о новом пути для сплита</param>
+        private void GlobalEvents_UpdateSplitPath(SplitPathsInfo info)
+        {
+            //Передаём выбранные пути в контролл сплита
+            SplitImages.SetSplitPathInfo(info);
+            //Если передан флаг старта сплита и пути для него есть
+            if (info.IsStartSplit && info.IsContainPaths)
+                //Вызываем запуск сканирования
+                SplitImages_StartSplitScan();
+        }
+
 
 
         /// <summary>

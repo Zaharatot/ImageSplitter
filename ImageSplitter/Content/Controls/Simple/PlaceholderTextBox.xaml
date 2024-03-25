@@ -8,16 +8,17 @@
              Height="35" d:DesignWidth="300">
     <!-- Рамка контролла -->
     <Border x:Name="MainBorder" Style="{StaticResource Style_Border}" BorderThickness="1" 
+            Background="{StaticResource Brush_ControlBackgroundColor}"
             PreviewMouseDown="MainBorder_PreviewMouseDown" Cursor="IBeam" Margin="0" Padding="3">
         <!-- Основная панель для контроллов -->
         <Grid>
             <!-- Контролл для текстового контента -->
-            <TextBox x:Name="ContentTextBox" Panel.ZIndex="0" BorderThickness="0" LostFocus="ContentTextBox_LostFocus"
+            <TextBox x:Name="ContentTextBox" Panel.ZIndex="0" LostFocus="ContentTextBox_LostFocus"
                      TextChanged="ContentTextBox_TextChanged" Visibility="Collapsed" VerticalAlignment="Center" 
-                     Foreground="{StaticResource Brush_ForegroundColor}" Background="Transparent" SelectionBrush="{StaticResource Brush_ActiveColor}" />
+                     Style="{StaticResource Style_TextBox_Transparent}" />
             <!-- Текстовый блок затычки -->
             <TextBlock x:Name="PlaceholderTextBlock" Panel.ZIndex="1" Text="Текст заглушки" VerticalAlignment="Center" FontStyle="Italic"
-                       Foreground="{StaticResource Brush_PlaceholderForegroundColor}" Margin="5,0" TextTrimming="CharacterEllipsis" />
+                       Foreground="{StaticResource Brush_ForegroundDisabledColor}" Margin="5,0" TextTrimming="CharacterEllipsis" />
         </Grid>
     </Border>
 </UserControl>

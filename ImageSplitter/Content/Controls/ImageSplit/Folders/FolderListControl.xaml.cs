@@ -1,4 +1,6 @@
 ﻿using ImageSplitter.Content.Clases.DataClases.Split;
+using ImageSplitter.Content.Clases.WorkClases.Helpers.Selection;
+using ImageSplitter.Content.Controls.Simple;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +39,28 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
         public FolderListControl()
         {
             InitializeComponent();
+            Init();
         }
+
+        /// <summary>
+        /// Инициализатор контролла
+        /// </summary>
+        private void Init()
+        {
+            //Инициализируем события для иконок
+            InitIconsEvents();
+        }
+
+        /// <summary>
+        /// Метод инициализации событий для иконок
+        /// </summary>
+        private void InitIconsEvents() =>
+            //Получаем экземпляр класса обработки событий для иконок
+            IconsSelectionProcessor.GetInstance()
+            //Добавляем в него иконки для обработки
+            .AddIcons(new List<SvgImageControl>() {
+                AddFolderIcon
+            });
 
         /// <summary>
         /// Обработчик событяи запроса на удаление папки
@@ -55,10 +78,9 @@ namespace ImageSplitter.Content.Controls.ImageSplit.Folders
         /// <summary>
         /// Обработчик события нажатия на кнопку добавления папки
         /// </summary>
-        private void AddFolderButton_Click(object sender, RoutedEventArgs e) =>
+        private void AddFolderIcon_MouseDown(object sender, MouseButtonEventArgs e) =>
             //Вызываем внешний ивент
             AddNewFolderRequest?.Invoke();
-
 
 
         /// <summary>

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Topmost="True"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource Style_Window_NoResize}"
+        Style="{StaticResource Style_Window_NoResize}" PreviewKeyDown="Window_PreviewKeyDown"
         Title="{StaticResource Text_SelectFoldersWindow_Header}" Height="500" Width="430" >
     <Grid Margin="10">
         <Grid.RowDefinitions>

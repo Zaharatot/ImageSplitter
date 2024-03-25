@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="ImageSplitter.Content.Controls.ImageSplit.Folders.FolderListControl"
+﻿<UserControl xmlns:Simple="clr-namespace:ImageSplitter.Content.Controls.Simple"  
+             x:Class="ImageSplitter.Content.Controls.ImageSplit.Folders.FolderListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,19 +12,38 @@
         <!-- Основная панель контролла -->
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
                 <RowDefinition />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
+            <!-- Верхняя панель контролла -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Заголовок панели -->
+                <TextBlock Text="{StaticResource Text_SplitImagesControl_FolderListControl_Header}"
+                           Style="{StaticResource Style_TextBlock}" VerticalAlignment="Center" />
+                <!-- Иконка добавления папки -->
+                <Simple:SvgImageControl x:Name="AddFolderIcon" Image="{StaticResource Icon_Folder_Add}" 
+                                        Margin="4" Grid.Column="1" Cursor="Hand" MouseDown="AddFolderIcon_MouseDown">
+                    <!-- Подсказка для иконки -->
+                    <Simple:SvgImageControl.ToolTip>
+                        <ToolTip Content="{StaticResource Text_SplitImagesControl_FolderListControl_AddFolderIcon_Tooltip}"
+                                 Style="{StaticResource Style_ToolTip}" />
+                    </Simple:SvgImageControl.ToolTip>
+                </Simple:SvgImageControl>
+            </Grid>
+
             <!-- РАмка для спска элементов -->
-            <Border Style="{StaticResource Style_PanelBorder}" Grid.Row="0" Margin="0,10">
+            <Border Style="{StaticResource Style_PanelBorder}" Grid.Row="1" Margin="0,5">
                 <!-- Панель списка папок -->
                 <ScrollViewer Style="{StaticResource Style_ScrollViewer}">
                     <StackPanel x:Name="FoldersList" />
                 </ScrollViewer>
             </Border>
-            <!-- Кнопка добавления папки -->
-            <Button x:Name="AddFolderButton" Content="Добавить папку (Ctrl+N)" Margin="0"
-                    Style="{StaticResource Style_Button}" Grid.Row="1" Click="AddFolderButton_Click" Cursor="Hand"  />
         </Grid>
     </Border>
 </UserControl>

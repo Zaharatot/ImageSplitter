@@ -72,8 +72,7 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Метод обновления пути сплита
         /// </summary>
-        /// <returns>Нвоый путь сплита</returns>
-        public SplitPathsInfo UpdateSplitPath() =>
+        public void UpdateSplitPath() =>
             //Вызываем внутренний метод
             _splitImages.UpdateSplitPath();
 

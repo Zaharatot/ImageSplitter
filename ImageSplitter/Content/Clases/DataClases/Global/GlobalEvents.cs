@@ -34,9 +34,10 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// Событие запроса удаления старых записей
         /// </summary>
         public static event EmptyEventHandler RemoveOldRequest;
-
-
-
+        /// <summary>
+        /// Событие обновления пути сплита
+        /// </summary>
+        public static event UpdateSplitPathEventHandler UpdateSplitPath;
 
 
         /// <summary>
@@ -71,6 +72,14 @@ namespace ImageSplitter.Content.Clases.DataClases.Global
         /// </summary>
         public static void InvokeRemoveOldRequest() =>
             RemoveOldRequest?.Invoke();
-        
+
+        /// <summary>
+        /// Метод вызова ивента обновления пути сплита
+        /// </summary>
+        /// <param name="info">Информация о пути для сплита</param>
+        public static void InvokeUpdateSplitPath(SplitPathsInfo info) =>
+            UpdateSplitPath?.Invoke(info);
+
+
     }
 }
