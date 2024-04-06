@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
-namespace DuplicateScanner.Clases.DataClases.Result
+namespace DuplicateScannerLib.Clases.DataClases.Result
 {
     /// <summary>
     /// Класс информации о прогрессе сканирования

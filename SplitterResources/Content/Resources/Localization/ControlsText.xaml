@@ -1,0 +1,192 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- Разное -->
+
+    <!-- Тексты для пустых значений -->
+    <sys:String x:Key="Text_EmptyValue">Не указано</sys:String>
+    <sys:String x:Key="Text_DateLimitCalculation">Рассчитывается...</sys:String>
+    <!-- Значения для вывода оставшегося времени -->
+    <sys:String x:Key="Text_DateLimitDay">дн</sys:String>
+    <sys:String x:Key="Text_DateLimitHour">час</sys:String>
+    <sys:String x:Key="Text_DateLimitMinute">мин</sys:String>
+    <sys:String x:Key="Text_DateLimitSecund">сек</sys:String>
+
+
+    <!-- Основное окно -->
+    <sys:String x:Key="Text_ImageSplitter_Header">ImageSplitter</sys:String>
+    
+    
+    
+    <!-- Текст для панели прогресса -->
+
+    <!-- Заголовки -->
+    <sys:String x:Key="text_ProgressPanel_Remove">Удаление файлов</sys:String>
+
+    <!-- Стадии сканирования -->
+    <sys:String x:Key="text_DuplicateScanStatus_0">Поиск файлов изображений по указанному пути</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_1">Генерация хешей для найденных файлов</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_2">Сохранение данных о хешах</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_3">Поиск дубликатов</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_4">Поиск устаревших записей</sys:String>
+    <sys:String x:Key="text_DuplicateScanStatus_5">Удаление устаревших записей</sys:String>
+
+    <!-- Подписи для полей доп. информации -->
+    <sys:String x:Key="text_DuplicateScanAddInfo_FilesFinded">Найденно файлов:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ErrorFilesCount">Файлов с ошибками:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ProcessedFiles">Обработано файлов:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_FilesToProcess">Файлов для обработки:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_LoadedFiles">Загружены из хранилища:</sys:String>
+    <sys:String x:Key="text_DuplicateScanAddInfo_ToCompleteTime">До завершения:</sys:String>
+
+
+
+
+    <!-- Значения типов скнирования -->
+    <sys:String x:Key="Text_DuplicateScanType_0">Оба варианта проверки</sys:String>
+    <sys:String x:Key="Text_DuplicateScanType_1">Сравнение обычных хешей</sys:String>
+    <sys:String x:Key="Text_DuplicateScanType_2">Сравнение хешей лайновых версий</sys:String>
+
+
+    <!-- Заголвок для панели информации о блокировке -->
+    <sys:String x:Key="Text_FindedImageControl_BlockedHeader">Выбрано в:</sys:String>
+    <sys:String x:Key="Text_FindedImagesPanel_BlockedHeader">Выбраны для удаления в других блоках:</sys:String>
+
+
+    <!-- Панель сплита -->
+    <!-- Левая панель -->
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip">[Ctrl + O] Выбрать путей для сканирования</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip">[Ctrl + T] Отобразить древо</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip">[Ctrl + F] Запустить сканирование</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_SplitIcon_Tooltip">[Ctrl + S] Запустить сплит файлов</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_RenameIcon_Tooltip">[Ctrl + R] Запустить переименование файлов</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_DuplicatesIcon_Tooltip">[Ctrl + D] Запустить поиск дубликатов</sys:String>
+
+    <!-- Верхняя панель -->
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UpPageIcon_Tooltip">[Up] Переход к предыдущей картинке в папке</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_DownPageIcon_Tooltip">[Down] Переход к следующей картинке в папке</sys:String>
+    <!-- Нижняя панель -->
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_LeftPageIcon_Tooltip">[Left] Переход к предыдущей коллекции</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_RightPageIcon_Tooltip">[Right] Переход к следующей коллекции</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitImagesTopPanel_UndoMoveIcon_Tooltip">[Ctrl + Z] Возврат картинки в исходную папку</sys:String>
+
+    <!-- Правая верхняя панель -->
+    <!-- Контролл информации о папке -->
+    <sys:String x:Key="Text_SplitImagesControl_FolderInfoControl_RemoveIcon_Tooltip">Нажатие на данную кнопку уберёт папку из списка выбранных</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_FolderKeyTextBlock_Tooltip">Нажатие на указанную кнопку клавиатуры выполнит перемещение изображения в данную папку</sys:String>
+    <!-- КОнтролл списка папок -->
+    <sys:String x:Key="Text_SplitImagesControl_FolderListControl_Header">Список папок для перемещения</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_FolderListControl_AddFolderIcon_Tooltip">
+        [Ctrl + N] Нажатие на эту иконку позволит добавить новую папку. В случае, если папка с таким именем уже присутствует в родительской - она просто добавится в список.
+    </sys:String>
+    
+
+
+    <!-- Правая нижняя панель -->
+    <sys:String x:Key="Text_SplitImagesControl_SplitSelectedFoldersControl_ScanPath_Run">Путь для сканирования:</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitSelectedFoldersControl_MovePath_Run">Путь для переноса и отображения древа:</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Run">Искать:</sys:String>
+    <!-- Варианты поиска -->
+    <sys:String x:Key="Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Value_Folder">Папки</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_SplitSelectedFoldersControl_IsFolder_Value_File">Файлы</sys:String>
+
+
+
+    <!-- Простые контроллы -->
+    <sys:String x:Key="Text_FolderSelector_BrowseIcon_Tooltip">Выбор пути через древо директорий</sys:String>
+
+    
+
+    <!-- Окно выбора папок для сплита -->
+    <sys:String x:Key="Text_SelectSplitFoldersWinodw_Header">Выбор путей для сканирования</sys:String>
+    <sys:String x:Key="Text_FolderSelector_ScanPathFolderSelector_Header">Путь для сканирования:</sys:String>
+    <sys:String x:Key="Text_FolderSelector_MovePathFolderSelector_Header">Путь для сохранения:</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsButton_Content">Выбрать пути</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsButton_Tooltip">[Enter] Выбрать пути для дальнейшей обработки</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsAndSplitButton_Content">Выбрать пути и запустить сплит</sys:String>
+    <sys:String x:Key="Text_FolderSelector_SelectPathsAndSplitButton_Tooltip">[Ctrl + Enter] Выбрать пути, и сразу же запустить сплит по ним</sys:String>
+    
+    
+
+    <sys:String x:Key="Text_FolderSelector_IsFolderCheckBox_Content">Искать папки</sys:String>
+    <sys:String x:Key="Text_FolderSelector_IsFolderCheckBox_Tooltip">При включении данного чекбокса, приложение будет выполнять поиск не по отдельным изображениям, а по папкам с изображениями</sys:String>
+
+
+
+    <!-- Окно древа -->
+    <sys:String x:Key="Text_TreeVisualizerWindow_Header">Древо элементов</sys:String>
+    <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_HeaderRun">Не распределено:</sys:String>
+    <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_AddRun">элем.</sys:String>
+    <sys:String x:Key="Text_TreeVisualizerWindow_UpdateTreeIcon_Tooltip">[Ctrl + R] Обновить информацию в древе</sys:String>
+    
+    <!-- Панель отображения древа -->
+    <sys:String x:Key="Text_TreeVisualizerPanel_UpdateButton">Обновить информацию</sys:String>
+
+
+    
+    <!-- Окно выбора папок для подключения -->
+    <sys:String x:Key="Text_SelectFoldersWindow_Header">Выберите папки для подключения</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Tooltip">[Ctrl + A] Данный чекбокс позволяет глобально управлять значениями чекбоксов списка</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_ConfirmButton_Content">Применить выбор</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_ConfirmButton_Tooltip">[Enter] При нажатии на эту кнопку, все выбранные вами папки будут добавлены в список целевых директорий для сплита</sys:String>
+    <!-- Подсказки для статусов чекбокса -->
+    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Status_Unchecked">Не выбрано ни одного</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Status_Checked">Выбраны все</sys:String>
+    <sys:String x:Key="Text_SelectFoldersWindow_GlobalComboCheckBox_Status_Partial">Выбрана часть</sys:String>
+
+
+    <!-- Окно создания папки -->
+    <sys:String x:Key="Text_AddFolderWindow_Header">Добавление папки</sys:String>
+    <sys:String x:Key="Text_AddFolderWindow_FolderNamePlaceholderTextBox_Placeholder">Укажите имя создаваемой папки</sys:String>
+    <sys:String x:Key="Text_AddFolderWindow_AddFolderIcon_Tooltip">[Enter] При нажатии на эту иконку будет создана новая папка, с именем которое вы указали а поле слева</sys:String>
+
+
+    <!-- Окно сплита файлов -->
+    <sys:String x:Key="Text_FilesSplitWindow_Header">Разделение файлов</sys:String>
+    <sys:String x:Key="Text_FilesSplitWindow_SplitCountTextBox_Placeholder">Укажите количество файлов, которые будут помещены в одну папку</sys:String>
+    <sys:String x:Key="Text_FilesSplitWindow_SplitChildsCheckBox_Content">Сплит в дочерних папках</sys:String>
+    <sys:String x:Key="Text_FilesSplitWindow_SplitChildsCheckBox_ToolTip">
+        В случае указания данного чекбокса, файлы будут разделены не в указанной папке, а в её дочерних папках первого уровня
+    </sys:String>
+    <sys:String x:Key="Text_FilesSplitWindow_SplitIcon_ToolTip">
+        [Enter] При нажатии на эту кнопку, файлы из указанной папки или её дочерних папок будут разложены в номерные папки, в каждой из которых будет по указанному количеству файлов.
+    </sys:String>
+    <sys:String x:Key="Text_FilesSplitWindow_ReturnIcon_ToolTip">
+        [Ctrl + Enter] При нажатии на эту кнопку, в указанной папке, или её дочерних, будет произведён поиск номерных папок, и выполнен возврат файлов из них в родительские.
+    </sys:String>
+
+
+    <!-- Окно переименования файлов -->
+    <sys:String x:Key="Text_FilesRenameWindow_Header">Переименование файлов</sys:String>
+    <sys:String x:Key="Text_FilesRenameWindow_RenameMaskTextBox_Placeholder">Укажите маску для переименования файлов</sys:String>
+    <sys:String x:Key="Text_FilesRenameWindow_RenameMaskTextBox_ToolTip">
+        Расширение файла не изменяется при переименовании. 
+        Для указания номера файла вставьте знак "{0}", номера начинаются от 0. 
+        Допускается указание нескольких символов "{0}" - все они будут заменены на номер файла. 
+        Пример: маска "TestFile {0}" создаст файлы "TestFile 0.png", "TestFile 1.png" и т.д. (при учёте, что исходное расширение было "png").
+    </sys:String>
+    <sys:String x:Key="Text_FilesRenameWindow_RenameIcon_ToolTip">[Enter] При нажатии на эту кнопку, файлы из указанной папки будут переименованы по указанной выше маске</sys:String>
+
+
+
+
+    <!-- Окно поиска дубликатов -->
+    <sys:String x:Key="Text_DuplicateScanWindow_Header">Поиск дубликатов</sys:String>
+
+
+
+
+    <!-- Заголовки сообщений -->
+    <sys:String x:Key="Text_MessageHeader_RemoveRequest">Подтвердите запрос удаления</sys:String>
+    <!-- Сообщения -->
+    <sys:String x:Key="Text_Messages_RemoveOldVersionsRequest">
+        Вы действительно хотите удалить не актуальные записи о файлах? 
+        Будут удалены все записи, которые не будут найдены на подключенных дисках.
+        В случае, если вы сканировали файлы на подключаемых носителях, перед удалениеи желательно их подключить, чтобы записи о них не были затёрты.
+    </sys:String>
+    
+
+
+</ResourceDictionary>

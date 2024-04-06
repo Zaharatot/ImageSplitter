@@ -1,9 +1,9 @@
 ﻿using DCTHashZ;
 using DCTHashZ.Clases.DataClases.ImageWork;
-using DuplicateScanner.Clases.DataClases;
-using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Image;
-using DuplicateScanner.Clases.WorkClases.Image;
+using DuplicateScannerLib.Clases.DataClases;
+using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Image;
+using DuplicateScannerLib.Clases.WorkClases.Image;
 using LiningLibZ;
 using System;
 using System.Collections.Generic;
@@ -14,9 +14,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DCTHashZ.Clases.DataClases.Global.Enums;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
-namespace DuplicateScanner.Clases.WorkClases.Hash
+namespace DuplicateScannerLib.Clases.WorkClases.Hash
 {
     /// <summary>
     /// Класс выполнения вычисления хеша

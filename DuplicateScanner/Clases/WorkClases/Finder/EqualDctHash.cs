@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.WorkClases.Finder
+namespace DuplicateScannerLib.Clases.WorkClases.Finder
 {
     /// <summary>
     /// Класс сравнения хешей

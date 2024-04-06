@@ -1,15 +1,14 @@
-﻿using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Properties;
-using DuplicateScanner.Clases.WorkClases.Finder;
+﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.WorkClases.Finder;
+using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DuplicateScanner.Clases.DataClases.Global.Delegates;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static SplitterDataLib.DataClases.Global.Enums;
 
-namespace DuplicateScanner.Clases.WorkClases.Finder
+namespace DuplicateScannerLib.Clases.WorkClases.Finder
 {
     /// <summary>
     /// Класс выполнения сравнения хешей

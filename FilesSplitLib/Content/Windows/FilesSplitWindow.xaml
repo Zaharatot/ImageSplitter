@@ -1,0 +1,54 @@
+﻿<Window xmlns:Simple="clr-namespace:SplitterSimpleUI.Content.Controls;assembly=SplitterSimpleUI" 
+        x:Class="FilesSplitWindowLib.Content.Windows.FilesSplitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilesSplitWindowLib.Content.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" Height="180" Width="550" 
+        Title="{StaticResource Text_FilesSplitWindow_Header}" Closed="Window_Closed"
+        Style="{StaticResource Style_Window_NoResize}">
+    <!-- Основная панель контролла -->
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+
+        <!-- Количество файлов в папке для сплита -->
+        <Simple:PlaceholderTextBox x:Name="SplitCountTextBox" TabIndex="0" Margin="0,3,0,5" Grid.Row="0"
+                                   PlaceholderText="{StaticResource Text_FilesSplitWindow_SplitCountTextBox_Placeholder}" />
+        
+        <!-- Флажок сплита в дочерних папках -->
+        <Simple:ComboCheckBoxControl x:Name="SplitChildsCheckBox" Margin="0,5,0,0" Grid.Row="1"
+                                     Header="{StaticResource Text_FilesSplitWindow_SplitChildsCheckBox_Content}" 
+                                     Tooltip="{StaticResource Text_FilesSplitWindow_SplitChildsCheckBox_ToolTip}" />
+        
+        
+        <!-- Кнопка запуска сплита -->
+        <Simple:SvgImageControl x:Name="SplitIcon" Image="{StaticResource Icon_Split}" 
+                                Grid.Row="3" HorizontalAlignment="Right"
+                                Margin="10" Cursor="Hand" MouseDown="SplitIcon_MouseDown">
+            <!-- Подсказка для иконки -->
+            <Simple:SvgImageControl.ToolTip>
+                <ToolTip Content="{StaticResource Text_FilesSplitWindow_SplitIcon_ToolTip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Simple:SvgImageControl.ToolTip>
+        </Simple:SvgImageControl>
+        <!-- Кнопка запуска возврата -->
+        <Simple:SvgImageControl x:Name="ReturnIcon" Image="{StaticResource Icon_Refresh}" 
+                                Grid.Row="3" HorizontalAlignment="Left"
+                                Margin="10" Cursor="Hand" MouseDown="ReturnIcon_MouseDown">
+            <!-- Подсказка для иконки -->
+            <Simple:SvgImageControl.ToolTip>
+                <ToolTip Content="{StaticResource Text_FilesSplitWindow_ReturnIcon_ToolTip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Simple:SvgImageControl.ToolTip>
+        </Simple:SvgImageControl>
+
+    </Grid>
+</Window>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.WorkClases.Image
+namespace DuplicateScannerLib.Clases.WorkClases.Image
 {
 
     /// <summary>

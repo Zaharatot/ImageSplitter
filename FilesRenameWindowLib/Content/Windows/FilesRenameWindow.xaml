@@ -1,0 +1,41 @@
+﻿<Window xmlns:Simple="clr-namespace:SplitterSimpleUI.Content.Controls;assembly=SplitterSimpleUI" 
+        x:Class="FilesRenameWindowLib.Content.Windows.FilesRenameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilesRenameWindowLib.Content.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" Height="90" Width="550" 
+        Title="{StaticResource Text_FilesRenameWindow_Header}" Closed="Window_Closed"
+        Style="{StaticResource Style_Window_NoResize}">
+    <!-- Основная панель контролла -->
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Маска переименования файлов -->
+        <Simple:PlaceholderTextBox x:Name="RenameMaskTextBox" TabIndex="0" Margin="0,3,5,5" Grid.Row="0"
+                                   PlaceholderText="{StaticResource Text_FilesRenameWindow_RenameMaskTextBox_Placeholder}" >
+            <!-- Подсказка для строки -->
+            <Simple:PlaceholderTextBox.ToolTip>
+                <ToolTip Content="{StaticResource Text_FilesRenameWindow_RenameMaskTextBox_ToolTip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Simple:PlaceholderTextBox.ToolTip>
+        </Simple:PlaceholderTextBox>
+
+
+        <!-- Кнопка запуска переименования -->
+        <Simple:SvgImageControl x:Name="RenameIcon" Image="{StaticResource Icon_Rename}" 
+                                Grid.Column="1" HorizontalAlignment="Right"
+                                Margin="5" Cursor="Hand" MouseDown="RenameIcon_MouseDown">
+            <!-- Подсказка для иконки -->
+            <Simple:SvgImageControl.ToolTip>
+                <ToolTip Content="{StaticResource Text_FilesRenameWindow_RenameIcon_ToolTip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Simple:SvgImageControl.ToolTip>
+        </Simple:SvgImageControl>
+    </Grid>
+</Window>

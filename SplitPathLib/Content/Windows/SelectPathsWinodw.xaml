@@ -1,0 +1,54 @@
+﻿<Window x:Class="SplitPathWindowLib.Content.Windows.SelectPathsWinodw"
+        xmlns:Simple="clr-namespace:SplitterSimpleUI.Content.Controls;assembly=SplitterSimpleUI" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SplitPathWindowLib.Content.Windows"
+        mc:Ignorable="d" 
+        Closed="Window_Closed" WindowStartupLocation="CenterScreen" 
+        Style="{StaticResource Style_Window_NoResize}" Height="280" Width="550"
+        Title="{StaticResource Text_SelectSplitFoldersWinodw_Header}">
+    <!-- Основная панель контролла -->
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        
+        <!-- ПАнель основных полей для заполнения -->
+        <StackPanel Grid.Row="0">
+            <!-- Путь для поиска картинок -->
+            <TextBlock Text="{StaticResource Text_FolderSelector_ScanPathFolderSelector_Header}" Style="{StaticResource Style_TextBlock}" />
+            <Simple:FolderSelector x:Name="ScanPathFolderSelector" TabIndex="0" Margin="0,3,0,5" />
+            <!-- Путь для раскладки картинок -->
+            <TextBlock Text="{StaticResource Text_FolderSelector_MovePathFolderSelector_Header}" Style="{StaticResource Style_TextBlock}" />
+            <Simple:FolderSelector x:Name="MovePathFolderSelector" TabIndex="1" Margin="0,3,0,5" />
+
+            <!-- Чекбокс типа коллекции -->
+            <Simple:ComboCheckBoxControl x:Name="IsFolderCheckBox" Margin="-3,3,0,5"
+                                         Header="{StaticResource Text_FolderSelector_IsFolderCheckBox_Content}" 
+                                         Tooltip="{StaticResource Text_FolderSelector_IsFolderCheckBox_Tooltip}"  />
+            
+        </StackPanel>
+
+        <!-- Кнопка выбора путей -->
+        <Button x:Name="SelectPathsButton" Content="{StaticResource Text_FolderSelector_SelectPathsButton_Content}" Margin="0"
+                Style="{StaticResource Style_Button}" Grid.Row="1" HorizontalAlignment="Right" Click="SelectPathsButton_Click" >
+            <!-- Подсказка для кнопки -->
+            <Button.ToolTip>
+                <ToolTip Content="{StaticResource Text_FolderSelector_SelectPathsButton_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Button.ToolTip>
+        </Button>
+        <!-- Кнопка выбора путей и быстрого перехода к сплиту -->
+        <Button x:Name="SelectPathsAndSplitButton" Content="{StaticResource Text_FolderSelector_SelectPathsAndSplitButton_Content}" 
+                Style="{StaticResource Style_Button}" Grid.Row="1" HorizontalAlignment="Left" Click="SelectPathsAndSplitButton_Click" >
+            <!-- Подсказка для кнопки -->
+            <Button.ToolTip>
+                <ToolTip Content="{StaticResource Text_FolderSelector_SelectPathsAndSplitButton_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+            </Button.ToolTip>
+        </Button>
+    </Grid>
+</Window>

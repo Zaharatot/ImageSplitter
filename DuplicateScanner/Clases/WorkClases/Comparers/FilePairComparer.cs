@@ -1,11 +1,11 @@
-﻿using DuplicateScanner.Clases.DataClases.File;
+﻿using DuplicateScannerLib.Clases.DataClases.File;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.WorkClases.Comparers
+namespace DuplicateScannerLib.Clases.WorkClases.Comparers
 {
     /// <summary>
     /// Класс сравнения элементов

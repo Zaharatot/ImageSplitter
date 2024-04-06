@@ -1,18 +1,18 @@
-﻿using DuplicateScanner.Clases.DataClases;
-using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Properties;
-using DuplicateScanner.Clases.DataClases.Result;
-using DuplicateScanner.Clases.WorkClases.Comparers;
+﻿using DuplicateScannerLib.Clases.DataClases;
+using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Result;
+using DuplicateScannerLib.Clases.WorkClases.Comparers;
+using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeLeftCalcZ;
-using static DuplicateScanner.Clases.DataClases.Global.Delegates;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Delegates;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
-namespace DuplicateScanner.Clases.WorkClases.Finder
+namespace DuplicateScannerLib.Clases.WorkClases.Finder
 {
     /// <summary>
     /// Класс поиска дубликатов

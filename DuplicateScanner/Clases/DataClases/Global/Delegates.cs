@@ -1,12 +1,12 @@
-﻿using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Result;
+﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.DataClases.Global
+namespace DuplicateScannerLib.Clases.DataClases.Global
 {
     /// <summary>
     /// Класс глобальных делегатов событий

@@ -1,0 +1,49 @@
+﻿<Window xmlns:Simple="clr-namespace:SplitterSimpleUI.Content.Controls;assembly=SplitterSimpleUI" 
+        x:Class="SelectFoldersWindowLib.Content.Windows.SelectFoldersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SelectFoldersWindowLib.Content.Windows"
+        mc:Ignorable="d"
+        Topmost="True"
+        WindowStartupLocation="CenterScreen" Closed="Window_Closed"
+        Style="{StaticResource Style_Window_NoResize}" Height="500" Width="430"
+        Title="{StaticResource Text_SelectFoldersWindow_Header}">
+    <!-- Основная панель окна -->
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- Рамка для списка чекбоксов -->
+        <Border Grid.Row="0" Style="{StaticResource Style_PanelBorder}" >
+            <!-- Скролл панели чекбоксов -->
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" 
+                          Style="{StaticResource Style_ScrollViewer}">
+                <!-- Панель чекбоксов -->
+                <StackPanel x:Name="CheckBoxesPanel" Margin="5" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- Глобальный чекбокс для списка -->
+        <Simple:ComboCheckBoxControl x:Name="GlobalComboCheckBox" HorizontalAlignment="Left" Margin="12,10,0,0" Grid.Row="1"
+                                     Tooltip="{StaticResource Text_SelectFoldersWindow_GlobalComboCheckBox_Tooltip}"
+                                     CheckBoxUpdateState="GlobalComboCheckBox_CheckBoxUpdateState" />
+
+
+
+        <!-- Кнопка продолжения работы -->
+        <Button x:Name="ConfirmButton" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                Style="{StaticResource Style_Button}" Width="150" Grid.Row="1" Margin="0, 10, 0, 0"
+                Content="{StaticResource Text_SelectFoldersWindow_ConfirmButton_Content}"  
+                Click="ConfirmButton_Click">
+            <!-- Подсказка для кнопки -->
+            <Button.ToolTip>
+                <ToolTip Content="{StaticResource Text_SelectFoldersWindow_ConfirmButton_Tooltip}"
+                         Style="{StaticResource Style_ToolTip}" />
+            </Button.ToolTip>
+        </Button>
+    </Grid>
+</Window>

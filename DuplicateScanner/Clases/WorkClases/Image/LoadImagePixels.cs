@@ -1,5 +1,5 @@
-﻿using DuplicateScanner.Clases.DataClases;
-using DuplicateScanner.Clases.DataClases.Image;
+﻿using DuplicateScannerLib.Clases.DataClases;
+using DuplicateScannerLib.Clases.DataClases.Image;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.WorkClases.Image
+namespace DuplicateScannerLib.Clases.WorkClases.Image
 {
     /// <summary>
     /// Класс загрузки изображения в виде 

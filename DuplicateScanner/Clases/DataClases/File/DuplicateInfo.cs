@@ -1,5 +1,5 @@
-﻿using DuplicateScanner.Clases.DataClases.Result;
-using DuplicateScanner.Clases.WorkClases.Hash;
+﻿using DuplicateScannerLib.Clases.DataClases.Result;
+using DuplicateScannerLib.Clases.WorkClases.Hash;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +8,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
-namespace DuplicateScanner.Clases.DataClases.File
+namespace DuplicateScannerLib.Clases.DataClases.File
 {
     /// <summary>
     /// Класс информации о дубликате
@@ -94,7 +94,7 @@ namespace DuplicateScanner.Clases.DataClases.File
         /// Класс генерации CRC32 хешей
         /// </summary>
         [XmlIgnore]
-        private Crc32 _crc;
+        private readonly Crc32 _crc;
 
         /// <summary>
         /// Конструктор класса

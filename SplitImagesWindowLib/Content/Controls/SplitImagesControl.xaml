@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="SplitImagesWindowLib.Content.Controls.SplitImagesControl"
+             xmlns:Folders="clr-namespace:SplitImagesWindowLib.Content.Controls.Folders"
+             xmlns:Panels="clr-namespace:SplitImagesWindowLib.Content.Controls.Panels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SplitImagesWindowLib.Content.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{StaticResource Brush_DeepBackgroundColor}">
+        <!-- Строки панели -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition  Width="330"/>
+        </Grid.ColumnDefinitions>
+        <!-- Контролл верхней панели -->
+        <Panels:SplitImagesTopPanel x:Name="TopPanel" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" />
+
+        <!-- Панель с картинками -->
+        <Grid x:Name="ImagesPanel" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Margin="0, 10">
+            <!-- Отображаемая картинка -->
+            <Image x:Name="TargetImage" Grid.Row="0" Grid.Column="0"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Grid>
+        
+        <!-- Список папок -->
+        <Folders:FolderListControl x:Name="FoldersList" Grid.Column="1" Grid.Row="1" />
+        <!-- Панель информации о авбранных для сплита папках -->
+        <Folders:SplitSelectedFoldersControl x:Name="SplitPathsInfoPanel" Grid.Column="1" Grid.Row="2" />
+        
+        <!-- Нижняя панель с кнопками листания -->
+        <Panels:SplitImagesBottomPanel x:Name="BottomPanel" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="3" />
+       
+    </Grid>
+</UserControl>

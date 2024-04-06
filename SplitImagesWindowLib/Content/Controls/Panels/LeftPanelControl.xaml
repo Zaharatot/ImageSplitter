@@ -1,0 +1,78 @@
+﻿<UserControl xmlns:Simple="clr-namespace:SplitterSimpleUI.Content.Controls;assembly=SplitterSimpleUI" 
+             x:Class="SplitImagesWindowLib.Content.Controls.Panels.LeftPanelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SplitImagesWindowLib.Content.Controls.Panels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" Width="50">
+    <!-- Основной стиль рамки -->
+    <Border Style="{StaticResource Style_PanelBorder}">
+        <!-- Основная панель контролла -->
+        <StackPanel Orientation="Vertical">
+        
+            <!-- Иконка загрузки файлов -->
+            <Simple:SvgImageControl x:Name="LoadIcon" Image="{StaticResource Icon_Folder}" 
+                                    Margin="10" Cursor="Hand" MouseDown="LoadIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            <!-- Иконка древа файлов -->
+            <Simple:SvgImageControl x:Name="TreeIcon" Image="{StaticResource Icon_Tree}" 
+                                    Margin="10" Cursor="Hand" MouseDown="TreeIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            <!-- Иконка поиска файлов -->
+            <Simple:SvgImageControl x:Name="ScanIcon" Image="{StaticResource Icon_FindImages}" 
+                                    Margin="10" Cursor="Hand" MouseDown="ScanIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            <!-- Иконка сплита файлов -->
+            <Simple:SvgImageControl x:Name="SplitIcon" Image="{StaticResource Icon_Split}" 
+                                    Margin="10" Cursor="Hand" MouseDown="SplitIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_SplitIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+            
+            <!-- Иконка переименования файлов -->
+            <Simple:SvgImageControl x:Name="RenameIcon" Image="{StaticResource Icon_Rename}" 
+                                    Margin="10" Cursor="Hand" MouseDown="RenameIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_RenameIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            <!-- Иконка поиска дубликатов -->
+            <Simple:SvgImageControl x:Name="DuplicatesIcon" Image="{StaticResource Icon_Duplicates}" 
+                                    Margin="10" Cursor="Hand" MouseDown="DuplicatesIcon_MouseDown">
+                <!-- Подсказка для иконки -->
+                <Simple:SvgImageControl.ToolTip>
+                    <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_DuplicatesIcon_Tooltip}"
+                             Style="{StaticResource Style_ToolTip}" />
+                </Simple:SvgImageControl.ToolTip>
+            </Simple:SvgImageControl>
+
+            
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,15 +1,16 @@
-﻿using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Properties;
-using DuplicateScanner.Clases.DataClases.Result;
+﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Result;
+using DuplicateScannerLib.Clases.WorkClases;
+using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static DuplicateScanner.Clases.DataClases.Global.Delegates;
+using static DuplicateScannerLib.Clases.DataClases.Global.Delegates;
 
-namespace DuplicateScanner
+namespace DuplicateScannerLib
 {
     /// <summary>
     /// Фасадный класс библиотеки поиска дубликатов
@@ -43,7 +44,7 @@ namespace DuplicateScanner
         /// <summary>
         /// Класс поиска дубликатов
         /// </summary>
-        private Clases.WorkClases.DuplicateScanner _scanner;
+        private DuplicateScanner _scanner;
 
         /// <summary>
         /// Конструктор класса
@@ -59,7 +60,7 @@ namespace DuplicateScanner
         private void Init()
         {
             //Инициализируем используемые классы
-            _scanner = new Clases.WorkClases.DuplicateScanner();
+            _scanner = new DuplicateScanner();
         }
 
 

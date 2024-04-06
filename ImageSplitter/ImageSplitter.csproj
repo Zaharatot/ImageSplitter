@@ -80,277 +80,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Content\Controls\FileSplitParamsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageDuplicateScan\FindedImageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageDuplicateScan\ScanPropertiesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Folders\SplitSelectedFoldersControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Panels\LeftPanelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Folders\FolderInfoPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Simple\ComboCheckBoxControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Simple\FolderSelector.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Simple\PlaceholderTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Simple\ProgressControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Folders\FolderInfoControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageDuplicateScan\ImageDuplicatesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Folders\FolderListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Panels\SplitImagesBottomPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\RenameFilesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\ImageSplit\SplitImagesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Controls\Simple\SvgImageControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Icons\MainIcons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Localization\ControlsText.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\TextBoxStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Resources\Styles\TextBlockStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Resources\Styles\WindowStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Resources\Styles\ToolTipStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Resources\Styles\CheckBoxStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\TabItemStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\TreeViewStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Values\Colors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\BorderStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\ButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\ScrollbarStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Resources\Styles\ScrollViewerStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Windows\AddFolderWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Content\Clases\DataClases\Controls\SvgImage.cs" />
-    <Compile Include="Content\Clases\DataClases\Split\TreeElementInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Global\Delegates.cs" />
-    <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
-    <Compile Include="Content\Clases\DataClases\Global\GlobalEvents.cs" />
-    <Compile Include="Content\Clases\DataClases\Interfaces\IHotKeyProcessor.cs" />
-    <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Split\CollectionInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Split\SplitPathsInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Split\TargetFolderInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Storage\StoragedFileInfo.cs" />
-    <Compile Include="Content\Clases\DataClases\Tags\Tag.cs" />
-    <Compile Include="Content\Clases\DataClases\Tags\TaggedImage.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\ControlPropertyCallbacks.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\FolderNameGenerator.cs" />
-    <Compile Include="Content\Clases\WorkClases\Helpers\Selection\IconsSelectionProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\ImageChecker.cs" />
-    <Compile Include="Content\Clases\WorkClases\Helpers\UniversalMethods.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\KeyActionProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\KeyFinder.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\HotKeyCheck.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FilesRenameTab.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\MainKeys.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FindDuplicatesTab.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\FilesSplitTab.cs" />
-    <Compile Include="Content\Clases\WorkClases\KeyProcessor\Processors\CollectionsSplitTab.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CreateFolderProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SelectFoldersProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\TreeElementsProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FileRenamer.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\FileSplitter.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\CollectionsScanner.cs" />
     <Compile Include="Content\Clases\WorkClases\MainWork.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\Mover.cs" />
-    <Compile Include="Content\Clases\WorkClases\Addition\SizeCalculator.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitImages.cs" />
-    <Compile Include="Content\Clases\WorkClases\Processors\ImageSplit\SplitPathProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\Resources\DateFormatter.cs" />
-    <Compile Include="Content\Clases\WorkClases\Resources\ResourceLoader.cs" />
-    <Compile Include="Content\Controls\FileSplitParamsControl.xaml.cs">
-      <DependentUpon>FileSplitParamsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageDuplicateScan\FindedImageControl.xaml.cs">
-      <DependentUpon>FindedImageControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageDuplicateScan\FindedImagesPanel.xaml.cs">
-      <DependentUpon>FindedImagesPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageDuplicateScan\ScanPropertiesControl.xaml.cs">
-      <DependentUpon>ScanPropertiesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Folders\SplitSelectedFoldersControl.xaml.cs">
-      <DependentUpon>SplitSelectedFoldersControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Panels\LeftPanelControl.xaml.cs">
-      <DependentUpon>LeftPanelControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Folders\FolderInfoPanel.xaml.cs">
-      <DependentUpon>FolderInfoPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Simple\ComboCheckBoxControl.xaml.cs">
-      <DependentUpon>ComboCheckBoxControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Simple\FolderSelector.xaml.cs">
-      <DependentUpon>FolderSelector.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Simple\PlaceholderTextBox.xaml.cs">
-      <DependentUpon>PlaceholderTextBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Simple\ProgressControl.xaml.cs">
-      <DependentUpon>ProgressControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Folders\FolderInfoControl.xaml.cs">
-      <DependentUpon>FolderInfoControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageDuplicateScan\ImageDuplicatesControl.xaml.cs">
-      <DependentUpon>ImageDuplicatesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Folders\FolderListControl.xaml.cs">
-      <DependentUpon>FolderListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Panels\SplitImagesBottomPanel.xaml.cs">
-      <DependentUpon>SplitImagesBottomPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\Panels\SplitImagesTopPanel.xaml.cs">
-      <DependentUpon>SplitImagesTopPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\RenameFilesControl.xaml.cs">
-      <DependentUpon>RenameFilesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\ImageSplit\SplitImagesControl.xaml.cs">
-      <DependentUpon>SplitImagesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Simple\SvgImageControl.xaml.cs">
-      <DependentUpon>SvgImageControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Windows\AddFolderWindow.xaml.cs">
-      <DependentUpon>AddFolderWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Content\Windows\SelectFoldersWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Windows\SelectSplitFoldersWinodw.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Content\Windows\TreeVisualizerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\Windows\SelectFoldersWindow.xaml.cs">
-      <DependentUpon>SelectFoldersWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Windows\SelectSplitFoldersWinodw.xaml.cs">
-      <DependentUpon>SelectSplitFoldersWinodw.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Windows\TreeVisualizerWindow.xaml.cs">
-      <DependentUpon>TreeVisualizerWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -380,11 +116,57 @@
     <Resource Include="Split_Files_icon-icons.com_55814.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DuplicateScanner\DuplicateScanner.csproj">
-      <Project>{f9ecb383-c07a-481b-8a58-ff6166b187b5}</Project>
-      <Name>DuplicateScanner</Name>
+    <Folder Include="Content\Clases\DataClases\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DuplicateScanWindowLib\DuplicateScanWindowLib.csproj">
+      <Project>{d277df51-a99b-4cf1-a164-53646b94888d}</Project>
+      <Name>DuplicateScanWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FilesRenameWindowLib\FilesRenameWindowLib.csproj">
+      <Project>{ab81fbfb-4306-4177-8b63-3102295b2741}</Project>
+      <Name>FilesRenameWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FilesSplitLib\FilesSplitWindowLib.csproj">
+      <Project>{b103186a-5192-4a41-bb26-aa5cf09adfec}</Project>
+      <Name>FilesSplitWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FolderCreateLib\FolderCreateWindowLib.csproj">
+      <Project>{f89de0c9-5357-4c49-99a7-ce6b4074d037}</Project>
+      <Name>FolderCreateWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageSplitterLib\ImageSplitterLib.csproj">
+      <Project>{555faae5-33ac-4511-822c-6c0cf55081c5}</Project>
+      <Name>ImageSplitterLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SelectFoldersLib\SelectFoldersWindowLib.csproj">
+      <Project>{ec8b62f8-34f4-4dfb-8b8a-4b822bff3a9e}</Project>
+      <Name>SelectFoldersWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SplitImagesWindowLib\SplitImagesWindowLib.csproj">
+      <Project>{b2ec7e69-2ba0-4f7e-abe5-df1b8cdc93e7}</Project>
+      <Name>SplitImagesWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SplitPathLib\SplitPathWindowLib.csproj">
+      <Project>{6d7c03c6-a923-4919-b3b2-09d9cd9f9049}</Project>
+      <Name>SplitPathWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SplitterData\SplitterDataLib.csproj">
+      <Project>{39099155-a9b8-45ac-939b-8fd067afa966}</Project>
+      <Name>SplitterDataLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SplitterResources\SplitterResources.csproj">
+      <Project>{79c387b4-3665-438b-a20b-aafed1916550}</Project>
+      <Name>SplitterResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SplitterSimpleUI\SplitterSimpleUI.csproj">
+      <Project>{11c672e6-7bb9-4ea8-b539-36ea5162674d}</Project>
+      <Name>SplitterSimpleUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeViewLib\TreeViewWindowLib.csproj">
+      <Project>{894780b8-0f33-4019-949b-fff432247417}</Project>
+      <Name>TreeViewWindowLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

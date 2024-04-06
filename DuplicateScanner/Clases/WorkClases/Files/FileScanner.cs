@@ -1,5 +1,5 @@
-﻿using DuplicateScanner.Clases.DataClases;
-using DuplicateScanner.Clases.DataClases.File;
+﻿using DuplicateScannerLib.Clases.DataClases;
+using DuplicateScannerLib.Clases.DataClases.File;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.WorkClases.Files
+namespace DuplicateScannerLib.Clases.WorkClases.Files
 {
     /// <summary>
     /// Класс сканирования списка файлов

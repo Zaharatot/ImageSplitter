@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.DataClases.Image
+namespace DuplicateScannerLib.Clases.DataClases.Image
 {
     /// <summary>
     /// Класс, хранящий данные об изображении

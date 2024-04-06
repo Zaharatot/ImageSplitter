@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.DataClases.Result
+namespace DuplicateScannerLib.Clases.DataClases.Result
 {
     /// <summary>
     /// Класс информации о прогрессе работы

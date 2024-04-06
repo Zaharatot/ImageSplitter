@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ImageSplitter"
-             StartupUri="/Content/Windows/MainWindow.xaml">
+             Startup="Application_Startup"
+             Exit="Application_Exit"
+             ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
 
         <ResourceDictionary>
@@ -11,28 +13,28 @@
 
                 <!-- Значения -->
                 <!-- Цвета -->
-                <ResourceDictionary Source="./Content/Resources/Values/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Values/Colors.xaml" />
 
                 <!-- Локализация -->
                 <!-- RU -->
-                <ResourceDictionary Source="./Content/Resources/Localization/ControlsText.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Localization/ControlsText.xaml" /> 
 
 
                 <!-- Иконки -->
-                <ResourceDictionary Source="./Content/Resources/Icons/MainIcons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Icons/MainIcons.xaml" />
 
                 <!-- Шаблоны -->
-                <ResourceDictionary Source="./Content/Resources/Styles/ScrollbarStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/ScrollViewerStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/ButtonStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/BorderStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/TreeViewStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/TabItemStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/CheckBoxStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/ToolTipStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/WindowStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/TextBlockStyle.xaml" />
-                <ResourceDictionary Source="./Content/Resources/Styles/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/ScrollbarStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/ScrollViewerStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/BorderStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TreeViewStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TabItemStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/ToolTipStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/WindowStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TextBoxStyle.xaml" />
                 
 
 

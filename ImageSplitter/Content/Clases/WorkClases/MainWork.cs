@@ -1,18 +1,24 @@
-﻿using DuplicateScanner;
-using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Properties;
-using ImageSplitter.Content.Clases.DataClases;
-using ImageSplitter.Content.Clases.DataClases.Split;
-using ImageSplitter.Content.Clases.WorkClases.Processors;
-using ImageSplitter.Content.Clases.WorkClases.Processors.ImageSplit;
+﻿using DuplicateScanWindowLib;
+using FilesRenameWindowLib;
+using FilesSplitWindowLib;
+using FolderCreateWindowLib;
 using ImageSplitter.Content.Windows;
+using ImageSplitterLib;
+using ImageSplitterLib.Clases.DataClases;
+using SelectFoldersWindowLib;
+using SplitImagesWindowLib;
+using SplitPathWindowLib;
+using SplitterDataLib.DataClases.Global.DuplicateScan;
+using SplitterDataLib.DataClases.Global.Split;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using TreeViewWindowLib;
 
 namespace ImageSplitter.Content.Clases.WorkClases
 {
@@ -21,23 +27,45 @@ namespace ImageSplitter.Content.Clases.WorkClases
     /// </summary>
     internal class MainWork : IDisposable
     {
-
         /// <summary>
-        /// Класс сплита изображений
+        /// Класс выбора путей
         /// </summary>
-        private SplitImages _splitImages;
+        private SplitPathFasade _splitPathFasade;
         /// <summary>
-        /// Класс сплита файлов
+        /// Класс отображения древа
         /// </summary>
-        private FileSplitter _fileSplitter;
+        private TreeViewFasade _treeViewFasade;
+        /// <summary>
+        /// Класс отображения окна создания папки
+        /// </summary>
+        private FolderCreateFasade _folderCreateFasade;
+        /// <summary>
+        /// Фасадный класс библиотеки выбора папок для сплита
+        /// </summary>
+        private SelectFoldersFasade _selectFoldersFasade;
+        /// <summary>
+        /// Фасадный класс библиотеки сплита файлов
+        /// </summary>
+        private FilesSplitFasade _filesSplitFasade;
         /// <summary>
         /// Класс переименованяи файлов
         /// </summary>
-        private FileRenamer _renameFiles;
+        private FilesRenameFasade _filesRenameFasade;
         /// <summary>
-        /// Класс поиска дубликатов
+        /// Фасадный класс библиотеки сканирвоания на дубликаты
         /// </summary>
-        private DuplicateScannerFasade _duplicateScan;
+        private DuplicateScanFasade _duplicateScanFasade;
+        /// <summary>
+        /// Фасадный класс библиотеки сплита изображений
+        /// </summary>
+        private SplitImagesFasade _splitImagesFasade;
+
+
+
+        /// <summary>
+        /// Путь для сплита
+        /// </summary>
+        private SplitPathsInfo _path;
 
 
 
@@ -49,181 +77,179 @@ namespace ImageSplitter.Content.Clases.WorkClases
             Init();
         }
 
+
+        #region Initialization
+
         /// <summary>
         /// Инициализатор класса
         /// </summary>
         private void Init()
         {
+            InitVariables();
+            InitClases();
+            InitEvents();
+        }
+
+        /// <summary>
+        /// Инициализируем значения переменных
+        /// </summary>
+        private void InitVariables()
+        {
+            //Инициализируем дефолтные значения
+            _path = new SplitPathsInfo();
+        }
+
+        /// <summary>
+        /// Инициализируем используемые классы
+        /// </summary>
+        private void InitClases()
+        {
             //Инициализируем класс сплита изображений
-            _splitImages = new SplitImages();
-            //Инициализируем класс сплиттера
-            _fileSplitter = new FileSplitter();
+            _splitImagesFasade = new SplitImagesFasade();
+            //Инициализируем класс выбора путей
+            _splitPathFasade = new SplitPathFasade();
+            //Инициализируем класс отображения древа
+            _treeViewFasade = new TreeViewFasade();
+            //Инициализируем класс сплита файлов
+            _filesSplitFasade = new FilesSplitFasade();
             //Инициализируем класс переименования
-            _renameFiles = new FileRenamer();
-            //Инициализируем класс поиска дубликатов
-            _duplicateScan = new DuplicateScannerFasade();
+            _filesRenameFasade = new FilesRenameFasade();
+            //Инициализируем класс сканирования дубликатов
+            _duplicateScanFasade = new DuplicateScanFasade();
+            //Инициализируем класс выбора папок для сплита
+            _selectFoldersFasade = new SelectFoldersFasade();
+            //Инициализируем класс выбора имени папки
+            _folderCreateFasade = new FolderCreateFasade();
         }
 
 
-        #region SplitImages
-
-
-
         /// <summary>
-        /// Метод обновления пути сплита
+        /// Инициализируем обработчики событий
         /// </summary>
-        public void UpdateSplitPath() =>
-            //Вызываем внутренний метод
-            _splitImages.UpdateSplitPath();
+        private void InitEvents()
+        {
+            //Добавляем обработчик события запроса отображения окна создания новой папки
+            SplitImagesFasade.AddNewFolderRequest += SplitImagesFasade_AddNewFolderRequest;
+            //Добавляем обработчик события запроса отображения окна обновления путей сплита
+            SplitImagesFasade.UpdateSplitPathRequest += SplitImagesFasade_UpdateSplitPathRequest;
+            //Добавляем обработчик события запроса отображения окна древа
+            SplitImagesFasade.ShowTreeRequest += SplitImagesFasade_ShowTreeRequest;
+            //Добавляем обработчик события запроса запуска сканирования
+            SplitImagesFasade.StartScanRequest += SplitImagesFasade_StartScanRequest;
+            //Добавляем обработчик события запроса сплита файлов
+            SplitImagesFasade.StartFileSplitRequest += SplitImagesFasade_StartFileSplitRequest;
+            //Добавляем обработчик события запроса переименования файлов
+            SplitImagesFasade.StartFileRenameRequest += SplitImagesFasade_StartFileRenameRequest;
+            //Добавляем обработчик события запроса поиска дубликатов
+            SplitImagesFasade.ScanDuplicatesRequest += SplitImagesFasade_ScanDuplicatesRequest;
+            //Добавляем обработчик события запроса завершения поиска коллекций
+            SplitImagesFasade.ScanCollectionsComplete += SplitImagesFasade_ScanCollectionsComplete;
+        }
 
-        /// <summary>
-        /// Метод отображения древа
-        /// </summary>
-        public void ShowTree() =>
-            //Вызываем внутренний метод
-            _splitImages.ShowTree();
-
-        /// <summary>
-        /// Проверяем нажатую кнопку на тип кнопки переноса
-        /// </summary>
-        /// <param name="key">Код нажатой кнопки</param>
-        /// <returns>True - нажатие было обработано</returns>
-        public bool CheckImageMoveTarget(Key key) =>
-            //Вызываем внутренний метод
-            _splitImages.CheckImageMoveTarget(key);
-
-        /// <summary>
-        /// Запускаем сканирование
-        /// </summary>
-        public void StartScan() =>
-            //Вызываем внутренний метод
-            _splitImages.StartScan();
-
-        /// <summary>
-        /// Переходим к указанной картинке
-        /// </summary>
-        /// <param name="direction">Направление движения</param>
-        /// <returns>Инфомрация о картинке</returns>
-        public CollectionInfo MoveToImage(int direction) =>
-            //Вызываем внутренний метод
-            _splitImages.MoveToImage(direction);
-
-        /// <summary>
-        /// Получаем папку для перемещения по нажатой кнопке
-        /// </summary>
-        /// <param name="key">Нажатая кнопка</param>
-        /// <returns>Папка для перемещеия</returns>
-        public TargetFolderInfo GetMoveFolder(Key key) =>
-            //Вызываем внутренний метод
-            _splitImages.GetMoveFolder(key);
-
-        /// <summary>
-        /// Возвращаем текущую выбранную картинку
-        /// </summary>
-        /// <returns>ИНформация о выбранной картинке</returns>
-        public CollectionInfo GetCurrentImageInfo() =>
-            //Вызываем внутренний метод
-            _splitImages.GetCurrentImageInfo();
-
-        /// <summary>
-        /// Метод добавления новой папки
-        /// </summary>
-        public void AddNewFolder() =>
-            //Вызываем внутренний метод
-            _splitImages.AddNewFolder();
-
-        /// <summary>
-        /// Метод удаления папки из списка
-        /// </summary>
-        /// <param name="key">Клавиша, к которой привязана папка</param>
-        public void RemoveFolderFromList(Key key) =>
-            //Вызываем внутренний метод
-            _splitImages.RemoveFolderFromList(key);
-
-        /// <summary>
-        /// Откатываем перемещение коллекции
-        /// </summary>
-        public void UndoMove() =>
-            //Откатываем перенос изображения
-            _splitImages.UndoMove();
 
         #endregion
 
 
-        #region FileSplit
+
+        #region SplitEvents
+
 
         /// <summary>
-        /// Запуск сплита 
+        /// Обработчик события запроса завершения поиска коллекций
         /// </summary>
-        /// <param name="countFiles">Количество файлов для сплита</param>
-        /// <param name="path">Путь для сплита</param>
-        /// <param name="isChildSplit">Флаг сплита в дочерних папках</param>
-        public void StartSplit(string path, int countFiles, bool isChildSplit) =>
-            //Вызываем внутренний метод
-            _fileSplitter.StartSplit(path, countFiles, isChildSplit);
+        private void SplitImagesFasade_ScanCollectionsComplete()
+        {
+            //Выполняем поиск папок
+            List<TargetFolderInfo> folders = _splitImagesFasade.ScanFolders(_path);
+            //Получаем список выбранных папок
+            folders = _selectFoldersFasade.SelectFolders(folders);
+            //Вызываем ментод передачи выбранных папок
+            _splitImagesFasade.CompleteSelectFolders(folders);
+        }
+
 
         /// <summary>
-        /// Возврат в родительскую папку контента из всех дочерних
+        /// Обработчик события запроса поиска дубликатов
         /// </summary>
-        /// <param name="path">Путь к родительской папке</param>
-        public void BackToParent(string path) =>
-            //Вызываем внутренний метод
-            _fileSplitter.BackToParent(path);
+        private void SplitImagesFasade_ScanDuplicatesRequest() =>
+            //Выполняем отображение поиска дубликатов
+            _duplicateScanFasade.ShowDuplicatesWindow();
+
+        /// <summary>
+        /// Обработчик события запроса переименования файлов
+        /// </summary>
+        private void SplitImagesFasade_StartFileRenameRequest() =>
+            //Выполняем запуск переименования файлов
+            _filesRenameFasade.RenameFiles(_path);
+
+        /// <summary>
+        /// Обработчик события запроса сплита файлов
+        /// </summary>
+        private void SplitImagesFasade_StartFileSplitRequest() =>
+            //Выполняем запуск сплита файлов
+            _filesSplitFasade.SplitFiles(_path);
+
+        /// <summary>
+        /// Обработчик события запроса запуска сканирования
+        /// </summary>
+        private void SplitImagesFasade_StartScanRequest() =>
+            //Выполняем запуск старта сканирования файлов
+            _splitImagesFasade.StartScanCollections(_path);
+
+        /// <summary>
+        /// Обработчик события запроса отображения окна древа
+        /// </summary>
+        private void SplitImagesFasade_ShowTreeRequest() =>
+            //Отображаем древо по текущему выбранному пути
+            _treeViewFasade.ShowTree(_path.MovePath);
+
+        /// <summary>
+        /// Обработчик события запроса отображения окна обновления путей сплита
+        /// </summary>
+        private void SplitImagesFasade_UpdateSplitPathRequest()
+        {
+            //Получаем путь сплита из окна выбора пути
+            _path = _splitPathFasade.UpdateSplitPath();
+            //Обновляем путь сплита в основном окне
+            _splitImagesFasade.UpdateSplitPath(_path);
+
+
+            //TODO: Тут ещё в поиске дубликатов нужно будет путь показывать!
+        }
+
+        /// <summary>
+        /// Обработчик события запроса отображения окна создания новой папки
+        /// </summary>
+        private void SplitImagesFasade_AddNewFolderRequest()
+        {
+            //Получаем имя новой папки
+            string name = _folderCreateFasade.GetFolderName();
+            //Если имя папки корректно
+            if (!string.IsNullOrEmpty(name))
+                //Вызываем метод добавления папки
+                _splitImagesFasade.AddNewFolder(_path, name);
+        }
+
+
 
         #endregion
 
-
-        #region RenameFiles
-
         /// <summary>
-        /// Выполняем переименование файлов
+        /// Метод отображения основного окна приложения
         /// </summary>
-        /// <param name="mask">Маска имени для переименования</param>
-        /// <param name="path">Путь для переименования</param>
-        public void RenameFiles(string path, string mask) =>
-            //Вызываем внутренний метод
-            _renameFiles.RenameFiles(path, mask);
-
-        #endregion
-
-
-        #region DuplicateScan
-
-        /// <summary>
-        /// Запуск сканирования дубликатов
-        /// </summary>
-        /// <param name="properties">Параметры сканирования</param>
-        public void StartDuplicateScan(ScanProperties properties) =>
-            //Вызываем внутренний метод
-            _duplicateScan.StartDuplicateScan(properties);
-
-        /// <summary>
-        /// Метод запуска удаления дублиткатов
-        /// </summary>
-        /// <param name="groups">Список запрещённых групп</param>
-        /// <param name="toRemove">Группа хешей для удаления</param>
-        public void RemoveDuplicates(HashesGroup toRemove, List<HashesGroup> groups) =>
-            //Вызываем внутренний метод
-            _duplicateScan.RemoveDuplicates(toRemove, groups);
-
-        /// <summary>
-        /// Метод удаления старых дубликатов из списка
-        /// </summary>
-        public void RemoveOldDuplicates() =>
-            //Вызываем внутренний метод
-            _duplicateScan.RemoveOldDuplicates();
-
-        #endregion
-
-
+        public void ShowMainWindow() =>
+            //Отображаем окно сплита
+            _splitImagesFasade.ShowSplitWindow();
 
         /// <summary>
         /// Метод очистки неуправляемых ресурсов класса
         /// </summary>
         public void Dispose()
         {
+            //Завершаем работу с классом сплита изображений
+            _splitImagesFasade?.Dispose();
             //Завершаем работу с классом поиска дубликатов
-            _duplicateScan?.Dispose();
+            _duplicateScanFasade?.Dispose();
         }
     }
 }

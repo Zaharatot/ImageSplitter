@@ -1,7 +1,6 @@
-﻿using DuplicateScanner.Clases.DataClases;
-using DuplicateScanner.Clases.DataClases.File;
-using DuplicateScanner.Clases.DataClases.Result;
-using DuplicateScanner.Clases.WorkClases.Hash;
+﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Result;
+using DuplicateScannerLib.Clases.WorkClases.Hash;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +8,10 @@ using System.Linq;
 using TimeLeftCalcZ;
 using System.Text;
 using System.Threading.Tasks;
-using static DuplicateScanner.Clases.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
+using SplitterDataLib.DataClases.Global.DuplicateScan;
 
-namespace DuplicateScanner.Clases.WorkClases.Files
+namespace DuplicateScannerLib.Clases.WorkClases.Files
 {
     /// <summary>
     /// Класс работы с файлами

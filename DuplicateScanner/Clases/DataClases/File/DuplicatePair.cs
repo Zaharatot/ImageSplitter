@@ -1,11 +1,11 @@
-﻿using DuplicateScanner.Clases.DataClases.Result;
+﻿using DuplicateScannerLib.Clases.DataClases.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DuplicateScanner.Clases.DataClases.File
+namespace DuplicateScannerLib.Clases.DataClases.File
 {
     /// <summary>
     /// Класс пары файлов-дубликатов
