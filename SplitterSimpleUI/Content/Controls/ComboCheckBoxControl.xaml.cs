@@ -1,6 +1,7 @@
 ﻿using SplitterResources;
 using SplitterResources.Content.Clases.DataClases;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;

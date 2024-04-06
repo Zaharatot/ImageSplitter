@@ -1,6 +1,7 @@
 ﻿using SplitterDataLib.DataClases.Global.Split;
 using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using System;
 using System.Collections.Generic;
 using System.Linq;

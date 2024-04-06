@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace SplitterSimpleUI.Content.Clases.WorkClases
+namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
 {
     /// <summary>
     /// Класс обработки горячих клавишь
@@ -24,6 +24,10 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases
         /// Словарь горячих клавишь
         /// </summary>
         private Dictionary<Window, WindowHotKeys> _hotKeysDict;
+        /// <summary>
+        /// Класс проверки на хоткей
+        /// </summary>
+        private HotKeyCheck _hotKeyCheck;
 
 
         /// <summary>
@@ -39,17 +43,22 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases
         /// </summary>
         private void Init()
         {
-            //Инициализируем словарь горячих клавишь
+            //Инициализируем словарь горячих клавиш
             _hotKeysDict = new Dictionary<Window, WindowHotKeys>();
+            //Инициализируем класс проверки на хоткей
+            _hotKeyCheck = new HotKeyCheck();
         }
 
         /// <summary>
         /// Предварительный обработчик события нажатия клавиши
         /// </summary>
-        private void Window_PreviewKeyDown(object sender, KeyEventArgs e) =>
-            //Получаем список горячих клавишь, по целевому окну, и передаём в метод обработки
-            ProcessWindowHotKeys(_hotKeysDict[(Window)sender], e);
-
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            //Если нажатие выполнено именно на хоткей
+            if(!_hotKeyCheck.IsNotHotkey(e))
+                //Получаем список горячих клавишь, по целевому окну, и передаём в метод обработки
+                ProcessWindowHotKeys(_hotKeysDict[(Window)sender], e);
+        }
 
 
         /// <summary>
@@ -66,7 +75,7 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases
         /// <param name="hotKeys">Список хоткеев окна</param>
         /// <param name="e">Информация о нажатой кнопке</param>
         private void ProcessWindowHotKeys(WindowHotKeys hotKeys, KeyEventArgs e)
-        {
+        {           
             //Получаем флаг нажатия на клавишу Contrl
             bool isContrl = IsControlPressed(e);
             //Получаем информацию о хоткее, который соответствует нажатой клавише

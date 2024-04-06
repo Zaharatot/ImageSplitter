@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using static SplitterDataLib.DataClases.Global.Enums;
 
-namespace SplitterSimpleUI.Content.Clases.WorkClases
+namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
 {
     /// <summary>
     /// Класс универсальных методов работы с контроллами

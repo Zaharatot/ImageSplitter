@@ -46,6 +46,7 @@
     <Compile Include="DataClases\DuplicateScan\ScanProperties.cs" />
     <Compile Include="DataClases\Global\Delegates.cs" />
     <Compile Include="DataClases\Global\Enums.cs" />
+    <Compile Include="DataClases\Files\ElementNameChecker.cs" />
     <Compile Include="DataClases\Split\SplitPathsInfo.cs" />
     <Compile Include="DataClases\Split\TargetFolderInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

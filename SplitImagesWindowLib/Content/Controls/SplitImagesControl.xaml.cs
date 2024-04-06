@@ -1,6 +1,7 @@
 ﻿using ImageSplitterLib.Clases.DataClases;
 using SplitImagesWindowLib.Content.Clases.WorkClases;
 using SplitterDataLib.DataClases.Global.Split;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,6 +54,10 @@ namespace SplitImagesWindowLib.Content.Controls
         /// Класс рассчёта размера
         /// </summary>
         private SizeCalculator _sizeCalculator;
+        /// <summary>
+        /// Класс загрузки изображения
+        /// </summary>
+        private ImageSourceLoader _imageSourceLoader;
 
 
         /// <summary>
@@ -80,6 +85,8 @@ namespace SplitImagesWindowLib.Content.Controls
         {
             //Инициализируем класс расчсёта размера
             _sizeCalculator = new SizeCalculator();
+            //Инициализируем класс загрузки изображения
+            _imageSourceLoader = new ImageSourceLoader();
         }
 
         /// <summary>
@@ -145,44 +152,12 @@ namespace SplitImagesWindowLib.Content.Controls
 
 
         /// <summary>
-        /// Загружаем картинку по строке пути
-        /// </summary>
-        /// <param name="path">Путь к файлу картинки на диске</param>
-        /// <returns>Класс картинки</returns>
-        private async Task<BitmapImage> LoadImageByPath(string path) =>
-            //Запускаем в отдельной таске
-            await Dispatcher.InvokeAsync<BitmapImage>(() => {
-            BitmapImage ex = new BitmapImage();
-            ex.BeginInit();
-            //Считываем байты файла в поток в памяти
-            ex.StreamSource = new MemoryStream(File.ReadAllBytes(path)); 
-            ex.EndInit();
-            return ex;
-        });
-
-        /// <summary>
-        /// Закрываем поток в памяти, связанный с изображением
-        /// </summary>
-        private void CloseImageSource()
-        {
-            //Если есть исходный поток в памяти
-            if (TargetImage.Source != null)
-            {
-                //Проучаем изображение
-                BitmapImage source = (BitmapImage)TargetImage.Source;
-                //Очищаем поток
-                source.StreamSource.Dispose();
-            }
-        }
-
-
-        /// <summary>
         /// Формируем строку информации об изображении
         /// </summary>
-        /// <param name="image">Класс изображения</param>
+        /// <param name="size">Размеры загруженного изображения</param>
         /// <param name="info">Класс инфы о картинке</param>
         /// <returns>Строка информации об изображении</returns>
-        private string CompileImageInfoString(BitmapImage image, CollectionInfo info)
+        private string CompileImageInfoString(Size size, CollectionInfo info)
         {
             StringBuilder sb = new StringBuilder();
             //Добавляем в строку имя элемента коллекции
@@ -195,7 +170,7 @@ namespace SplitImagesWindowLib.Content.Controls
             else
             {
                 //Добавляем в строку размер текущего изображения
-                sb.Append($"[{image.PixelWidth}x{image.PixelHeight}] ");
+                sb.Append($"[{size.Width}x{size.Height}] ");
                 //Добавляем в строку размер файла изображения
                 sb.Append($"[{_sizeCalculator.GetStringSize(info.Length)}]");
             }
@@ -210,14 +185,10 @@ namespace SplitImagesWindowLib.Content.Controls
         /// <param name="info">Класс инфы о картинке</param>
         private async Task LoadImageToControls(CollectionInfo info)
         {
-            //Закрываем поток в памяти, связанный с изображением
-            CloseImageSource();
-            //Получаем путь к картинке и загружаем её
-            BitmapImage image = await LoadImageByPath(info.GetImagePath());
-            //Проставляем картинку в контролл
-            TargetImage.Source = image;
+            //Выполняем асинхронную загрузку изображения в контролл
+            Size size = await _imageSourceLoader.LoadImageByPath(TargetImage, info.GetImagePath());
             //Формируем и проставляем информацию о картинке в контролл
-            TopPanel.SetCollectionInfo(CompileImageInfoString(image, info));
+            TopPanel.SetCollectionInfo(CompileImageInfoString(size, info));
         }
 
         /// <summary>
@@ -226,9 +197,8 @@ namespace SplitImagesWindowLib.Content.Controls
         private void ClearControls()
         {
             //Закрываем поток в памяти, связанный с изображением
-            CloseImageSource();
-            //Проставляем скрытие всему
-            TargetImage.Source = null;
+            _imageSourceLoader.CloseImageSource(TargetImage);
+            //Проставляем пустую информацию о файле
             BottomPanel.SetMovedFolderInfo("", false);
             //Проставляем пустой текст в контроллы
             TopPanel.SetCollectionInfo("...");

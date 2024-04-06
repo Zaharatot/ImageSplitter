@@ -191,6 +191,8 @@ namespace DuplicateScanWindowLib.Content.Clases.WorkClases
                 //Закрываем его
                 _duplicateScanWindow.Close();
             }
+            //Завершаем работу сканера дубликатов
+            _duplicateScannerFasade?.Dispose();
         }
     }
 }

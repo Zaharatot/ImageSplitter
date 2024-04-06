@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilesRenameWindowLib.Content.Windows"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" Height="90" Width="550" 
+        WindowStartupLocation="CenterScreen" Height="110" Width="550" 
         Title="{StaticResource Text_FilesRenameWindow_Header}" Closed="Window_Closed"
         Style="{StaticResource Style_Window_NoResize}">
     <!-- Основная панель контролла -->

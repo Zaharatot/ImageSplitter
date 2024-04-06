@@ -1,4 +1,5 @@
 ﻿using FilesSplitWindowLib.Content.Clases.DataClases;
+using SplitterDataLib.DataClases.Files;
 using SplitterDataLib.DataClases.Global.Split;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,25 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
     {
 
         /// <summary>
+        /// Класс поиска имени файла
+        /// </summary>
+        private ElementNameChecker _elementNameChecker;
+
+        /// <summary>
         /// Конструктор класса
         /// </summary>
         public FilesReturn()
         {
+            Init();
+        }
 
+        /// <summary>
+        /// Инициализатор класса
+        /// </summary>
+        private void Init()
+        {
+            //Инициализируем класс поиска имени файла
+            _elementNameChecker = new ElementNameChecker();
         }
 
 
@@ -33,10 +48,15 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
         /// <param name="child">Информация о дочерней папке</param>
         private void MoveChild(string parentPath, DirectoryInfo child)
         {
+            string newName;
             //Проходимся по файлам дочерней папки
             foreach (FileInfo file in child.GetFiles())
+            {
+                //Получаем новое имя файла
+                newName = _elementNameChecker.GetNewElementName(parentPath, file.Name, false);
                 //Переносим их в родительскую
-                file.MoveTo($"{parentPath}{file.Name}");
+                file.MoveTo($"{parentPath}{newName}");
+            }
             //Удаляем родительскую папку
             child.Delete();
         }

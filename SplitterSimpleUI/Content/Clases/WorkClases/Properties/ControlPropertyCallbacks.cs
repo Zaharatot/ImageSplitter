@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Windows;
 
-namespace SplitterSimpleUI.Content.Clases.WorkClases
+namespace SplitterSimpleUI.Content.Clases.WorkClases.Properties
 {
     /// <summary>
     /// Класс обработных вызовов, связанных со свойствами контроллов

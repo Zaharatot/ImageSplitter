@@ -47,6 +47,10 @@ namespace SplitImagesWindowLib
         /// </summary>
         public static event EmptyEventHandler ScanCollectionsComplete;
 
+        /// <summary>
+        /// Событие запроса завершения рабоыт приложения
+        /// </summary>
+        public static event EmptyEventHandler CloseApplicationRequest;
 
         /// <summary>
         /// Класс обработки сплита изображений
@@ -67,6 +71,13 @@ namespace SplitImagesWindowLib
             //Инициализируем класс сплита изображений
             _splitImagesProcessor = new SplitImagesProcessor();
         }
+
+        /// <summary>
+        /// Метод вызова ивента запроса завершения рабоыт приложения
+        /// </summary>
+        internal static void InvokeCloseApplicationRequest() =>
+            //Вызываем статический ивент
+            CloseApplicationRequest?.Invoke();
 
         /// <summary>
         /// Метод вызова ивента запроса на поиск дубликатов

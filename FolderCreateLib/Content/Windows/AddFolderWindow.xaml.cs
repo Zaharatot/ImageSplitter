@@ -1,5 +1,6 @@
 ﻿using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using SplitterSimpleUI.Content.Controls;
 using System;
 using System.Collections.Generic;
@@ -70,9 +71,9 @@ namespace FolderCreateWindowLib.Content.Windows
         private void InitIconsEvents() =>
             //Получаем экземпляр класса обработки событий для иконок
             IconsSelectionProcessor.GetInstance()
-            //Добавляем в него иконки для обработки
-            .AddIcons(new List<SvgImageControl>() {
-                AddFolderIcon
+                //Добавляем в него иконки для обработки
+                .AddIcons(new List<SvgImageControl>() {
+                    AddFolderIcon
             });
 
         /// <summary>

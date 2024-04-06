@@ -1,5 +1,5 @@
 ﻿using SplitterResources.Content.Clases.DataClases;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,16 +96,6 @@ namespace SplitterSimpleUI.Content.Controls
         public Pen GetPen(SolidColorBrush brush) =>
             new Pen(brush, 1);
 
-        /// <summary>
-        /// Метод инициализации геометрии
-        /// </summary>
-        /// <param name="path">Путь для отрисовки</param>
-        /// <param name="borderPen">Цвет рамки</param>
-        /// <param name="fillColor">Цвет заливки</param>
-        /// <returns>Созданный путь</returns>
-        private GeometryDrawing CreateGeometry(Geometry path, SolidColorBrush fillColor, Pen borderPen) =>
-            //Инициализируем класс геометраии
-            new GeometryDrawing(fillColor, borderPen, path);
 
         /// <summary>
         /// Метод обновления цветов
@@ -137,18 +127,16 @@ namespace SplitterSimpleUI.Content.Controls
             //Если иконки нет
             if (image != null)
             {
-                //Получаем цвета, с учётом переданных      
+                //Получаем цвета, с учётом переданных
                 UpdateColors(image, borderColor, ref fillColor, out Pen borderPen);
                 //Инициализируем новую коллекцию частей
                 DrawingCollection colorizedCollection = new DrawingCollection();
                 //Проходимся по существующим частям
                 foreach (Geometry path in image.PathList)
-                    //Добавляем в раскрашенную коллекцию часть
-                    //указав новый цвет заливки
-                    colorizedCollection.Add(CreateGeometry(path, fillColor, borderPen));
+                    //Добавляем в раскрашенную коллекцию часть указав новый цвет заливки
+                    colorizedCollection.Add(new GeometryDrawing(fillColor, borderPen, path));
                 //Инициализируем новое изображение
-                return new DrawingImage(new DrawingGroup()
-                {
+                return new DrawingImage(new DrawingGroup() {
                     Children = colorizedCollection
                 });
             }

@@ -1,4 +1,5 @@
 ﻿using FilesSplitWindowLib.Content.Clases.DataClases;
+using SplitterDataLib.DataClases.Files;
 using SplitterDataLib.DataClases.Global.Split;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,25 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
     {
 
         /// <summary>
+        /// Класс поиска имени файла
+        /// </summary>
+        private ElementNameChecker _elementNameChecker;
+
+        /// <summary>
         /// Конструктор класса
         /// </summary>
         public FilesSplit()
         {
+            Init();
+        }
 
+        /// <summary>
+        /// Инициализатор класса
+        /// </summary>
+        private void Init()
+        {
+            //Инициализируем класс поиска имени файла
+            _elementNameChecker = new ElementNameChecker();
         }
 
         /// <summary>
@@ -36,25 +51,32 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
             attributes.HasFlag(FileAttributes.ReadOnly);
 
         /// <summary>
+        /// Метод подготовки нового пути к файлу
+        /// </summary>
+        /// <param name="path">Путь для перемещения файла</param>
+        /// <param name="name">Текущее имя файла</param>
+        /// <returns>Полный путь к файлу</returns>
+        private string PrepareFilePath(string path, string name)
+        {
+            //Если имя файла больше 150 символов
+            if (name.Length > 150)
+                //Обрезаем его
+                name = name.Substring(0, 150);
+            //Возвращаем имя файла, с учётом дубликатов
+            return path +  _elementNameChecker.GetNewElementName(path, name, false);
+        }
+
+        /// <summary>
         /// Метод перемещения файла
         /// </summary>
         /// <param name="file">Информация о файле</param>
         /// <param name="path">Путь для перемещения</param>
         private void MoveFile(FileInfo file, string path)
         {
-            string name;
             //Если файл не скрытый системный или онли для чтения
-            if (!IsForbiddenFile(file.Attributes))
-            {
-                //Получаем имя файла
-                name = file.Name;
-                //Если имя файла больше 150 символов
-                if (name.Length > 150)
-                    //Обрезаем его
-                    name = name.Substring(0, 150);
-                //Перемещаем файл
-                file.MoveTo(path + name);
-            }
+            if (!IsForbiddenFile(file.Attributes)) 
+                //Перемещаем файл, подготовив для него путь
+                file.MoveTo(PrepareFilePath(path, file.Name));
         }
 
         /// <summary>

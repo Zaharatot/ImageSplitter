@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace SplitterSimpleUI.Content.Clases.WorkClases
+namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
 {
     /// <summary>
     /// Класс обработки выделения иконок

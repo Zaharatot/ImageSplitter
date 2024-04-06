@@ -1,7 +1,8 @@
 ﻿using ImageSplitterLib.Clases.DataClases;
+using SplitImagesWindowLib;
 using SplitterDataLib.DataClases.Global.Split;
 using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,6 +62,10 @@ namespace ImageSplitter.Content.Windows
         /// Событие запроса поиска дубликатов
         /// </summary>
         public event EmptyEventHandler ScanDuplicatesRequest;
+        /// <summary>
+        /// Событие запроса завершения рабоыт приложения
+        /// </summary>
+        public event EmptyEventHandler CloseApplicationRequest;
 
 
         /// <summary>
@@ -83,11 +88,6 @@ namespace ImageSplitter.Content.Windows
         public event MoveToImageEventHandler MoveToImageRequest;
 
         #endregion
-
-        /// <summary>
-        /// Флаг разрешения закрытия окна
-        /// </summary>
-        public bool IsAllowClose { get; set; }
 
 
         /// <summary>
@@ -153,10 +153,7 @@ namespace ImageSplitter.Content.Windows
                     //При нажатии на "Ctrl + R" - выполняем запуск переименования файлов
                     new HotKeyInfo(Key.R, () => { StartFileRenameRequest?.Invoke(); }, true),
                     //При нажатии на "Ctrl + D" - выполняем запуск поиска дубликатов
-                    new HotKeyInfo(Key.D, () => { ScanDuplicatesRequest?.Invoke(); }, true),
-
-
-                    
+                    new HotKeyInfo(Key.D, () => { ScanDuplicatesRequest?.Invoke(); }, true),                    
 
 
                     //Хоткеи для работы с коллекциями
@@ -179,8 +176,7 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void InitVariables()
         {
-            //Инициализируем флаг разрешения закрытия окна
-            IsAllowClose = false;
+
 
         }
 
@@ -326,17 +322,9 @@ namespace ImageSplitter.Content.Windows
         /// <summary>
         /// Обработчик осбытия обработки закрытия окна
         /// </summary>
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            //Если окно закрывать не разрешено
-            if (!IsAllowClose)
-            {
-                //Скрываем данное окно
-                this.Visibility = Visibility.Hidden;
-                //Отменяем закрытие
-                e.Cancel = true;
-            }
-        }
+        private void Window_Closing(object sender, CancelEventArgs e) =>
+            //Вызываем запрос закрытия приложения
+            CloseApplicationRequest?.Invoke();
 
         /// <summary>
         /// Обработчик событяи закрытия окна

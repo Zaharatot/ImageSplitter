@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SplitterSimpleUI.Content.Clases.WorkClases
+namespace SplitterSimpleUI.Content.Clases.WorkClases.Data
 {
 
     /// <summary>

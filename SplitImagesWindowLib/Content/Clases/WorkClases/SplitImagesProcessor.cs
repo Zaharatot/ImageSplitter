@@ -87,6 +87,9 @@ namespace SplitImagesWindowLib.Content.Clases.WorkClases
             //Добавляем обработчик события запроса поиска дубликатов
             _imagesSplitWindow.ScanDuplicatesRequest += _imagesSplitWindow_ScanDuplicatesRequest;
 
+            //Добавляем обработчик события запроса закрытия прилоежния
+            _imagesSplitWindow.CloseApplicationRequest += _imagesSplitWindow_CloseApplicationRequest;
+
             //События сплита
             //Добавляем обработчик события запроса перехода к изображению в коллекции
             _imagesSplitWindow.MoveToImageRequest += _imagesSplitWindow_MoveToImageRequest;
@@ -98,6 +101,8 @@ namespace SplitImagesWindowLib.Content.Clases.WorkClases
             _imagesSplitWindow.UndoMoveRequest += _imagesSplitWindow_UndoMoveRequest;
             //Добавляем обработчик события запроса удаления папки
             _imagesSplitWindow.RemoveFolderRequest += _imagesSplitWindow_RemoveFolderRequest;
+
+
         }
 
 
@@ -177,6 +182,13 @@ namespace SplitImagesWindowLib.Content.Clases.WorkClases
             //Вызываем глобальный ивент
             SplitImagesFasade.InvokeScanCollectionsComplete();
         }
+
+        /// <summary>
+        /// Обработчик события запроса закрытия прилоежния
+        /// </summary>
+        private void _imagesSplitWindow_CloseApplicationRequest() =>
+            //Вызываем глобальный ивент
+            SplitImagesFasade.InvokeCloseApplicationRequest();
 
         #endregion
 
@@ -342,14 +354,11 @@ namespace SplitImagesWindowLib.Content.Clases.WorkClases
         /// </summary>
         public void Dispose()
         {
-            //Если окно дубликатов существует
-            if (_imagesSplitWindow != null)
-            {
-                //Разрешаем закрыть окно дубликатов
-                _imagesSplitWindow.IsAllowClose = true;
-                //Закрываем его
-                _imagesSplitWindow.Close();
-            }
+            //Не нужно
+            ////Если окно дубликатов существует
+            //if (_imagesSplitWindow != null)
+            //    //Закрываем его
+            //    _imagesSplitWindow.Close();            
         }
     }
 }

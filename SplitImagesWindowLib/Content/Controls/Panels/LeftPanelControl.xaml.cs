@@ -1,4 +1,4 @@
-﻿using SplitterSimpleUI.Content.Clases.WorkClases;
+﻿using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
 using SplitterSimpleUI.Content.Controls;
 using System;
 using System.Collections.Generic;
@@ -121,5 +121,10 @@ namespace SplitImagesWindowLib.Content.Controls.Panels
         private void DuplicatesIcon_MouseDown(object sender, MouseButtonEventArgs e) =>
             //Вызываем внешний ивент
             ScanDuplicatesRequest?.Invoke();
+
+        private void ExitIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

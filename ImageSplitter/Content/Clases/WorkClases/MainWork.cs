@@ -144,6 +144,8 @@ namespace ImageSplitter.Content.Clases.WorkClases
             SplitImagesFasade.ScanDuplicatesRequest += SplitImagesFasade_ScanDuplicatesRequest;
             //Добавляем обработчик события запроса завершения поиска коллекций
             SplitImagesFasade.ScanCollectionsComplete += SplitImagesFasade_ScanCollectionsComplete;
+            //Добавляем обработчик события запроса закрытия прилоежния
+            SplitImagesFasade.CloseApplicationRequest += SplitImagesFasade_CloseApplicationRequest;
         }
 
 
@@ -157,16 +159,16 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Обработчик события запроса завершения поиска коллекций
         /// </summary>
-        private void SplitImagesFasade_ScanCollectionsComplete()
-        {
-            //Выполняем поиск папок
-            List<TargetFolderInfo> folders = _splitImagesFasade.ScanFolders(_path);
-            //Получаем список выбранных папок
-            folders = _selectFoldersFasade.SelectFolders(folders);
-            //Вызываем ментод передачи выбранных папок
-            _splitImagesFasade.CompleteSelectFolders(folders);
-        }
-
+        private void SplitImagesFasade_ScanCollectionsComplete() =>
+            //Выполняем вызов в основном потоке
+            App.Current.Dispatcher.Invoke(() => {
+                //Выполняем поиск папок
+                List<TargetFolderInfo> folders = _splitImagesFasade.ScanFolders(_path);
+                //Получаем список выбранных папок
+                folders = _selectFoldersFasade.SelectFolders(folders);
+                //Вызываем ментод передачи выбранных папок
+                _splitImagesFasade.CompleteSelectFolders(folders);
+            });
 
         /// <summary>
         /// Обработчик события запроса поиска дубликатов
@@ -230,6 +232,13 @@ namespace ImageSplitter.Content.Clases.WorkClases
                 _splitImagesFasade.AddNewFolder(_path, name);
         }
 
+
+        /// <summary>
+        /// Обработчик события запроса закрытия прилоежния
+        /// </summary>
+        private void SplitImagesFasade_CloseApplicationRequest() =>
+            //Вызываем завершение работы приложения
+            App.Current.Shutdown();
 
 
         #endregion

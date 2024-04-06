@@ -10,15 +10,15 @@
     <!-- Основной стиль рамки -->
     <Border Style="{StaticResource Style_PanelBorder}">
         <!-- Основная панель контролла -->
-        <StackPanel Orientation="Vertical">
-        
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+
             <!-- Иконка загрузки файлов -->
             <Simple:SvgImageControl x:Name="LoadIcon" Image="{StaticResource Icon_Folder}" 
                                     Margin="10" Cursor="Hand" MouseDown="LoadIcon_MouseDown">
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -28,7 +28,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -38,7 +38,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -48,17 +48,17 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_SplitIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
-            
+
             <!-- Иконка переименования файлов -->
             <Simple:SvgImageControl x:Name="RenameIcon" Image="{StaticResource Icon_Rename}" 
                                     Margin="10" Cursor="Hand" MouseDown="RenameIcon_MouseDown">
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_RenameIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -68,11 +68,13 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_DuplicatesIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
-            
+
+
+
         </StackPanel>
     </Border>
 </UserControl>

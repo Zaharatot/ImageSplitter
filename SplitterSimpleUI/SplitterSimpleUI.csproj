@@ -53,11 +53,13 @@
     <Compile Include="Content\Clases\DataClases\HotKey\WindowHotKeys.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
-    <Compile Include="Content\Clases\WorkClases\ControlPropertyCallbacks.cs" />
-    <Compile Include="Content\Clases\WorkClases\DateFormatter.cs" />
-    <Compile Include="Content\Clases\WorkClases\HotKeyProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\IconsSelectionProcessor.cs" />
-    <Compile Include="Content\Clases\WorkClases\UniversalMethods.cs" />
+    <Compile Include="Content\Clases\WorkClases\Controls\ImageSourceLoader.cs" />
+    <Compile Include="Content\Clases\WorkClases\Properties\ControlPropertyCallbacks.cs" />
+    <Compile Include="Content\Clases\WorkClases\Data\DateFormatter.cs" />
+    <Compile Include="Content\Clases\WorkClases\HotKey\HotKeyCheck.cs" />
+    <Compile Include="Content\Clases\WorkClases\HotKey\HotKeyProcessor.cs" />
+    <Compile Include="Content\Clases\WorkClases\Controls\IconsSelectionProcessor.cs" />
+    <Compile Include="Content\Clases\WorkClases\Controls\UniversalMethods.cs" />
     <Compile Include="Content\Controls\ComboCheckBoxControl.xaml.cs">
       <DependentUpon>ComboCheckBoxControl.xaml</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using SplitterSimpleUI.Content.Clases.WorkClases;
+﻿using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using System;
 using System.Collections.Generic;
 using System.Linq;

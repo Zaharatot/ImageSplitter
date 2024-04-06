@@ -5,7 +5,9 @@ using SplitterDataLib.DataClases.Global.DuplicateScan;
 using SplitterResources;
 using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
 using SplitterSimpleUI.Content.Clases.DataClases.Progress;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.Data;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,6 +72,10 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// </summary>
         private DateFormatter _dateFormatter;
         /// <summary>
+        /// Класс загрузки изображения
+        /// </summary>
+        private ImageSourceLoader _imageSourceLoader;
+        /// <summary>
         /// Текст сообыения для рассчёта времени
         /// </summary>
         private string _calculatiogTimeMessage;
@@ -112,6 +118,8 @@ namespace DuplicateScanWindowLib.Content.Windows
             _calculatiogTimeMessage = ResourceLoader.LoadString("Text_DateLimitCalculation");
             //Инициализируем используемые классы
             _dateFormatter = DateFormatter.GetInstance();
+            //Инициализируем класс загрузки изображения
+            _imageSourceLoader = new ImageSourceLoader();
             //Добавляем обработчик события изменения текста поиска
             SearchStringTextBox.ChangeText += SearchStringTextBox_ChangeText;
         }
@@ -266,10 +274,9 @@ namespace DuplicateScanWindowLib.Content.Windows
                 ClearControlSelection();
                 //Выделяем целевой контролл
                 findedImageControl.SetSelectionState(true);
-                //Закрываем поток в памяти, связанный с изображением
-                CloseImageSource();
                 //Грузим картинку в контролл
-                TargetImage.Source = await LoadImageByPath(findedImageControl.DuplicateImagePath);
+                await _imageSourceLoader.LoadImageByPath(
+                    TargetImage, findedImageControl.DuplicateImagePath);
             }
         }
 
@@ -459,41 +466,6 @@ namespace DuplicateScanWindowLib.Content.Windows
             return imagesPanel;
         }
 
-        /// <summary>
-        /// Закрываем поток в памяти, связанный с изображением
-        /// </summary>
-        private void CloseImageSource()
-        {
-            //Если есть исходный поток в памяти
-            if (TargetImage.Source != null)
-            {
-                //Проучаем изображение
-                BitmapImage source = (BitmapImage)TargetImage.Source;
-                //Очищаем поток
-                source.StreamSource.Dispose();
-                //Закрываем поток
-                source.StreamSource.Close();
-                //Сбрасываем источник
-                TargetImage.Source = null;
-            }
-        }
-
-
-        /// <summary>
-        /// Загружаем картинку по строке пути
-        /// </summary>
-        /// <param name="path">Путь к файлу картинки на диске</param>
-        /// <returns>Класс картинки</returns>
-        private async Task<BitmapImage> LoadImageByPath(string path) =>
-            //Запускаем в отдельной таске
-            await Dispatcher.InvokeAsync<BitmapImage>(() => {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                //Считываем байты файла в поток в памяти
-                image.StreamSource = File.OpenRead(path);
-                image.EndInit();
-                return image;
-            });
 
         /// <summary>
         /// Метод рассчёта оставшегося времени
@@ -518,7 +490,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void ClearOldPanels()
         {
             //Убираем выбранное изображение
-            CloseImageSource();
+            _imageSourceLoader.CloseImageSource(TargetImage);
             //Проходимся по всем контроллам панели
             foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
             {
@@ -540,12 +512,9 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// </summary>
         /// <param name="isVisible">Новое значение видимости для контролла</param>
         private void SetProgressPanelVisiblity(bool isVisible) =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Меняем видимость контролла прогресса
-                MainProgressControl.Visibility = (isVisible)
-                ? Visibility.Visible : Visibility.Collapsed;
-            });
+            //Меняем видимость контролла прогресса
+            MainProgressControl.Visibility =
+                (isVisible) ? Visibility.Visible : Visibility.Collapsed;
 
 
         /// <summary>
@@ -643,21 +612,22 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// Метод завершения сканирования
         /// </summary>
         /// <param name="result">Результат сканирования на дубликаты</param>
-        public void CompleteScan(List<DuplicatePair> result)
-        {
-            //Скрываем панель прогресса
-            SetProgressPanelVisiblity(false);
-            //Если дубликаты не были найдены
-            if (result.Count == 0)
-                //Удаляем старые панели дубликатов, чтобы не было путанницы
-                ClearOldPanels();
-            //Если результаты есть
-            else
-                //Втыкаем результаты поиска в контролл
-                SetImages(result);
-            //Возвращаем доступность окна
-            this.IsEnabled = true;
-        }
+        public void CompleteScan(List<DuplicatePair> result) =>
+            //Вызываем в UI-потоке
+            this.Dispatcher.Invoke(() => {
+                //Скрываем панель прогресса
+                SetProgressPanelVisiblity(false);
+                //Если дубликаты не были найдены
+                if (result.Count == 0)
+                    //Удаляем старые панели дубликатов, чтобы не было путанницы
+                    ClearOldPanels();
+                //Если результаты есть
+                else
+                    //Втыкаем результаты поиска в контролл
+                    SetImages(result);
+                //Возвращаем доступность окна
+                this.IsEnabled = true;
+            });
 
         #endregion
 

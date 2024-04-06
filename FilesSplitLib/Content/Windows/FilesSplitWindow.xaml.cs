@@ -1,6 +1,6 @@
-﻿using SplitterDataLib.DataClases.Global.Split;
-using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+﻿using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
+using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
 using SplitterSimpleUI.Content.Controls;
 using System;
 using System.Collections.Generic;
@@ -79,9 +79,9 @@ namespace FilesSplitWindowLib.Content.Windows
         private void InitIconsEvents() =>
             //Получаем экземпляр класса обработки событий для иконок
             IconsSelectionProcessor.GetInstance()
-            //Добавляем в него иконки для обработки
-            .AddIcons(new List<SvgImageControl>() {
-                SplitIcon, ReturnIcon
+                //Добавляем в него иконки для обработки
+                .AddIcons(new List<SvgImageControl>() {
+                    SplitIcon, ReturnIcon
             });
 
         /// <summary>
@@ -147,8 +147,9 @@ namespace FilesSplitWindowLib.Content.Windows
         /// <param name="isSplit">Флаг выполнения сплита</param>
         private void ProcessCloseWindow(bool isSplit)
         {
-            //Если число для сплита было введено корректно
-            if (SetSplitCount())
+            //Если число для сплита было введено
+            //корректно, или требуется возврат
+            if (SetSplitCount() || !isSplit)
             {
                 //Проставляем флаг выполнения сплита
                 IsSplit = isSplit;

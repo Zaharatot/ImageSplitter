@@ -1,5 +1,5 @@
 ﻿using SplitterDataLib.DataClases.Global.Split;
-using SplitterSimpleUI.Content.Clases.WorkClases;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
 using SplitterSimpleUI.Content.Controls;
 using System;
 using System.Collections.Generic;

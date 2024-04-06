@@ -38,7 +38,7 @@ namespace SplitterSimpleUI.Content.Clases.DataClases.HotKey
         public HotKeyInfo(Key key, EmptyEventHandler method, bool isCtrl = false)
         {
             //Проставляем переданные значения
-            Key = Key;
+            Key = key;
             isContrl = isCtrl;
             Method = method;
         }

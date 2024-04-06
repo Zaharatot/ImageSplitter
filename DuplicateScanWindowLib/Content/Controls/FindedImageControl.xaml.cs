@@ -1,5 +1,6 @@
 ﻿using DuplicateScannerLib.Clases.DataClases.Result;
 using SplitterResources;
+using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,6 +67,10 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// Текст заголовка информации о блокировке
         /// </summary>
         private string _blockedHeader;
+        /// <summary>
+        /// Класс загрузки изображения
+        /// </summary>
+        private ImageSourceLoader _imageSourceLoader;
 
         /// <summary>
         /// Конструктор контролла
@@ -86,6 +91,8 @@ namespace DuplicateScanWindowLib.Content.Controls
             IsParentCheckState = false;
             //Загружаем строки ресурсов
             _blockedHeader = ResourceLoader.LoadString("Text_FindedImageControl_BlockedHeader");
+            //Инициализируем класс загрузки изображения
+            _imageSourceLoader = new ImageSourceLoader();
         }
 
 
@@ -117,26 +124,16 @@ namespace DuplicateScanWindowLib.Content.Controls
 
 
 
+
+
+
+
         /// <summary>
-        /// Загружаем картинку по строке пути
+        /// Закрываем поток в памяти, связанный с изображением
         /// </summary>
-        /// <param name="path">Путь к файлу картинки на диске</param>
-        /// <returns>Класс картинки</returns>
-        private async Task<BitmapImage> LoadImageByPath(string path) =>
-            //Запускаем в отдельной таске
-            await Dispatcher.InvokeAsync<BitmapImage>(() => {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                //Принудительно проставляем высоту для превью
-                image.DecodePixelHeight = 120;
-                //Считываем байты файла в поток в памяти
-                image.StreamSource = File.OpenRead(path);
-                image.EndInit();
-                return image;
-            });
-        
-
-
+        public void CloseImageSource() =>
+            //Закрываем поток изображения
+            _imageSourceLoader.CloseImageSource(FindedImageIcon);
 
         /// <summary>
         /// Обновляем значение статуса выделения
@@ -146,25 +143,6 @@ namespace DuplicateScanWindowLib.Content.Controls
             //Проставляем цвет контролла
             MainPanel.Background = (state) ? Brushes.BlanchedAlmond : Brushes.White;
 
-
-        /// <summary>
-        /// Закрываем поток в памяти, связанный с изображением
-        /// </summary>
-        public void CloseImageSource()
-        {
-            //Если есть исходный поток в памяти
-            if (FindedImageIcon.Source != null)
-            {
-                //Проучаем изображение
-                BitmapImage source = (BitmapImage)FindedImageIcon.Source;
-                //Очищаем поток
-                source.StreamSource.Dispose();
-                //Закрываем поток
-                source.StreamSource.Close();
-                //Сбрасываем источник
-                FindedImageIcon.Source = null;
-            }
-        }
 
         /// <summary>
         /// Проставляем новое значение чекбоксу
@@ -207,13 +185,9 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// <summary>
         /// Метод выполнения подгрузки изображения в контролл
         /// </summary>
-        public async Task LoadImage()
-        {
-            //Закрываем поток в памяти, связанный с изображением
-            CloseImageSource();
+        public async Task LoadImage() =>
             //Грузим картинку в контролл
-            FindedImageIcon.Source = await LoadImageByPath(_result.Path);
-        }
+            await _imageSourceLoader.LoadImageByPath(FindedImageIcon, _result.Path, 120);
 
         /// <summary>
         /// Метод простановки статуса для чекбокса, по значению из другой группы
