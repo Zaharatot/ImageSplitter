@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
 
 namespace SplitImagesWindowLib.Content.Controls

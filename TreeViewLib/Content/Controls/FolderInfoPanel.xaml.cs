@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TreeViewWindowLib.Content.Clases.DataClases;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static TreeViewWindowLib.Content.Clases.DataClases.Global.Enums;
 
 namespace TreeViewWindowLib.Content.Controls
 {

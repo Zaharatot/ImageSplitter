@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AIIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -48,6 +51,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Clases\DataClases\Delegates.cs" />
     <Compile Include="Content\Clases\WorkClases\SizeCalculator.cs" />
     <Compile Include="Content\Clases\WorkClases\SplitImagesProcessor.cs" />
     <Compile Include="Content\Controls\Folders\FolderInfoControl.xaml.cs">
@@ -132,12 +136,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Clases\DataClases\" />
+    <Resource Include="AIIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImageSplitterLib\ImageSplitterLib.csproj">
       <Project>{555faae5-33ac-4511-822c-6c0cf55081c5}</Project>
       <Name>ImageSplitterLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessagesWindowLib\MessagesWindowLib.csproj">
+      <Project>{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}</Project>
+      <Name>MessagesWindowLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\SplitterData\SplitterDataLib.csproj">
       <Project>{39099155-a9b8-45ac-939b-8fd067afa966}</Project>

@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static DuplicateScanWindowLib.Content.Clases.DataClases.Global.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
 
 namespace DuplicateScanWindowLib.Content.Controls

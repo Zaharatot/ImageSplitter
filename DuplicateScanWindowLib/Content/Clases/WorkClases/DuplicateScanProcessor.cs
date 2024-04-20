@@ -2,13 +2,15 @@
 using DuplicateScannerLib.Clases.DataClases.File;
 using DuplicateScannerLib.Clases.DataClases.Result;
 using DuplicateScanWindowLib.Content.Windows;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
+using MessagesWindowLib;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace DuplicateScanWindowLib.Content.Clases.WorkClases
 {
@@ -104,9 +106,9 @@ namespace DuplicateScanWindowLib.Content.Clases.WorkClases
         /// </summary>
         private void DuplicateScannerFasade_CompleteRemove()
         {
-            //TODO: Переделать на нормальный ивент
             //Выводим сообщение о результате
-            MessageBox.Show("Удаление дубликатов было успешно завершено");
+            MessagesBoxFasade.ShowMessageBoxDone(
+                MessageBoxMessages.DuplicateRemoveComplete);
             //Вызываем метод окна
             _duplicateScanWindow.CompleteRemove();
         }
@@ -116,10 +118,9 @@ namespace DuplicateScanWindowLib.Content.Clases.WorkClases
         /// </summary>
         private void DuplicateScannerFasade_CompleteRemoveOldDuplicates(int count)
         {
-            //TODO: Переделать на нормальный ивент
             //Выводим сообщение о результате
-            MessageBox.Show($"Удаление устаревших записей о дубликатах" +
-                $" было успешно завершено! Удалено {count} записей.");
+            MessagesBoxFasade.ShowMessageBoxDone(
+                MessageBoxMessages.DuplicateRemoveOldElements, count.ToString());
             //Вызываем метод окна
             _duplicateScanWindow.CompleteRemoveOldDuplicates();
         }
@@ -132,10 +133,9 @@ namespace DuplicateScanWindowLib.Content.Clases.WorkClases
         {
             //Если дубликаты не были найдены
             if (result.Count == 0)
-                //TODO: Переделать на нормальный ивент
                 //Выводим сообщение о результате
-                MessageBox.Show($"Удаление устаревших записей о дубликатах" +
-                $" было успешно завершено! Удалено {result.Count} записей.");
+                MessagesBoxFasade.ShowMessageBoxDone(
+                    MessageBoxMessages.DuplicateScanNotFound);
             //Вызываем метод окна
             _duplicateScanWindow.CompleteScan(result);
         }

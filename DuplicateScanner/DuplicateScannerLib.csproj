@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AIIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DCTHashZ, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -58,8 +61,10 @@
     <Compile Include="Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Clases\DataClases\Image\ByteImageInfo.cs" />
     <Compile Include="Clases\DataClases\File\DuplicateInfo.cs" />
+    <Compile Include="Clases\DataClases\Properties\ScanProperties.cs" />
     <Compile Include="Clases\DataClases\Result\DuplicateResult.cs" />
     <Compile Include="Clases\DataClases\Result\FindPair.cs" />
+    <Compile Include="Clases\DataClases\Result\HashesGroup.cs" />
     <Compile Include="Clases\DataClases\Result\ProgressInfo.cs" />
     <Compile Include="Clases\DataClases\Result\ScanProgressInfo.cs" />
     <Compile Include="Clases\WorkClases\Comparers\FilePairComparer.cs" />
@@ -82,6 +87,9 @@
       <Project>{39099155-a9b8-45ac-939b-8fd067afa966}</Project>
       <Name>SplitterDataLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AIIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

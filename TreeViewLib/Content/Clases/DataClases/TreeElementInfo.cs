@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static TreeViewWindowLib.Content.Clases.DataClases.Global.Enums;
 
 namespace TreeViewWindowLib.Content.Clases.DataClases
 {

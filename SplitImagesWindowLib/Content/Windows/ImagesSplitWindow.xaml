@@ -12,7 +12,7 @@
         MinHeight="450" MinWidth="800" Style="{StaticResource Style_Window}"
         Title="{StaticResource Text_ImageSplitter_Header}" Height="800" Width="1200">
     <!-- Основная панель окна -->
-    <Grid>
+    <Grid x:Name="MainPanel">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />

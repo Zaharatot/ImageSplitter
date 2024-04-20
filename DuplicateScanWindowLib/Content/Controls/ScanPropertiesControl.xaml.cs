@@ -1,5 +1,6 @@
-﻿using SplitterDataLib.DataClases.Global;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
+﻿using MessagesWindowLib;
+using SplitterDataLib.DataClases.Global;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using SplitterResources;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 using static SplitterDataLib.DataClases.Global.Delegates;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
+using static DuplicateScanWindowLib.Content.Clases.DataClases.Global.Delegates;
 
 namespace DuplicateScanWindowLib.Content.Controls
 {
@@ -44,14 +47,6 @@ namespace DuplicateScanWindowLib.Content.Controls
         public bool IsSaveUnchecked => 
             SaveUncheckedCheckBox.IsChecked.GetValueOrDefault(false);
 
-        /// <summary>
-        /// Текст сообщения запроса на удаление
-        /// </summary>
-        private string _removeOldRequestMeessage;
-        /// <summary>
-        /// Текст заголовка запроса на удаление
-        /// </summary>
-        private string _removeOldRequestHeader;
 
         /// <summary>
         /// Конструктор класса
@@ -67,9 +62,6 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// </summary>
         private void Init()
         {
-            //Грузим текст сообщения
-            _removeOldRequestMeessage = ResourceLoader.LoadString("Text_Messages_RemoveOldVersionsRequest");
-            _removeOldRequestHeader = ResourceLoader.LoadString("Text_MessageHeader_RemoveRequest");
             //Заполняем комбобокс
             FillComboBox();
         }
@@ -106,7 +98,8 @@ namespace DuplicateScanWindowLib.Content.Controls
         private void RemoveOldButton_Click(object sender, RoutedEventArgs e)
         {
             //Если удаление было подтверждено
-            if (IsRemoveAllow())
+            if (MessagesBoxFasade.ShowMessageBoxQuestion(
+                MessageBoxMessages.DuplicateRemoveRequest))
                 //Вызываем глобальный ивент
                 RemoveOldRequest?.Invoke();
         }
@@ -119,16 +112,6 @@ namespace DuplicateScanWindowLib.Content.Controls
             AccuracyTextBlock.Text = ((int)AccuracySlider.Value).ToString();
 
 
-
-
-
-        /// <summary>
-        /// Метод запроса у пользователя подтверждения удаления
-        /// </summary>
-        /// <returns>True - удаление было подтверждено</returns>
-        private bool IsRemoveAllow() =>
-            MessageBox.Show(_removeOldRequestMeessage, _removeOldRequestHeader,
-                MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
         /// <summary>
         /// Загружаем из ресурсов строку по идентификатору
@@ -169,6 +152,10 @@ namespace DuplicateScanWindowLib.Content.Controls
             //Выводим сообщение обю ошибке
             MessageBox.Show(errorMessage, "Ошибка!");
         }
+
+        //Тут попапы должны быть!
+        //И - их нужно выкидывать в основное окно!
+        //Благо - оно является родительским для этого окнтролла
 
         /// <summary>
         /// Проверка пути сканирования

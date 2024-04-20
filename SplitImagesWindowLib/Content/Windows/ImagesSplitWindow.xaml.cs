@@ -1,5 +1,5 @@
 ﻿using ImageSplitterLib.Clases.DataClases;
-using SplitImagesWindowLib;
+using MessagesWindowLib;
 using SplitterDataLib.DataClases.Global.Split;
 using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
 using SplitterSimpleUI.Content.Clases.WorkClases.HotKey;
@@ -19,7 +19,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
 
 namespace ImageSplitter.Content.Windows
 {
@@ -94,6 +96,11 @@ namespace ImageSplitter.Content.Windows
         /// Класс обработки хоткеев
         /// </summary>
         private HotKeyProcessor _hotKeyProcessor;
+        /// <summary>
+        /// Класс работы со всплывающими сообщениями
+        /// </summary>
+        private PopupMessagesFasade _popupMessagesFasade;
+
 
         /// <summary>
         /// Конструктор окна
@@ -112,7 +119,7 @@ namespace ImageSplitter.Content.Windows
         private void Init()
         {
             InitHotkeys();
-            InitVariables();
+            InitMessages();
             InitEvents();
         }
 
@@ -153,7 +160,7 @@ namespace ImageSplitter.Content.Windows
                     //При нажатии на "Ctrl + R" - выполняем запуск переименования файлов
                     new HotKeyInfo(Key.R, () => { StartFileRenameRequest?.Invoke(); }, true),
                     //При нажатии на "Ctrl + D" - выполняем запуск поиска дубликатов
-                    new HotKeyInfo(Key.D, () => { ScanDuplicatesRequest?.Invoke(); }, true),                    
+                    new HotKeyInfo(Key.D, () => { ScanDuplicatesRequest?.Invoke(); }, true),
 
 
                     //Хоткеи для работы с коллекциями
@@ -172,12 +179,14 @@ namespace ImageSplitter.Content.Windows
 
 
         /// <summary>
-        /// Инициализируем значения переменных
+        /// Инициализируем сообщения
         /// </summary>
-        private void InitVariables()
+        private void InitMessages()
         {
-
-
+            //Инициализируем класс работы с сообщениями
+            _popupMessagesFasade = new PopupMessagesFasade();
+            //Добавляем контролл сообщения на панель
+            _popupMessagesFasade.AddPopupControl(MainPanel);
         }
 
         /// <summary>

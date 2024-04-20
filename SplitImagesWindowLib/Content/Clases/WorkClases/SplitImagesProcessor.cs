@@ -1,6 +1,7 @@
 ﻿using ImageSplitter.Content.Windows;
 using ImageSplitterLib;
 using ImageSplitterLib.Clases.DataClases;
+using MessagesWindowLib;
 using SplitterDataLib.DataClases.Global.Split;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace SplitImagesWindowLib.Content.Clases.WorkClases
 {
@@ -297,9 +299,9 @@ namespace SplitImagesWindowLib.Content.Clases.WorkClases
             _imageSplitterFasade.CompleteSelectFolders(folders);
             //Включаем окно по завершению поиска
             _imagesSplitWindow.SetEnabledStatus(true);
-            //TODO: ВЫЗЫВАТЬ НОРМАЛЬНОЕ ОКНО!
-            //Вызываем месседжбокс
-            MessageBox.Show("Scan complete!");
+            //Выводим сообщение о результате
+            MessagesBoxFasade.ShowMessageBoxDone(
+                MessageBoxMessages.ImageSplitScanComplete);
         }
 
         /// <summary>

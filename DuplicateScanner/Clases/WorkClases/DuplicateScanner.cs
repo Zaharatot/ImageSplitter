@@ -1,10 +1,10 @@
 ﻿using DuplicateScannerLib.Clases.DataClases;
 using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using DuplicateScannerLib.Clases.DataClases.Result;
 using DuplicateScannerLib.Clases.WorkClases.Files;
 using DuplicateScannerLib.Clases.WorkClases.Finder;
 using DuplicateScannerLib.Clases.WorkClases.Hash;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;

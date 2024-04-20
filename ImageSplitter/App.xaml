@@ -17,9 +17,11 @@
 
                 <!-- Локализация -->
                 <!-- RU -->
-                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Localization/ControlsText.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Localization/ControlsText.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Localization/PopupMessagesText.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Localization/MessageBoxesText.xaml" />
 
-
+                
                 <!-- Иконки -->
                 <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Icons/MainIcons.xaml" />
 

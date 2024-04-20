@@ -1,12 +1,12 @@
 ﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using DuplicateScannerLib.Clases.WorkClases.Finder;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
 namespace DuplicateScannerLib.Clases.WorkClases.Finder
 {

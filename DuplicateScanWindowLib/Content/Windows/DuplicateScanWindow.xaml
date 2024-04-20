@@ -14,7 +14,7 @@
         Height="800" Width="1200" MinHeight="450" MinWidth="800" >
 
     <!-- Основная панель контролла -->
-    <Grid Background="{StaticResource Brush_DeepBackgroundColor}">
+    <Grid x:Name="MainPanel" Background="{StaticResource Brush_DeepBackgroundColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="510"/>
@@ -57,7 +57,7 @@
                     <!-- Скролл для дублей -->
                     <ScrollViewer Style="{StaticResource Style_ScrollViewer}" HorizontalScrollBarVisibility="Disabled" 
                                   VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="MainPanel" />
+                        <StackPanel x:Name="DuplicatesPanel" />
                     </ScrollViewer>
                 </Border>
                 <!-- Кнопка запуска удаления дубликатов -->

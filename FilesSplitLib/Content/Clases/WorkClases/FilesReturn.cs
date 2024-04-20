@@ -1,4 +1,5 @@
 ﻿using FilesSplitWindowLib.Content.Clases.DataClases;
+using MessagesWindowLib;
 using SplitterDataLib.DataClases.Files;
 using SplitterDataLib.DataClases.Global.Split;
 using System;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace FilesSplitWindowLib.Content.Clases.WorkClases
 {
@@ -75,10 +77,8 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
                 foreach (DirectoryInfo dir in info.Parent.GetDirectories())
                     //Переносим их дочерние файлы в корневую
                     MoveChild(info.Parent.FullName, dir);
-
-                //TODO: Заменить на нормальное сообщение
-                //Выводим сообщение о завершении операции
-                MessageBox.Show("Back move complete!");
+                //Выводим сообщение об успешном завершении операции
+                MessagesBoxFasade.ShowMessageBoxDone(MessageBoxMessages.FileReturnComplete);
             }).Start();
 
     }

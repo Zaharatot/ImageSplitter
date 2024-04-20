@@ -7,6 +7,8 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using SplitterDataLib.DataClases.Global.Split;
+using MessagesWindowLib;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace FilesRenameWindowLib.Content.Clases.WorkClases
 {
@@ -77,10 +79,8 @@ namespace FilesRenameWindowLib.Content.Clases.WorkClases
             new Thread(() => {
                 //Выполняем рекурсивное переименовывание папок
                 RenameFiles(new DirectoryInfo(info.ScanPath), mask);
-
-                //TODO: Заменить на нормальное сообщение
-                //Выводим сообщение о завершении операции
-                MessageBox.Show("Rename complete!");
+                //Выводим сообщение об успешном завершении операции
+                MessagesBoxFasade.ShowMessageBoxDone(MessageBoxMessages.FileRenameComplete);
             }).Start();
     }
 }

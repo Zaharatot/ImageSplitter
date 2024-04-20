@@ -16,6 +16,17 @@
     </Style>
 
 
+    <!-- Стиль текстового блока для всплывающего сообщения -->
+    <Style x:Key="Style_TextBlock_Popup" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush_DeepBackgroundColor}" />
+        <Setter Property="Margin" Value="20, 5" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        
+    </Style>
+
 
 
     <!-- Стиль Run с выделением -->

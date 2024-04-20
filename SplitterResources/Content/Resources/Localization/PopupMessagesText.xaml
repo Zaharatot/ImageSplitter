@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- Тексты для всплывающих сообщений -->
+
+    <!-- Тексты для пустых значений -->
+    <sys:String x:Key="Text_PopupMessage_Test">Тестовое всплывающее сообщение</sys:String>
+
+
+    <!-- Тексты для поиска дубликатов -->
+    <sys:String x:Key="Text_PopupMessage_DuplicatesSelectLastGroup">Данное действие выбрало для удаления последний не выбранный элемент в группах: {0}</sys:String>
+
+    <!-- Тексты для сплита изображений -->
+
+
+</ResourceDictionary>

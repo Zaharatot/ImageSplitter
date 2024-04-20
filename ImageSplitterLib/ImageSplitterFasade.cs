@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ImageSplitterLib.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
 
 namespace ImageSplitterLib

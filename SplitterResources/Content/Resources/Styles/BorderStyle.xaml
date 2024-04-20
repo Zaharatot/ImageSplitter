@@ -11,6 +11,14 @@
         <Setter Property="Background" Value="{DynamicResource Brush_PanelBackgroundColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Brush_BordersColor}" />
     </Style>
+    
+    <!-- Стиль рамки для всплывающего сообщения -->
+    <Style x:Key="Style_Border_Popup" TargetType="Border">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="Visibility" Value="Collapsed" />
+        <Setter Property="Background" Value="{DynamicResource Brush_ActiveColor}" />
+    </Style>
+
 
     <!-- Стиль рамки на панели -->
     <Style x:Key="Style_PanelBorder" TargetType="Border">

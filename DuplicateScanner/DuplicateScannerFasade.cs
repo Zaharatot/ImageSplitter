@@ -1,7 +1,7 @@
 ﻿using DuplicateScannerLib.Clases.DataClases.File;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using DuplicateScannerLib.Clases.DataClases.Result;
 using DuplicateScannerLib.Clases.WorkClases;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
 using System;
 using System.Collections.Generic;
 using System.Linq;

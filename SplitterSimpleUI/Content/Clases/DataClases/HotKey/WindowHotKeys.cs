@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using static SplitterDataLib.DataClases.Global.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
 
 namespace SplitterSimpleUI.Content.Clases.DataClases.HotKey
 {

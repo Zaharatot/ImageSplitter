@@ -1,4 +1,5 @@
-﻿using SplitterDataLib.DataClases.Global.Split;
+﻿using MessagesWindowLib;
+using SplitterDataLib.DataClases.Global.Split;
 using SplitterSimpleUI.Content.Clases.WorkClases.Controls;
 using SplitterSimpleUI.Content.Controls;
 using System;
@@ -15,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
+using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
 
 namespace SplitImagesWindowLib.Content.Controls.Folders
@@ -68,9 +71,10 @@ namespace SplitImagesWindowLib.Content.Controls.Folders
         /// <param name="key">Клавиша, привязанная к целевой папке</param>
         /// <param name="folderName">Имя папки</param>
         private void FolderInfo_RemoveFolderRequest(Key key, string folderName)
-        {
+        {            
             //Если пользователь подтвердил удаление папки
-            if (IsNeedRemoveFolder(folderName))
+            if (MessagesBoxFasade.ShowMessageBoxQuestion(
+                MessageBoxMessages.ImageSplitRemoveFolderRequest, folderName))
                 //Вызываем внешний ивент
                 RemoveFolderRequest?.Invoke(key, folderName);
         }
@@ -82,22 +86,6 @@ namespace SplitImagesWindowLib.Content.Controls.Folders
             //Вызываем внешний ивент
             AddNewFolderRequest?.Invoke();
 
-
-        /// <summary>
-        /// Запрос о необходимости удаления папки
-        /// </summary>
-        /// <param name="folderName">Имя целевой папки</param>
-        /// <returns>True - папку нужно удалить</returns>
-        private bool IsNeedRemoveFolder(string folderName)
-        {
-            //Вызываем сообщение с запросом подтверждения удаления папки
-            var result = MessageBox.Show(
-                $"Вы действительно хотите удалить папку \"{folderName}\" из списка?",
-                "Запрос подтверждения",
-                MessageBoxButton.YesNo);
-            //Если пользователь нажал "Да" - то всё ок
-            return (result == MessageBoxResult.Yes);
-        }
 
 
         /// <summary>

@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- Тексты для окон сообщений -->
+
+    <!-- Тексты заголовков -->
+    <sys:String x:Key="Text_MessageBox_Header_Done">Успех</sys:String>
+    <sys:String x:Key="Text_MessageBox_Header_Warning">Внимание</sys:String>
+    <sys:String x:Key="Text_MessageBox_Header_Error">Ошибка</sys:String>
+    <sys:String x:Key="Text_MessageBox_Header_Question">Запрос подтверждения</sys:String>
+
+    <!-- Тексты для пустых значений -->
+    <sys:String x:Key="Text_MessageBox_Test">Тестовое всплывающее сообщение</sys:String>
+    
+    <!-- Тексты для поиска дубликатов -->
+    <sys:String x:Key="Text_MessageBox_DuplicateRemoveComplete">Удаление дубликатов было успешно завершено</sys:String>
+    <sys:String x:Key="Text_MessageBox_DuplicateRemoveOldElements">Удаление устаревших записей о дубликатах" +
+                $" было успешно завершено! Удалено {0} записей.</sys:String>
+    <sys:String x:Key="Text_MessageBox_DuplicateScanNotFound">Поиск не нашёл дубликатов</sys:String>
+    <sys:String x:Key="Text_MessageBox_DuplicateRemoveRequest">
+        Вы действительно хотите удалить не актуальные записи о файлах? 
+        Будут удалены все записи, которые не будут найдены на подключенных дисках.
+        В случае, если вы сканировали файлы на подключаемых носителях, перед удалениеи желательно их подключить, чтобы записи о них не были затёрты.
+    </sys:String>
+    <sys:String x:Key="Text_MessageBox_DuplicateImagesRemoveRequest">Вы действительно хотите удалить все отмеченные галочками файлы?</sys:String>
+
+    
+    <!-- Тексты для сплита изображений -->
+    <sys:String x:Key="Text_MessageBox_ImageSplitScanComplete">Поиск изображений для раскладки был успешно завершён</sys:String>
+    <sys:String x:Key="Text_MessageBox_ImageSplitRemoveFolderRequest">Вы действительно хотите удалить папку "{0}" из списка?н</sys:String>
+
+
+    
+
+
+    <!-- Тексты для переименования файлов -->
+    <sys:String x:Key="Text_MessageBox_FileRenameComplete">Переименование файлов успешно завершено</sys:String>
+
+    <!-- Тексты для раскладывания файлов -->
+    <sys:String x:Key="Text_MessageBox_FileReturnComplete">Возврат файлов успешно завершён</sys:String>
+    <sys:String x:Key="Text_MessageBox_FileSplitComplete">Разделение файлов успешно завершено</sys:String>
+
+
+    
+    
+</ResourceDictionary>

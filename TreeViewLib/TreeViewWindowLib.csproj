@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AIIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -45,6 +48,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Content\Clases\DataClases\TreeElementInfo.cs" />
     <Compile Include="Content\Clases\WorkClases\TreeElementsProcessor.cs" />
     <Compile Include="Content\Controls\FolderInfoPanel.xaml.cs">
@@ -56,7 +60,9 @@
     <Compile Include="TreeViewFasade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="AIIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SplitterData\SplitterDataLib.csproj">
       <Project>{39099155-a9b8-45ac-939b-8fd067afa966}</Project>

@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Enums;
 
 namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
 {

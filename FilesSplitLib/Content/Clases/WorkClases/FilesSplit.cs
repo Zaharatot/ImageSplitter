@@ -1,4 +1,5 @@
 ﻿using FilesSplitWindowLib.Content.Clases.DataClases;
+using MessagesWindowLib;
 using SplitterDataLib.DataClases.Files;
 using SplitterDataLib.DataClases.Global.Split;
 using System;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace FilesSplitWindowLib.Content.Clases.WorkClases
 {
@@ -191,9 +193,8 @@ namespace FilesSplitWindowLib.Content.Clases.WorkClases
                 else
                     //Выполняем сплит для контента папки
                     SplitFolderContent(info);
-
-                //TODO: Заменить на нормальное сообщение
-                MessageBox.Show("Split complete!");
+                //Выводим сообщение об успешном завершении операции
+                MessagesBoxFasade.ShowMessageBoxDone(MessageBoxMessages.FileSplitComplete);
             }).Start();
     }
 }

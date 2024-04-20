@@ -17,7 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Enums;
 
 namespace SelectFoldersWindowLib.Content.Windows
 {

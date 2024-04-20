@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SplitterDataLib.DataClases.Global.DuplicateScan
+namespace DuplicateScannerLib.Clases.DataClases.Result
 {
     /// <summary>
     /// Класс группы хешей

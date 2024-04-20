@@ -1,7 +1,7 @@
 ﻿using DuplicateScannerLib.Clases.DataClases.File;
 using DuplicateScannerLib.Clases.DataClases.Result;
+using DuplicateScannerLib.Clases.DataClases.Properties;
 using DuplicateScanWindowLib.Content.Controls;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
 using SplitterResources;
 using SplitterSimpleUI.Content.Clases.DataClases.HotKey;
 using SplitterSimpleUI.Content.Clases.DataClases.Progress;
@@ -24,7 +24,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
+using static DuplicateScanWindowLib.Content.Clases.DataClases.Global.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
+using MessagesWindowLib;
+using static MessagesWindowLib.Content.Clases.DataClases.Enums;
 
 namespace DuplicateScanWindowLib.Content.Windows
 {
@@ -57,6 +60,10 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// Класс обработки хоткеев
         /// </summary>
         private HotKeyProcessor _hotKeyProcessor;
+        /// <summary>
+        /// Класс работы со всплывающими сообщениями
+        /// </summary>
+        private PopupMessagesFasade _popupMessagesFasade;
 
 
         /// <summary>
@@ -96,6 +103,8 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// </summary>
         private void Init()
         {
+            //Инициализируем всплывающиие сообщения
+            InitMessages();
             //Инициалдизируем значения переменных
             InitVariables();
             //Инициализируем обработчики событий
@@ -134,6 +143,19 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Добавляем обработчик события запуска скнирования на дубликаты
             ScanProperties.StartDuplicateScan += ScanProperties_StartDuplicateScan;
         }
+
+
+        /// <summary>
+        /// Инициализируем сообщения
+        /// </summary>
+        private void InitMessages()
+        {
+            //Инициализируем класс работы с сообщениями
+            _popupMessagesFasade = new PopupMessagesFasade();
+            //Добавляем контролл сообщения на панель
+            _popupMessagesFasade.AddPopupControl(MainPanel);
+        }
+
 
 
         #endregion
@@ -240,7 +262,8 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void RemoveDuplicatesButton_Click(object sender, RoutedEventArgs e)
         {
             //Если нужно действительно удалить файлы
-            if (IsNeedRemoveFiles())
+            if (MessagesBoxFasade.ShowMessageBoxQuestion(
+                MessageBoxMessages.DuplicateImagesRemoveRequest))
             {
                 //Выключаем доступность окна
                 this.IsEnabled = false;
@@ -265,19 +288,15 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// Обработчик события выбора контролла
         /// </summary>
         /// <param name="control">Выбранный контролл</param>
-        private async void ImagesPanel_UpdateFindedImageControlSelection(object control)
+        private async void ImagesPanel_UpdateFindedImageControlSelection(FindedImageControl control)
         {
-            //Типизируем полученный контролл, и если всё ок
-            if (control is FindedImageControl findedImageControl)
-            {
-                //Убираем выделение со всех дочерних контроллов
-                ClearControlSelection();
-                //Выделяем целевой контролл
-                findedImageControl.SetSelectionState(true);
-                //Грузим картинку в контролл
-                await _imageSourceLoader.LoadImageByPath(
-                    TargetImage, findedImageControl.DuplicateImagePath);
-            }
+            //Убираем выделение со всех дочерних контроллов
+            ClearControlSelection();
+            //Выделяем целевой контролл
+            control.SetSelectionState(true);
+            //Грузим картинку в контролл
+            await _imageSourceLoader.LoadImageByPath(
+                TargetImage, control.DuplicateImagePath);
         }
 
         /// <summary>
@@ -297,7 +316,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void ImagesPanel_HidePanelRequest(string showedPanelHeader)
         {
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
             {
                 //Если панель развёрнута и она не является только что открытой
                 if (imagesPanel.IsExpanded && (imagesPanel.ElementHeader != showedPanelHeader))
@@ -350,19 +369,6 @@ namespace DuplicateScanWindowLib.Content.Windows
 
 
         /// <summary>
-        /// Метод выполнения запроса пользователю на 
-        /// подтвержддение удаления выбранных файлов
-        /// </summary>
-        /// <returns>True - файлы действительно нужно удалить</returns>
-        private bool IsNeedRemoveFiles() =>
-            //Выводим месседжбокс с запросом
-            (MessageBox.Show(
-                "Вы действительно хотите удалить все отмеченные галочками файлы?",
-                "Запрос подтверждения", MessageBoxButton.YesNo
-            //И сверяем результат с подтверждением
-            ) == MessageBoxResult.Yes);
-
-        /// <summary>
         /// Получаем список хешей из всех контроллов выбора
         /// </summary>
         /// <param name="groups">Список запрещённых групп</param>
@@ -375,7 +381,7 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Локальные массивы для получения значений
             List<uint> selectedHashes, notSelectedHashes;
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
             {
                 //Получчаем из панели все выбранные и не выбранные хеши
                 imagesPanel.GetHashesFromChilds(out selectedHashes, out notSelectedHashes);
@@ -392,7 +398,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void ClearControlSelection()
         {
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
                 //Сбрасываем выделение для их дочерних изображений
                 imagesPanel.UnselectAllChilds();
         }
@@ -404,7 +410,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void IsChildElementSearchSucc(string searchString)
         {
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
                 //Если дочерняя панель соответствует критериям поиска
                 imagesPanel.Visibility = (imagesPanel.IsSearchSucc(searchString))
                     //Отображаем её, а в противном случае - скрываем
@@ -425,7 +431,7 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Флаг группы с заблокированным последним элементом
             bool isLastBlocked;
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
             {
                 //Передавая им значения для блокировки, и получаем флаг последнего заблокированного элемента
                 isLastBlocked = imagesPanel.SetParentCheckBoxState(hash, parentName, state);
@@ -440,7 +446,8 @@ namespace DuplicateScanWindowLib.Content.Windows
                 //Берём строку без двух последних симводов
                 string groups = sb.ToString().Substring(0, sb.Length - 2);
                 //Выводим сообщение с предупреждением
-                MessageBox.Show($"Данное действие выбрало для удаления последний не выбранный элемент в группах: {groups}");
+                _popupMessagesFasade.ShowPopupMessage(
+                    PopupMessages.DuplicatesSelectLastGroup, groups);
             }
         }
 
@@ -492,7 +499,7 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Убираем выбранное изображение
             _imageSourceLoader.CloseImageSource(TargetImage);
             //Проходимся по всем контроллам панели
-            foreach (FindedImagesPanel imagesPanel in MainPanel.Children)
+            foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
             {
                 //Удаляем обработчик события выделения контролла
                 imagesPanel.UpdateFindedImageControlSelection -= ImagesPanel_UpdateFindedImageControlSelection;
@@ -504,7 +511,7 @@ namespace DuplicateScanWindowLib.Content.Windows
                 imagesPanel.ClearOldImages();
             }
             //Очищаем панель от старых контроллов
-            MainPanel.Children.Clear();
+            DuplicatesPanel.Children.Clear();
         }
 
         /// <summary>
@@ -528,7 +535,7 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Проходимся по списку дубликатов
             for (int i = 0; i < results.Count; i++)
                 //Создаём и добавляем на панель контролл панели дубликатов
-                MainPanel.Children.Add(CreateDuplicatesPanel(results[i], i + 1));
+                DuplicatesPanel.Children.Add(CreateDuplicatesPanel(results[i], i + 1));
         }
 
         #endregion

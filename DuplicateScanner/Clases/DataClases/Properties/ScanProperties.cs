@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static SplitterDataLib.DataClases.Global.Enums;
+using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
 
-namespace SplitterDataLib.DataClases.Global.DuplicateScan
+namespace DuplicateScannerLib.Clases.DataClases.Properties
 {
     /// <summary>
     /// Класс параметров сканирования

@@ -9,7 +9,6 @@ using TimeLeftCalcZ;
 using System.Text;
 using System.Threading.Tasks;
 using static DuplicateScannerLib.Clases.DataClases.Global.Enums;
-using SplitterDataLib.DataClases.Global.DuplicateScan;
 
 namespace DuplicateScannerLib.Clases.WorkClases.Files
 {

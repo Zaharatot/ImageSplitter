@@ -169,23 +169,18 @@
     </sys:String>
     <sys:String x:Key="Text_FilesRenameWindow_RenameIcon_ToolTip">[Enter] При нажатии на эту кнопку, файлы из указанной папки будут переименованы по указанной выше маске</sys:String>
 
-
-
-
     <!-- Окно поиска дубликатов -->
     <sys:String x:Key="Text_DuplicateScanWindow_Header">Поиск дубликатов</sys:String>
 
 
+    <!-- Окно сообщения -->
+    <sys:String x:Key="Text_MessageBoxWindow_YesButton_Content">Да</sys:String>
+    <sys:String x:Key="Text_MessageBoxWindow_YesButton_ToolTip">[Enter] При нажатии на эту кнопку, вы подтвердите запрос</sys:String>
+    <sys:String x:Key="Text_MessageBoxWindow_NoButton_Content">Нет</sys:String>
+    <sys:String x:Key="Text_MessageBoxWindow_NoButton_ToolTip">[Escape] При нажатии на эту кнопку, вы отклоните запрос</sys:String>
+    <sys:String x:Key="Text_MessageBoxWindow_OkButton_Content">Ок</sys:String>
 
 
-    <!-- Заголовки сообщений -->
-    <sys:String x:Key="Text_MessageHeader_RemoveRequest">Подтвердите запрос удаления</sys:String>
-    <!-- Сообщения -->
-    <sys:String x:Key="Text_Messages_RemoveOldVersionsRequest">
-        Вы действительно хотите удалить не актуальные записи о файлах? 
-        Будут удалены все записи, которые не будут найдены на подключенных дисках.
-        В случае, если вы сканировали файлы на подключаемых носителях, перед удалениеи желательно их подключить, чтобы записи о них не были затёрты.
-    </sys:String>
     
 
 

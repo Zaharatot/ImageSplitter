@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="MessagesWindowLib.Content.Controls.PopupMessagePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MessagesWindowLib.Content.Controls"
+             mc:Ignorable="d" 
+             Height="40" d:DesignWidth="800">
+    <!-- Рамка вокруг сообщения -->
+    <Border x:Name="MessageBorder" Style="{StaticResource Style_Border_Popup}">
+        <!-- Текстовое поле для сообщения -->
+        <TextBlock x:Name="MessageTextBlock" Style="{StaticResource Style_TextBlock_Popup}" 
+                   Text="{StaticResource Text_EmptyValue}" />
+    </Border>
+</UserControl>

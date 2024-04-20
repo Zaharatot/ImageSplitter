@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AIIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\DataClases\CollectionInfo.cs" />
+    <Compile Include="Clases\DataClases\Delegates.cs" />
     <Compile Include="Clases\WorkClases\Collection\CollectionsScanner.cs" />
     <Compile Include="Clases\WorkClases\Collection\CollectionMover.cs" />
     <Compile Include="Clases\WorkClases\Images\ImageChecker.cs" />
@@ -52,7 +56,9 @@
     <Compile Include="ImageSplitterFasade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="AIIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SplitterData\SplitterDataLib.csproj">
       <Project>{39099155-A9B8-45AC-939B-8FD067AFA966}</Project>

@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>AIIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -48,6 +51,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Clases\DataClases\Global\Delegates.cs" />
     <Compile Include="Content\Clases\WorkClases\DuplicateScanProcessor.cs" />
     <Compile Include="Content\Controls\FindedImageControl.xaml.cs">
       <DependentUpon>FindedImageControl.xaml</DependentUpon>
@@ -102,11 +106,17 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="AIIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DuplicateScanner\DuplicateScannerLib.csproj">
       <Project>{F9ECB383-C07A-481B-8A58-FF6166B187B5}</Project>
       <Name>DuplicateScannerLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessagesWindowLib\MessagesWindowLib.csproj">
+      <Project>{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}</Project>
+      <Name>MessagesWindowLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\SplitterData\SplitterDataLib.csproj">
       <Project>{39099155-a9b8-45ac-939b-8fd067afa966}</Project>

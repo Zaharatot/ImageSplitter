@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesRenameWindowLib", "Fil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitImagesWindowLib", "SplitImagesWindowLib\SplitImagesWindowLib.csproj", "{B2EC7E69-2BA0-4F7E-ABE5-DF1B8CDC93E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagesWindowLib", "MessagesWindowLib\MessagesWindowLib.csproj", "{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,14 @@ Global
 		{B2EC7E69-2BA0-4F7E-ABE5-DF1B8CDC93E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B2EC7E69-2BA0-4F7E-ABE5-DF1B8CDC93E7}.Release|x64.ActiveCfg = Release|Any CPU
 		{B2EC7E69-2BA0-4F7E-ABE5-DF1B8CDC93E7}.Release|x64.Build.0 = Release|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +187,7 @@ Global
 		{D277DF51-A99B-4CF1-A164-53646B94888D} = {E5B2818A-6FFB-47DA-99B2-03FE3F6DC836}
 		{AB81FBFB-4306-4177-8B63-3102295B2741} = {E5B2818A-6FFB-47DA-99B2-03FE3F6DC836}
 		{B2EC7E69-2BA0-4F7E-ABE5-DF1B8CDC93E7} = {E5B2818A-6FFB-47DA-99B2-03FE3F6DC836}
+		{0A8767F9-A0EC-4433-98CD-0A3FA7F439F0} = {E5B2818A-6FFB-47DA-99B2-03FE3F6DC836}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B24E308-FA6B-41D1-AF1C-5E83F37CAB26}
