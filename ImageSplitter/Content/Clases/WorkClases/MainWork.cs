@@ -198,9 +198,9 @@ namespace ImageSplitter.Content.Clases.WorkClases
         /// <summary>
         /// Обработчик события запроса отображения окна древа
         /// </summary>
-        private void SplitImagesFasade_ShowTreeRequest() =>
+        private async void SplitImagesFasade_ShowTreeRequest() =>
             //Отображаем древо по текущему выбранному пути
-            _treeViewFasade.ShowTree(_path.MovePath);
+            await _treeViewFasade.ShowTree(_path.MovePath);
 
         /// <summary>
         /// Обработчик события запроса отображения окна обновления путей сплита

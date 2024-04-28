@@ -30,7 +30,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_LeftPageIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -44,7 +44,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_RightPageIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -55,7 +55,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_SplitImagesTopPanel_UndoMoveIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
         </Grid>

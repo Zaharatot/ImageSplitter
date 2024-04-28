@@ -73,7 +73,7 @@ namespace SplitPathWindowLib.Content.Windows
         private void InitHotkeys()
         {
             //Получаем экземпляр класса обработки хоткеев
-            _hotKeyProcessor = HotKeyProcessor.GetInstance();
+            _hotKeyProcessor = new HotKeyProcessor();
             //Добавляем хоткеи для текущего окна
             AddHotKeys();
         }

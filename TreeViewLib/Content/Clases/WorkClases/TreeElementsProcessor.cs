@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using TreeViewWindowLib.Content.Clases.DataClases;
 using TreeViewWindowLib.Content.Windows;
 
@@ -42,6 +43,8 @@ namespace TreeViewWindowLib.Content.Clases.WorkClases
                 //Выполняем рекурсивный вызов
                 LoadElementsRecurse(child, childDir);
             }
+            //Выполняем сортировку дочерних элементов по имени
+            parent.OrderChildsByName();
         }
 
         /// <summary>
@@ -69,21 +72,26 @@ namespace TreeViewWindowLib.Content.Clases.WorkClases
         /// Метод отображения древа
         /// </summary>
         /// <param name="path">Путь к древу</param>
-        public void ShowTree(string path)
+        public async Task ShowTree(string path)
         {
             try
             {
                 //Если строка не пустая
                 if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
                 {
-                    //Выполняем загрузку древа
-                    TreeElementInfo parent = LoadTree(path);
                     //Инициализируем окно отображения
                     TreeVisualizerWindow treeVisualizerWindow = new TreeVisualizerWindow();
                     //Отображаем окно
                     treeVisualizerWindow.Show();
-                    //Отображаем древо
-                    treeVisualizerWindow.VisualizeTree(parent);
+                    //Вызываем асинхронно для окна загрузку
+                    await treeVisualizerWindow.Dispatcher.InvokeAsync(() => {
+                        //Выполняем загрузку древа
+                        TreeElementInfo parent = LoadTree(path);
+                        //Отображаем древо
+                        treeVisualizerWindow.VisualizeTree(parent);
+                    //Запускаем действие с минимальным приоритетом,
+                    //чтобы обновление окна было приоритетнее
+                    }, DispatcherPriority.ApplicationIdle);
                 }
             }
             catch { }

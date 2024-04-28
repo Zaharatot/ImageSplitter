@@ -17,6 +17,17 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
+        <!-- ПАнель ожидания завершения загрузки -->
+        <Grid x:Name="UploadBackgroundPanel" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Panel.ZIndex="1"
+              Background="{StaticResource Brush_TransparentBackgroundColor}">
+            <!-- Прогрессбар ожидания -->
+            <ProgressBar Style="{StaticResource Style_ProgressBar_Indeterminate}"/>
+            <!-- Подпись для прогрессбара -->
+            <TextBlock Style="{StaticResource Style_TextBlock}" 
+                       Text="{StaticResource Text_TreeVisualizerWindow_UploadBackground_Header}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Grid>
+
         <!-- Панель древа -->
         <TreeView x:Name="TreePanel" Style="{StaticResource Style_TreeView}" Margin="5" Padding="5"
                   HorizontalContentAlignment="Center" />
@@ -35,7 +46,7 @@
             <!-- Подсказка для иконки -->
             <Simple:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_TreeVisualizerWindow_UpdateTreeIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Simple:SvgImageControl.ToolTip>
         </Simple:SvgImageControl>
     </Grid>

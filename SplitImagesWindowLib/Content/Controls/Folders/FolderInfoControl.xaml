@@ -27,7 +27,7 @@
                        Style="{StaticResource Style_TextBlock}">
                 <TextBlock.ToolTip>
                     <!-- Подсказка для отображения полного имени папки -->
-                    <ToolTip x:Name="FolderNameToolTip" Style="{StaticResource Style_ToolTip}" />
+                    <ToolTip x:Name="FolderNameToolTip" Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </TextBlock.ToolTip>
             </TextBlock>
         
@@ -37,7 +37,7 @@
                 <TextBlock.ToolTip>
                     <!-- Подсказка для отображения полного имени папки -->
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_FolderKeyTextBlock_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </TextBlock.ToolTip>
             </TextBlock>
 
@@ -48,7 +48,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_FolderInfoControl_RemoveIcon_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
         </Grid>

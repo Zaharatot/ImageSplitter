@@ -32,7 +32,7 @@
                     <!-- Подсказка для иконки -->
                     <Simple:SvgImageControl.ToolTip>
                         <ToolTip Content="{StaticResource Text_SplitImagesControl_FolderListControl_AddFolderIcon_Tooltip}"
-                                 Style="{StaticResource Style_ToolTip}" />
+                                 Style="{StaticResource Style_ToolTip_WithWrapping}" />
                     </Simple:SvgImageControl.ToolTip>
                 </Simple:SvgImageControl>
             </Grid>

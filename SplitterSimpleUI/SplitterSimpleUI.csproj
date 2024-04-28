@@ -58,7 +58,6 @@
     <Compile Include="Content\Clases\DataClases\HotKey\WindowHotKeys.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
-    <Compile Include="Content\Clases\WorkClases\Controls\ImageSourceLoader.cs" />
     <Compile Include="Content\Clases\WorkClases\Properties\ControlPropertyCallbacks.cs" />
     <Compile Include="Content\Clases\WorkClases\Data\DateFormatter.cs" />
     <Compile Include="Content\Clases\WorkClases\HotKey\HotKeyCheck.cs" />
@@ -79,6 +78,9 @@
     </Compile>
     <Compile Include="Content\Controls\SvgImageControl.xaml.cs">
       <DependentUpon>SvgImageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\WrappedImage.xaml.cs">
+      <DependentUpon>WrappedImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -125,6 +127,10 @@
     <Page Include="Content\Controls\SvgImageControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Controls\WrappedImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

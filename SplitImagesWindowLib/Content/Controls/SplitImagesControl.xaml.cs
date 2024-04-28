@@ -55,10 +55,6 @@ namespace SplitImagesWindowLib.Content.Controls
         /// Класс рассчёта размера
         /// </summary>
         private SizeCalculator _sizeCalculator;
-        /// <summary>
-        /// Класс загрузки изображения
-        /// </summary>
-        private ImageSourceLoader _imageSourceLoader;
 
 
         /// <summary>
@@ -86,8 +82,6 @@ namespace SplitImagesWindowLib.Content.Controls
         {
             //Инициализируем класс расчсёта размера
             _sizeCalculator = new SizeCalculator();
-            //Инициализируем класс загрузки изображения
-            _imageSourceLoader = new ImageSourceLoader();
         }
 
         /// <summary>
@@ -150,15 +144,12 @@ namespace SplitImagesWindowLib.Content.Controls
 
 
 
-
-
         /// <summary>
         /// Формируем строку информации об изображении
         /// </summary>
-        /// <param name="size">Размеры загруженного изображения</param>
         /// <param name="info">Класс инфы о картинке</param>
         /// <returns>Строка информации об изображении</returns>
-        private string CompileImageInfoString(Size size, CollectionInfo info)
+        private string CompileImageInfoString(CollectionInfo info)
         {
             StringBuilder sb = new StringBuilder();
             //Добавляем в строку имя элемента коллекции
@@ -170,10 +161,14 @@ namespace SplitImagesWindowLib.Content.Controls
             //Если у нас файл
             else
             {
-                //Добавляем в строку размер текущего изображения
-                sb.Append($"[{size.Width}x{size.Height}] ");
-                //Добавляем в строку размер файла изображения
-                sb.Append($"[{_sizeCalculator.GetStringSize(info.Length)}]");
+                //Если есть размер изображения
+                if (TargetImage.ImageSize != null)
+                    //Добавляем в строку размер текущего изображения
+                    sb.Append($"[{TargetImage.ImageSize.Value.Width}x{TargetImage.ImageSize.Value.Height}] ");
+                //Если есть размер файла изображения
+                if (TargetImage.ImageLength > 0)
+                    //Добавляем в строку размер файла изображения
+                    sb.Append($"[{_sizeCalculator.GetStringSize(TargetImage.ImageLength)}]");
             }
             //ВОзвращаем итоговую строку
             return sb.ToString();
@@ -187,9 +182,9 @@ namespace SplitImagesWindowLib.Content.Controls
         private async Task LoadImageToControls(CollectionInfo info)
         {
             //Выполняем асинхронную загрузку изображения в контролл
-            Size size = await _imageSourceLoader.LoadImageByPath(TargetImage, info.GetImagePath());
+            await TargetImage.LoadImageAsync(info.GetImagePath());
             //Формируем и проставляем информацию о картинке в контролл
-            TopPanel.SetCollectionInfo(CompileImageInfoString(size, info));
+            TopPanel.SetCollectionInfo(CompileImageInfoString(info));
         }
 
         /// <summary>
@@ -198,7 +193,7 @@ namespace SplitImagesWindowLib.Content.Controls
         private void ClearControls()
         {
             //Закрываем поток в памяти, связанный с изображением
-            _imageSourceLoader.CloseImageSource(TargetImage);
+            TargetImage.CloseImageSource();
             //Проставляем пустую информацию о файле
             BottomPanel.SetMovedFolderInfo("", false);
             //Проставляем пустой текст в контроллы

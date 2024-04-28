@@ -36,7 +36,7 @@
             <!-- Подсказка для иконки -->
             <Simple:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_FilesSplitWindow_SplitIcon_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Simple:SvgImageControl.ToolTip>
         </Simple:SvgImageControl>
         <!-- Кнопка запуска возврата -->
@@ -46,7 +46,7 @@
             <!-- Подсказка для иконки -->
             <Simple:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_FilesSplitWindow_ReturnIcon_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Simple:SvgImageControl.ToolTip>
         </Simple:SvgImageControl>
 

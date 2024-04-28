@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="SplitterSimpleUI.Content.Controls.WrappedImage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SplitterSimpleUI.Content.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="170" d:DesignWidth="150">
+    <!-- Основная панель контролла -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Основное изображение -->
+        <Image x:Name="MainImage" Visibility="Collapsed" Grid.Column="0" Grid.ColumnSpan="3" />
+
+        <!-- Прогрессбар загрузки картинки  -->
+        <ProgressBar x:Name="MainProgress" Visibility="Collapsed" Grid.Column="1" 
+                     Style="{StaticResource Style_ProgressBar_Indeterminate}"/>
+
+        <!-- Панель ошибки -->
+        <StackPanel x:Name="ErrorPanel" Visibility="Collapsed" VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Grid.Column="1" Margin="5">
+            <!-- Иконка ошибки -->
+            <local:SvgImageControl Image="{StaticResource Icon_Warning}" MaxWidth="150" Padding="20,5"
+                                   FillColor="{StaticResource Brush_ActiveColor}" />
+            <!-- Подпись ошибки -->
+            <TextBlock Text="{StaticResource Text_WrappedImage}" TextWrapping="Wrap" TextAlignment="Center"
+                       Style="{StaticResource Style_TextBlock}" Foreground="{StaticResource Brush_ActiveColor}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

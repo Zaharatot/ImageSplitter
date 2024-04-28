@@ -37,8 +37,9 @@
                 <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/WindowStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TextBlockStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/TextBoxStyle.xaml" />
-                
+                <ResourceDictionary Source="pack://application:,,,/SplitterResources;component/Content/Resources/Styles/ProgressBarStyle.xaml" />
 
+                
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -5,9 +5,28 @@
     <!-- Стиль тултипа -->
     <Style x:Key="Style_ToolTip" TargetType="ToolTip">
         <Setter Property="Background" Value="{DynamicResource Brush_PanelBackgroundColor}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Brush_BordersColor}" />
-        <Setter Property="Foreground" Value="{DynamicResource Brush_ActiveForegroundColor}" />
-        
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush_ActiveForegroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush_ActiveForegroundColor}" />        
+    </Style>
+
+    <!-- Стиль тултипа -->
+    <Style x:Key="Style_ToolTip_WithWrapping" TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="HasDropShadow" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Name="Border" BorderThickness="1" BorderBrush="{DynamicResource Brush_ActiveForegroundColor}"
+                            Background="{DynamicResource Brush_PanelBackgroundColor}"
+                            Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <!-- Контент тултипа -->
+                        <TextBlock x:Name="TextBlock" Text="{TemplateBinding Content}" Margin="5" 
+                                   MaxWidth="400" MaxHeight="200" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                   Foreground="{StaticResource Brush_ActiveForegroundColor}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

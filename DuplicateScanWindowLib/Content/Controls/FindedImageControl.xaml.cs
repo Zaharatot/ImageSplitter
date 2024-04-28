@@ -68,10 +68,6 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// Текст заголовка информации о блокировке
         /// </summary>
         private string _blockedHeader;
-        /// <summary>
-        /// Класс загрузки изображения
-        /// </summary>
-        private ImageSourceLoader _imageSourceLoader;
 
         /// <summary>
         /// Конструктор контролла
@@ -92,8 +88,6 @@ namespace DuplicateScanWindowLib.Content.Controls
             IsParentCheckState = false;
             //Загружаем строки ресурсов
             _blockedHeader = ResourceLoader.LoadString("Text_FindedImageControl_BlockedHeader");
-            //Инициализируем класс загрузки изображения
-            _imageSourceLoader = new ImageSourceLoader();
         }
 
 
@@ -134,7 +128,7 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// </summary>
         public void CloseImageSource() =>
             //Закрываем поток изображения
-            _imageSourceLoader.CloseImageSource(FindedImageIcon);
+            FindedImageIcon.CloseImageSource();
 
         /// <summary>
         /// Обновляем значение статуса выделения
@@ -188,7 +182,7 @@ namespace DuplicateScanWindowLib.Content.Controls
         /// </summary>
         public async Task LoadImage() =>
             //Грузим картинку в контролл
-            await _imageSourceLoader.LoadImageByPath(FindedImageIcon, _result.Path, 120);
+            await FindedImageIcon.LoadImageAsync(_result.Path, 120);
 
         /// <summary>
         /// Метод простановки статуса для чекбокса, по значению из другой группы

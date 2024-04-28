@@ -15,15 +15,9 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
     public class HotKeyProcessor
     {
         /// <summary>
-        /// Экземпляр класса для синглтона
-        /// </summary>
-        private static HotKeyProcessor _instance;
-        
-        
-        /// <summary>
         /// Словарь горячих клавишь
         /// </summary>
-        private Dictionary<Window, WindowHotKeys> _hotKeysDict;
+        private WindowHotKeys _hotKeys;
         /// <summary>
         /// Класс проверки на хоткей
         /// </summary>
@@ -43,8 +37,8 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
         /// </summary>
         private void Init()
         {
-            //Инициализируем словарь горячих клавиш
-            _hotKeysDict = new Dictionary<Window, WindowHotKeys>();
+            //Ставим дефолтное значение для окна хоткеев
+            _hotKeys = null;
             //Инициализируем класс проверки на хоткей
             _hotKeyCheck = new HotKeyCheck();
         }
@@ -57,7 +51,7 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
             //Если нажатие выполнено именно на хоткей
             if(!_hotKeyCheck.IsNotHotkey(e))
                 //Получаем список горячих клавишь, по целевому окну, и передаём в метод обработки
-                ProcessWindowHotKeys(_hotKeysDict[(Window)sender], e);
+                ProcessWindowHotKeys(_hotKeys, e);
         }
 
 
@@ -107,8 +101,8 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
         /// <param name="hotKeys">Список горячих клавишь для окна</param>
         public void AddWindow(Window window, WindowHotKeys hotKeys)
         {
-            //Добавляем хоткеи в словарь, проассоциировав их с целевым окном
-            _hotKeysDict.Add(window, hotKeys);
+            //Запоминаем переданные хоткеи
+            _hotKeys = hotKeys;
             //Добавляем предварительный обработчик события нажатия клавиши
             window.PreviewKeyDown += Window_PreviewKeyDown;
         }
@@ -117,27 +111,9 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.HotKey
         /// Убираем обработку для окна
         /// </summary>
         /// <param name="window">Окно для обработки</param>
-        public void RemoveWindow(Window window)
-        {
-            //Удаляем запись об окне из словаря
-            _hotKeysDict.Remove(window);
+        public void RemoveWindow(Window window) =>
             //Удаляем предварительный обработчик события нажатия клавиши
-            window.PreviewKeyDown -= Window_PreviewKeyDown;
-        }
+            window.PreviewKeyDown -= Window_PreviewKeyDown;       
 
-
-        /// <summary>
-        /// Метод получения экземпляра класса
-        /// </summary>
-        /// <returns>Экземпляр класса</returns>
-        public static HotKeyProcessor GetInstance()
-        {
-            //Если экземпляр клаасса ещё не был проинициализирован
-            if(_instance == null)
-                //Создаём экземпляр класса
-                _instance = new HotKeyProcessor();
-            //Возвращаем его
-            return _instance;
-        }
     }
 }

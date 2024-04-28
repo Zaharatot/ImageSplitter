@@ -74,7 +74,7 @@ namespace TreeViewWindowLib.Content.Windows
         private void InitHotkeys()
         {
             //Получаем экземпляр класса обработки хоткеев
-            _hotKeyProcessor = HotKeyProcessor.GetInstance();
+            _hotKeyProcessor = new HotKeyProcessor();
             //Добавляем хоткеи для текущего окна
             AddHotKeys();
         }
@@ -199,7 +199,7 @@ namespace TreeViewWindowLib.Content.Windows
         private void ScrollToElement(TreeViewItem elem) =>
             //Прокрутку вверх нужно делать только после завершения
             //разворачивания, и вот такая обёртка позволяет это сделать
-            TreePanel.Dispatcher.Invoke(new Action(async () => {
+            TreePanel.Dispatcher.InvokeAsync(new Action(async () => {
                 //Ждём пол секунды
                 await Task.Delay(500);
                 //Прокручиваем к элементу
@@ -235,6 +235,8 @@ namespace TreeViewWindowLib.Content.Windows
 
 
 
+
+
         /// <summary>
         /// Метод визуализации древа элементов
         /// </summary>
@@ -247,6 +249,8 @@ namespace TreeViewWindowLib.Content.Windows
             int countNotSplitted = SetElements(_parentTreeElement);
             //Проставляем количество нерасспличенных в контролл
             NotSplittedRun.Text = countNotSplitted.ToString();
+            //Скрываем панель ожидания
+            UploadBackgroundPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

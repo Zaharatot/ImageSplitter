@@ -18,7 +18,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -28,7 +28,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -38,7 +38,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -48,7 +48,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_SplitIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -58,7 +58,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_RenameIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 
@@ -68,7 +68,7 @@
                 <!-- Подсказка для иконки -->
                 <Simple:SvgImageControl.ToolTip>
                     <ToolTip Content="{StaticResource Text_SplitImagesControl_LeftPanel_DuplicatesIcon_Tooltip}"
-                                Style="{StaticResource Style_ToolTip}" />
+                                Style="{StaticResource Style_ToolTip_WithWrapping}" />
                 </Simple:SvgImageControl.ToolTip>
             </Simple:SvgImageControl>
 

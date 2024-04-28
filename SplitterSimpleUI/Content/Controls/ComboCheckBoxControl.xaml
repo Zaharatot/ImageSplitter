@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <!-- Подсказка для чекбокса -->
         <Grid.ToolTip>
-            <ToolTip x:Name="CheckBoxTooltip" Style="{StaticResource Style_ToolTip}" Visibility="Collapsed" />
+            <ToolTip x:Name="CheckBoxTooltip" Style="{StaticResource Style_ToolTip_WithWrapping}" Visibility="Collapsed" />
         </Grid.ToolTip>
         
         <!-- Иконка чекбокса -->

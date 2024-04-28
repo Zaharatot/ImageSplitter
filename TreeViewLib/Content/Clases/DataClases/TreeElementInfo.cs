@@ -139,5 +139,12 @@ namespace TreeViewWindowLib.Content.Clases.DataClases
             //Обновляем статус папки
             UpdateStatus();
         }
+
+        /// <summary>
+        /// Метод сортировки дочерних элементов по имени
+        /// </summary>
+        public void OrderChildsByName() =>
+            //Сортируем элементы по имени
+            Childs = Childs.OrderBy(elem => elem.Name).ToList();
     }
 }

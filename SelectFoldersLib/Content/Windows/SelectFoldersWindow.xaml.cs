@@ -48,7 +48,7 @@ namespace SelectFoldersWindowLib.Content.Windows
         private void Init()
         {
             //Получаем экземпляр класса обработки хоткеев
-            _hotKeyProcessor = HotKeyProcessor.GetInstance();
+            _hotKeyProcessor = new HotKeyProcessor();
             //Добавляем хоткеи для текущего окна
             AddHotKeys();
         }

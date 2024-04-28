@@ -19,7 +19,7 @@
                      MouseDown="Run_MouseDown"
                      Style="{StaticResource Style_Run_Selectable}" IsEnabled="False" >
                     <Run.ToolTip>
-                        <ToolTip x:Name="ScanPathToolTip" Style="{StaticResource Style_ToolTip}" 
+                        <ToolTip x:Name="ScanPathToolTip" Style="{StaticResource Style_ToolTip_WithWrapping}" 
                                  Content="{StaticResource Text_EmptyValue}" Visibility="Collapsed" />
                     </Run.ToolTip>
                 </Run>
@@ -33,7 +33,7 @@
                      MouseDown="Run_MouseDown"
                      Style="{StaticResource Style_Run_Selectable}" IsEnabled="False" >
                     <Run.ToolTip>
-                        <ToolTip x:Name="MovePathToolTip" Style="{StaticResource Style_ToolTip}" 
+                        <ToolTip x:Name="MovePathToolTip" Style="{StaticResource Style_ToolTip_WithWrapping}" 
                                  Content="{StaticResource Text_EmptyValue}" Visibility="Collapsed"  />
                     </Run.ToolTip>
                 </Run>

@@ -42,8 +42,8 @@ namespace TreeViewWindowLib
         /// Метод отображения древа
         /// </summary>
         /// <param name="path">Путь к древу</param>
-        public void ShowTree(string path) =>
+        public async Task ShowTree(string path) =>
             //Вызываем внутренний мето
-            _treeElementsProcessor.ShowTree(path);
+            await _treeElementsProcessor.ShowTree(path);
     }
 }

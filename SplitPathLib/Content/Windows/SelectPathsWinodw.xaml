@@ -38,7 +38,7 @@
             <!-- Подсказка для кнопки -->
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource Text_FolderSelector_SelectPathsButton_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Button.ToolTip>
         </Button>
         <!-- Кнопка выбора путей и быстрого перехода к сплиту -->
@@ -47,7 +47,7 @@
             <!-- Подсказка для кнопки -->
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource Text_FolderSelector_SelectPathsAndSplitButton_Tooltip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Button.ToolTip>
         </Button>
     </Grid>

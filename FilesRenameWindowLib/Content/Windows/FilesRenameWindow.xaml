@@ -22,7 +22,7 @@
             <!-- Подсказка для строки -->
             <Simple:PlaceholderTextBox.ToolTip>
                 <ToolTip Content="{StaticResource Text_FilesRenameWindow_RenameMaskTextBox_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Simple:PlaceholderTextBox.ToolTip>
         </Simple:PlaceholderTextBox>
 
@@ -34,7 +34,7 @@
             <!-- Подсказка для иконки -->
             <Simple:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_FilesRenameWindow_RenameIcon_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Simple:SvgImageControl.ToolTip>
         </Simple:SvgImageControl>
     </Grid>

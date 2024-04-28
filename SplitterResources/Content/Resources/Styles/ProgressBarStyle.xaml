@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!-- Стиль прогрессбара -->
+    <Style x:Key="Style_ProgressBar" TargetType="ProgressBar">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="5" />
+
+        <Setter Property="Background" Value="{DynamicResource Brush_ControlBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush_BordersColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush_ActiveColor}" />
+    </Style>
+    
+    <!-- Стиль прогрессбара с бесконечной прокруткой -->
+    <Style x:Key="Style_ProgressBar_Indeterminate" TargetType="ProgressBar">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="IsIndeterminate" Value="True" />
+        <Setter Property="Margin" Value="5" />
+
+        <Setter Property="Background" Value="{DynamicResource Brush_ControlBackgroundColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush_BordersColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush_ActiveColor}" />
+    </Style>
+
+</ResourceDictionary>

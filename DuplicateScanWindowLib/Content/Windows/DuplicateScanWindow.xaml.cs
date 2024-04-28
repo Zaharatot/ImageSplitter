@@ -79,10 +79,6 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// </summary>
         private DateFormatter _dateFormatter;
         /// <summary>
-        /// Класс загрузки изображения
-        /// </summary>
-        private ImageSourceLoader _imageSourceLoader;
-        /// <summary>
         /// Текст сообыения для рассчёта времени
         /// </summary>
         private string _calculatiogTimeMessage;
@@ -127,8 +123,6 @@ namespace DuplicateScanWindowLib.Content.Windows
             _calculatiogTimeMessage = ResourceLoader.LoadString("Text_DateLimitCalculation");
             //Инициализируем используемые классы
             _dateFormatter = DateFormatter.GetInstance();
-            //Инициализируем класс загрузки изображения
-            _imageSourceLoader = new ImageSourceLoader();
             //Добавляем обработчик события изменения текста поиска
             SearchStringTextBox.ChangeText += SearchStringTextBox_ChangeText;
         }
@@ -199,7 +193,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void InitHotkeys()
         {
             //Получаем экземпляр класса обработки хоткеев
-            _hotKeyProcessor = HotKeyProcessor.GetInstance();
+            _hotKeyProcessor = new HotKeyProcessor();
             //Добавляем хоткеи для текущего окна
             AddHotKeys();
         }
@@ -268,7 +262,7 @@ namespace DuplicateScanWindowLib.Content.Windows
                 //Выключаем доступность окна
                 this.IsEnabled = false;
                 //Убираем выбранное изображение
-                TargetImage.Source = null;
+                TargetImage.CloseImageSource();
                 //Получаем список хешей из всех контроллов выбора
                 GetHashesFormSelectors(out HashesGroup toRemove, out List<HashesGroup> groups);
                 //Если запрещено сохранение не выбранных
@@ -295,8 +289,7 @@ namespace DuplicateScanWindowLib.Content.Windows
             //Выделяем целевой контролл
             control.SetSelectionState(true);
             //Грузим картинку в контролл
-            await _imageSourceLoader.LoadImageByPath(
-                TargetImage, control.DuplicateImagePath);
+            await TargetImage.LoadImageAsync(control.DuplicateImagePath);
         }
 
         /// <summary>
@@ -497,7 +490,7 @@ namespace DuplicateScanWindowLib.Content.Windows
         private void ClearOldPanels()
         {
             //Убираем выбранное изображение
-            _imageSourceLoader.CloseImageSource(TargetImage);
+            TargetImage.CloseImageSource();
             //Проходимся по всем контроллам панели
             foreach (FindedImagesPanel imagesPanel in DuplicatesPanel.Children)
             {

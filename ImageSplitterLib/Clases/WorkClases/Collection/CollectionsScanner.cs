@@ -42,7 +42,7 @@ namespace ImageSplitterLib.Clases.WorkClases.Collection
                 //Возвращаем в виде списка
                 .ToList()
                 //Конвертируем элементы списка в коллекции
-                .ConvertAll(image => new CollectionInfo(image, parent.FullName + "\\"));
+                .ConvertAll(image => new CollectionInfo(image, parent.FullName));
 
         /// <summary>
         /// Загружаем папки в коллекцию
@@ -57,7 +57,7 @@ namespace ImageSplitterLib.Clases.WorkClases.Collection
                 //Возвращаем в виде списка
                 .ToList()
                 //Конвертируем элементы списка в коллекции
-                .ConvertAll(folder => new CollectionInfo(folder, parent.FullName + "\\"));
+                .ConvertAll(folder => new CollectionInfo(folder, parent.FullName));
        
 
 

@@ -14,6 +14,9 @@
     <sys:String x:Key="Text_DateLimitMinute">мин</sys:String>
     <sys:String x:Key="Text_DateLimitSecund">сек</sys:String>
 
+    <!-- Текст ошибки загрузки изобрадения -->
+    <sys:String x:Key="Text_WrappedImage">Не удалось загрузить изображение</sys:String>
+
 
     <!-- Основное окно -->
     <sys:String x:Key="Text_ImageSplitter_Header">ImageSplitter</sys:String>
@@ -120,6 +123,9 @@
     <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_HeaderRun">Не распределено:</sys:String>
     <sys:String x:Key="Text_TreeVisualizerWindow_NotSplitted_AddRun">элем.</sys:String>
     <sys:String x:Key="Text_TreeVisualizerWindow_UpdateTreeIcon_Tooltip">[Ctrl + R] Обновить информацию в древе</sys:String>
+    <sys:String x:Key="Text_TreeVisualizerWindow_UploadBackground_Header">Ожидание загрузки структуры каталогов...</sys:String>
+    
+    
     
     <!-- Панель отображения древа -->
     <sys:String x:Key="Text_TreeVisualizerPanel_UpdateButton">Обновить информацию</sys:String>

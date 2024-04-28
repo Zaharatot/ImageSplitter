@@ -42,10 +42,6 @@ namespace ImageSplitterLib.Clases.DataClases
         /// Флаг перемещённой коллекции
         /// </summary>
         public bool IsMoved { get; set; }
-        /// <summary>
-        /// Размер файла изображения
-        /// </summary>
-        public long Length { get; set; }
 
         /// <summary>
         /// Идентификатор текущего выбранного файла
@@ -67,7 +63,6 @@ namespace ImageSplitterLib.Clases.DataClases
             IsFolder = false;
             FileNames = new List<string>();
             _currentImageId = 0;
-            Length = 0;
         }
 
         /// <summary>
@@ -80,7 +75,6 @@ namespace ImageSplitterLib.Clases.DataClases
             //Проставляем переданные значения
             ElementName = file.Name;
             OriginalParentPath = ParentPath = parentPath;
-            Length = file.Length;
             IsFolder = false;
             //Проставляем дефолтные значения
             FileNames = new List<string>();
@@ -106,7 +100,6 @@ namespace ImageSplitterLib.Clases.DataClases
             NewParentName = null;
             IsMoved = false;
             _currentImageId = 0;
-            Length = 0;
         }
 
         /// <summary>

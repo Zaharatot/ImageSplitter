@@ -34,7 +34,7 @@
             <!-- Подсказка для кнопки -->
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource Text_MessageBoxWindow_YesButton_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Button.ToolTip>
         </Button>
         
@@ -45,7 +45,7 @@
             <!-- Подсказка для кнопки -->
             <Button.ToolTip>
                 <ToolTip Content="{StaticResource Text_MessageBoxWindow_NoButton_ToolTip}"
-                             Style="{StaticResource Style_ToolTip}" />
+                             Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </Button.ToolTip>
         </Button>
 

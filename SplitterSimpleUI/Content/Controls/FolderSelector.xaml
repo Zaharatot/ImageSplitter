@@ -25,7 +25,7 @@
             <!-- Подсказка для иконки -->
             <local:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_FolderSelector_BrowseIcon_Tooltip}"
-                         Style="{StaticResource Style_ToolTip}" />
+                         Style="{StaticResource Style_ToolTip_WithWrapping}" />
             </local:SvgImageControl.ToolTip>
         </local:SvgImageControl>
     </Grid>
