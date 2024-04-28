@@ -23,7 +23,11 @@ namespace ImageSplitterLib.Clases.WorkClases
         /// <summary>
         /// Текущая выбранная картинка
         /// </summary>
-        public CollectionInfo CurrentImageInfo => _collections[_currentCollectionId];
+        public CollectionInfo CurrentImageInfo => 
+            //Если коллекция есть
+            (_collections != null && _collections.Count > 0) 
+                //Вернём её, в противном случае - вернём null
+                ? _collections[_currentCollectionId] : null;
 
 
         /// <summary>

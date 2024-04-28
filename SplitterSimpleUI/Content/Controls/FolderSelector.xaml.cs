@@ -75,5 +75,12 @@ namespace SplitterSimpleUI.Content.Controls
                 //Отображаем выбранный путь
                 PathTextBox.Text = dialog.SelectedPath;
         }
+
+        /// <summary>
+        /// Метод фокусировки на контролле
+        /// </summary>
+        public void FocusElement() =>
+            //Ставим фокус на текстовое поле
+            PathTextBox.Focus();
     }
 }

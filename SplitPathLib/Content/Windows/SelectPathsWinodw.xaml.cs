@@ -65,6 +65,8 @@ namespace SplitPathWindowLib.Content.Windows
             InitHotkeys();
             //Инициализируем дефолтное значение для пути сплита
             _splitPath = new SplitPathsInfo();
+            //Проставляем фокус на первый контролл
+            ScanPathFolderSelector.FocusElement();
         }
 
         /// <summary>

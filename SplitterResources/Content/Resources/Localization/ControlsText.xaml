@@ -60,7 +60,7 @@
 
     <!-- Панель сплита -->
     <!-- Левая панель -->
-    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip">[Ctrl + O] Выбрать путей для сканирования</sys:String>
+    <sys:String x:Key="Text_SplitImagesControl_LeftPanel_LoadIcon_Tooltip">[Ctrl + O] Выбор путей для сканирования</sys:String>
     <sys:String x:Key="Text_SplitImagesControl_LeftPanel_TreeIcon_Tooltip">[Ctrl + T] Отобразить древо</sys:String>
     <sys:String x:Key="Text_SplitImagesControl_LeftPanel_ScanIcon_Tooltip">[Ctrl + F] Запустить сканирование</sys:String>
     <sys:String x:Key="Text_SplitImagesControl_LeftPanel_SplitIcon_Tooltip">[Ctrl + S] Запустить сплит файлов</sys:String>
