@@ -19,12 +19,12 @@
         </Grid.ColumnDefinitions>
 
         <!-- Поле ввода имени папки -->
-        <Simple:PlaceholderTextBox x:Name="FolderNamePlaceholderTextBox"  Grid.Row="1"  
+        <Simple:PlaceholderTextBox x:Name="FolderNamePlaceholderTextBox"  Grid.Row="1"  Height="40"
                                    PlaceholderText="{StaticResource Text_AddFolderWindow_FolderNamePlaceholderTextBox_Placeholder}" />
 
         <!-- Иконка добавления папки -->
         <Simple:SvgImageControl x:Name="AddFolderIcon" Image="{StaticResource Icon_Folder_Add}" 
-                                    Margin="10" Grid.Column="1" Cursor="Hand" MouseDown="AddFolderIcon_MouseDown">
+                                    Margin="8" Grid.Column="1" Cursor="Hand" MouseDown="AddFolderIcon_MouseDown">
             <!-- Подсказка для иконки -->
             <Simple:SvgImageControl.ToolTip>
                 <ToolTip Content="{StaticResource Text_AddFolderWindow_AddFolderIcon_Tooltip}"
