@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Image="clr-namespace:SplitterResources.Content.Clases.DataClases">
+    
+    <!-- Иконки основного меню -->
+
+
+    <!-- Иконка выбора пути -->
+    <Image:SvgImage x:Key="Icon_MainMenu_SelectPath"  FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+
+    <!-- Иконка обзора древа -->
+    <Image:SvgImage x:Key="Icon_MainMenu_TreeView"  FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M22 11V3h-7v3H9V3H2v8h7V8h2v10h4v3h7v-8h-7v3h-2V8h2v3z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+
+    <!-- Иконка поиска картинок -->
+    <Image:SvgImage x:Key="Icon_MainMenu_SplitScanImages"  FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M18 13v7H4V6h5.02c.05-.71.22-1.38.48-2H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 
+                0 2-.9 2-2v-5l-2-2zm-1.5 5h-11l2.75-3.53 1.96 2.36 2.75-3.54zm2.8-9.11c.44-.7.7-1.51.7-2.39C20 
+                4.01 17.99 2 15.5 2S11 4.01 11 6.5s2.01 4.5 4.49 4.5c.88 0 1.7-.26 2.39-.7L21 13.42 22.42 12 
+                19.3 8.89zM15.5 9C14.12 9 13 7.88 13 6.5S14.12 4 15.5 4 18 5.12 18 6.5 16.88 9 15.5 9z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+    
+    <!-- Иконка сплита файлов -->
+    <Image:SvgImage x:Key="Icon_MainMenu_FilesSplit"  FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M14 4l2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+
+    <!-- Иконка переименования -->
+    <Image:SvgImage x:Key="Icon_MainMenu_RenameFiles" FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M18.41 5.8L17.2 4.59c-.78-.78-2.05-.78-2.83 0l-2.68 2.68L3 15.96V20h4.04l8.74-8.74 
+                2.63-2.63c.79-.78.79-2.05 0-2.83zM6.21 18H5v-1.21l8.66-8.66 1.21 1.21L6.21 18zM11 20l4-4h6v4H11z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+
+    <!-- Иконка поиска дубликатов -->
+    <Image:SvgImage x:Key="Icon_MainMenu_DuplicateScan"  FillColor="{StaticResource Brush_ForegroundColor}">
+        <Image:SvgImage.PathList>
+            <Geometry>
+                M2 6H0v5h.01L0 20c0 1.1.9 2 2 2h18v-2H2V6zm20-2h-8l-2-2H6c-1.1 0-1.99.9-1.99 2L4 
+                16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7 15l4.5-6 3.5 4.51 2.5-3.01L21 15H7z
+            </Geometry>
+        </Image:SvgImage.PathList>
+    </Image:SvgImage>
+
+
+
+</ResourceDictionary>

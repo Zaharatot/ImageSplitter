@@ -34,6 +34,7 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
         /// </summary>
         private SolidColorBrush _disabledColor;
 
+
         /// <summary>
         /// Конструктор класса
         /// </summary>
@@ -95,7 +96,7 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
         /// <param name="icons">Список иконок для обработки</param>
         public void AddIcons(List<SvgImageControl> icons) 
         { 
-            //Проходимся по переданных иконкам
+            //Проходимся по переданным иконкам
             foreach(SvgImageControl icon in icons)
             {
                 //Добавляем обработчик события наведения курсора на иконку
@@ -109,6 +110,23 @@ namespace SplitterSimpleUI.Content.Clases.WorkClases.Controls
             }
         }
 
+        /// <summary>
+        /// Метод удаления иконок из обработки
+        /// </summary>
+        /// <param name="icons">Список иконок для удаления</param>
+        public void DeleteIcons(List<SvgImageControl> icons)
+        {
+            //Проходимся по переданным иконкам
+            foreach (SvgImageControl icon in icons)
+            {
+                //Удаляем обработчик события наведения курсора на иконку
+                icon.MouseEnter -= Icon_MouseEnter;
+                //Удаляем обработчик события ухода курсора с иконки
+                icon.MouseLeave -= Icon_MouseLeave;
+                //Удаляем обработчик события включения/выключения иконки
+                icon.IsEnabledChanged -= Icon_IsEnabledChanged;
+            }
+        }
 
 
         /// <summary>

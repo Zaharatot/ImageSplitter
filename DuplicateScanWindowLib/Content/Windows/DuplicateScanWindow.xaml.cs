@@ -586,48 +586,45 @@ namespace DuplicateScanWindowLib.Content.Windows
         /// <summary>
         /// Метод завершения удаления
         /// </summary>
-        public void CompleteRemove() =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Скрываем панель прогресса
-                SetProgressPanelVisiblity(false);
-                //Возвращаем доступность окна
-                this.IsEnabled = true;
-            });
+        public void CompleteRemove()
+        {
+            //Скрываем панель прогресса
+            SetProgressPanelVisiblity(false);
+            //Возвращаем доступность окна
+            this.IsEnabled = true;
+        }
 
         /// <summary>
         /// Метод завершения удаления старых дубликатов
         /// </summary>
-        public void CompleteRemoveOldDuplicates() =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Скрываем панель прогресса
-                SetProgressPanelVisiblity(false);
-                //Возвращаем доступность окна
-                this.IsEnabled = true;
-            });
+        public void CompleteRemoveOldDuplicates()
+        {
+            //Скрываем панель прогресса
+            SetProgressPanelVisiblity(false);
+            //Возвращаем доступность окна
+            this.IsEnabled = true;
+        }
 
 
         /// <summary>
         /// Метод завершения сканирования
         /// </summary>
         /// <param name="result">Результат сканирования на дубликаты</param>
-        public void CompleteScan(List<DuplicatePair> result) =>
-            //Вызываем в UI-потоке
-            this.Dispatcher.Invoke(() => {
-                //Скрываем панель прогресса
-                SetProgressPanelVisiblity(false);
-                //Если дубликаты не были найдены
-                if (result.Count == 0)
-                    //Удаляем старые панели дубликатов, чтобы не было путанницы
-                    ClearOldPanels();
-                //Если результаты есть
-                else
-                    //Втыкаем результаты поиска в контролл
-                    SetImages(result);
-                //Возвращаем доступность окна
-                this.IsEnabled = true;
-            });
+        public void CompleteScan(List<DuplicatePair> result)
+        {
+            //Скрываем панель прогресса
+            SetProgressPanelVisiblity(false);
+            //Если дубликаты не были найдены
+            if (result.Count == 0)
+                //Удаляем старые панели дубликатов, чтобы не было путанницы
+                ClearOldPanels();
+            //Если результаты есть
+            else
+                //Втыкаем результаты поиска в контролл
+                SetImages(result);
+            //Возвращаем доступность окна
+            this.IsEnabled = true;
+        }
 
         #endregion
 

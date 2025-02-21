@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilesSplitWindowLib.Content.Windows"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" Height="180" Width="550" 
+        WindowStartupLocation="CenterScreen" Height="200" Width="550" 
         Title="{StaticResource Text_FilesSplitWindow_Header}" Closed="Window_Closed"
         Style="{StaticResource Style_Window_NoResize}">
     <!-- Основная панель контролла -->

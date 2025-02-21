@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
 
 namespace SplitImagesWindowLib.Content.Controls
 {
@@ -145,31 +146,47 @@ namespace SplitImagesWindowLib.Content.Controls
 
 
         /// <summary>
-        /// Формируем строку информации об изображении
+        /// Метод формирования инфорамции об изображении
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
         /// <returns>Строка информации об изображении</returns>
-        private string CompileImageInfoString(CollectionInfo info)
+        private string CompileImageInfo(CollectionInfo info)
         {
+            //Инициализируем класс сборки строк
             StringBuilder sb = new StringBuilder();
-            //Добавляем в строку имя элемента коллекции
-            sb.Append($"[{info.ElementName}] ");
-            //Если у нас папка
-            if (info.IsFolder)
+            //Если есть размер изображения
+            if (TargetImage.ImageSize != null)
+                //Добавляем в строку размер текущего изображения
+                sb.Append($"[{TargetImage.ImageSize.Value.Width}x{TargetImage.ImageSize.Value.Height}] ");
+            //Если есть размер файла изображения
+            if (TargetImage.ImageLength > 0)
+                //Добавляем в строку размер файла изображения
+                sb.Append($"[{_sizeCalculator.GetStringSize(TargetImage.ImageLength)}]");
+            //ВОзвращаем итоговую строку
+            return sb.ToString();
+        }
+
+
+
+        /// <summary>
+        /// Формируем строку информации о коллекции
+        /// </summary>
+        /// <param name="info">Класс инфы о коллекции</param>
+        /// <returns>Строка информации об коллекции</returns>
+        private string CompileCollectionInfoString(CollectionInfo info)
+        {
+            //Инициализируем класс сборки строк
+            StringBuilder sb = new StringBuilder();
+            //Если у нас изображение
+            if (info.CollectionType == Enums.CollectionTypes.Image)
+                //Добавляем информацию об изображении в строку
+                sb.Append(CompileImageInfo(info));
+            //Если у нас папка или видео
+            else
                 //Добавляем в строку номер текущего выбраного элемента коллекции
                 sb.Append($"[{info.GetCollectionSelectedElement()}]");
-            //Если у нас файл
-            else
-            {
-                //Если есть размер изображения
-                if (TargetImage.ImageSize != null)
-                    //Добавляем в строку размер текущего изображения
-                    sb.Append($"[{TargetImage.ImageSize.Value.Width}x{TargetImage.ImageSize.Value.Height}] ");
-                //Если есть размер файла изображения
-                if (TargetImage.ImageLength > 0)
-                    //Добавляем в строку размер файла изображения
-                    sb.Append($"[{_sizeCalculator.GetStringSize(TargetImage.ImageLength)}]");
-            }
+            //Добавляем в строку имя элемента коллекции
+            sb.Append($"[{info.ElementName}] ");
             //ВОзвращаем итоговую строку
             return sb.ToString();
         }
@@ -179,12 +196,29 @@ namespace SplitImagesWindowLib.Content.Controls
         /// Грузим картинку и информацию о ней в контроллы
         /// </summary>
         /// <param name="info">Класс инфы о картинке</param>
-        private async Task LoadImageToControls(CollectionInfo info)
+        private async Task LoadCollectionToControls(CollectionInfo info)
         {
-            //Выполняем асинхронную загрузку изображения в контролл
-            await TargetImage.LoadImageAsync(info.GetImagePath());
+            //Если у нас видео
+            if (info.CollectionType == Enums.CollectionTypes.Video)
+            {
+                //Отображаем проигрыватель, скрывая картинку
+                TargetVideo.Visibility = Visibility.Visible;
+                TargetImage.Visibility = Visibility.Collapsed;
+                //Грузим видео
+                TargetVideo.Source = new Uri(info.GetImagePath());
+
+            }
+            //Если у нас картинка или папка
+            else
+            {
+                //Скрываем проигрыватель, отображая картинку
+                TargetVideo.Visibility = Visibility.Collapsed;
+                TargetImage.Visibility = Visibility.Visible;
+                //Выполняем асинхронную загрузку изображения в контролл
+                await TargetImage.LoadImageAsync(info.GetImagePath());
+            }
             //Формируем и проставляем информацию о картинке в контролл
-            TopPanel.SetCollectionInfo(CompileImageInfoString(info));
+            TopPanel.SetCollectionInfo(CompileCollectionInfoString(info));
         }
 
         /// <summary>
@@ -208,7 +242,7 @@ namespace SplitImagesWindowLib.Content.Controls
         private async Task LoadContentToControls(CollectionInfo info)
         {
             //Грузим картинку и информацию о ней в контроллы
-            await LoadImageToControls(info);
+            await LoadCollectionToControls(info);
             //Проставляем информацию о переносе
             BottomPanel.SetMovedFolderInfo(info.NewParentName, info.IsMoved);
             //Проставляем статус активности для кнопок листания
@@ -251,5 +285,6 @@ namespace SplitImagesWindowLib.Content.Controls
         public void SetSplitPathInfo(SplitPathsInfo info) =>
             //Вызываем внутренний метод
             SplitPathsInfoPanel.SetSplitPathInfo(info);
+
     }
 }

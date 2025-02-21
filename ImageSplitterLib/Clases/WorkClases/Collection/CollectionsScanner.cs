@@ -35,8 +35,8 @@ namespace ImageSplitterLib.Clases.WorkClases.Collection
             parent
                 //Получаем файлы
                 .GetFiles()
-                //Выбираем из них только изображения
-                .Where(file => ImageChecker.FileIsImage(file))
+                //Выбираем из них только допустимые файлы
+                .Where(file => ImageChecker.FileIsAllow(file))
                 //Сортируем картинки по имени
                 .OrderBy(image => image.Name)
                 //Возвращаем в виде списка

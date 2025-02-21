@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Подсказки для основного меню -->
+    <sys:String x:Key="Text_MainMenu_SelectPath_Tooltip">[Ctrl + O] Выбор путей для сканирования</sys:String>
+    <sys:String x:Key="Text_MainMenu_TreeView_Tooltip">[Ctrl + T] Отобразить древо</sys:String>
+    <sys:String x:Key="Text_MainMenu_SplitScanImages_Tooltip">[Ctrl + F] Запустить сканирование</sys:String>
+    <sys:String x:Key="Text_MainMenu_FilesSplit_Tooltip">[Ctrl + S] Запустить сплит файлов</sys:String>
+    <sys:String x:Key="Text_MainMenu_RenameFiles_Tooltip">[Ctrl + R] Запустить переименование файлов</sys:String>
+    <sys:String x:Key="Text_MainMenu_DuplicateScan_Tooltip">[Ctrl + D] Запустить поиск дубликатов</sys:String>
+
+
+</ResourceDictionary>

@@ -14,12 +14,6 @@ namespace SplitImagesWindowLib.Content.Clases.DataClases
     {
 
         /// <summary>
-        /// Делегат события перехода к изображению
-        /// </summary>
-        /// <param name="direction">Направление перехода</param>
-        public delegate void MoveToImageEventHandler(int direction);
-
-        /// <summary>
         /// Делегат события запроса на удаление целевой папки из списка
         /// </summary>
         /// <param name="key">Клавиша, к которой привязана папка</param>

@@ -31,5 +31,19 @@ namespace SplitterSimpleUI.Content.Clases.DataClases.Global
         /// </summary>
         /// <param name="key">Нажатая клавиша</param>
         public delegate void KeyPressEventHandler(Key key);
+
+        /// <summary>
+        /// Делегат события выбора элемента в основном меню
+        /// </summary>
+        /// <param name="element">Выбранный элемент</param>
+        public delegate void MainMenuSelectItemEventHandler(MainMenuElements element);
+
+
+        /// <summary>
+        /// Делегат события перехода к изображению
+        /// </summary>
+        /// <param name="direction">Направление перехода</param>
+        public delegate void MoveToImageEventHandler(int direction);
+
     }
 }

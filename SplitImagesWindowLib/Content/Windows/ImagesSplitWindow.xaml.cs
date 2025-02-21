@@ -22,6 +22,7 @@ using System.Windows.Shapes;
 using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
 using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Enums;
 
 namespace ImageSplitter.Content.Windows
 {
@@ -101,6 +102,11 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private PopupMessagesFasade _popupMessagesFasade;
 
+        /// <summary>
+        /// Словарь событий основного меню
+        /// </summary>
+        private Dictionary<MainMenuElements, EmptyEventHandler> _mainMenuEventsDict;
+
 
         /// <summary>
         /// Конструктор окна
@@ -118,9 +124,20 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void Init()
         {
+            InitVariables();
             InitHotkeys();
             InitMessages();
             InitEvents();
+        }
+
+
+        /// <summary>
+        /// Инициализируем значения переменных
+        /// </summary>
+        private void InitVariables()
+        {
+            //Инициализируем словарь событий
+            _mainMenuEventsDict = CreateEventsDict();
         }
 
         /// <summary>
@@ -175,9 +192,6 @@ namespace ImageSplitter.Content.Windows
                 }
             });
 
-
-
-
         /// <summary>
         /// Инициализируем сообщения
         /// </summary>
@@ -194,18 +208,8 @@ namespace ImageSplitter.Content.Windows
         /// </summary>
         private void InitEvents()
         {
-            //Добавляем обработчик событяи запуска сплита
-            MainMenuPanel.StartSplitScan += MainMenuPanel_StartSplitScan;
-            //Добавляем обработчик события запроса обновления путей сплита
-            MainMenuPanel.UpdateSplitPathRequest += MainMenuPanel_UpdateSplitPathRequest;
-            //Добавляем обработчик события запроса отображения древа
-            MainMenuPanel.ShowTreeRequest += MainMenuPanel_ShowTreeRequest;
-            //Добавляем обработчик события запроса сплита файлов
-            MainMenuPanel.StartFileSplitRequest += MainMenuPanel_StartFileSplitRequest;
-            //Добавляем обработчик события запроса переименования файлов
-            MainMenuPanel.StartFileRenameRequest += MainMenuPanel_StartFileRenameRequest;
-            //Добавляем обработчик события запроса поиска дубликатов
-            MainMenuPanel.ScanDuplicatesRequest += MainMenuPanel_ScanDuplicatesRequest;
+            //Добавляем обработчик события выбора элемента в основном меню
+            MainMenuPanel.MainMenuSelectItem += MainMenuPanel_MainMenuSelectItem;
 
             //Добавляем обработчик события запроса на добавление новой папки
             SplitImages.AddNewFolderRequest += SplitImages_AddNewFolderRequest;
@@ -220,6 +224,20 @@ namespace ImageSplitter.Content.Windows
             SplitImages.MoveToImageRequest += SplitImages_MoveToImageRequest;
         }
 
+        /// <summary>
+        /// Создаём словарь событий главного меню
+        /// </summary>
+        /// <returns>Созданный словарь</returns>
+        private Dictionary<MainMenuElements, EmptyEventHandler> CreateEventsDict() =>
+            new Dictionary<MainMenuElements, EmptyEventHandler>() {
+                { MainMenuElements.DuplicateScan, () => { ScanDuplicatesRequest?.Invoke(); } },
+                { MainMenuElements.FilesSplit, () => { StartFileSplitRequest?.Invoke(); } },
+                { MainMenuElements.RenameFiles, () => {  StartFileRenameRequest?.Invoke(); } },
+                { MainMenuElements.SelectPath, () => {  UpdateSplitPathRequest?.Invoke(); } },
+                { MainMenuElements.SplitScanImages, () => {  StartScanRequest?.Invoke(); } },
+                { MainMenuElements.TreeView, () => {  ShowTreeRequest?.Invoke(); } },
+            };
+
 
 
 
@@ -230,47 +248,19 @@ namespace ImageSplitter.Content.Windows
 
         #region MainActions
 
-        /// <summary>
-        /// Обработчик события запроса отображения древа
-        /// </summary>
-        private void MainMenuPanel_ShowTreeRequest() =>
-            //Вызываем внешний ивент
-            ShowTreeRequest?.Invoke();
+
 
         /// <summary>
-        /// Обработчик события запроса обновления путей сплита
+        /// Обработчик события выбора элемента в основном меню
         /// </summary>
-        private void MainMenuPanel_UpdateSplitPathRequest() =>
-           //Вызываем внешний ивент
-           UpdateSplitPathRequest?.Invoke();
-
-        /// <summary>
-        /// Обработчик событяи запуска сплита
-        /// </summary>
-        private void MainMenuPanel_StartSplitScan() =>
-            //Вызываем внешний ивент
-            StartScanRequest?.Invoke();
-
-        /// <summary>
-        /// Обработчик события запроса сплита файлов
-        /// </summary>
-        private void MainMenuPanel_StartFileSplitRequest() =>
-            //Вызываем внешний ивент
-            StartFileSplitRequest?.Invoke();
-
-        /// <summary>
-        /// Обработчик события запроса переименования файлов
-        /// </summary>
-        private void MainMenuPanel_StartFileRenameRequest() =>
-            //Вызываем внешний ивент
-            StartFileRenameRequest?.Invoke();
-
-        /// <summary>
-        /// Обработчик события запроса поиска дубликатов
-        /// </summary>
-        private void MainMenuPanel_ScanDuplicatesRequest() =>
-            //Вызываем внешний ивент
-            ScanDuplicatesRequest?.Invoke();
+        /// <param name="element">Выбранный элемент</param>
+        private void MainMenuPanel_MainMenuSelectItem(MainMenuElements element)
+        {
+            //Если такое событие есть в словаре
+            if (_mainMenuEventsDict.ContainsKey(element))
+                //Вызываем его
+                _mainMenuEventsDict[element]?.Invoke();
+        }
 
         #endregion
 
@@ -371,7 +361,7 @@ namespace ImageSplitter.Content.Windows
             //Если передан флаг старта сплита и пути для него есть
             if (info.IsStartSplit && info.IsContainPaths)
                 //Вызываем запуск сканирования
-                MainMenuPanel_StartSplitScan();
+                StartScanRequest?.Invoke();
         }
 
 

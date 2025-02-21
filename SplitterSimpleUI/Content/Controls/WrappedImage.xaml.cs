@@ -140,7 +140,6 @@ namespace SplitterSimpleUI.Content.Controls
         /// <summary>
         /// Закрываем поток в памяти, связанный с изображением
         /// </summary>
-        /// <param name="element">Контролл, для которого выполняем загрузку</param>
         public void CloseImageSource()
         {
             //Удаляем информацию об изображении

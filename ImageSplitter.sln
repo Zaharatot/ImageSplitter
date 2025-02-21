@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateScannerLib", "DuplicateScanner\DuplicateScannerLib.csproj", "{F9ECB383-C07A-481B-8A58-FF6166B187B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionalLibs", "FunctionalLibs", "{7D2381C7-B2F6-4E17-8DFD-3F46D248E5E7}"
+	ProjectSection(SolutionItems) = preProject
+		SplitterResources\AIIcon.ico = SplitterResources\AIIcon.ico
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UILibs", "UILibs", "{1851D2CE-5A28-473C-9755-F8B6A894E253}"
 EndProject

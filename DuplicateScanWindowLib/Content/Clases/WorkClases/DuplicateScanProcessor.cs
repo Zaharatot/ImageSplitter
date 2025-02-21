@@ -104,41 +104,46 @@ namespace DuplicateScanWindowLib.Content.Clases.WorkClases
         /// <summary>
         /// Обработчик события завершения удаления выбранных дубликатов
         /// </summary>
-        private void DuplicateScannerFasade_CompleteRemove()
-        {
-            //Выводим сообщение о результате
-            MessagesBoxFasade.ShowMessageBoxDone(
-                MessageBoxMessages.DuplicateRemoveComplete);
-            //Вызываем метод окна
-            _duplicateScanWindow.CompleteRemove();
-        }
+        private void DuplicateScannerFasade_CompleteRemove() =>
+            //Вызываем в UI-потоке
+            _duplicateScanWindow.Dispatcher.Invoke(() => {
+                //Выводим сообщение о результате
+                MessagesBoxFasade.ShowMessageBoxDone(
+                    MessageBoxMessages.DuplicateRemoveComplete);
+                //Вызываем метод окна
+                _duplicateScanWindow.CompleteRemove();
+            });
 
         /// <summary>
         /// Обработчик события завершения удаления устаревших записей о дубликатах
         /// </summary>
-        private void DuplicateScannerFasade_CompleteRemoveOldDuplicates(int count)
-        {
-            //Выводим сообщение о результате
-            MessagesBoxFasade.ShowMessageBoxDone(
-                MessageBoxMessages.DuplicateRemoveOldElements, count.ToString());
-            //Вызываем метод окна
-            _duplicateScanWindow.CompleteRemoveOldDuplicates();
-        }
+        /// <param name="count">Количество удалённых записей</param>
+        private void DuplicateScannerFasade_CompleteRemoveOldDuplicates(int count) =>
+            //Вызываем в UI-потоке
+            _duplicateScanWindow.Dispatcher.Invoke(() => {
+                //Выводим сообщение о результате
+                MessagesBoxFasade.ShowMessageBoxDone(
+                    MessageBoxMessages.DuplicateRemoveOldElements, count.ToString());
+                //Вызываем метод окна
+                _duplicateScanWindow.CompleteRemoveOldDuplicates();
+            });
+        
 
         /// <summary>
         /// Обработчик события завершения сканирования на дубликаты
         /// </summary>
         /// <param name="result">Результат сканирования на дубликаты</param>
-        private void DuplicateScannerFasade_CompleteScan(List<DuplicatePair> result)
-        {
-            //Если дубликаты не были найдены
-            if (result.Count == 0)
-                //Выводим сообщение о результате
-                MessagesBoxFasade.ShowMessageBoxDone(
-                    MessageBoxMessages.DuplicateScanNotFound);
-            //Вызываем метод окна
-            _duplicateScanWindow.CompleteScan(result);
-        }
+        private void DuplicateScannerFasade_CompleteScan(List<DuplicatePair> result) =>
+            //Вызываем в UI-потоке
+            _duplicateScanWindow.Dispatcher.Invoke(() => { 
+                //Если дубликаты не были найдены
+                if (result.Count == 0)
+                    //Выводим сообщение о результате
+                    MessagesBoxFasade.ShowMessageBoxDone(
+                        MessageBoxMessages.DuplicateScanNotFound);
+                //Вызываем метод окна
+                _duplicateScanWindow.CompleteScan(result);
+            });
 
 
 

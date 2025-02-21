@@ -14,14 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
 
-namespace SplitImagesWindowLib.Content.Controls.Panels
+namespace SplitterSimpleUI.Content.Controls.Panels
 {
     /// <summary>
-    /// Логика взаимодействия для SplitImagesTopPanel.xaml
+    /// Логика взаимодействия для TopPanel.xaml
     /// </summary>
-    public partial class SplitImagesTopPanel : UserControl
+    public partial class TopPanel : UserControl
     {
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SplitImagesWindowLib.Content.Controls.Panels
         /// <summary>
         /// Конструктор контролла
         /// </summary>
-        public SplitImagesTopPanel()
+        public TopPanel()
         {
             InitializeComponent();
             Init();
@@ -82,7 +82,8 @@ namespace SplitImagesWindowLib.Content.Controls.Panels
         /// </summary>
         /// <param name="info">Строка информации о коллекции</param>
         public void SetCollectionInfo(string info) =>
-             ImageInfoTextBlock.Text = info;
+            //Ставим инфу об изображении
+            ImageInfoToolTip.Content = ImageInfoTextBlock.Text = info;
 
         /// <summary>
         /// Проставляем статус активности кнопкам

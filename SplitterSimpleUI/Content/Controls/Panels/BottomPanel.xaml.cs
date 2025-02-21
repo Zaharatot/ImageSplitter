@@ -14,15 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static SplitImagesWindowLib.Content.Clases.DataClases.Delegates;
 using static SplitterDataLib.DataClases.Global.Delegates;
+using static SplitterSimpleUI.Content.Clases.DataClases.Global.Delegates;
 
-namespace SplitImagesWindowLib.Content.Controls.Panels
+namespace SplitterSimpleUI.Content.Controls.Panels
 {
     /// <summary>
-    /// Логика взаимодействия для SplitImagesBottomPanel.xaml
+    /// Логика взаимодействия для BottomPanel.xaml
     /// </summary>
-    public partial class SplitImagesBottomPanel : UserControl
+    public partial class BottomPanel : UserControl
     {
         /// <summary>
         /// Событие запроса на переход к изображению
@@ -33,10 +33,21 @@ namespace SplitImagesWindowLib.Content.Controls.Panels
         /// </summary>
         public event EmptyEventHandler UndoMove;
 
+
+        /// <summary>
+        /// Флаг видимости иконки отмены действия
+        /// </summary>
+        public bool IsUndoIconVisible
+        {
+            get => (UndoMoveIcon.Visibility == Visibility.Visible);
+            set => UndoMoveIcon.Visibility = (value) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+
         /// <summary>
         /// Конструктор контролла
         /// </summary>
-        public SplitImagesBottomPanel()
+        public BottomPanel()
         {
             InitializeComponent();
             Init();
@@ -108,7 +119,7 @@ namespace SplitImagesWindowLib.Content.Controls.Panels
         /// <param name="pagesInfo">Инфомрация о текущих отображаемых страницах</param>
         public void SetPagesInfo(string pagesInfo) =>
             //Ставим инфу о количестве элементов в коллекции
-            CountImagesTextBlock.Text = pagesInfo;
+            CountImagesToolTip.Content = CountImagesTextBlock.Text = pagesInfo;
 
     }
 }

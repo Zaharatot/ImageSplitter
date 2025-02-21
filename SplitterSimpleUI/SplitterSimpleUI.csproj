@@ -56,6 +56,8 @@
     <Compile Include="Content\Clases\DataClases\Global\Enums.cs" />
     <Compile Include="Content\Clases\DataClases\HotKey\HotKeyInfo.cs" />
     <Compile Include="Content\Clases\DataClases\HotKey\WindowHotKeys.cs" />
+    <Compile Include="Content\Clases\DataClases\Panels\MainMenuElement.cs" />
+    <Compile Include="Content\Clases\DataClases\Panels\MainMenuElementsList.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressAddInfo.cs" />
     <Compile Include="Content\Clases\DataClases\Progress\ProgressPanelInfo.cs" />
     <Compile Include="Content\Clases\WorkClases\Properties\ControlPropertyCallbacks.cs" />
@@ -69,6 +71,15 @@
     </Compile>
     <Compile Include="Content\Controls\FolderSelector.xaml.cs">
       <DependentUpon>FolderSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\Panels\MainMenuPanel.xaml.cs">
+      <DependentUpon>MainMenuPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\Panels\BottomPanel.xaml.cs">
+      <DependentUpon>BottomPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Controls\Panels\TopPanel.xaml.cs">
+      <DependentUpon>TopPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Content\Controls\PlaceholderTextBox.xaml.cs">
       <DependentUpon>PlaceholderTextBox.xaml</DependentUpon>
@@ -113,6 +124,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Content\Controls\FolderSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Controls\Panels\MainMenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Controls\Panels\BottomPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Content\Controls\Panels\TopPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

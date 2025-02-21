@@ -63,15 +63,6 @@
     <Compile Include="Content\Controls\Folders\SplitSelectedFoldersControl.xaml.cs">
       <DependentUpon>SplitSelectedFoldersControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Content\Controls\Panels\LeftPanelControl.xaml.cs">
-      <DependentUpon>LeftPanelControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Panels\SplitImagesBottomPanel.xaml.cs">
-      <DependentUpon>SplitImagesBottomPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Content\Controls\Panels\SplitImagesTopPanel.xaml.cs">
-      <DependentUpon>SplitImagesTopPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Content\Controls\SplitImagesControl.xaml.cs">
       <DependentUpon>SplitImagesControl.xaml</DependentUpon>
     </Compile>
@@ -111,18 +102,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Content\Controls\Folders\SplitSelectedFoldersControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Controls\Panels\LeftPanelControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Controls\Panels\SplitImagesBottomPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Content\Controls\Panels\SplitImagesTopPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

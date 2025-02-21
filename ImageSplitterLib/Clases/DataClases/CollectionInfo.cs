@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ImageSplitterLib.Clases.DataClases.Enums;
 
 namespace ImageSplitterLib.Clases.DataClases
 {
@@ -35,13 +36,18 @@ namespace ImageSplitterLib.Clases.DataClases
         /// </summary>
         public List<string> FileNames { get; set; }
         /// <summary>
-        /// Флаг того, что коллекция является папкой
+        /// Тип коллекции
         /// </summary>
-        public bool IsFolder { get; set; }
+        public CollectionTypes CollectionType { get; set; }
         /// <summary>
         /// Флаг перемещённой коллекции
         /// </summary>
         public bool IsMoved { get; set; }
+
+        /// <summary>
+        /// Флаг папки
+        /// </summary>
+        public bool IsFolder => CollectionType == CollectionTypes.Folder;
 
         /// <summary>
         /// Идентификатор текущего выбранного файла
@@ -60,7 +66,7 @@ namespace ImageSplitterLib.Clases.DataClases
             OriginalParentPath = NewParentName = 
                 ParentPath = ElementName = null;
             IsMoved = false;
-            IsFolder = false;
+            CollectionType = CollectionTypes.Image;
             FileNames = new List<string>();
             _currentImageId = 0;
         }
@@ -75,7 +81,7 @@ namespace ImageSplitterLib.Clases.DataClases
             //Проставляем переданные значения
             ElementName = file.Name;
             OriginalParentPath = ParentPath = parentPath;
-            IsFolder = false;
+            CollectionType = ImageChecker.GetCollectionType(file);
             //Проставляем дефолтные значения
             FileNames = new List<string>();
             NewParentName = null;
@@ -95,7 +101,7 @@ namespace ImageSplitterLib.Clases.DataClases
             FileNames = GetFolderChildImageNames(folder);
             ElementName = folder.Name;
             OriginalParentPath = ParentPath = parentPath;
-            IsFolder = true;
+            CollectionType = CollectionTypes.Folder;
             //Проставляем дефолтные значения
             NewParentName = null;
             IsMoved = false;

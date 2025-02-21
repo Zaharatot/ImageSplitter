@@ -1,4 +1,6 @@
-﻿<Window xmlns:Panels="clr-namespace:SplitImagesWindowLib.Content.Controls.Panels"
+﻿<Window xmlns:Panels="clr-namespace:SplitterSimpleUI.Content.Controls.Panels;assembly=SplitterSimpleUI"
+        xmlns:PanelsData="clr-namespace:SplitterSimpleUI.Content.Clases.DataClases.Panels;assembly=SplitterSimpleUI"
+        xmlns:ControlsGlobal="clr-namespace:SplitterSimpleUI.Content.Clases.DataClases.Global;assembly=SplitterSimpleUI"
         xmlns:SplitControls="clr-namespace:SplitImagesWindowLib.Content.Controls"
         x:Class="ImageSplitter.Content.Windows.ImagesSplitWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -19,7 +21,29 @@
         </Grid.ColumnDefinitions>
         
         <!-- Панель главного меню -->
-        <Panels:LeftPanelControl x:Name="MainMenuPanel" Grid.Column="0" />
+        <Panels:MainMenuPanel  x:Name="MainMenuPanel" Grid.Column="0" >
+            <!-- Список элементов главного меню -->
+            <Panels:MainMenuPanel.Elements>
+                <PanelsData:MainMenuElementsList>
+                    <PanelsData:MainMenuElementsList.Elements>
+                        <!-- Выбор пути сплита -->
+                        <PanelsData:MainMenuElement Element="SelectPath" />
+                        <!-- Запуск поиска файлов -->
+                        <PanelsData:MainMenuElement Element="SplitScanImages" />
+                        <!-- Древе файлов -->
+                        <PanelsData:MainMenuElement Element="TreeView" />
+                        <!-- Сплит файлов -->
+                        <PanelsData:MainMenuElement Element="FilesSplit" />
+                        <!-- Переименование файлов -->
+                        <PanelsData:MainMenuElement Element="RenameFiles" />
+                        <!-- Поиск дубликатов -->
+                        <PanelsData:MainMenuElement Element="DuplicateScan" />
+                        
+
+                    </PanelsData:MainMenuElementsList.Elements>
+                </PanelsData:MainMenuElementsList>
+            </Panels:MainMenuPanel.Elements>
+        </Panels:MainMenuPanel>
         <!-- Панель сплита -->
         <SplitControls:SplitImagesControl x:Name="SplitImages" Grid.Column="1" />
     </Grid>    

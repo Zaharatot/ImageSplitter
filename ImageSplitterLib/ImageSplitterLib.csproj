@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Clases\DataClases\CollectionInfo.cs" />
     <Compile Include="Clases\DataClases\Delegates.cs" />
+    <Compile Include="Clases\DataClases\Enums.cs" />
     <Compile Include="Clases\WorkClases\Collection\CollectionsScanner.cs" />
     <Compile Include="Clases\WorkClases\Collection\CollectionMover.cs" />
     <Compile Include="Clases\WorkClases\Images\ImageChecker.cs" />

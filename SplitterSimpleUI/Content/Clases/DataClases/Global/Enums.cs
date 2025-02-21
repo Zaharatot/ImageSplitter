@@ -30,5 +30,37 @@ namespace SplitterSimpleUI.Content.Clases.DataClases.Global
             /// </summary>
             Partial = 2
         }
+
+        /// <summary>
+        /// Элементы основного меню
+        /// </summary>
+        public enum MainMenuElements
+        {
+            /// <summary>
+            /// Выбор пути
+            /// </summary>
+            SelectPath,
+            /// <summary>
+            /// Обзор древа
+            /// </summary>
+            TreeView,
+            /// <summary>
+            /// Поиск изображений для сплита
+            /// </summary>
+            SplitScanImages,
+            /// <summary>
+            /// Сплит файлов
+            /// </summary>
+            FilesSplit,
+            /// <summary>
+            /// Иконка переименования файлов
+            /// </summary>
+            RenameFiles,
+            /// <summary>
+            /// Иконка поиска дубликатов
+            /// </summary>
+            DuplicateScan,
+
+        }
     }
 }

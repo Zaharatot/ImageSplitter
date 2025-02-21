@@ -80,6 +80,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Content\Resources\Icons\MainMenuIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Content\Resources\Localization\MainMenuText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Content\Resources\Localization\MessageBoxesText.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
