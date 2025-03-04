@@ -166,6 +166,22 @@ namespace SplitImagesWindowLib.Content.Controls
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Метод формирования инфорамции о видео
+        /// </summary>
+        /// <param name="info">Класс инфы о видео</param>
+        /// <returns>Строка информации об изображении</returns>
+        private string CompileVideoInfo(CollectionInfo info)
+        {
+            //Инициализируем класс сборки строк
+            StringBuilder sb = new StringBuilder();
+            //Если есть размер файла изображения
+            if (TargetImage.ImageLength > 0)
+                //Добавляем в строку размер файла изображения
+                sb.Append($"[{_sizeCalculator.GetStringSize(TargetImage.ImageLength)}]");
+            //ВОзвращаем итоговую строку
+            return sb.ToString();
+        }
 
 
         /// <summary>
@@ -177,14 +193,28 @@ namespace SplitImagesWindowLib.Content.Controls
         {
             //Инициализируем класс сборки строк
             StringBuilder sb = new StringBuilder();
-            //Если у нас изображение
-            if (info.CollectionType == Enums.CollectionTypes.Image)
-                //Добавляем информацию об изображении в строку
-                sb.Append(CompileImageInfo(info));
-            //Если у нас папка или видео
-            else
-                //Добавляем в строку номер текущего выбраного элемента коллекции
-                sb.Append($"[{info.GetCollectionSelectedElement()}]");
+
+            switch (info.CollectionType)
+            {
+                case Enums.CollectionTypes.Image:
+                    {
+                        //Добавляем информацию об изображении в строку
+                        sb.Append(CompileImageInfo(info));
+                        break;
+                    }
+                case Enums.CollectionTypes.Video:
+                    {
+                        //Добавляем информацию о видео в строку
+                        sb.Append(CompileVideoInfo(info));
+                        break;
+                    }
+                default:
+                    {
+                        //Добавляем в строку номер текущего выбраного элемента коллекции
+                        sb.Append($"[{info.GetCollectionSelectedElement()}]");
+                        break;
+                    }
+            }
             //Добавляем в строку имя элемента коллекции
             sb.Append($"[{info.ElementName}] ");
             //ВОзвращаем итоговую строку
@@ -206,7 +236,6 @@ namespace SplitImagesWindowLib.Content.Controls
                 TargetImage.Visibility = Visibility.Collapsed;
                 //Грузим видео
                 TargetVideo.Source = new Uri(info.GetImagePath());
-
             }
             //Если у нас картинка или папка
             else
